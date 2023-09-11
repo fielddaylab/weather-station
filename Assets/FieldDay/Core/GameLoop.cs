@@ -120,6 +120,7 @@ namespace FieldDay {
         static internal GameLoopPhase s_CurrentPhase = GameLoopPhase.None;
         static private ushort s_PrevUpdateFrameIndex = Frame.InvalidIndex;
         static private bool m_ReadyForRender;
+        static private bool s_Initialized;
 
         // update masks
         static private int s_UpdateMask = Bits.All32;
@@ -135,9 +136,18 @@ namespace FieldDay {
         // profiling
         static private PhaseTiming s_TimeProfiling;
 
+        [NonSerialized] private bool m_Initialized;
+
         #region Unity Events
 
         private void Awake() {
+            if (s_Initialized) {
+                DestroyImmediate(gameObject);
+                return;
+            }
+
+            s_Initialized = true;
+            m_Initialized = true;
             DontDestroyOnLoad(gameObject);
             Log.Msg("[GameLoop] Starting...");
             Frame.MarkTimestampOffset();
@@ -204,14 +214,23 @@ namespace FieldDay {
         }
 
         private void OnDestroy() {
+            if (!m_Initialized) {
+                return;
+            }
+
             if (s_CurrentPhase != GameLoopPhase.Shutdown) {
                 OnApplicationQuit();
             }
             Canvas.preWillRenderCanvases -= OnPreCanvasRender;
             Frame.DestroyAllocator();
+            s_Initialized = m_Initialized = false;
         }
 
         private void OnApplicationQuit() {
+            if (!m_Initialized) {
+                return;
+            }
+
             Log.Msg("[GameLoop] Shutting down...");
             SetCurrentPhase(GameLoopPhase.Shutdown);
             OnShutdown.Invoke();

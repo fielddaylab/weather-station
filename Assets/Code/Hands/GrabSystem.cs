@@ -16,8 +16,9 @@ namespace WeatherStation {
                 case GrabberState.AttemptGrab: {
                     int overlapCount = Physics.OverlapSphereNonAlloc(component.GripCenter.position, component.GripRadius, OverlapCache, component.GripMask, QueryTriggerInteraction.Ignore);
                     Grabbable closest = null;
+                    Collider closestCollider = null;
                     if (overlapCount > 0) {
-                        closest = CollisionUtility.ClosestInParent<Grabbable>(component.GripCenter, (g) => g.GrabEnabled, OverlapCache, overlapCount);
+                        closest = CollisionUtility.ClosestInParent<Grabbable>(component.GripCenter, (g) => g.GrabEnabled, OverlapCache, overlapCount, out closestCollider);
                     }
                     if (closest != null) {
                         // TODO: Find closest grab hint

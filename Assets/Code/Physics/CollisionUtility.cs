@@ -22,10 +22,11 @@ namespace WeatherStation {
             return bestCollider;
         }
 
-        static public TResult Closest<TResult>(Transform target, Collider[] overlaps, int overlapCount) where TResult : Component {
+        static public TResult Closest<TResult>(Transform target, Collider[] overlaps, int overlapCount, out Collider collider) where TResult : Component {
             TResult bestComponent = null;
             float bestDist = float.MaxValue;
             Collider check;
+            collider = null;
             TResult checkComponent;
 
             Vector3 targetPos = target.position;
@@ -37,6 +38,7 @@ namespace WeatherStation {
                     if (distSq < bestDist) {
                         bestComponent = checkComponent;
                         bestDist = distSq;
+                        collider = check;
                     }
                 }
             }
@@ -44,10 +46,11 @@ namespace WeatherStation {
             return bestComponent;
         }
 
-        static public TResult Closest<TResult>(Transform target, Predicate<TResult> predicate, Collider[] overlaps, int overlapCount) where TResult : Component {
+        static public TResult Closest<TResult>(Transform target, Predicate<TResult> predicate, Collider[] overlaps, int overlapCount, out Collider collider) where TResult : Component {
             TResult bestComponent = null;
             float bestDist = float.MaxValue;
             Collider check;
+            collider = null;
             TResult checkComponent;
 
             Vector3 targetPos = target.position;
@@ -59,6 +62,7 @@ namespace WeatherStation {
                     if (distSq < bestDist) {
                         bestComponent = checkComponent;
                         bestDist = distSq;
+                        collider = check;
                     }
                 }
             }
@@ -66,10 +70,11 @@ namespace WeatherStation {
             return bestComponent;
         }
 
-        static public TResult ClosestInParent<TResult>(Transform target, Collider[] overlaps, int overlapCount) where TResult : Component {
+        static public TResult ClosestInParent<TResult>(Transform target, Collider[] overlaps, int overlapCount, out Collider collider) where TResult : Component {
             TResult bestComponent = null;
             float bestDist = float.MaxValue;
             Collider check;
+            collider = null;
             TResult checkComponent;
 
             Vector3 targetPos = target.position;
@@ -81,6 +86,7 @@ namespace WeatherStation {
                     if (distSq < bestDist) {
                         bestComponent = checkComponent;
                         bestDist = distSq;
+                        collider = check;
                     }
                 }
             }
@@ -88,10 +94,11 @@ namespace WeatherStation {
             return bestComponent;
         }
 
-        static public TResult ClosestInParent<TResult>(Transform target, Predicate<TResult> predicate, Collider[] overlaps, int overlapCount) where TResult : Component {
+        static public TResult ClosestInParent<TResult>(Transform target, Predicate<TResult> predicate, Collider[] overlaps, int overlapCount, out Collider collider) where TResult : Component {
             TResult bestComponent = null;
             float bestDist = float.MaxValue;
             Collider check;
+            collider = null;
             TResult checkComponent;
 
             Vector3 targetPos = target.position;
@@ -103,11 +110,20 @@ namespace WeatherStation {
                     if (distSq < bestDist) {
                         bestComponent = checkComponent;
                         bestDist = distSq;
+                        collider = check;
                     }
                 }
             }
 
             return bestComponent;
+        }
+
+        static public void FastDepenetrate(Rigidbody rb) {
+
+        }
+
+        static public void SnapToContact(Rigidbody rb) {
+            
         }
     }
 }
