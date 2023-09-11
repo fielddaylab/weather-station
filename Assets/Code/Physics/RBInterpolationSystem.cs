@@ -1,0 +1,46 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using BeauUtil;
+using FieldDay;
+using FieldDay.Components;
+using FieldDay.Debugging;
+using FieldDay.Systems;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace WeatherStation {
+    [SysUpdate(GameLoopPhase.FixedUpdate, -100)]
+    public class RBInterpolationSystem : ComponentSystemBehaviour<RBInterpolator> {
+        private const float DejitterMultiplier = 0.95f;
+
+        public override void ProcessWorkForComponent(RBInterpolator component, float deltaTime) {
+            if (component.Target) {
+                Transform source = component.transform;
+
+                source.GetPositionAndRotation(out Vector3 srcPos, out Quaternion srcRot);
+
+                Vector3 dPos = srcPos - component.Target.position;
+                float neededSpeed = Mathf.Min(dPos.magnitude / deltaTime, component.MaxVelocity);
+                Vector3 neededVel = dPos.normalized * neededSpeed;
+
+                component.Target.velocity = neededVel * component.VelocityMultiplier;
+
+                Quaternion destRot = component.Target.rotation;
+
+                Quaternion dRot = srcRot * Quaternion.Inverse(destRot);
+                dRot.ToAngleAxis(out float dAngle, out Vector3 dAxis);
+                if (!float.IsInfinity(dAxis.x)) {
+                    if (dAngle > 180f) {
+                        dAngle = 360f - dAngle;
+                    }
+                    component.Target.angularVelocity = dAxis.normalized * (DejitterMultiplier * dAngle * Mathf.Deg2Rad * component.AngularVelocityMultiplier / deltaTime);
+                }
+            }
+        }
+
+        protected override void OnComponentAdded(RBInterpolator component) {
+            component.Target.maxAngularVelocity = float.MaxValue;
+        }
+    }
+}
