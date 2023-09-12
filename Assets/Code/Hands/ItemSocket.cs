@@ -33,6 +33,27 @@ namespace WeatherStation {
             if (Current) {
                 SocketUtility.TryAddToSocket(this, Current, true);
             }
+
+            Detector.onTriggerEnter.AddListener(OnDetectorEntered);
+            Detector.onTriggerExit.AddListener(OnDetectorExited);
+        }
+
+        private void OnDetectorEntered(Collider collider) {
+            Socketable socketable = collider.GetComponentInParent<Socketable>();
+            if (socketable != null) {
+                socketable.PotentialSockets.Add(this);
+            }
+        }
+
+        private void OnDetectorExited(Collider collider) {
+            if (!collider) {
+                return;
+            }
+
+            Socketable socketable = collider.GetComponentInParent<Socketable>();
+            if (socketable != null) {
+                socketable.PotentialSockets.Remove(this);
+            }
         }
     }
 

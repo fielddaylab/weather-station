@@ -21,9 +21,10 @@ namespace WeatherStation {
                 source.GetPositionAndRotation(out Vector3 srcPos, out Quaternion srcRot);
 
                 Vector3 dPos = srcPos - component.Target.position;
+                Vector3 dPosVec = dPos.normalized;
                 float neededSpeed = Mathf.Min(dPos.magnitude / deltaTime, component.MaxVelocity);
-                Vector3 neededVel = dPos.normalized * neededSpeed;
 
+                Vector3 neededVel = dPosVec * neededSpeed;
                 component.Target.velocity = neededVel * component.VelocityMultiplier;
 
                 Quaternion destRot = component.Target.rotation;

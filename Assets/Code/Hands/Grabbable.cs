@@ -90,6 +90,12 @@ namespace WeatherStation {
             return true;
         }
 
+        static public void DetachAll(Grabbable grabbable) {
+            while(grabbable.CurrentGrabberCount > 0) {
+                DropCurrent(grabbable.CurrentGrabbers[grabbable.CurrentGrabberCount - 1], false);
+            }
+        }
+
         static public bool DropCurrent(Grabber grabber, bool applyReleaseForce) {
             if (!ReferenceEquals(grabber.Joint, null)) {
                 if (!ReferenceEquals(grabber.Holding, null)) {

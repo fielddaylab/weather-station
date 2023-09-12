@@ -125,5 +125,7 @@ namespace WeatherStation {
         static public void SnapToContact(Rigidbody rb) {
             
         }
+
+        public const float ContactOverlapThreshold = 1f / 128f;
     }
 }

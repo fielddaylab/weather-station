@@ -7,7 +7,7 @@ using FieldDay.Systems;
 using UnityEngine;
 
 namespace WeatherStation {
-    [SysUpdate(GameLoopPhase.FixedUpdate, 500)]
+    [SysUpdate(GameLoopPhase.LateFixedUpdate, 500)]
     public class GrabSystem : ComponentSystemBehaviour<Grabber> {
         static private readonly Collider[] OverlapCache = new Collider[32];
 
@@ -38,7 +38,11 @@ namespace WeatherStation {
                 }
 
                 case GrabberState.AttemptRelease: {
-                    GrabUtility.DropCurrent(component, true);
+                    if (component.Holding && component.Holding.TryGetComponent(out Socketable socketable) && socketable.HighlightedSocket) {
+                        SocketUtility.TryAddToSocket(socketable.HighlightedSocket, socketable, false);
+                    } else {
+                        GrabUtility.DropCurrent(component, true);
+                    }
                     component.State = GrabberState.Empty;
                     break;
                 }

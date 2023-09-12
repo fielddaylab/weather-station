@@ -13,8 +13,13 @@ namespace WeatherStation {
         [NonSerialized] public Transform OriginalParent;
         [NonSerialized] public ItemSocket CurrentSocket;
 
+        [NonSerialized] public HashSet<ItemSocket> PotentialSockets = new HashSet<ItemSocket>(4);
+        [NonSerialized] public ItemSocket HighlightedSocket;
+
         public readonly CastableEvent<ItemSocket> OnAddedToSocket = new CastableEvent<ItemSocket>();
         public readonly CastableEvent<ItemSocket> OnRemovedFromSocket = new CastableEvent<ItemSocket>();
+
+        // TODO: Events for highlighting/unhighlighting?
 
         private void Awake() {
             this.CacheComponent(ref CachedTransform);
@@ -56,6 +61,11 @@ namespace WeatherStation {
             ReleaseCurrent(socket, socket.Current != socketable);
 
             socket.Current = socketable;
+            socketable.CurrentSocket = socket;
+
+            if (socketable.TryGetComponent(out Grabbable grabbable)) {
+                GrabUtility.DetachAll(grabbable);
+            }
 
             SnapTransform(socketable.CachedTransform, socket.Location);
 
@@ -75,6 +85,8 @@ namespace WeatherStation {
                     break;
                 }
             }
+
+            socket.Detector.enabled = false;
 
             socketable.OnAddedToSocket.Invoke(socket);
             socket.OnAdded.Invoke(socketable);
@@ -110,6 +122,8 @@ namespace WeatherStation {
                 SnapTransform(socket.Current.CachedTransform, socket.ReleaseLocation);
             }
 
+            socket.Detector.enabled = true;
+            socket.Current.CurrentSocket = null;
             socket.Current.OnRemovedFromSocket.Invoke(socket);
             socket.OnRemoved.Invoke(socket.Current);
             socket.Current = null;
