@@ -8,5 +8,9 @@ namespace WeatherStation {
         public VRHandIndex Hand;
         public Grabber Physics;
         public Transform Visual;
+
+        private void Awake() {
+            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        }
     }
 }
