@@ -1,0 +1,140 @@
+name: Android Build
+
+# Controls when the action will run. Triggers the workflow on creation of 
+# tags.  Creating new 'versions' via github is the most straightforward 
+# way of doing this.
+on:
+  #create:
+  #  tags:
+  #    - '*'
+   push:
+   workflow_dispatch:
+  #   branches: [ develop ] 
+
+env:
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  
+jobs:
+  build:
+    name: Build Unity Project
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
+    # Setup Steps
+
+    steps:
+
+    - name: Install OpenConnect
+      run: sudo add-apt-repository ppa:phusen/openconnect && sudo apt-get update && sudo apt-get install openconnect
+      
+    - name: Connect to VPN
+      run: echo ${{ secrets.FIELDDAY_VPN_PASSWORD }} | sudo openconnect --protocol=gp -u ${{ secrets.FIELDDAY_VPN_USERNAME }} --passwd-on-stdin soe.vpn.wisc.edu &
+      
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+      
+    - name: Checkout submodules
+      uses: srt32/git-actions@v0.0.3
+      with:
+        args:  |
+          git config --global --add safe.directory "/github/workspace"
+          git config --global --add safe.directory "/github/workspace/Submodules"
+          git submodule update --init --recursive
+
+    # Extracts branch name into BRANCH environment variable
+    - name: Extract branch name
+      shell: bash
+      run: echo "BRANCH=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')" >> $GITHUB_ENV
+
+    # Extracts version tag into VERSION environment variable
+    - name: Extract version name
+      shell: bash
+      run: echo "VERSION=$(echo ${GITHUB_REF#refs/tags/} | sed 's/\//_/g')" >> $GITHUB_ENV
+ 
+    # Read editor version
+    - name: Retrieve editor version
+      id: getEditorVersion
+      uses: pietrobolcato/action-read-yaml@1.1.0
+      with:
+        config: ${{ github.workspace }}/ProjectSettings/ProjectVersion.txt
+    
+    - name: Extract editor version to var
+      shell: bash
+      run: echo "UNITY_VERSION=${{ steps.getEditorVersion.outputs['m_EditorVersion'] }}" >> $GITHUB_ENV
+          
+    # Unity Build Steps
+    - name: Free Disk Space for Android
+      run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/share/boost
+          sudo rm -rf $AGENT_TOOLSDIRECTORY
+          sudo apt clean
+          df -h
+          
+    - name: Cache Library folder
+      uses: actions/cache@v2
+      with:
+        path: Library
+        key: Library
+    
+    #- name: Run tests
+    #  uses: webbertakken/unity-test-runner@v1.3
+    #  with:
+    #    unityVersion: ${{ env.UNITY_VERSION }}
+    
+    - name: Build project
+      uses: game-ci/unity-builder@v2
+      with:
+        unityVersion: ${{ env.UNITY_VERSION }}
+        targetPlatform: Android
+        #buildName: PenguinsVR
+        #customParameters: '-myParameter myValue -myBoolean -ThirdParameter andItsValue'
+    
+    
+    # Deploy Steps
+    # 
+    #android_${{ env.VERSION }}
+    #- name: Upload build as artifact
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    name: AndroidBuild
+    #    path: build/Android/Android.apk
+        
+    #- name: Make directory
+    #  shell: bash
+    #  run: mkdir -p /github/workspace/Assets/release
+    
+    - name: Copy file
+      uses: canastro/copy-file-action@master
+      with:
+        source: build/Android/Android.apk
+        target: /github/workspace/Release/WeatherStationVR.apk
+        
+    #- name: Github Pull
+    #  uses: actions/checkout@master
+    #  with:
+    #    fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+        #persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        
+    - name: GitHub Commit & Push
+      uses: actions-js/push@v1.2
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        force: true
+        branch: ${{ env.BRANCH }}
+    
+    # - name: Upload to web server via rsync
+      # uses: burnett01/rsync-deployments@4.1
+      # with:
+        # switches: -avzr --delete
+        # path: build/Android/Android/*
+        # remote_path: ${{ secrets.DEPLOY_DIR }}/${{ env.BRANCH }}
+        # remote_host: ${{ secrets.DEPLOY_HOST }}
+        # remote_user: ${{ secrets.DEPLOY_USER }}
+        # remote_key: ${{ secrets.DEPLOY_KEY }}
