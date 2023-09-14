@@ -114,7 +114,7 @@ jobs:
       uses: canastro/copy-file-action@master
       with:
         source: build/Android/Android.apk
-        target: /github/workspace/Release/WeatherStationVR.apk
+        target: /github/workspace/Release/weather-station.apk
         
     #- name: Github Pull
     #  uses: actions/checkout@master
