@@ -93,7 +93,7 @@ namespace WeatherStation {
         }
 
         #region OpenXR
-
+		
         static private bool UpdateHandController(ref VRHandState hand, XRNode node) {
             hand.PrevButtons = hand.Buttons;
             hand.Buttons = 0;
@@ -124,6 +124,11 @@ namespace WeatherStation {
                 hand.Axis.Stick = GetFeature(input, CommonUsages.primary2DAxis);
                 hand.Axis.Trigger = GetFeature(input, CommonUsages.trigger);
                 hand.Axis.Grip = GetFeature(input, CommonUsages.grip);
+				
+				//if  (hand.RequestHaptics) {
+				//	//Debug.Log("Requesting haptics");
+				//	input.SendHapticImpulse((uint)node, 0.5f, 1f);
+				//}
 
                 return true;
             }

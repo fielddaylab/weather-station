@@ -39,6 +39,7 @@ namespace WeatherStation {
         public VRControllerButtons Buttons;
         public VRControllerButtons PrevButtons;
         public VRControllerAxis Axis;
+		//public bool RequestHaptics;
 
         public bool Pressed(VRControllerButtons buttons) {
             return ((Buttons & ~PrevButtons) & buttons) != 0;

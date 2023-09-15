@@ -19,7 +19,9 @@ namespace WeatherStation {
         [Space]
         public Transform ReleaseLocation;
         public Vector3 ReleaseForce;
-
+		
+		public AudioSource SoundEffect;
+		
         [NonSerialized] public FixedJoint CurrentJoint;
 
         public readonly CastableEvent<Socketable> OnAdded = new CastableEvent<Socketable>();
@@ -36,6 +38,8 @@ namespace WeatherStation {
 
             Detector.onTriggerEnter.AddListener(OnDetectorEntered);
             Detector.onTriggerExit.AddListener(OnDetectorExited);
+			
+			OnAdded.Register(OnSocketableAdded);
         }
 
         private void OnDetectorEntered(Collider collider) {
@@ -55,6 +59,13 @@ namespace WeatherStation {
                 socketable.PotentialSockets.Remove(this);
             }
         }
+		
+		private void OnSocketableAdded(Socketable socketable) {
+			//Debug.Log(socketable.gameObject.name + " added to " + gameObject.name);
+			if(SoundEffect != null && SoundEffect.clip != null) {
+				SoundEffect.Play();
+			}
+		}
     }
 
     public enum ItemSocketMode {
