@@ -18,9 +18,6 @@ namespace WeatherStation {
         [Range(1, 4)] public int MaxGrabbers = 2;
         public bool IsHeavy = false;
 		
-		//Ross: signifies that we want physics to react only when we are grabbing the grabbable 
-		public bool IsKinematic = false;
-		
         [NonSerialized] public Rigidbody Rigidbody;
         [NonSerialized] public Grabber[] CurrentGrabbers;
         [NonSerialized] public int CurrentGrabberCount;
@@ -71,11 +68,6 @@ namespace WeatherStation {
             grabbable.OnGrabbed.Invoke(grabber);
             grabber.OnGrab.Invoke(grabbable);
 			
-			if(grabbable.IsKinematic) {
-				grabbable.Rigidbody.isKinematic = false;
-				//Debug.Log("GRABBING");
-			}
-			
             return true;
         }
 
@@ -97,11 +89,6 @@ namespace WeatherStation {
 
             DropCurrent(least, false);
 			
-			//if(grabbable.IsKinematic) {
-			//	grabbable.Rigidbody.isKinematic = true;
-			//	Debug.Log("UNGRABBING");
-			//}
-			
             return true;
         }
 
@@ -109,10 +96,6 @@ namespace WeatherStation {
             while(grabbable.CurrentGrabberCount > 0) {
                 DropCurrent(grabbable.CurrentGrabbers[grabbable.CurrentGrabberCount - 1], false);
             }
-			
-			if(grabbable.IsKinematic) {
-				grabbable.Rigidbody.isKinematic = true;
-			}
         }
 
         static public bool DropCurrent(Grabber grabber, bool applyReleaseForce) {

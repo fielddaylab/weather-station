@@ -42,15 +42,7 @@ namespace WeatherStation {
             if (!GripCenter) {
                 GripCenter = CachedTransform;
             }
-			
-			OnRelease.Register(OnReleaseGrab);
         }
-		
-		private void OnReleaseGrab(Grabbable priorHeld) {
-			if(priorHeld.IsKinematic) {
-				priorHeld.Rigidbody.isKinematic = true;
-			}
-		}
     }
 
     public enum GrabberState {
