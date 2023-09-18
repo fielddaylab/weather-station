@@ -17,6 +17,7 @@ namespace WeatherStation {
         [Header("Configuration")]
         [Range(1, 4)] public int MaxGrabbers = 2;
         public bool IsHeavy = false;
+		public bool StayKinematic = false;
 		
         [NonSerialized] public Rigidbody Rigidbody;
         [NonSerialized] public Grabber[] CurrentGrabbers;
@@ -67,6 +68,10 @@ namespace WeatherStation {
 
             grabbable.OnGrabbed.Invoke(grabber);
             grabber.OnGrab.Invoke(grabbable);
+			
+			if(!grabbable.StayKinematic) {
+				grabbable.Rigidbody.isKinematic = false;
+			}
 			
             return true;
         }

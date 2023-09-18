@@ -13,7 +13,7 @@ namespace WeatherStation {
         #endregion // Inspector
 		
         private void Awake() {
-            
+            base.Awake();
         }
 
         public bool IsMatched() { return (MatchingSocket == Current); }

@@ -17,7 +17,23 @@ namespace WeatherStation {
 		public GameObject DirectionalLight;
 		public GameObject PowerMeter;
 		
+		public Grabbable RightHandle;
+		public Grabber RightHand;
+		public GameObject RightHandProxy;
+		public GameObject RightHandMesh;
+		
+		public Grabbable LeftHandle;
+		public Grabber LeftHand;
+		public GameObject LeftHandProxy;
+		public GameObject LeftHandMesh;
+		
         #endregion // Inspector
+		
+		private bool LeftGrabbed = false;
+		private bool RightGrabbed = false;
+		
+		private Vector3 GrabPointLeft = Vector3.zero;
+		private Vector3 GrabPointRight = Vector3.zero;
 		
 		public override bool IsComplete() {
 			if(!PowerMeter || !SolarPanel || !DirectionalLight) {
@@ -25,6 +41,9 @@ namespace WeatherStation {
 				return false;
 			}
 			
+			if(LeftGrabbed || RightGrabbed) {
+				
+			}
 			//VRInputState data = Game.SharedState.Get<VRInputState>();
 			
 			Vector3 vSun = DirectionalLight.transform.forward;
@@ -64,8 +83,39 @@ namespace WeatherStation {
 		}
 		
         private void Awake() {
-            
+            RightHandle.OnGrabbed.Register(OnGrabPanel);
+			RightHandle.OnReleased.Register(OnReleasePanel);
         }
+		
+		private void OnGrabPanel(Grabber grabber)
+		{
+			if(grabber == RightHand)
+			{
+				RightHandMesh.SetActive(false);
+				RightHandProxy.SetActive(true);
+			}
+			
+			if(grabber == LeftHand)
+			{
+				LeftHandMesh.SetActive(false);
+				LeftHandProxy.SetActive(true);
+			}	
+		}
+		
+		private void OnReleasePanel(Grabber grabber)
+		{
+			if(grabber == RightHand)
+			{
+				RightHandMesh.SetActive(true);
+				RightHandProxy.SetActive(false);
+			}
+			
+			if(grabber == LeftHand)
+			{
+				LeftHandMesh.SetActive(true);
+				LeftHandProxy.SetActive(false);
+			}
+		}
     }
 
 }
