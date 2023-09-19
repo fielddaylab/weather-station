@@ -17,17 +17,15 @@ namespace WeatherStation {
         #endregion // Inspector
 		
 		public override bool IsComplete() {
-            bool anyNotMatched = false;
+            bool allMatched = true;
             for(int i = 0; i < PuzzleSockets.Count; ++i) {
                 if(!PuzzleSockets[i].IsMatched()) {
-                    //unhighlight appropriate renderables
-                    anyNotMatched = true;
+                    allMatched = false;
                 }
                 else {
-                    //highlight appropriate renderables
                 }
             }
-			return !anyNotMatched;
+			return allMatched;
 		}
 		
         private void Awake() {
