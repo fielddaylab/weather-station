@@ -21,6 +21,9 @@ namespace WeatherStation {
         public Color NewColor;
 
         public PuzzleButton TestButton;
+		
+		public GameObject FanBlade;
+		public Transform FanRotate;
 
         #endregion // Inspector
 		
@@ -63,7 +66,7 @@ namespace WeatherStation {
         private void TestComplete(PuzzleButton button) {
             if(PuzzleSockets[0].IsMatched()) {
                 //rotate propeller, highlight green and chime sound...
-                StartCoroutine(RotateAndFinish(PuzzleSockets[0], PuzzleSockets[0].Current, 30f));
+                StartCoroutine(RotateAndFinish(PuzzleSockets[0], PuzzleSockets[0].Current, 120f));
             } else {
                 //rotate a bit, then have it detach and fall..
                 StartCoroutine(RotateAndFall(PuzzleSockets[0], PuzzleSockets[0].Current, 3f));
@@ -71,25 +74,33 @@ namespace WeatherStation {
         }
 
         private IEnumerator RotateAndFall(ItemSocket socket, Socketable socketable, float duration) {
-            float t = Time.time;
+            float t = 0f;
             while(t < duration) {
+				//Debug.Log("Rotating");
                 SocketUtility.RotateSocketed(PuzzleSockets[0], PuzzleSockets[0].Current, 0.5f);
                 yield return new WaitForEndOfFrame();
                 t += Time.deltaTime;
             }
 
             //unsocket and have it fall to the ground...
+			SocketUtility.TryReleaseFromCurrentSocket(PuzzleSockets[0].Current, false);
         }
 
         private IEnumerator RotateAndFinish(ItemSocket socket, Socketable socketable, float duration) {
-            float t = Time.time;
+            
+			AudioSource audioSource = GetComponent<AudioSource>();
+			if(audioSource != null && audioSource.clip != null) {
+				audioSource.Play();
+			}
+			
+			float t = 0f;
             while(t < duration) {
-                SocketUtility.RotateSocketed(PuzzleSockets[0], PuzzleSockets[0].Current, 0.5f);
+                //Debug.Log("Rotating");
+				SocketUtility.RotateSocketed(PuzzleSockets[0], PuzzleSockets[0].Current, 5f);
+				FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, 5f);
                 yield return new WaitForEndOfFrame();
                 t += Time.deltaTime;
             }
-
-            //highlight the socket... and chime...
         }
     }
 
