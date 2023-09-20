@@ -8,43 +8,46 @@ using UnityEngine;
 namespace WeatherStation {
     public class PuzzleButton : BatchedComponent {
         #region Inspector
-        public bool On;
+        
+        public bool Locked = false;
+        
+        public bool Toggleable = false;
+
         public float YShift = 0.012f;
 		public AudioSource SoundEffect;
         #endregion // Inspector
 		
+        private bool On;
 
         public readonly CastableEvent<PuzzleButton> OnPressed = new CastableEvent<PuzzleButton>();
 		
 		public void ButtonTrigger() {
-			OnPressed.Invoke(this);
+            if(Toggleable) {
+                On = !On;
+                if(SoundEffect != null && SoundEffect.clip != null) {
+                    SoundEffect.Play();
+                }
+                if(!On) {
+                    Vector3 vPos = transform.position;
+                    vPos.y += YShift;
+                    transform.position = vPos;
+                } else {
+                    Vector3 vPos = transform.position;
+                    vPos.y -= YShift;
+                    transform.position = vPos;   
+                }
+            } else {
+                if(SoundEffect != null && SoundEffect.clip != null) {
+                    SoundEffect.Play();
+                } 
+            }
+
+            OnPressed.Invoke(this);
 		}
 		
         private void Awake() {
-            OnPressed.Register(OnButtonPressed);
-        }
-        
-        private void OnButtonPressed(PuzzleButton button) {
-            PuzzleButtonUtility.ToggleButton(button);
+           
         }
     }
 
-    static public class PuzzleButtonUtility {
-
-        static public void ToggleButton(PuzzleButton button) {
-            button.On = !button.On;
-			if(button.SoundEffect != null && button.SoundEffect.clip != null) {
-				button.SoundEffect.Play();
-			}
-            if(!button.On) {
-                Vector3 vPos = button.transform.position;
-                vPos.y += button.YShift;
-                button.transform.position = vPos;
-            } else {
-                Vector3 vPos = button.transform.position;
-                vPos.y -= button.YShift;
-                button.transform.position = vPos;   
-            }
-        }
-    }
 }

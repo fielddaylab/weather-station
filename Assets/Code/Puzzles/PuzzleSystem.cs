@@ -13,6 +13,9 @@ namespace WeatherStation {
     public class PuzzleSystem : ComponentSystemBehaviour<Puzzle> {
 
         public override void ProcessWorkForComponent(Puzzle component, float deltaTime) {
+
+            component.UpdatePuzzle();
+            
             //Log.Msg("Processing work for: " + component.gameObject.name);
 			if(component.IsComplete()) {
 				//do something cool, advance game, etc.

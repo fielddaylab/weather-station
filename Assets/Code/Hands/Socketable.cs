@@ -132,5 +132,9 @@ namespace WeatherStation {
         static public void SnapTransform(Transform a, Transform target) {
             a.SetPositionAndRotation(target.position, target.rotation);
         }
+
+        static public void RotateSocketed(ItemSocket socket, Socketable socketed, float angle) {
+            socketed.gameObject.transform.RotateAround(socket.transform.position, socket.transform.right, angle);
+        }
     }
 }
