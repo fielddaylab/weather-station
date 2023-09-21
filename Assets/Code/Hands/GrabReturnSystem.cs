@@ -15,6 +15,7 @@ namespace WeatherStation {
         public override void ProcessWorkForComponent(Grabbable component, float deltaTime) {
             if(component.HitGround && component.ReturnOnGroundHit) {
                 //todo - some objects we don't want to be able to auto-return
+				component.HitGround = false;
                 StartCoroutine(WaitToReturn(component, ReturnTime));
             }
         }
@@ -29,8 +30,6 @@ namespace WeatherStation {
         private IEnumerator WaitToReturn(Grabbable component, float duration) {
             
             yield return new WaitForSeconds(duration);
-
-            component.HitGround = false;
 
             if(component.OriginalSocket) {
                 if(component.TryGetComponent(out Socketable s)) {
