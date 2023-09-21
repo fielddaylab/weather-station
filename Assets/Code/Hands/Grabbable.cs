@@ -18,16 +18,32 @@ namespace WeatherStation {
         [Range(1, 4)] public int MaxGrabbers = 2;
         public bool IsHeavy = false;
 		public bool StayKinematic = false;
+
+        public bool ReturnOnGroundHit = true;
 		
         [NonSerialized] public Rigidbody Rigidbody;
         [NonSerialized] public Grabber[] CurrentGrabbers;
         [NonSerialized] public int CurrentGrabberCount;
+
+        [NonSerialized] public bool HitGround = false;
+
+        [NonSerialized] public bool WasKinematic = false;
+        [NonSerialized] public Vector3 OriginalPosition;
+        [NonSerialized] public Quaternion OriginalRotation;
+        [NonSerialized] public Transform OriginalParent;
+        [NonSerialized] public ItemSocket OriginalSocket;
 
         public readonly CastableEvent<Grabber> OnGrabbed = new CastableEvent<Grabber>();
         public readonly CastableEvent<Grabber> OnReleased = new CastableEvent<Grabber>();
 
         private void Awake() {
             this.CacheComponent(ref Rigidbody);
+            
+            WasKinematic = Rigidbody.isKinematic;
+            OriginalPosition = transform.position;
+            OriginalRotation = transform.rotation;
+            OriginalParent = transform.parent;
+
             CurrentGrabbers = new Grabber[MaxGrabbers];
         }
     }

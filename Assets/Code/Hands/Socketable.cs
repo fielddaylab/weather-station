@@ -88,6 +88,8 @@ namespace WeatherStation {
 
             socket.Detector.enabled = false;
 
+            grabbable.OriginalSocket = socket;
+            
             socketable.OnAddedToSocket.Invoke(socket);
             socket.OnAdded.Invoke(socketable);
 

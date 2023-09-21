@@ -50,6 +50,7 @@ namespace WeatherStation {
             if(PuzzleButtons.Count > 0) {
                 for(int i = 0; i < PuzzleButtons.Count; ++i) {
                     PuzzleButtons[i].OnPressed.Register(SensorButtonPressed);
+                    SensorMaterials[i].mainTexture = PuzzleSlots[i].SlotTextures[0];
                 }
 
                 ButtonIndices = new int[PuzzleButtons.Count];

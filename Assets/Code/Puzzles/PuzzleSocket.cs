@@ -31,6 +31,9 @@ namespace WeatherStation {
 
         private void Awake() {
             base.Awake();
+#if UNITY_EDITOR
+            ResetColors();
+#endif
             if(InMaterials.Count > 0) {
                 OldColorsIn = new List<Color>(InMaterials.Count);
                 for(int i = 0; i < InMaterials.Count; ++i) {
@@ -96,6 +99,30 @@ namespace WeatherStation {
                 } 
             }
         }
+
+#if UNITY_EDITOR
+        public void ResetColors() {
+            Color c1 = new Color(141f/255f,141f/255f,141f/255f,1f);
+            Color c2 = new Color(185f/255f,185f/255f,185f/255f,1f);
+            Color c3 = new Color(74f/255f,74f/255f,74f/255f,1f);
+            for(int i = 0; i < InMaterials.Count; ++i) {
+                if(InMaterials[i].name.Contains("S")) {
+                    InMaterials[i].color = c1;
+                } else if(InMaterials[i].name.Contains("Prop")) {
+                    InMaterials[i].color = c3;
+                } else {
+                    InMaterials[i].color = c2;
+                }
+            }
+            for(int i = 0; i < OutMaterials.Count; ++i) {
+                if(OutMaterials[i].name.Contains("S")) {
+                    OutMaterials[i].color = c1;
+                } else {
+                    OutMaterials[i].color = c2;
+                }
+            }
+        }
+#endif
     }
 
 #if UNITY_EDITOR
@@ -105,25 +132,7 @@ namespace WeatherStation {
             base.OnInspectorGUI();
             PuzzleSocket p = (PuzzleSocket)target;
             if(GUILayout.Button("Reset Colors")) {
-                Color c1 = new Color(141f/255f,141f/255f,141f/255f,1f);
-                Color c2 = new Color(185f/255f,185f/255f,185f/255f,1f);
-                Color c3 = new Color(74f/255f,74f/255f,74f/255f,1f);
-                for(int i = 0; i < p.InMaterials.Count; ++i) {
-                    if(p.InMaterials[i].name.Contains("S")) {
-                        p.InMaterials[i].color = c1;
-                    } else if(p.InMaterials[i].name.Contains("Prop")) {
-                        p.InMaterials[i].color = c3;
-                    } else {
-                        p.InMaterials[i].color = c2;
-                    }
-                }
-                for(int i = 0; i < p.OutMaterials.Count; ++i) {
-                    if(p.OutMaterials[i].name.Contains("S")) {
-                        p.OutMaterials[i].color = c1;
-                    } else {
-                        p.OutMaterials[i].color = c2;
-                    }
-                }
+                p.ResetColors();
             }
         }
     }
