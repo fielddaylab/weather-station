@@ -125,10 +125,15 @@ namespace WeatherStation {
                 hand.Axis.Trigger = GetFeature(input, CommonUsages.trigger);
                 hand.Axis.Grip = GetFeature(input, CommonUsages.grip);
 				
-				//if  (hand.RequestHaptics) {
-				//	//Debug.Log("Requesting haptics");
-				//	input.SendHapticImpulse((uint)node, 0.5f, 1f);
-				//}
+				HapticCapabilities caps;
+				if(input.TryGetHapticCapabilities(out caps)) {
+					if  (caps.supportsImpulse && hand.HapticImpulse != 0f) {
+						//Debug.Log("Requesting haptics");
+						input.SendHapticImpulse((uint)0, hand.HapticImpulse, 0.5f);
+						//Ross 9/21/2023: assume we will constantly set it elsewhere for now if we want to continue pulsing
+						hand.HapticImpulse = 0f;
+					}
+				} 
 
                 return true;
             }

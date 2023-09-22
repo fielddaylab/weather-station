@@ -28,6 +28,7 @@ namespace WeatherStation {
         #endregion // Inspector
 		
         private Color OldColor;
+		private bool IsTesting = false;
 
 		public override bool IsComplete() {
             bool allMatched = true;
@@ -64,13 +65,16 @@ namespace WeatherStation {
         }
 
         private void TestComplete(PuzzleButton button) {
-            if(PuzzleSockets[0].IsMatched()) {
-                //rotate propeller, highlight green and chime sound...
-                StartCoroutine(RotateAndFinish(PuzzleSockets[0], PuzzleSockets[0].Current, 120f));
-            } else {
-                //rotate a bit, then have it detach and fall..
-                StartCoroutine(RotateAndFall(PuzzleSockets[0], PuzzleSockets[0].Current, 3f));
-            }
+			if(!IsTesting && PuzzleSockets[0].Current) {
+				IsTesting = true;
+				if(PuzzleSockets[0].IsMatched()) {
+					//rotate propeller, highlight green and chime sound...
+					StartCoroutine(RotateAndFinish(PuzzleSockets[0], PuzzleSockets[0].Current, 120f));
+				} else {
+					//rotate a bit, then have it detach and fall..
+					StartCoroutine(RotateAndFall(PuzzleSockets[0], PuzzleSockets[0].Current, 3f));
+				}
+			}
         }
 
         private IEnumerator RotateAndFall(ItemSocket socket, Socketable socketable, float duration) {
@@ -84,6 +88,7 @@ namespace WeatherStation {
 
             //unsocket and have it fall to the ground...
 			SocketUtility.TryReleaseFromCurrentSocket(PuzzleSockets[0].Current, false);
+			IsTesting = false;
         }
 
         private IEnumerator RotateAndFinish(ItemSocket socket, Socketable socketable, float duration) {
@@ -101,6 +106,8 @@ namespace WeatherStation {
                 yield return new WaitForEndOfFrame();
                 t += Time.deltaTime;
             }
+			
+			IsTesting = false;
         }
     }
 

@@ -9,7 +9,7 @@ namespace WeatherStation {
     [SysUpdate(GameLoopPhase.PreUpdate)]
     public class PlayerHandPositionUpdateSystem : SharedStateSystemBehaviour<PlayerHandRig> {
         public override void ProcessWork(float deltaTime) {
-            
+            m_State.UpdateStates();
         }
     }
 }

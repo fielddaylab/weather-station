@@ -75,7 +75,8 @@ namespace WeatherStation {
 					GrabPointLeft.y = SolarPanel.transform.position.y;
 				}
 			}
-			//VRInputState data = Game.SharedState.Get<VRInputState>();
+			
+			VRInputState data = Game.SharedState.Get<VRInputState>();
 			
 			Vector3 vSun = DirectionalLight.transform.forward;
 			vSun.y = 0f;
@@ -96,12 +97,17 @@ namespace WeatherStation {
 					PowerMeter.transform.GetChild(i).gameObject.SetActive(false);
 				}
 				
-				//data.LeftHand.RequestHaptics = true;
-				//data.RightHand.RequestHaptics = true;
-				
 				if(numToHighlight == cc-1) {
 					//Log.Msg("[SolarPanelPuzzle] completed solar panel puzzle.");
 					return true;
+				} else {
+					if(LeftGrabbed) {
+						data.LeftHand.HapticImpulse = (float)numToHighlight / (float)cc;
+					}
+					
+					if(RightGrabbed) {
+						data.RightHand.HapticImpulse = (float)numToHighlight / (float)cc;
+					}
 				}
 			} else {
 				int cc = PowerMeter.transform.childCount;
