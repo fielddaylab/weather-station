@@ -38,13 +38,14 @@ namespace WeatherStation {
 
             if(component.OriginalSocket) {
                 if(component.TryGetComponent(out Socketable s)) {
-                    SocketUtility.TryAddToSocket(component.OriginalSocket, s, true);
+					if(component.OriginalSocket.Current == null) {
+						SocketUtility.TryAddToSocket(component.OriginalSocket, s, true);
+					} else {
+						GrabUtility.ReturnToOriginalSpawnPoint(component);
+					}
                 }
             } else {
-                component.Rigidbody.isKinematic = component.WasKinematic;
-                component.transform.position = component.OriginalPosition;
-                component.transform.rotation = component.OriginalRotation;
-                component.transform.SetParent(component.OriginalParent, true);
+                GrabUtility.ReturnToOriginalSpawnPoint(component);
             }
         }
     }

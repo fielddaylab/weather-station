@@ -45,11 +45,20 @@ namespace WeatherStation {
 			LeftHandAnimator.SetInteger(AnimParamIndexPose, 0);
 			RightHandAnimator.SetInteger(AnimParamIndexPose, 0);
 			
-			LeftHandAnimator.SetFloat(AnimParamIndexFlex, data.LeftHand.Axis.Grip);
-			RightHandAnimator.SetFloat(AnimParamIndexFlex, data.RightHand.Axis.Grip);
+			float LeftGrip = data.LeftHand.Axis.Grip;
+			float RightGrip = data.RightHand.Axis.Grip;
+			
+			LeftGrip = Mathf.Clamp(LeftGrip, 0.0f, 0.5f);
+			RightGrip = Mathf.Clamp(RightGrip, 0.0f, 0.5f);
+			
+			LeftHandAnimator.SetFloat(AnimParamIndexFlex, LeftGrip);
+			RightHandAnimator.SetFloat(AnimParamIndexFlex, RightGrip);
 			
 			LeftPB = InputValueRateChange(data.LeftHand.Holding(VRControllerButtons.Trigger), LeftPB);
 			RightPB = InputValueRateChange(data.RightHand.Holding(VRControllerButtons.Trigger), RightPB);
+			
+			LeftPB = Mathf.Clamp(LeftPB, 0.0f, 1.0f);
+			RightPB = Mathf.Clamp(RightPB, 0.0f, 1.0f);
 			
 			LeftHandAnimator.SetLayerWeight(AnimLayerIndexPointLeft, LeftPB);
 			RightHandAnimator.SetLayerWeight(AnimLayerIndexPointRight, RightPB);
