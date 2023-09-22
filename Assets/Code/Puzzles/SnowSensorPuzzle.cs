@@ -32,8 +32,14 @@ namespace WeatherStation {
 		public override bool IsComplete() {
             for(int i = 0; i < PuzzleButtons.Count; ++i) {
                 if(SensorMaterials[i].mainTexture != Solution[i]) {
-                    return false;
-                }
+					if(i == 1) {
+						if(SensorMaterials[1].mainTexture != SolutionTextures[i]) {
+							return false;
+						}
+					} else {
+						return false;
+					}
+                } 
             }
 
             for(int i = 0; i < PuzzleButtons.Count; ++i) {
@@ -67,6 +73,18 @@ namespace WeatherStation {
             ButtonIndices[buttonIndex]++;
             ButtonIndices[buttonIndex] = ButtonIndices[buttonIndex] % PuzzleSlots[buttonIndex].SlotTextures.Count;
             SensorMaterials[buttonIndex].mainTexture = PuzzleSlots[buttonIndex].SlotTextures[ButtonIndices[buttonIndex]];
+			
+			if(SensorMaterials[1].mainTexture == Solution[1] || SensorMaterials[1].mainTexture == SolutionTextures[1]) {
+				SensorMaterials[2].mainTexture = Solution[2];
+			} else {
+				SensorMaterials[2].mainTexture = PuzzleSlots[2].SlotTextures[0];
+				SensorMaterials[3].mainTexture = PuzzleSlots[3].SlotTextures[ButtonIndices[3]];
+			}
+			
+			if(SensorMaterials[1].mainTexture == Solution[1])
+			{
+				SensorMaterials[1].mainTexture = SolutionTextures[1];
+			}
         }
     }
 
