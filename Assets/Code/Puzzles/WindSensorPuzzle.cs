@@ -29,7 +29,8 @@ namespace WeatherStation {
 		
         private Color OldColor;
 		private bool IsTesting = false;
-
+		private bool IsStopped = false;
+		
 		public override bool IsComplete() {
             bool allMatched = true;
             for(int i = 0; i < PuzzleSockets.Count; ++i) {
@@ -65,14 +66,22 @@ namespace WeatherStation {
         }
 
         private void TestComplete(PuzzleButton button) {
-			if(!IsTesting && PuzzleSockets[0].Current) {
-				IsTesting = true;
+			if(PuzzleSockets[0].Current) {
 				if(PuzzleSockets[0].IsMatched()) {
 					//rotate propeller, highlight green and chime sound...
-					StartCoroutine(RotateAndFinish(PuzzleSockets[0], PuzzleSockets[0].Current, 120f));
+					if(IsTesting) {
+						//stop the propeller
+						IsStopped = true;
+					} else {
+						IsTesting = true;
+						StartCoroutine(RotateAndFinish(PuzzleSockets[0], PuzzleSockets[0].Current, 120f));
+					}
 				} else {
-					//rotate a bit, then have it detach and fall..
-					StartCoroutine(RotateAndFall(PuzzleSockets[0], PuzzleSockets[0].Current, 3f));
+					if(!IsTesting) {
+						IsTesting = true;
+						//rotate a bit, then have it detach and fall..
+						StartCoroutine(RotateAndFall(PuzzleSockets[0], PuzzleSockets[0].Current, 3f));
+					}
 				}
 			}
         }
@@ -99,7 +108,7 @@ namespace WeatherStation {
 			}
 			
 			float t = 0f;
-            while(t < duration) {
+            while(t < duration && !IsStopped) {
                 //Debug.Log("Rotating");
 				SocketUtility.RotateSocketed(PuzzleSockets[0], PuzzleSockets[0].Current, 5f);
 				FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, 5f);
@@ -108,6 +117,7 @@ namespace WeatherStation {
             }
 			
 			IsTesting = false;
+			IsStopped = false;
         }
     }
 
