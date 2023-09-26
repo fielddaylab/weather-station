@@ -74,6 +74,8 @@ namespace WeatherStation {
             ButtonIndices[buttonIndex] = ButtonIndices[buttonIndex] % PuzzleSlots[buttonIndex].SlotTextures.Count;
             SensorMaterials[buttonIndex].mainTexture = PuzzleSlots[buttonIndex].SlotTextures[ButtonIndices[buttonIndex]];
 			
+            //the algorithm here should be - if pressing a button - look ahead, and any button that is locked and part of the solution, switch to solution texture
+            //walk from beginning to current texture, and switch red to blue if all preceeding textures are good...
 			if(SensorMaterials[1].mainTexture == Solution[1] || SensorMaterials[1].mainTexture == SolutionTextures[1]) {
 				SensorMaterials[2].mainTexture = Solution[2];
 			} else {
