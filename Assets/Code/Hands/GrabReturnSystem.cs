@@ -19,7 +19,9 @@ namespace WeatherStation {
                 //todo - some objects we don't want to be able to auto-return
 				component.HitGround = false;
                 StartCoroutine(WaitToReturn(component, ReturnTime));
-            }
+            } else if(component.transform.position.y < -30f) {
+				StartCoroutine(WaitToReturn(component, 0f));
+			}
         }
 
         public void CollisionHitFloor(Collision c) {

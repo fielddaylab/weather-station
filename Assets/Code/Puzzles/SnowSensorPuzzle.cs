@@ -31,20 +31,21 @@ namespace WeatherStation {
 
 		public override bool IsComplete() {
             for(int i = 0; i < PuzzleButtons.Count; ++i) {
-                if(SensorMaterials[i].mainTexture != Solution[i]) {
-					if(i == 1) {
+                if(SensorMaterials[i].mainTexture != SolutionTextures[i]) {
+					/*if(i == 1) {
 						if(SensorMaterials[1].mainTexture != SolutionTextures[i]) {
 							return false;
 						}
 					} else {
 						return false;
-					}
+					}*/
+					return false;
                 } 
             }
 
-            for(int i = 0; i < PuzzleButtons.Count; ++i) {
+            /*for(int i = 0; i < PuzzleButtons.Count; ++i) {
                 SensorMaterials[i].mainTexture = SolutionTextures[i];
-            }
+            }*/
 
             State = PuzzleState.Complete;
 
@@ -74,9 +75,39 @@ namespace WeatherStation {
             ButtonIndices[buttonIndex] = ButtonIndices[buttonIndex] % PuzzleSlots[buttonIndex].SlotTextures.Count;
             SensorMaterials[buttonIndex].mainTexture = PuzzleSlots[buttonIndex].SlotTextures[ButtonIndices[buttonIndex]];
 			
-            //the algorithm here should be - if pressing a button - look ahead, and any button that is locked and part of the solution, switch to solution texture
-            //walk from beginning to current texture, and switch red to blue if all preceeding textures are good...
-			if(SensorMaterials[1].mainTexture == Solution[1] || SensorMaterials[1].mainTexture == SolutionTextures[1]) {
+			if(SensorMaterials[buttonIndex].mainTexture == Solution[buttonIndex]) {
+				//check to see if all before this are on solutionTextures, if so, change this one too...
+				bool allSetBefore = true;
+				for(int i = 0; i < buttonIndex; ++i) {
+					if(SensorMaterials[i].mainTexture != SolutionTextures[i]) {
+						allSetBefore = false;
+						break;
+					}
+				}
+				
+				if(allSetBefore) {
+					SensorMaterials[buttonIndex].mainTexture = SolutionTextures[buttonIndex];
+					
+					//if this happens, then also walk ahead and see if we can switch any that are on a solution to final..
+					for(int i = buttonIndex; i < PuzzleButtons.Count; ++i) {
+						if(SensorMaterials[i].mainTexture == Solution[i]) {
+							SensorMaterials[i].mainTexture = SolutionTextures[i];
+						}
+					}
+				}
+			} else {
+				//if we turn off.. then anything ahead of me should also go red...
+				for(int i = buttonIndex; i < PuzzleButtons.Count; ++i) {
+					if(SensorMaterials[i].mainTexture == SolutionTextures[i]) {
+						SensorMaterials[i].mainTexture = Solution[i];
+					}
+				}
+			}
+            
+			//the algorithm here should be - if pressing a button - look ahead, and any button that is locked (until you get to an incorrect button) 
+			//and part of the solution, switch to solution texture
+            //walk from beginning to current texture, and switch red to blue if all preceeding textures are good... if one isn't good, turn off all textures up to current from that one.
+			/*if(SensorMaterials[1].mainTexture == Solution[1] || SensorMaterials[1].mainTexture == SolutionTextures[1]) {
 				SensorMaterials[2].mainTexture = Solution[2];
 			} else {
 				SensorMaterials[2].mainTexture = PuzzleSlots[2].SlotTextures[0];
@@ -86,7 +117,7 @@ namespace WeatherStation {
 			if(SensorMaterials[1].mainTexture == Solution[1])
 			{
 				SensorMaterials[1].mainTexture = SolutionTextures[1];
-			}
+			}*/
         }
     }
 

@@ -9,5 +9,6 @@ namespace WeatherStation {
     public class VRTrackedTransform : BatchedComponent {
         public XRNode Node;
         public bool RenderOnly;
+		public Quaternion RotationOffset = Quaternion.identity;
     }
 }

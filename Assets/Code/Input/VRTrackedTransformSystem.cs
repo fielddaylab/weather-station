@@ -62,7 +62,11 @@ namespace WeatherStation {
                     }
                 }
 
-                t.SetLocalPositionAndRotation(p.position * m_PositionScale, p.rotation);
+				if(obj.Node == XRNode.LeftHand || obj.Node == XRNode.RightHand) {
+					t.SetLocalPositionAndRotation(p.position * m_PositionScale, p.rotation * obj.RotationOffset);
+				} else {
+					t.SetLocalPositionAndRotation(p.position * m_PositionScale, p.rotation);
+				}
             }
         }
     }
