@@ -12,7 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _HALFTONESHAPE_DOT
+  - _HALFTONESHAPE_CUSTOM
   - _OUTLINE
   - _SPECULAR_COLOR
   m_InvalidKeywords:
@@ -72,12 +72,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HalfTonePatternMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 5f47f111f4a5bb646b0e5e7905b9180d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HatchingNoiseMap:
-        m_Texture: {fileID: 2800000, guid: 76151585f0b620d4d9944f57d5274dec, type: 3}
-        m_Scale: {x: 0.5, y: 6}
+        m_Texture: {fileID: 2800000, guid: 7675bc9184d04ee4c8c1fae934fbdab6, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HatchingPatternMap:
         m_Texture: {fileID: 2800000, guid: b56101eec82209e419fad0bc6fff6584, type: 3}
@@ -170,9 +170,9 @@ Material:
     - _HairSpecularSize: 0.8
     - _HairSpecularSmoothness: 0.1
     - _HalfToneDiffuseStep: 0
-    - _HalfToneEnabled: 0
+    - _HalfToneEnabled: 1
     - _HalfToneIncludeReceivedShadow: 0
-    - _HalfToneShape: 0
+    - _HalfToneShape: 3
     - _HalfToneUvMode: 1
     - _HalftoneDiffuseOffest: 0
     - _HalftoneFadeDistance: 10
@@ -181,12 +181,12 @@ Material:
     - _HalftoneNoiseClip: 0.8
     - _HalftoneScale: 0
     - _HalftoneSize: 0.3
-    - _HalftoneTilling: 8
+    - _HalftoneTilling: 12.4
     - _HalftoneUseScreenSpaceUV: 0
     - _HatchingDensity: 0
     - _HatchingDiffuseOffset: -0.21
     - _HatchingDrawStrength: 11.67
-    - _HatchingEnabled: 1
+    - _HatchingEnabled: 0
     - _HatchingRotation: 0
     - _HatchingSmoothness: 0.346
     - _Metallic: 0
@@ -243,11 +243,11 @@ Material:
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
     - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
     - _HairSpecColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HalfToneColor: {r: 0, g: 0, b: 0, a: 0.236}
+    - _HalfToneColor: {r: 0, g: 0, b: 0, a: 0.408}
     - _HalftoneColor: {r: 1, g: 1, b: 1, a: 1}
     - _HatchingColor: {r: 0.24899653, g: 0.13131139, b: 0.06737389, a: 1}
     - _HatchingScale: {r: 25.58, g: 1, b: 0, a: 0}
-    - _OutlineColor: {r: 0.44, g: 0.36967057, b: 0.3058, a: 1}
+    - _OutlineColor: {r: 0.256, g: 0.21485716, b: 0.17828573, a: 1}
     - _OutlineDistancFade: {r: -25, g: 50, b: 0, a: 0}
     - _RimColor: {r: 0, g: 0, b: 0, a: 0.512}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 0.784}
