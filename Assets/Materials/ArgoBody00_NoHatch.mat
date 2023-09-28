@@ -7,13 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Plane01
+  m_Name: ArgoBody00_NoHatch
   m_Shader: {fileID: 4800000, guid: e88aeddd2ef1f934d805981244872e27, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _HALFTONESHAPE_CUSTOM
   - _OUTLINE
+  - _RIMLIGHTING_ON
   - _SPECULAR_COLOR
   m_InvalidKeywords:
   - _HAFTONESHAPES_DOT
@@ -32,7 +33,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7542d8ac894397a43a56b238260934d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -77,14 +78,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _HatchingNoiseMap:
         m_Texture: {fileID: 2800000, guid: 7675bc9184d04ee4c8c1fae934fbdab6, type: 3}
-        m_Scale: {x: 18.12, y: 0.85}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HatchingPatternMap:
         m_Texture: {fileID: 2800000, guid: b56101eec82209e419fad0bc6fff6584, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7542d8ac894397a43a56b238260934d5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -140,8 +141,8 @@ Material:
     - _AllToon_OverrideShadowColor: 0
     - _AlphaClip: 0
     - _Blend: 0
-    - _BrushLowerCut: 0
-    - _BrushSize: 0.86
+    - _BrushLowerCut: 0.183
+    - _BrushSize: 0.88
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -169,24 +170,24 @@ Material:
     - _HairSpecNoiseStrength: 1
     - _HairSpecularSize: 0.8
     - _HairSpecularSmoothness: 0.1
-    - _HalfToneDiffuseStep: -0.08
-    - _HalfToneEnabled: 1
-    - _HalfToneIncludeReceivedShadow: 1
+    - _HalfToneDiffuseStep: -0.41
+    - _HalfToneEnabled: 0
+    - _HalfToneIncludeReceivedShadow: 0
     - _HalfToneShape: 3
     - _HalfToneUvMode: 0
     - _HalftoneDiffuseOffest: 0
     - _HalftoneFadeDistance: 10
     - _HalftoneFadeToColor: 0
     - _HalftoneLightSizeFactor: 0
-    - _HalftoneNoiseClip: 1.7
+    - _HalftoneNoiseClip: 0
     - _HalftoneScale: 0
     - _HalftoneSize: 0.3
-    - _HalftoneTilling: 11
+    - _HalftoneTilling: 6.53
     - _HalftoneUseScreenSpaceUV: 0
-    - _HatchingDensity: 1.38
-    - _HatchingDiffuseOffset: 0.48
-    - _HatchingDrawStrength: 5.87
-    - _HatchingEnabled: 0
+    - _HatchingDensity: 0
+    - _HatchingDiffuseOffset: -0.07
+    - _HatchingDrawStrength: 12.68
+    - _HatchingEnabled: 1
     - _HatchingRotation: 0
     - _HatchingSmoothness: 0.01
     - _Metallic: 0
@@ -195,18 +196,18 @@ Material:
     - _OcclusionStrength: 1
     - _OutlineEnabled: 1
     - _OutlineMode: 0
-    - _OutlineWidth: 7.2
+    - _OutlineWidth: 9.21
     - _OverrideShadowColor: 0
     - _Parallax: 0.005
     - _QueueControl: -1
     - _QueueOffset: 0
     - _RIMLIGHTING: 1
     - _ReceiveShadows: 1
-    - _RimEnabled: 0
-    - _RimLightAlign: 0.2
+    - _RimEnabled: 1
+    - _RimLightAlign: 1
     - _RimLightSmoothness: 0
     - _RimLightSmootness: 0.937
-    - _RimPower: 0.556
+    - _RimPower: 0
     - _SPECULARHIGHTLIGHTS: 0
     - _ShadowPatternSize: 0.68
     - _Shininess: 0
@@ -237,19 +238,19 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.18734, g: 0.64599997, b: 0.6182663, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
     - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
     - _HairSpecColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HalfToneColor: {r: 0, g: 0, b: 0, a: 0.35}
+    - _HalfToneColor: {r: 0, g: 0, b: 0, a: 0.501}
     - _HalftoneColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HatchingColor: {r: 0.14157635, g: 0.2769985, b: 0.2769985, a: 1}
+    - _HatchingColor: {r: 0.16065, g: 0.19085121, b: 0.27, a: 0}
     - _HatchingScale: {r: 25.58, g: 1, b: 0, a: 0}
-    - _OutlineColor: {r: 0.16754399, g: 0.2327917, b: 0.234, a: 1}
-    - _OutlineDistancFade: {r: -25, g: 50, b: 0, a: 0}
-    - _RimColor: {r: 0, g: 0, b: 0, a: 0.512}
+    - _OutlineColor: {r: 0.10407318, g: 0.23263416, b: 0.25100002, a: 1}
+    - _OutlineDistancFade: {r: -5.6, g: 23.964497, b: 0, a: 0}
+    - _RimColor: {r: 0.096096, g: 0.12586425, b: 0.156, a: 1}
     - _ShadowColor: {r: 0, g: 0, b: 0, a: 0.784}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _SpherizeNormalOrigin: {r: 0, g: 0, b: 0, a: 0}
