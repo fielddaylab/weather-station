@@ -18,18 +18,21 @@ namespace WeatherStation {
         #region Inspector
         public List<PuzzleSocket> PuzzleSockets = new List<PuzzleSocket>();
         public Material FinalMaterial;
-        public Color NewColor;
+        public Color BlinkColor;
 
         public float BlinkTiming = 1f;
         public GameObject PowerMeter;
 
         #endregion // Inspector
 		
-        private Color OldColor;
-
+        private Color NewColor;
+		private Color BlinkOldColor;
+		
         private float BlinkTime = 0;
 
         private bool BlinkOn = false;
+		
+		private const int MATCH_OFFSET = 6;
 
 		public override bool IsComplete() {
             for(int i = 0; i < PuzzleSockets.Count; ++i) {
@@ -45,22 +48,33 @@ namespace WeatherStation {
                 float t = Time.time;
                 if(t - BlinkTime > BlinkTiming) {
                     for(int i = 0; i < PuzzleSockets.Count; ++i) {
-                        if(PuzzleSockets[i].IsMatched()) {
-                            PowerMeter.transform.GetChild(i*2).gameObject.GetComponent<MeshRenderer>().material.color = OldColor;
-                            PowerMeter.transform.GetChild(i*2+1).gameObject.GetComponent<MeshRenderer>().material.color = OldColor;
-                        } else {
-                            if(BlinkOn) {
-                                PowerMeter.transform.GetChild(i*2).gameObject.GetComponent<MeshRenderer>().material.color = NewColor;
-                                PowerMeter.transform.GetChild(i*2+1).gameObject.GetComponent<MeshRenderer>().material.color = NewColor;
-                            } else {
-                                PowerMeter.transform.GetChild(i*2).gameObject.GetComponent<MeshRenderer>().material.color = OldColor;
-                                PowerMeter.transform.GetChild(i*2+1).gameObject.GetComponent<MeshRenderer>().material.color = OldColor;  
-                            }
-                        }
+						if(BlinkOn) {
+							PowerMeter.transform.GetChild(i*2).gameObject.GetComponent<MeshRenderer>().material.color = BlinkColor;
+							PowerMeter.transform.GetChild(i*2+1).gameObject.GetComponent<MeshRenderer>().material.color = BlinkColor;
+						} else {
+							PowerMeter.transform.GetChild(i*2).gameObject.GetComponent<MeshRenderer>().material.color = BlinkOldColor;
+							PowerMeter.transform.GetChild(i*2+1).gameObject.GetComponent<MeshRenderer>().material.color = BlinkOldColor;  
+						}
                     } 
                     BlinkOn = !BlinkOn;
                     BlinkTime = t;
                 }
+				
+				int matchCount = 0;
+				for(int i = 0; i < PuzzleSockets.Count; ++i) {
+					if(PuzzleSockets[i].IsMatched()) {
+						matchCount++;
+					}
+					
+					PowerMeter.transform.GetChild(MATCH_OFFSET + i*2).gameObject.SetActive(false);
+					PowerMeter.transform.GetChild(MATCH_OFFSET + i*2+1).gameObject.SetActive(false);
+				}
+				
+				for(int i = 0; i < matchCount; ++i) {
+					PowerMeter.transform.GetChild(MATCH_OFFSET + i*2).gameObject.SetActive(true);
+					PowerMeter.transform.GetChild(MATCH_OFFSET + i*2+1).gameObject.SetActive(true);
+				}
+
 			
 				if(PuzzleSockets[0].IsMatched()) {
 					if(!PuzzleSockets[1].IsMatched()) {
@@ -77,7 +91,8 @@ namespace WeatherStation {
 		
         private void Awake() {
             if(PowerMeter != null) {
-                OldColor = PowerMeter.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.color;
+                NewColor = PowerMeter.transform.GetChild(MATCH_OFFSET).gameObject.GetComponent<MeshRenderer>().material.color;
+				BlinkOldColor = PowerMeter.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.color;
             }            
         }
 

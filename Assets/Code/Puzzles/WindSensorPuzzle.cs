@@ -97,6 +97,9 @@ namespace WeatherStation {
 
             //unsocket and have it fall to the ground...
 			SocketUtility.TryReleaseFromCurrentSocket(PuzzleSockets[0].Current, false);
+			
+			TestButton.Untoggle();
+			
 			IsTesting = false;
         }
 

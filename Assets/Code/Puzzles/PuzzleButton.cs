@@ -28,6 +28,14 @@ namespace WeatherStation {
 
         public readonly CastableEvent<PuzzleButton> OnPressed = new CastableEvent<PuzzleButton>();
 		
+		public void Untoggle() {
+			On = false;
+			Vector3 vPos = transform.position;
+			vPos.y += YShift;
+			transform.position = vPos;
+			CachedMeshRenderer.material.color = PriorColor;
+		}
+		
 		public void ButtonTrigger(Collider c) {
             if(Toggleable) {
                 On = !On;
