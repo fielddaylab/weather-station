@@ -15,10 +15,16 @@ namespace WeatherStation {
         public bool Toggleable = false;
 
         public float YShift = 0.012f;
+
+        public Color ButtonColor;
+        
 		public AudioSource SoundEffect;
         #endregion // Inspector
 		
         private bool On;
+
+        private Color PriorColor;
+        private MeshRenderer CachedMeshRenderer;
 
         public readonly CastableEvent<PuzzleButton> OnPressed = new CastableEvent<PuzzleButton>();
 		
@@ -32,11 +38,14 @@ namespace WeatherStation {
                     Vector3 vPos = transform.position;
                     vPos.y += YShift;
                     transform.position = vPos;
+                    CachedMeshRenderer.material.color = PriorColor;
                 } else {
                     Vector3 vPos = transform.position;
                     vPos.y -= YShift;
-                    transform.position = vPos;   
+                    transform.position = vPos;
+                    CachedMeshRenderer.material.color = ButtonColor;
                 }
+                
             } else {
                 if(SoundEffect != null && SoundEffect.clip != null) {
                     SoundEffect.Play();
@@ -74,11 +83,14 @@ namespace WeatherStation {
 			if(rb != null) {
 				rb.detectCollisions = true;
 			}
+            CachedMeshRenderer.material.color = PriorColor;
 		}
 		
         private void Awake() {
-           
+            if(Toggleable) {
+                CachedMeshRenderer = GetComponent<MeshRenderer>();
+                PriorColor = CachedMeshRenderer.material.color;
+            }
         }
     }
-
 }

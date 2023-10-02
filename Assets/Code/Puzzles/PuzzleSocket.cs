@@ -12,6 +12,9 @@ namespace WeatherStation {
     public class PuzzleSocket : ItemSocket {
         #region Inspector
 		public Socketable MatchingSocket = null;
+
+        public Socketable AltMatchingSocket = null;
+
 		public List<Material> InMaterials = new List<Material>();
 
         public List<Material> OutMaterials = new List<Material>();
@@ -50,7 +53,7 @@ namespace WeatherStation {
             }
         }
 
-        public bool IsMatched() { return (MatchingSocket == Current); }
+        public bool IsMatched() { return (MatchingSocket == Current) || ((AltMatchingSocket != null) && (AltMatchingSocket == Current)); }
 
         public void SetPulse() {
             if(InMaterials.Count > 0) {

@@ -17,6 +17,8 @@ namespace WeatherStation {
    
         public List<Material> SensorMaterials = new List<Material>();
 
+		public List<Material> PairedMaterials = new List<Material>();
+
         [Serializable]
         public class PuzzleSlot {
             public List<Texture2D> SlotTextures = new List<Texture2D>();
@@ -25,9 +27,14 @@ namespace WeatherStation {
         public List<PuzzleSlot> PuzzleSlots = new List<PuzzleSlot>();
         public List<Texture2D> Solution = new List<Texture2D>(); 
         public List<Texture2D> SolutionTextures = new List<Texture2D>(); 
+
+		public Color GlowColor;
+
         #endregion // Inspector
 
         private int[] ButtonIndices;
+
+		private List<Color> PriorColors = new List<Color>();
 
 		public override bool IsComplete() {
             for(int i = 0; i < PuzzleButtons.Count; ++i) {
@@ -39,6 +46,7 @@ namespace WeatherStation {
 					} else {
 						return false;
 					}*/
+					PairedMaterials[PairedMaterials.Count-1].color = PriorColors[PairedMaterials.Count-1];
 					return false;
                 } 
             }
@@ -46,6 +54,8 @@ namespace WeatherStation {
             /*for(int i = 0; i < PuzzleButtons.Count; ++i) {
                 SensorMaterials[i].mainTexture = SolutionTextures[i];
             }*/
+
+			PairedMaterials[PairedMaterials.Count-1].color = GlowColor;
 
             State = PuzzleState.Complete;
 
@@ -58,6 +68,7 @@ namespace WeatherStation {
                 for(int i = 0; i < PuzzleButtons.Count; ++i) {
                     PuzzleButtons[i].OnPressed.Register(SensorButtonPressed);
                     SensorMaterials[i].mainTexture = PuzzleSlots[i].SlotTextures[0];
+					PriorColors.Add(PairedMaterials[i].color);
                 }
 
                 ButtonIndices = new int[PuzzleButtons.Count];
@@ -87,7 +98,7 @@ namespace WeatherStation {
 				
 				if(allSetBefore) {
 					SensorMaterials[buttonIndex].mainTexture = SolutionTextures[buttonIndex];
-					
+					PairedMaterials[buttonIndex-1].color = GlowColor;
 					//if this happens, then also walk ahead and see if we can switch any that are on a solution to final..
 					for(int i = buttonIndex; i < PuzzleButtons.Count; ++i) {
 						if(SensorMaterials[i].mainTexture == Solution[i]) {
@@ -100,6 +111,7 @@ namespace WeatherStation {
 				for(int i = buttonIndex; i < PuzzleButtons.Count; ++i) {
 					if(SensorMaterials[i].mainTexture == SolutionTextures[i]) {
 						SensorMaterials[i].mainTexture = Solution[i];
+						PairedMaterials[i-1].color = PriorColors[i-1];
 					}
 				}
 			}
