@@ -21,6 +21,9 @@ namespace WeatherStation {
 
         public bool ReturnOnGroundHit = true;
 		
+		public GameObject LeftGrip = null;
+		public GameObject RightGrip = null;
+		
         [NonSerialized] public Rigidbody Rigidbody;
         [NonSerialized] public Grabber[] CurrentGrabbers;
         [NonSerialized] public int CurrentGrabberCount;
@@ -87,6 +90,24 @@ namespace WeatherStation {
 			
 			if(!grabbable.StayKinematic) {
 				grabbable.Rigidbody.isKinematic = false;
+			} else {
+				if(grabbable.LeftGrip != null) {
+					if(grabbable.LeftGrip.TryGetComponent(out GrabPose p)) {
+						if(p.GrabbableBy == grabber && !p.IsGrabPosed) {
+							GrabUtility.GrabPoseOn(p);
+							grabbable.Rigidbody.useGravity = false;
+						}
+					}
+				}
+				
+				if(grabbable.RightGrip != null) {
+					if(grabbable.RightGrip.TryGetComponent(out GrabPose p)) {
+						if(p.GrabbableBy == grabber && !p.IsGrabPosed) {
+							GrabUtility.GrabPoseOn(p);
+							grabbable.Rigidbody.useGravity = false;
+						}
+					}	
+				}
 			}
 			
             return true;
@@ -126,7 +147,28 @@ namespace WeatherStation {
                     int idx = Array.IndexOf(grabber.Holding.CurrentGrabbers, grabber);
                     Assert.True(idx >= 0);
                     ArrayUtils.FastRemoveAt(grabber.Holding.CurrentGrabbers, ref grabber.Holding.CurrentGrabberCount, idx);
+					
+					if(grabber.Holding != null) {
+						if(grabber.Holding.StayKinematic) {
+							if(grabber.Holding.LeftGrip != null) {
+								if(grabber.Holding.LeftGrip.TryGetComponent(out GrabPose p)) {
+									if(p.GrabbableBy == grabber && p.IsGrabPosed) {
+										GrabUtility.GrabPoseOff(p);
+									}
+								}
 
+							}
+							
+							if(grabber.Holding.RightGrip != null) {
+								if(grabber.Holding.RightGrip.TryGetComponent(out GrabPose p)) {
+									if(p.GrabbableBy == grabber && p.IsGrabPosed) {
+										GrabUtility.GrabPoseOff(p);
+									}
+								}	
+							}	
+						}
+					}
+					
                     grabber.Holding.OnReleased.Invoke(grabber);
                     grabber.OnRelease.Invoke(grabber.Holding);
                     grabber.Holding = null;
@@ -155,6 +197,19 @@ namespace WeatherStation {
 
             return false;
         }
+		
+		static public void GrabPoseOn(GrabPose g) {
+			g.GrabberVisual.SetActive(false);
+			g.gameObject.SetActive(true);
+			g.IsGrabPosed = true;
+			g.gameObject.transform.rotation = g.GrabberTracked.transform.rotation;
+		}
+		
+		static public void GrabPoseOff(GrabPose g) {
+			g.GrabberVisual.SetActive(true);
+			g.gameObject.SetActive(false);
+			g.IsGrabPosed = false;
+		}
 		
 		static public void ReturnToOriginalSpawnPoint(Grabbable component) {
 			component.Rigidbody.isKinematic = component.WasKinematic;
