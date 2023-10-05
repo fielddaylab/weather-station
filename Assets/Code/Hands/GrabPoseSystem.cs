@@ -13,10 +13,10 @@ namespace WeatherStation {
 		public override void ProcessWorkForComponent(GrabPose component, float deltaTime) {
 			if(component.IsGrabPosed) {
 				//update transform of grabbed object to match that of the tracked 
-				GameObject rawGrab = component.GrabberTracked;
-				component.gameObject.transform.parent.rotation = rawGrab.transform.rotation;
+				component.gameObject.transform.position = component.GrabberVisual.transform.position;
+				component.gameObject.transform.rotation = component.GrabberVisual.transform.rotation;
+				component.gameObject.transform.parent.SetParent(component.GrabberVisual.transform.parent);
 			}
         }
-
 	}
 }

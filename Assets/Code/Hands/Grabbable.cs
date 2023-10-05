@@ -46,8 +46,9 @@ namespace WeatherStation {
             OriginalPosition = transform.position;
             OriginalRotation = transform.rotation;
             OriginalParent = transform.parent;
-
+			
             CurrentGrabbers = new Grabber[MaxGrabbers];
+			
         }
     }
 
@@ -94,8 +95,7 @@ namespace WeatherStation {
 				if(grabbable.LeftGrip != null) {
 					if(grabbable.LeftGrip.TryGetComponent(out GrabPose p)) {
 						if(p.GrabbableBy == grabber && !p.IsGrabPosed) {
-							GrabUtility.GrabPoseOn(p);
-							grabbable.Rigidbody.useGravity = false;
+							GrabUtility.GrabPoseOn(p, grabbable);
 						}
 					}
 				}
@@ -103,7 +103,7 @@ namespace WeatherStation {
 				if(grabbable.RightGrip != null) {
 					if(grabbable.RightGrip.TryGetComponent(out GrabPose p)) {
 						if(p.GrabbableBy == grabber && !p.IsGrabPosed) {
-							GrabUtility.GrabPoseOn(p);
+							GrabUtility.GrabPoseOn(p, grabbable);
 							grabbable.Rigidbody.useGravity = false;
 						}
 					}	
@@ -153,7 +153,7 @@ namespace WeatherStation {
 							if(grabber.Holding.LeftGrip != null) {
 								if(grabber.Holding.LeftGrip.TryGetComponent(out GrabPose p)) {
 									if(p.GrabbableBy == grabber && p.IsGrabPosed) {
-										GrabUtility.GrabPoseOff(p);
+										GrabUtility.GrabPoseOff(p, grabber.Holding);
 									}
 								}
 
@@ -162,7 +162,7 @@ namespace WeatherStation {
 							if(grabber.Holding.RightGrip != null) {
 								if(grabber.Holding.RightGrip.TryGetComponent(out GrabPose p)) {
 									if(p.GrabbableBy == grabber && p.IsGrabPosed) {
-										GrabUtility.GrabPoseOff(p);
+										GrabUtility.GrabPoseOff(p, grabber.Holding);
 									}
 								}	
 							}	
@@ -198,17 +198,22 @@ namespace WeatherStation {
             return false;
         }
 		
-		static public void GrabPoseOn(GrabPose g) {
-			g.GrabberVisual.SetActive(false);
-			g.gameObject.SetActive(true);
-			g.IsGrabPosed = true;
-			g.gameObject.transform.rotation = g.GrabberTracked.transform.rotation;
+		static public void GrabPoseOn(GrabPose gp, Grabbable grabbable) {
+			gp.GrabberVisual.SetActive(false);
+			gp.gameObject.SetActive(true);
+			gp.IsGrabPosed = true;
+			gp.UsedGravity = grabbable.Rigidbody.useGravity;
+			grabbable.Rigidbody.useGravity = false;
+			grabbable.Rigidbody.isKinematic = true;
 		}
 		
-		static public void GrabPoseOff(GrabPose g) {
-			g.GrabberVisual.SetActive(true);
-			g.gameObject.SetActive(false);
-			g.IsGrabPosed = false;
+		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable) {
+			gp.GrabberVisual.SetActive(true);
+			gp.gameObject.SetActive(false);
+			gp.IsGrabPosed = false;
+			grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
+			grabbable.Rigidbody.useGravity = true;
+			grabbable.Rigidbody.isKinematic = false;
 		}
 		
 		static public void ReturnToOriginalSpawnPoint(Grabbable component) {

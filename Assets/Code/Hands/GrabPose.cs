@@ -15,9 +15,10 @@ namespace WeatherStation {
         #endregion // Inspector
 		
 		[NonSerialized] public bool IsGrabPosed = false;
+		[NonSerialized] public bool UsedGravity = false;
 		
 		private void Awake() {
-			
+
 		}
 	}
 }

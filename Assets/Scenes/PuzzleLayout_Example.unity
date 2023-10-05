@@ -6592,7 +6592,7 @@ MonoBehaviour:
   GrabEnabled: 1
   MaxGrabbers: 2
   IsHeavy: 0
-  StayKinematic: 1
+  StayKinematic: 0
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 2505652737976715547}
   RightGrip: {fileID: 1482714109}
@@ -9372,7 +9372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1482714110
 Transform:
   m_ObjectHideFlags: 0
@@ -9382,7 +9382,7 @@ Transform:
   m_GameObject: {fileID: 1482714109}
   serializedVersion: 2
   m_LocalRotation: {x: -0.62932044, y: 0, z: 0, w: 0.7771459}
-  m_LocalPosition: {x: -0.037, y: -0.025, z: -0.002}
+  m_LocalPosition: {x: -0.0364, y: -0.0201, z: 0.0145}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13643,13 +13643,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2994345436730758049}
   - component: {fileID: 2994345436730758050}
+  - component: {fileID: 2994345436730758051}
   m_Layer: 0
   m_Name: LeftGrip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &2529444934981689867
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13907,7 +13908,7 @@ Transform:
   m_GameObject: {fileID: 2505652737976715547}
   serializedVersion: 2
   m_LocalRotation: {x: -0.62932044, y: 0, z: 0, w: 0.7771459}
-  m_LocalPosition: {x: 0.0134, y: -0.0498, z: -0.0013166852}
+  m_LocalPosition: {x: 0.0238, y: -0.0255, z: 0.0111}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13930,6 +13931,27 @@ MonoBehaviour:
   GrabbableBy: {fileID: 2052020710}
   GrabberVisual: {fileID: 1934872920}
   GrabberTracked: {fileID: 878999397}
+--- !u!95 &2994345436730758051
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505652737976715547}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 29f62d8a546dfcc4bb3a4e318b9b8a02, type: 3}
+  m_Controller: {fileID: 9100000, guid: a126afca8aeda5a46ac0e830600fd509, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &2998813334942394776
 Transform:
   m_ObjectHideFlags: 0
