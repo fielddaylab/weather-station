@@ -148,6 +148,8 @@ namespace WeatherStation {
                     Assert.True(idx >= 0);
                     ArrayUtils.FastRemoveAt(grabber.Holding.CurrentGrabbers, ref grabber.Holding.CurrentGrabberCount, idx);
 					
+					//grabber.Holding.CurrentGrabberCount--;
+					
 					if(grabber.Holding != null) {
 						if(grabber.Holding.StayKinematic) {
 							if(grabber.Holding.LeftGrip != null) {
@@ -202,7 +204,7 @@ namespace WeatherStation {
 			gp.GrabberVisual.SetActive(false);
 			gp.gameObject.SetActive(true);
 			gp.IsGrabPosed = true;
-			gp.UsedGravity = grabbable.Rigidbody.useGravity;
+			//gp.UsedGravity = grabbable.Rigidbody.useGravity;
 			grabbable.Rigidbody.useGravity = false;
 			grabbable.Rigidbody.isKinematic = true;
 		}
@@ -210,10 +212,13 @@ namespace WeatherStation {
 		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable) {
 			gp.GrabberVisual.SetActive(true);
 			gp.gameObject.SetActive(false);
-			gp.IsGrabPosed = false;
 			grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
-			grabbable.Rigidbody.useGravity = true;
-			grabbable.Rigidbody.isKinematic = false;
+			gp.IsGrabPosed = false;
+			//Debug.Log(grabbable.CurrentGrabberCount);
+			if(grabbable.CurrentGrabberCount == 0) {	
+				grabbable.Rigidbody.useGravity = true;
+				grabbable.Rigidbody.isKinematic = false;
+			}
 		}
 		
 		static public void ReturnToOriginalSpawnPoint(Grabbable component) {

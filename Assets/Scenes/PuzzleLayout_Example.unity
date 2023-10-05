@@ -6592,7 +6592,7 @@ MonoBehaviour:
   GrabEnabled: 1
   MaxGrabbers: 2
   IsHeavy: 0
-  StayKinematic: 0
+  StayKinematic: 1
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 2505652737976715547}
   RightGrip: {fileID: 1482714109}
@@ -9366,6 +9366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1482714110}
   - component: {fileID: 1482714111}
+  - component: {fileID: 1482714112}
   m_Layer: 7
   m_Name: RightGrip
   m_TagString: Untagged
@@ -9405,6 +9406,28 @@ MonoBehaviour:
   GrabbableBy: {fileID: 1954088574}
   GrabberVisual: {fileID: 1986432132}
   GrabberTracked: {fileID: 170449515}
+  GripAmount: 0.1
+--- !u!95 &1482714112
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482714109}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 6cdc824eaa3a972448d4df4cb5414108, type: 3}
+  m_Controller: {fileID: 9100000, guid: b4b2f15bfff313646a429181b6fabf06, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1484817908
 GameObject:
   m_ObjectHideFlags: 0
@@ -13931,6 +13954,7 @@ MonoBehaviour:
   GrabbableBy: {fileID: 2052020710}
   GrabberVisual: {fileID: 1934872920}
   GrabberTracked: {fileID: 878999397}
+  GripAmount: 0.1
 --- !u!95 &2994345436730758051
 Animator:
   serializedVersion: 5

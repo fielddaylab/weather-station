@@ -12,13 +12,18 @@ namespace WeatherStation {
         public Grabber GrabbableBy;
         public GameObject GrabberVisual;
 		public GameObject GrabberTracked;
+		public float GripAmount = 0.0f;
         #endregion // Inspector
 		
 		[NonSerialized] public bool IsGrabPosed = false;
-		[NonSerialized] public bool UsedGravity = false;
+		//[NonSerialized] public bool UsedGravity = false;
 		
 		private void Awake() {
-
+			//set the grip parameter here...
+			Animator a = GetComponent<Animator>();
+			if(a != null) {
+				a.SetFloat(Animator.StringToHash("Flex"), GripAmount);
+			}
 		}
 	}
 }
