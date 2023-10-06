@@ -13,6 +13,7 @@ namespace WeatherStation {
         public GameObject GrabberVisual;
 		public GameObject GrabberTracked;
 		public float GripAmount = 0.0f;
+		public List<Transform> GrabSpots = new List<Transform>(8);
         #endregion // Inspector
 		
 		[NonSerialized] public bool IsGrabPosed = false;

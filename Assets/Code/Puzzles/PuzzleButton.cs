@@ -91,7 +91,10 @@ namespace WeatherStation {
 			if(rb != null) {
 				rb.detectCollisions = true;
 			}
-            CachedMeshRenderer.material.color = PriorColor;
+			
+			if(Toggleable) {
+				CachedMeshRenderer.material.color = PriorColor;
+			}
 		}
 		
         private void Awake() {
