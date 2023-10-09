@@ -291,6 +291,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &21414566
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1823,6 +1825,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &305931445
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2570,6 +2574,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!65 &439122564
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3754,6 +3760,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &517439041
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4514,6 +4522,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &699659410
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5574,6 +5584,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!1 &851430375
 GameObject:
   m_ObjectHideFlags: 0
@@ -6601,8 +6613,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2994345436730758049}
-  - {fileID: 1482714110}
   - {fileID: 1206231227}
   m_Father: {fileID: 496905004}
   m_LocalEulerAnglesHint: {x: 88.507, y: -270, z: -180}
@@ -6659,6 +6669,13 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 2505652737976715547}
   RightGrip: {fileID: 1482714109}
+  GripAmount: 0.1
+  GrabSpots:
+  - {fileID: 1248450804}
+  - {fileID: 1973020535}
+  - {fileID: 994876448}
+  - {fileID: 520241253}
+  - {fileID: 1455242825}
 --- !u!54 &1030869091
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9376,6 +9393,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &1412473542
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9543,15 +9562,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482714109}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.62932044, y: 0, z: 0, w: 0.7771459}
-  m_LocalPosition: {x: -0.0364, y: -0.0201, z: 0.0145}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1190316543}
   - {fileID: 173984674}
-  m_Father: {fileID: 1030869087}
-  m_LocalEulerAnglesHint: {x: -78, y: 0, z: 0}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &1482714111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9566,14 +9585,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GrabbableBy: {fileID: 1954088574}
   GrabberVisual: {fileID: 1986432132}
-  GrabberTracked: {fileID: 170449515}
-  GripAmount: 0.1
-  GrabSpots:
-  - {fileID: 1248450804}
-  - {fileID: 1973020535}
-  - {fileID: 994876448}
-  - {fileID: 520241253}
-  - {fileID: 1455242825}
 --- !u!95 &1482714112
 Animator:
   serializedVersion: 5
@@ -10861,6 +10872,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &1710615317
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12111,6 +12124,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &1951894352
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12529,6 +12544,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!114 &2052020710 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9175769631821765805, guid: 155f54ef2cdde924fb057c8160ce5280,
@@ -14128,15 +14145,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2505652737976715547}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.62932044, y: 0, z: 0, w: 0.7771459}
-  m_LocalPosition: {x: 0.0238, y: -0.0255, z: 0.0111}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7957798000078675680}
   - {fileID: 7251690356385577177}
-  m_Father: {fileID: 1030869087}
-  m_LocalEulerAnglesHint: {x: -78, y: 0, z: 0}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &2994345436730758050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14151,14 +14168,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GrabbableBy: {fileID: 2052020710}
   GrabberVisual: {fileID: 1934872920}
-  GrabberTracked: {fileID: 878999397}
-  GripAmount: 0.1
-  GrabSpots:
-  - {fileID: 1248450804}
-  - {fileID: 1973020535}
-  - {fileID: 994876448}
-  - {fileID: 520241253}
-  - {fileID: 1455242825}
 --- !u!95 &2994345436730758051
 Animator:
   serializedVersion: 5
@@ -16819,6 +16828,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 0
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &6754763354730868469
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16951,6 +16962,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &7027305529353049262
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17181,6 +17194,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &7214529008473430760
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17670,6 +17685,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &7827990484724418688
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17969,6 +17986,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &7974883236052389972
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18627,6 +18646,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &8715649320914951144
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18796,6 +18817,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &8813190823538765082
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18913,6 +18936,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 0
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &8846523527712059008
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19042,6 +19067,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &8877265477521007093
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19165,6 +19192,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &8952624573845268915
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19246,6 +19275,8 @@ MonoBehaviour:
   ReturnOnGroundHit: 1
   LeftGrip: {fileID: 0}
   RightGrip: {fileID: 0}
+  GripAmount: 0
+  GrabSpots: []
 --- !u!54 &9022212801925262078
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19440,6 +19471,8 @@ SceneRoots:
   - {fileID: 543450651856832374}
   - {fileID: 1569835513}
   - {fileID: 240257951}
+  - {fileID: 2994345436730758049}
+  - {fileID: 1482714110}
   - {fileID: 883966695}
   - {fileID: 447253907}
   - {fileID: 38836587}

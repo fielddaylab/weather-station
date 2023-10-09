@@ -11,9 +11,6 @@ namespace WeatherStation {
 		#region Inspector
         public Grabber GrabbableBy;
         public GameObject GrabberVisual;
-		public GameObject GrabberTracked;
-		public float GripAmount = 0.0f;
-		public List<Transform> GrabSpots = new List<Transform>(8);
         #endregion // Inspector
 		
 		[NonSerialized] public bool IsGrabPosed = false;
@@ -21,10 +18,10 @@ namespace WeatherStation {
 		
 		private void Awake() {
 			//set the grip parameter here...
-			Animator a = GetComponent<Animator>();
+			/*Animator a = GetComponent<Animator>();
 			if(a != null) {
 				a.SetFloat(Animator.StringToHash("Flex"), GripAmount);
-			}
+			}*/
 		}
 	}
 }

@@ -23,6 +23,8 @@ namespace WeatherStation {
 		
 		public GameObject LeftGrip = null;
 		public GameObject RightGrip = null;
+		public float GripAmount = 0.0f;
+		public List<Transform> GrabSpots = new List<Transform>(8);
 		
         [NonSerialized] public Rigidbody Rigidbody;
         [NonSerialized] public Grabber[] CurrentGrabbers;
@@ -94,7 +96,7 @@ namespace WeatherStation {
 			} else {
 				if(grabbable.LeftGrip != null) {
 					if(grabbable.LeftGrip.TryGetComponent(out GrabPose p)) {
-						if(p.GrabbableBy == grabber && !p.IsGrabPosed) {
+						if(p.GrabbableBy == grabber) {
 							GrabUtility.GrabPoseOn(p, grabbable);
 						}
 					}
@@ -102,9 +104,8 @@ namespace WeatherStation {
 				
 				if(grabbable.RightGrip != null) {
 					if(grabbable.RightGrip.TryGetComponent(out GrabPose p)) {
-						if(p.GrabbableBy == grabber && !p.IsGrabPosed) {
+						if(p.GrabbableBy == grabber) {
 							GrabUtility.GrabPoseOn(p, grabbable);
-							grabbable.Rigidbody.useGravity = false;
 						}
 					}	
 				}
@@ -207,16 +208,45 @@ namespace WeatherStation {
 			//gp.UsedGravity = grabbable.Rigidbody.useGravity;
 			grabbable.Rigidbody.useGravity = false;
 			grabbable.Rigidbody.isKinematic = true;
+			
+			Animator a = gp.gameObject.GetComponent<Animator>();
+			if(a != null) {
+				a.SetFloat(Animator.StringToHash("Flex"), grabbable.GripAmount);
+			}
+			
+			int closestSpot = -1;
+			float dist = 9999f;
+			for(int i = 0; i < grabbable.GrabSpots.Count; ++i) {
+				float currDist = Vector3.Distance(gp.GrabberVisual.transform.position, grabbable.GrabSpots[i].position);
+				if(currDist < dist) {
+					dist = currDist;
+					closestSpot = i;
+				}
+			}
+			
+			if(closestSpot != -1) {
+				//for position, instead walk through list of possible grab points... attach to closest...
+				gp.gameObject.transform.position = grabbable.GrabSpots[closestSpot].transform.position;
+			}
+			
+		
+			//we want to temporarily set the parent of the grab pose component to the thing we grabbed, but also set the thing we grabbed'd parent to the grabber visual
+			gp.gameObject.transform.SetParent(grabbable.transform);
+			
+			grabbable.transform.SetParent(gp.GrabberVisual.transform.parent);
 		}
 		
-		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable) {
+		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable) 
+		{
 			gp.GrabberVisual.SetActive(true);
+			gp.transform.SetParent(null);
 			gp.gameObject.SetActive(false);
-			grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
-			gp.IsGrabPosed = false;
+			
 			//Debug.Log(grabbable.CurrentGrabberCount);
-			if(grabbable.CurrentGrabberCount == 0) {	
+			if(grabbable.CurrentGrabberCount == 0) {
+				grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
 				grabbable.Rigidbody.useGravity = true;
+				gp.IsGrabPosed = false;
 				grabbable.Rigidbody.isKinematic = false;
 			}
 		}
