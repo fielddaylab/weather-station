@@ -18,11 +18,9 @@ namespace WeatherStation {
         [Range(1, 4)] public int MaxGrabbers = 2;
         public bool IsHeavy = false;
 		public bool StayKinematic = false;
-
+		public bool UseGrabPoses = false;
         public bool ReturnOnGroundHit = true;
 		
-		public GameObject LeftGrip = null;
-		public GameObject RightGrip = null;
 		public float GripAmount = 0.0f;
 		public List<Transform> GrabSpots = new List<Transform>(8);
 		
@@ -94,20 +92,17 @@ namespace WeatherStation {
 			if(!grabbable.StayKinematic) {
 				grabbable.Rigidbody.isKinematic = false;
 			} else {
-				if(grabbable.LeftGrip != null) {
-					if(grabbable.LeftGrip.TryGetComponent(out GrabPose p)) {
-						if(p.GrabbableBy == grabber) {
-							GrabUtility.GrabPoseOn(p, grabbable);
-						}
+				if(grabbable.UseGrabPoses) {
+					PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+
+					if(handRig.LeftHandGrab.GrabbableBy == grabber) {
+						GrabUtility.GrabPoseOn(handRig.LeftHandGrab, grabbable);
 					}
-				}
-				
-				if(grabbable.RightGrip != null) {
-					if(grabbable.RightGrip.TryGetComponent(out GrabPose p)) {
-						if(p.GrabbableBy == grabber) {
-							GrabUtility.GrabPoseOn(p, grabbable);
-						}
-					}	
+
+					
+					if(handRig.RightHandGrab.GrabbableBy == grabber) {
+						GrabUtility.GrabPoseOn(handRig.RightHandGrab, grabbable);
+					}
 				}
 			}
 			
@@ -149,26 +144,20 @@ namespace WeatherStation {
                     Assert.True(idx >= 0);
                     ArrayUtils.FastRemoveAt(grabber.Holding.CurrentGrabbers, ref grabber.Holding.CurrentGrabberCount, idx);
 					
-					//grabber.Holding.CurrentGrabberCount--;
-					
 					if(grabber.Holding != null) {
 						if(grabber.Holding.StayKinematic) {
-							if(grabber.Holding.LeftGrip != null) {
-								if(grabber.Holding.LeftGrip.TryGetComponent(out GrabPose p)) {
-									if(p.GrabbableBy == grabber && p.IsGrabPosed) {
-										GrabUtility.GrabPoseOff(p, grabber.Holding);
-									}
+							
+							if(grabber.Holding.UseGrabPoses) {
+								PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+
+								if(handRig.LeftHandGrab.GrabbableBy == grabber && handRig.LeftHandGrab.IsGrabPosed) {
+									GrabUtility.GrabPoseOff(handRig.LeftHandGrab, grabber.Holding, grabber, applyReleaseForce, handRig.RightHandGrab);
 								}
 
+								if(handRig.RightHandGrab.GrabbableBy == grabber && handRig.RightHandGrab.IsGrabPosed) {
+									GrabUtility.GrabPoseOff(handRig.RightHandGrab, grabber.Holding, grabber, applyReleaseForce, handRig.LeftHandGrab);
+								}
 							}
-							
-							if(grabber.Holding.RightGrip != null) {
-								if(grabber.Holding.RightGrip.TryGetComponent(out GrabPose p)) {
-									if(p.GrabbableBy == grabber && p.IsGrabPosed) {
-										GrabUtility.GrabPoseOff(p, grabber.Holding);
-									}
-								}	
-							}	
 						}
 					}
 					
@@ -236,7 +225,7 @@ namespace WeatherStation {
 			grabbable.transform.SetParent(gp.GrabberVisual.transform.parent);
 		}
 		
-		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable) 
+		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable, Grabber grabber, bool applyReleaseForce, GrabPose otherGrabPose) 
 		{
 			gp.GrabberVisual.SetActive(true);
 			gp.transform.SetParent(null);
@@ -244,10 +233,26 @@ namespace WeatherStation {
 			
 			//Debug.Log(grabbable.CurrentGrabberCount);
 			if(grabbable.CurrentGrabberCount == 0) {
+				
 				grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
 				grabbable.Rigidbody.useGravity = true;
 				gp.IsGrabPosed = false;
 				grabbable.Rigidbody.isKinematic = false;
+				
+                if (applyReleaseForce && grabber.ReleaseThrowForce > 0) {
+                    Rigidbody connected = grabbable.Rigidbody;
+                    if (connected) {
+                        //Vector3 anchor = grabber.Joint.connectedAnchor;
+                        //anchor = connected.transform.TransformPoint(anchor);
+                        Vector3 velocity = grabber.CachedRB.velocity;
+
+                        connected.AddForceAtPosition(Vector3.up * grabber.ReleaseThrowForce, grabbable.gameObject.transform.position, ForceMode.Impulse);
+                    }
+                }
+			} else {
+				//switch parent to other grabber...
+				otherGrabPose.gameObject.transform.SetParent(grabbable.transform);
+				grabbable.gameObject.transform.SetParent(otherGrabPose.GrabberVisual.transform.parent);
 			}
 		}
 		

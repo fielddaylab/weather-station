@@ -14,6 +14,8 @@ namespace WeatherStation {
 		public Animator LeftHandAnimator;
 		public Animator RightHandAnimator;
 		public float InputChangeRate = 20.0f;
+		public GrabPose LeftHandGrab;
+		public GrabPose RightHandGrab;
 		#endregion // Inspector
 		
         private int AnimLayerIndexPointRight = -1;
