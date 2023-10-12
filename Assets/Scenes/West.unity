@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 318a0430644feb54d9c1889236c4ba89, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17752588, g: 0.22225478, b: 0.30445752, a: 1}
+  m_Sun: {fileID: 203114614}
+  m_IndirectSpecularColor: {r: 0.52742165, g: 0.5732032, b: 0.615307, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,8 +97,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 5115f1a73f0bf4dd5a96b5af7f708e49,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 114b753e4f10a495aa7c7605ed038188,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -5284,6 +5286,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5461,6 +5468,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5519,7 +5531,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 0
 --- !u!4 &182264515
 Transform:
@@ -5678,13 +5690,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 1e-45, z: 1.02e-43, w: 5.66e-43}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -5697,13 +5709,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203114612}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6117544, y: 0.35462165, z: -0.6117544, w: 0.35462165}
+  m_LocalRotation: {x: 0.4848262, y: 0.5147267, z: -0.4848262, w: 0.5147267}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 119.8, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 86.573, y: 90, z: 0}
 --- !u!1 &209632657
 GameObject:
   m_ObjectHideFlags: 0
@@ -6050,6 +6062,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6075,7 +6092,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &439254145
 Transform:
@@ -6432,6 +6449,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3399003656850434830, guid: f4f7277bf9bc15247ab089d84782b07d,
         type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3399003656850434830, guid: f4f7277bf9bc15247ab089d84782b07d,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b49efb9bca56b324b9dc072be3ed5ff8, type: 2}
@@ -6708,6 +6730,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6806,6 +6833,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BackgroundMountains00 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6937,6 +6969,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6979,7 +7016,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b7ac89e1c92196745acf9ab6ee92a7b8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7ac89e1c92196745acf9ab6ee92a7b8,
         type: 3}
@@ -7056,6 +7093,94 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7ac89e1c92196745acf9ab6ee92a7b8, type: 3}
+--- !u!1001 &733838611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2879500522368830463, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161088505237638112, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6396856724440782432, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6969897150681125900, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_Name
+      value: Sled
+      objectReference: {fileID: 0}
+    - target: {fileID: 6969897150681125900, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.628
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.451
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.20978233
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.97774816
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 204.219
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778240110061637302, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e8072e13bad1ee14e95dc18d2cfeccb0, type: 3}
 --- !u!1 &739224070
 GameObject:
   m_ObjectHideFlags: 0
@@ -7175,6 +7300,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BackgroundMountains00 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7530,6 +7660,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7605,6 +7740,30 @@ Transform:
   - {fileID: 1861479308}
   m_Father: {fileID: 1790684997}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &924285883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9175769631821765805, guid: 155f54ef2cdde924fb057c8160ce5280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1312827197}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f6ae78b471f1e4c9220109d323da8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &924285884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3660364249696893697, guid: 155f54ef2cdde924fb057c8160ce5280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1312827197}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2f6ae78b471f1e4c9220109d323da8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &925693542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7631,37 +7790,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.2623005
+      value: 0.437
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.795
+      value: 1.015
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.034000006
+      value: 0.133
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.06263846
+      value: -0.19371204
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0050208634
+      value: 0.0046227286
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9980232
+      value: 0.9810452
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0009281365
+      value: -0.0021758704
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
@@ -7671,7 +7830,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 172.818
+      value: 202.34
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 875c273e360459b4e830a4de9bcb4776,
         type: 3}
@@ -7873,6 +8032,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8067,6 +8231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BackgroundMountains00 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8297,55 +8466,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7768309904771949158, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.401
+      objectReference: {fileID: 0}
+    - target: {fileID: 7768309904771949158, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.316
+      objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.122
+      value: -0.142
       objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.743
+      value: 1.699
       objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.013
+      value: 0.177
       objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.42874
+      value: -0.3609236
       objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.731883
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.49925038
+      value: -0.93259543
       objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.17685731
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 26.807
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -129.674
+      value: -222.314
       objectReference: {fileID: 0}
     - target: {fileID: 8645573542572102969, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -98.626
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8662988696226562584, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
@@ -8481,6 +8660,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8492,6 +8676,109 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1144753092}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1148025685
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 558783420010177009, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 652183159464172657, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 689533547124063126, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 849216207406030774, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9828067
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.18463755
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -21.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2425663373026629661, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090172280053809831, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_Name
+      value: AWS_Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090172280053809831, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485821407104877994, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6080705778510328645, guid: 3aa853655b49d1f4bb3afe7a5f893c63,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3aa853655b49d1f4bb3afe7a5f893c63, type: 3}
 --- !u!1 &1235662218
 GameObject:
   m_ObjectHideFlags: 0
@@ -8510,7 +8797,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1235662219
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -8545,7 +8832,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
+  m_StaticShadowCaster: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -9508,40 +9795,120 @@ PrefabInstance:
       propertyPath: m_Name
       value: SolarPanelPuzzle
       objectReference: {fileID: 0}
+    - target: {fileID: 2987900718489370556, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: LeftHand
+      value: 
+      objectReference: {fileID: 924285883}
+    - target: {fileID: 2987900718489370556, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: RightHand
+      value: 
+      objectReference: {fileID: 924285884}
+    - target: {fileID: 2987900718489370556, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: LeftHandMesh
+      value: 
+      objectReference: {fileID: 1969882111}
+    - target: {fileID: 2987900718489370556, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: RightHandMesh
+      value: 
+      objectReference: {fileID: 1969882113}
+    - target: {fileID: 2987900718489370556, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: LeftHandTracked
+      value: 
+      objectReference: {fileID: 1969882110}
+    - target: {fileID: 2987900718489370556, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: DirectionalLight
+      value: 
+      objectReference: {fileID: 203114612}
+    - target: {fileID: 2987900718489370556, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: RightHandTracked
+      value: 
+      objectReference: {fileID: 1969882112}
+    - target: {fileID: 5195302455598626350, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.772
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195302455598626350, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.514
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195302455598626350, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.296
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195302455598626350, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.404972
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195302455598626350, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.17860667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195302455598626350, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.8930496
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195302455598626350, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.08099292
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195302455598626350, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 131.214
+      objectReference: {fileID: 0}
+    - target: {fileID: 5195302455598626350, guid: c33ffa2bc09454cc4852ec6781190f53,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 22.619
+      objectReference: {fileID: 0}
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.166
+      value: 0.275
       objectReference: {fileID: 0}
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.224
+      value: 1.97
       objectReference: {fileID: 0}
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.163
+      value: -0.455
       objectReference: {fileID: 0}
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.90701604
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.08162967
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.35741693
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.20715131
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
@@ -9551,12 +9918,12 @@ PrefabInstance:
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 43.015
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6927674052151570494, guid: c33ffa2bc09454cc4852ec6781190f53,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 25.73
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10067,6 +10434,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10229,6 +10601,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10327,6 +10704,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BackgroundMountains00 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15479,6 +15861,30 @@ Transform:
   - {fileID: 1876876435}
   m_Father: {fileID: 1040059633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1969882110 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9055818213760021891, guid: 155f54ef2cdde924fb057c8160ce5280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1312827197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1969882111 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4917484641309230063, guid: 155f54ef2cdde924fb057c8160ce5280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1312827197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1969882112 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3474072561692234287, guid: 155f54ef2cdde924fb057c8160ce5280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1312827197}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1969882113 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6335215124611706410, guid: 155f54ef2cdde924fb057c8160ce5280,
+    type: 3}
+  m_PrefabInstance: {fileID: 1312827197}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1999679448
 GameObject:
   m_ObjectHideFlags: 0
@@ -15695,6 +16101,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackgroundMountains00 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9a855b229f9809f4e9b11c6956d0d1dd,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15721,6 +16132,8 @@ SceneRoots:
   - {fileID: 925693542}
   - {fileID: 68687184}
   - {fileID: 840497735}
+  - {fileID: 1148025685}
   - {fileID: 1235662222}
   - {fileID: 1562469649}
   - {fileID: 1534515784}
+  - {fileID: 733838611}
