@@ -14,21 +14,11 @@ namespace WeatherStation {
     public class SolarPanelPuzzle : Puzzle {
         #region Inspector
 		public GameObject SolarPanel;
-		public GameObject DirectionalLight;
+		public Transform DirectionalLight;
 		public GameObject PowerMeter;
 		
 		public Grabbable RightHandle;
-		public Grabber RightHand;
-		public GameObject RightHandProxy;
-		public GameObject RightHandMesh;
-		public GameObject RightHandTracked;
-		
 		public Grabbable LeftHandle;
-		public Grabber LeftHand;
-		public GameObject LeftHandProxy;
-		public GameObject LeftHandMesh;
-		public GameObject LeftHandTracked;
-		
         #endregion // Inspector
 		
 		private bool LeftGrabbed = false;
@@ -43,8 +33,10 @@ namespace WeatherStation {
 				return false;
 			}
 			
+			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+
 			//Ross:  todo - optimize below...
-			if(LeftGrabbed || RightGrabbed) {
+			/*if(LeftGrabbed || RightGrabbed) {
 				if(LeftGrabbed && !RightGrabbed) {
 					Vector3 toLeft = Vector3.Normalize(GrabPointLeft - SolarPanel.transform.position);
 					Vector3 trackedLeft = LeftHandTracked.transform.position;
@@ -74,11 +66,11 @@ namespace WeatherStation {
 					GrabPointLeft = LeftHandTracked.transform.position;
 					GrabPointLeft.y = SolarPanel.transform.position.y;
 				}
-			}
+			}*/
 			
 			VRInputState data = Game.SharedState.Get<VRInputState>();
 			
-			Vector3 vSun = DirectionalLight.transform.forward;
+			Vector3 vSun = DirectionalLight.forward;
 			vSun.y = 0f;
 			vSun = Vector3.Normalize(vSun);
 			
@@ -120,43 +112,9 @@ namespace WeatherStation {
 		}
 		
         private void Awake() {
-            RightHandle.OnGrabbed.Register(OnGrabPanel);
-			RightHandle.OnReleased.Register(OnReleasePanel);
-			LeftHandle.OnGrabbed.Register(OnGrabPanel);
-			LeftHandle.OnReleased.Register(OnReleasePanel);
+
         }
 		
-		private void OnGrabPanel(Grabber grabber) {
-			if(grabber == RightHand) {
-				RightHandMesh.SetActive(false);
-				RightHandProxy.SetActive(true);
-				RightGrabbed = true;
-				GrabPointRight = RightHandTracked.transform.position;
-				GrabPointRight.y = SolarPanel.transform.position.y;
-			}
-			
-			if(grabber == LeftHand) {
-				LeftHandMesh.SetActive(false);
-				LeftHandProxy.SetActive(true);
-				LeftGrabbed = true;
-				GrabPointLeft = LeftHandTracked.transform.position;
-				GrabPointLeft.y = SolarPanel.transform.position.y;
-			}	
-		}
-		
-		private void OnReleasePanel(Grabber grabber) {
-			if(grabber == RightHand) {
-				RightHandMesh.SetActive(true);
-				RightHandProxy.SetActive(false);
-				RightGrabbed = false;
-			}
-			
-			if(grabber == LeftHand) {
-				LeftHandMesh.SetActive(true);
-				LeftHandProxy.SetActive(false);
-				LeftGrabbed = false;
-			}
-		}
     }
 
 }
