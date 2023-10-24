@@ -76,7 +76,7 @@ namespace WeatherStation
             }
 
             m_SceneLock = true;
-            m_SceneLoadRoutine.Replace(this, SceneSwap(scene, inEntrance, inContext, inFlags)).Tick();
+            m_SceneLoadRoutine.Replace(this, SceneSwap(scene, inEntrance, inContext, inFlags));//.Tick();
             return m_SceneLoadRoutine.Wait();
         }
 
@@ -128,7 +128,7 @@ namespace WeatherStation
             }
 
             m_SceneLock = true;
-            m_SceneLoadRoutine.Replace(this, SceneSwap(inScene, inEntrance, inContext, inFlags)).Tick();
+            m_SceneLoadRoutine.Replace(this, SceneSwap(inScene, inEntrance, inContext, inFlags));//.Tick();
             return m_SceneLoadRoutine.Wait();
         }
 
@@ -151,7 +151,7 @@ namespace WeatherStation
             }
 
             m_SceneLock = true;
-            m_SceneLoadRoutine.Replace(this, SceneSwap(scene, inEntrance, inContext, inFlags)).Tick();
+            m_SceneLoadRoutine.Replace(this, SceneSwap(scene, inEntrance, inContext, inFlags));//.Tick();
             return m_SceneLoadRoutine.Wait();
         }
 
@@ -184,7 +184,7 @@ namespace WeatherStation
             SceneBinding prevScene = m_SceneHistory.PeekBack();
 
             m_SceneLock = true;
-            m_SceneLoadRoutine.Replace(this, SceneSwap(prevScene, inEntrance, inContext, inFlags | SceneLoadFlags.DoNotModifyHistory)).Tick();
+            m_SceneLoadRoutine.Replace(this, SceneSwap(prevScene, inEntrance, inContext, inFlags | SceneLoadFlags.DoNotModifyHistory));//.Tick();
             return m_SceneLoadRoutine.Wait();
         }
 
