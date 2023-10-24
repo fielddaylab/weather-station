@@ -13,6 +13,7 @@ using UnityEngine.SceneManagement;
 using BeauUtil.Debugger;
 using BeauUtil.Variants;
 using BeauUtil.Services;
+using FieldDay;
 using Leaf.Runtime;
 
 namespace WeatherStation
@@ -82,7 +83,7 @@ namespace WeatherStation
         /// <summary>
         /// Loads to another scene from a given map id.
         /// </summary>
-        public IEnumerator LoadSceneFromMap(StringHash32 inMapId, StringHash32 inEntrance = default(StringHash32), object inContext = null, SceneLoadFlags inFlags = SceneLoadFlags.Default)
+        /*public IEnumerator LoadSceneFromMap(StringHash32 inMapId, StringHash32 inEntrance = default(StringHash32), object inContext = null, SceneLoadFlags inFlags = SceneLoadFlags.Default)
         {
             if (m_SceneLock)
             {
@@ -107,7 +108,7 @@ namespace WeatherStation
             m_SceneLock = true;
             m_SceneLoadRoutine.Replace(this, SceneSwap(scene, inEntrance, inContext, inFlags)).Tick();
             return m_SceneLoadRoutine.Wait();
-        }
+        }*/
 
         /// <summary>
         /// Loads to another scene.
@@ -215,19 +216,19 @@ namespace WeatherStation
 
         private IEnumerator InitialSceneLoad()
         {
-            Services.Input.PauseAll();
+            //Services.Input.PauseAll();
             yield return WaitForServiceLoading();
 
-            while(!Streaming.IsManifestLoaded()) {
+            /*while(!Streaming.IsManifestLoaded()) {
                 yield return null;
-            }
+            }*/
             
             yield return WaitForPreload(m_InitialPreloadRoot, null);
 
             foreach(var obj in m_InitialPreloadRoot.GetComponentsInChildren<ISceneLoadHandler>(true))
                 obj.OnSceneLoad(m_InitialPreloadRoot.scene, null);
 
-            DebugService.Log(LogMask.Loading, "[StateMgr] Initial load of preload scene '{0}' finished", m_InitialPreloadRoot.scene.path);
+            //DebugService.Log(LogMask.Loading, "[StateMgr] Initial load of preload scene '{0}' finished", m_InitialPreloadRoot.scene.path);
 
             SceneBinding active = SceneManager.GetActiveScene();
             BindScene(active);
@@ -235,26 +236,26 @@ namespace WeatherStation
 
             if (active.BuildIndex > 0)
             {
-                Services.Camera.DisableRendering();
+                //Services.Camera.DisableRendering();
             }
 
             // if we started from another scene than the boot or title scene
-            if (active.BuildIndex < 0 || active.BuildIndex >= GameConsts.GameSceneIndexStart)
+            if (active.BuildIndex < 0)// || active.BuildIndex >= GameConsts.GameSceneIndexStart)
             {
                 #if DEVELOPMENT
-                Services.Data.UseDebugProfile();
+                //Services.Data.UseDebugProfile();
                 #endif // DEVELOPMENT
-                yield return Services.UI.LoadPersistentUI();
+                //yield return Services.UI.LoadPersistentUI();
             }
             else
             {
-                Services.UI.UnloadPersistentUI();
+                //Services.UI.UnloadPersistentUI();
             }
 
             #if UNITY_EDITOR
             yield return WaitForBake(active, null);
             #else
-            yield return LoadConditionalSubscenes(active, null);
+            //yield return LoadConditionalSubscenes(active, null);
             #endif // UNITY_EDITOR
 
             yield return WaitForPreload(active, null);
@@ -262,90 +263,93 @@ namespace WeatherStation
             yield return WaitForCleanup();
 
             RecordCurrentMapAsSeen(active);
-            Services.Camera.EnableRendering();
+            
+            //Services.Camera.EnableRendering();
 
             m_SceneLock = false;
 
-            DebugService.Log(LogMask.Loading, "[StateMgr] Initial load of '{0}' finished", active.Path);
+            //DebugService.Log(LogMask.Loading, "[StateMgr] Initial load of '{0}' finished", active.Path);
 
             m_InitFrame = true;
             ProcessCallbackQueue();
             active.BroadcastLoaded();
-            Services.Input.ResumeAll();
-            Services.Physics.Enabled = true;
+            
+            //Services.Input.ResumeAll();
+            //Services.Physics.Enabled = true;
 
-            Services.Events.Dispatch(GameEvents.SceneLoaded);
-            if (Services.Data.IsProfileLoaded()) {
-                Services.Script.TriggerResponse(GameTriggers.SceneStart);
-            }
+            //Services.Events.Dispatch(GameEvents.SceneLoaded);
+            //if (Services.Data.IsProfileLoaded()) {
+            //    Services.Script.TriggerResponse(GameTriggers.SceneStart);
+            //}
+
             m_InitFrame = false;
         }
 
         private IEnumerator SceneSwap(SceneBinding inNextScene, StringHash32 inEntrance, object inContext, SceneLoadFlags inFlags)
         {
-            Services.Input.PauseAll();
+            //Services.Input.PauseAll();
 
-            Services.Script.TryCallFunctions(GameTriggers.SceneLeave);
-            Services.Script.KillLowPriorityThreads(TriggerPriority.Cutscene, true);
-            Services.Physics.Enabled = false;
-            BootParams.ClearStartFlag();
-            Services.Secrets.BlockCheats();
+            //Services.Script.TryCallFunctions(GameTriggers.SceneLeave);
+            //Services.Script.KillLowPriorityThreads(TriggerPriority.Cutscene, true);
+            //Services.Physics.Enabled = false;
+            //BootParams.ClearStartFlag();
+            //Services.Secrets.BlockCheats();
 
-            Streaming.RetryErrored();
+            //Streaming.RetryErrored();
 
             bool bShowCutscene = (inFlags & SceneLoadFlags.Cutscene) != 0;
             if (bShowCutscene)
             {
-                Services.UI.ShowLetterbox();
+                //Services.UI.ShowLetterbox();
             }
 
             if ((inFlags & SceneLoadFlags.StopMusic) != 0)
             {
-                Services.Audio.StopMusic();
+                //Services.Audio.StopMusic();
             }
 
             if ((inFlags & SceneLoadFlags.SuppressAutoSave) != 0)
             {
-                AutoSave.Suppress();
+                //AutoSave.Suppress();
             }
  
             if ((inFlags & SceneLoadFlags.DoNotDispatchPreUnload) == 0) {
-                Services.Events.Dispatch(GameEvents.SceneWillUnload);
+                //Services.Events.Dispatch(GameEvents.SceneWillUnload);
             }
 
             // if we started from another scene than the boot or title scene
-            if (inNextScene.BuildIndex < 0 || inNextScene.BuildIndex >= GameConsts.GameSceneIndexStart)
+            if (inNextScene.BuildIndex < 0)// || inNextScene.BuildIndex >= GameConsts.GameSceneIndexStart)
             {
-                #if DEVELOPMENT
-                if (!Services.Data.IsProfileLoaded())
-                    Services.Data.UseDebugProfile();
-                #endif // DEVELOPMENT
-                yield return Services.UI.LoadPersistentUI();
+                //#if DEVELOPMENT
+                //if (!Services.Data.IsProfileLoaded())
+                //    Services.Data.UseDebugProfile();
+                //#endif // DEVELOPMENT
+                //yield return Services.UI.LoadPersistentUI();
             }
             else
             {
-                Services.UI.UnloadPersistentUI();
+                //Services.UI.UnloadPersistentUI();
             }
 
             SceneBinding active = SceneHelper.ActiveScene();
             m_EntranceId = inEntrance;
 
             // unloading instant
-            DebugService.Log(LogMask.Loading, "[StateMgr] Unloading scene '{0}'", active.Path);
+            //DebugService.Log(LogMask.Loading, "[StateMgr] Unloading scene '{0}'", active.Path);
 
             active.BroadcastUnload(inContext);
             
-            Services.Deregister(active);
+            //Services.Deregister(active);
 
             AsyncOperation loadOp = SceneManager.LoadSceneAsync(inNextScene.Path, LoadSceneMode.Single);
             loadOp.allowSceneActivation = false;
 
-            DebugService.Log(LogMask.Loading, "[StateMgr] Loading scene '{0}' with entrance '{1}'", inNextScene.Path, m_EntranceId);
+            //DebugService.Log(LogMask.Loading, "[StateMgr] Loading scene '{0}' with entrance '{1}'", inNextScene.Path, m_EntranceId);
 
             while(loadOp.progress < 0.9f)
                 yield return null;
 
-            DebugService.Log(LogMask.Loading, "[StateMgr] Scene ready to activate");
+            //DebugService.Log(LogMask.Loading, "[StateMgr] Scene ready to activate");
 
             if (m_OnSceneReadyFunc != null) {
                 IEnumerator readyFunc = m_OnSceneReadyFunc();
@@ -359,7 +363,9 @@ namespace WeatherStation
                 yield return null;
 
             BindScene(inNextScene);
-            Services.Camera.DisableRendering();
+            
+            //Services.Camera.DisableRendering();
+            
             yield return WaitForServiceLoading();
 
             if ((inFlags & SceneLoadFlags.DoNotModifyHistory) == 0)
@@ -370,7 +376,7 @@ namespace WeatherStation
             #if UNITY_EDITOR
             yield return WaitForBake(inNextScene, inContext);
             #else
-            yield return LoadConditionalSubscenes(inNextScene, inContext);
+            //yield return LoadConditionalSubscenes(inNextScene, inContext);
             #endif // UNITY_EDITOR
 
             yield return WaitForPreload(inNextScene, inContext);
@@ -378,36 +384,36 @@ namespace WeatherStation
             yield return WaitForCleanup();
 
             RecordCurrentMapAsSeen(inNextScene);
-            Services.Camera.EnableRendering();
-            Services.Secrets.UnblockCheats();
+            //Services.Camera.EnableRendering();
+            //Services.Secrets.UnblockCheats();
 
             m_SceneLock = false;
 
-            if (bShowCutscene)
-            {
-                Services.UI.HideLetterbox();
-            }
+            //if (bShowCutscene)
+            //{
+            //    Services.UI.HideLetterbox();
+            //}
 
-            DebugService.Log(LogMask.Loading, "[StateMgr] Finished loading scene '{0}'", inNextScene.Path);
+            //DebugService.Log(LogMask.Loading, "[StateMgr] Finished loading scene '{0}'", inNextScene.Path);
 
             m_InitFrame = true;
             ProcessCallbackQueue();
             inNextScene.BroadcastLoaded(inContext);
             if (!m_SceneLock)
             {
-                Services.Input.ResumeAll();
-                Services.Physics.Enabled = true;
+                //Services.Input.ResumeAll();
+                //Services.Physics.Enabled = true;
 
-                Services.Events.Dispatch(GameEvents.SceneLoaded);
+                //Services.Events.Dispatch(GameEvents.SceneLoaded);
 
-                if (Services.Data.IsProfileLoaded()) {
+                /*if (Services.Data.IsProfileLoaded()) {
                     // if we're suppressing triggers, then only call functions
                     if ((inFlags & SceneLoadFlags.SuppressTriggers) != 0) {
                         Services.Script.TryCallFunctions(GameTriggers.SceneStart);
                     } else {
                         Services.Script.TriggerResponse(GameTriggers.SceneStart);
                     }
-                }
+                }*/
             }
             m_InitFrame = false;
         }
@@ -417,33 +423,33 @@ namespace WeatherStation
             while(BuildInfo.IsLoading())
                 yield return null;
 
-            foreach(var service in Services.AllLoadable())
+            /*foreach(var service in Services.AllLoadable())
             {
                 if (ReferenceEquals(this, service))
                     continue;
                 
                 while(service.IsLoading())
                     yield return null;
-            }
+            }*/
         }
 
         private IEnumerator WaitForPreload(SceneBinding inScene, object inContext)
         {
-            Services.Events.Dispatch(GameEvents.ScenePreloading);
+            //Services.Events.Dispatch(GameEvents.ScenePreloading);
             
             using(PooledList<IScenePreloader> allPreloaders = PooledList<IScenePreloader>.Create())
             {
                 inScene.Scene.GetAllComponents<IScenePreloader>(true, allPreloaders);
                 if (allPreloaders.Count > 0)
                 {
-                    DebugService.Log(LogMask.Loading, "[StateMgr] Executing preload steps for scene '{0}'", inScene.Path);
+                    //DebugService.Log(LogMask.Loading, "[StateMgr] Executing preload steps for scene '{0}'", inScene.Path);
                     yield return Routine.ForEachParallelChunked(allPreloaders.ToArray(), (p) => p.OnPreloadScene(inScene, inContext), 8);
                 }
             }
 
-            Services.Script.TryCallFunctions(GameTriggers.ScenePreload);
+            //Services.Script.TryCallFunctions(GameTriggers.ScenePreload);
 
-            using(PooledList<IStreamingComponent> allStreamingComponents = PooledList<IStreamingComponent>.Create())
+            /*using(PooledList<IStreamingComponent> allStreamingComponents = PooledList<IStreamingComponent>.Create())
             {
                 inScene.Scene.GetAllComponents<IStreamingComponent>(true, allStreamingComponents);
                 if (allStreamingComponents.Count > 0)
@@ -456,7 +462,7 @@ namespace WeatherStation
                 }
             }
 
-            yield return WaitForStreaming();
+            yield return WaitForStreaming();*/
         }
 
         private IEnumerator WaitForPreload(GameObject inRoot, object inContext)
@@ -466,7 +472,7 @@ namespace WeatherStation
                 inRoot.GetComponentsInChildren<IScenePreloader>(true, allPreloaders);
                 if (allPreloaders.Count > 0)
                 {
-                    DebugService.Log(LogMask.Loading, "[StateMgr] Executing preload steps for gameObject '{0}'", inRoot.FullPath(true));
+                    //DebugService.Log(LogMask.Loading, "[StateMgr] Executing preload steps for gameObject '{0}'", inRoot.FullPath(true));
                     return Routine.ForEachParallelChunked(allPreloaders.ToArray(), (p) => p.OnPreloadScene(inRoot.scene, inContext), 8);
                 }
             }
@@ -474,9 +480,9 @@ namespace WeatherStation
             return null;
         }
 
-        private IEnumerator WaitForStreaming() {
+        /*private IEnumerator WaitForStreaming() {
             float downloadTime = 30;
-            while(downloadTime > 0 && (Streaming.IsLoading() || Services.Audio.IsLoadingStreams())) {
+            while(downloadTime > 0 && (Streaming.IsLoading())) {//} || Services.Audio.IsLoadingStreams())) {
                 yield return null;
                 downloadTime -= Routine.DeltaTime;
             }
@@ -488,7 +494,7 @@ namespace WeatherStation
                     yield return null;
                 }
             }
-        }
+        }*/
 
         private IEnumerator WaitForCleanup()
         {
@@ -498,15 +504,15 @@ namespace WeatherStation
             }
             using(Profiling.Time("unload unused assets"))
             {
-                Streaming.UnloadUnusedAsync();
+                /*Streaming.UnloadUnusedAsync();
                 while(Streaming.IsUnloading()) {
                     yield return null;
-                }
+                }*/
                 yield return Resources.UnloadUnusedAssets();
             }
         }
 
-        private IEnumerator LoadConditionalSubscenes(SceneBinding inBinding, object inContext)
+        /*private IEnumerator LoadConditionalSubscenes(SceneBinding inBinding, object inContext)
         {
             using(PooledList<ISceneSubsceneSelector> selectors = PooledList<ISceneSubsceneSelector>.Create())
             using(PooledList<SceneImportSettings> subScenes = PooledList<SceneImportSettings>.Create())
@@ -536,7 +542,7 @@ namespace WeatherStation
                     }
                 }
             }
-        }
+        }*/
 
         #if UNITY_EDITOR
         
@@ -547,7 +553,7 @@ namespace WeatherStation
                 inBinding.Scene.GetAllComponents<SubScene>(false, subScenes);
                 if (subScenes.Count > 0)
                 {
-                    DebugService.Log(LogMask.Loading, "[StateMgr] Loading {0} subscenes...", subScenes.Count);
+                    //DebugService.Log(LogMask.Loading, "[StateMgr] Loading {0} subscenes...", subScenes.Count);
                     using(Profiling.Time("load subscenes"))
                     {
                         foreach(var subscene in subScenes)
@@ -560,8 +566,8 @@ namespace WeatherStation
                 }
             }
 
-            yield return LoadConditionalSubscenes(inBinding, inContext);
-            yield return Routine.Amortize(Baking.BakeSceneAsync(inBinding, 0), 5);
+            //yield return LoadConditionalSubscenes(inBinding, inContext);
+            //yield return Routine.Amortize(Baking.BakeSceneAsync(inBinding, 0), 5);
         }
 
         #endif // UNITY_EDITOR
@@ -596,12 +602,12 @@ namespace WeatherStation
 
         private void RecordCurrentMapAsSeen(SceneBinding inBinding)
         {
-            if (inBinding.BuildIndex >= 0 && inBinding.BuildIndex < GameConsts.GameSceneIndexStart)
+            /*if (inBinding.BuildIndex >= 0 && inBinding.BuildIndex < GameConsts.GameSceneIndexStart)
                 return;
 
             StringHash32 map = MapDB.LookupMap(inBinding);
             if (!map.IsEmpty)
-                Save.Map.RecordVisitedLocation(map);
+                Save.Map.RecordVisitedLocation(map);*/
         }
 
         public void OnLoad(Action inAction, int priority)
@@ -646,7 +652,7 @@ namespace WeatherStation
                 m_TempSceneTable = new VariantTable("temp");
                 m_TempSceneTable.Capacity = 64;
 
-                Services.Data.BindTable("temp", m_TempSceneTable);
+                //Services.Data.BindTable("temp", m_TempSceneTable);
             }
             else
             {
@@ -654,8 +660,8 @@ namespace WeatherStation
             }
 
             // locate camera
-            Services.Camera.LocateCameraRig();
-            Services.UI.BindCamera(Services.Camera.Current);
+            //Services.Camera.LocateCameraRig();
+            //Services.UI.BindCamera(Services.Camera.Current);
 
             //m_Body = FindObjectOfType<PlayerBody>();
             m_SceneName = inScene.Name;
@@ -733,38 +739,38 @@ namespace WeatherStation
         }
 
         private void LateUpdate() {
-            Frame.IncrementFrame();
-            SpriteSkin.StaggeredUpdateCounter = Frame.Index;
+            //Frame.IncrementFrame();
+            //SpriteSkin.StaggeredUpdateCounter = Frame.Index;
         }
 
         #region IService
 
-        protected void Initialize()
+        protected override void Initialize()
         {
             m_SceneLoadRoutine.Replace(this, InitialSceneLoad());
             m_SceneLock = true;
 
-             if (SceneHelper.ActiveScene().BuildIndex >= GameConsts.GameSceneIndexStart)
-                 Services.UI.ForceLoadingScreen();
+             //if (SceneHelper.ActiveScene().BuildIndex >= GameConsts.GameSceneIndexStart)
+             //    Services.UI.ForceLoadingScreen();
 
             m_SharedManagers = new Dictionary<Type, SharedManager>(8, ReferenceEqualityComparer<Type>.Default);
 
-            Frame.CreateBuffer();
+            //Frame.CreateBuffer();
             StartCoroutine(EndOfFrame());
         }
 
         private IEnumerator EndOfFrame() {
             while(true) {
                 yield return Routine.WaitForEndOfFrame();
-                Frame.ResetBuffer();
+                //Frame.ResetBuffer();
             }
         }
 
-        protected void Shutdown()
+        protected override void Shutdown()
         {
             m_SceneLoadRoutine.Stop();
 
-            Frame.DestroyBuffer();
+            //Frame.DestroyBuffer();
         }
 
         #endregion // IService
@@ -799,20 +805,20 @@ namespace WeatherStation
 
         static internal void DebugLoadScene(SceneBinding inBinding)
         {
-            Services.UI.HideAll();
-            Services.Script.KillAllThreads();
-            Services.Audio.StopAll();
+            //Services.UI.HideAll();
+            //Services.Script.KillAllThreads();
+            //Services.Audio.StopAll();
             StateUtil.LoadSceneWithWipe(inBinding.Name);
-            DebugService.Hide();
+            //DebugService.Hide();
         }
 
         static private void DebugReloadScene()
         {
-            Services.UI.HideAll();
-            Services.Script.KillAllThreads();
-            Services.Audio.StopAll();
+            //Services.UI.HideAll();
+            //Services.Script.KillAllThreads();
+            //Services.Audio.StopAll();
             StateUtil.LoadSceneWithWipe(SceneHelper.ActiveScene().Name);
-            DebugService.Hide();
+            //DebugService.Hide();
         }
 
         private struct DumpSceneHierarchyRecord
@@ -879,7 +885,7 @@ namespace WeatherStation
 
         #region Leaf
 
-        [LeafMember("LoadScene"), UnityEngine.Scripting.Preserve]
+        /*[LeafMember("LoadScene"), UnityEngine.Scripting.Preserve]
         static private IEnumerator LeafLoadScene([BindThread] ScriptThread inThread, string inSceneName, StringHash32 inEntrance = default(StringHash32), string inLoadingMode = null)
         {
             SceneLoadFlags flags = SceneLoadFlags.Default;
@@ -903,7 +909,7 @@ namespace WeatherStation
             else {
                 return transition;
             }
-        }
+        }*/
 
         #endregion // Leaf
     }

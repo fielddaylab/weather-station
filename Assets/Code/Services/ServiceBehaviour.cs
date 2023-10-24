@@ -18,7 +18,7 @@ namespace WeatherStation
 
         protected virtual void OnDestroy()
         {
-            Services.Deregister(this);
+            //Services.Deregister(this);
         }
 
         void IService.InitializeService()

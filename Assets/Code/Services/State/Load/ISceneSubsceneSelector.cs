@@ -47,7 +47,7 @@ namespace WeatherStation
         #endif // UNITY_EDITOR
 
         static public void TransformRoot(GameObject root, in SceneImportSettings transform) {
-            if (!transform.Transform.HasValue || root.CompareTag(GameTags.DoNotTransform)) {
+            if (!transform.Transform.HasValue) {// || root.CompareTag(GameTags.DoNotTransform)) {
                 return;
             }
 

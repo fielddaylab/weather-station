@@ -17,6 +17,8 @@ namespace WeatherStation {
         static private SceneLoadFlags s_LastFlags;
         static private bool s_IsLoading = false;
 
+        static private ScreenFaderDisplay screenFaderDisplay;
+
         static public bool IsLoading {
             get { return s_IsLoading || (Services.Valid && Services.State.IsLoadingScene()); }
         }
@@ -28,7 +30,7 @@ namespace WeatherStation {
                 return null;
             }
 
-            return Services.UI.ScreenFaders.FadeTransition(Color.black, inFadeDuration, PauseDuration,
+            return screenFaderDisplay.FadeTransition(Color.black, inFadeDuration, PauseDuration,
                 () => Sequence.Create(Services.State.LoadScene(inSceneName, inEntrance, inContext, inFlags)).Then(() => AfterLoad(inFadeDuration))
             );
         }
@@ -40,28 +42,28 @@ namespace WeatherStation {
                 return null;
             }
 
-            return Services.UI.ScreenFaders.WipeTransition(PauseDuration,
+            return screenFaderDisplay.WipeTransition(PauseDuration,
                 () => Sequence.Create(Services.State.LoadScene(inSceneName, inEntrance, inContext, inFlags)).Then(AfterLoad)
             );
         }
 
-        static public IEnumerator LoadMapWithWipe(StringHash32 inMapId, StringHash32 inEntrance = default(StringHash32), object inContext = null, SceneLoadFlags inFlags = SceneLoadFlags.Default, float inFadeDuration = DefaultFadeDuration) {
+        /*static public IEnumerator LoadMapWithWipe(StringHash32 inMapId, StringHash32 inEntrance = default(StringHash32), object inContext = null, SceneLoadFlags inFlags = SceneLoadFlags.Default, float inFadeDuration = DefaultFadeDuration) {
             inFlags |= LoadFlags;
 
             if (!BeforeLoad(inFlags, inFadeDuration)) {
                 return null;
             }
 
-            StringHash32 currentMapId = MapDB.LookupCurrentMap();
+            StringHash32 currentMapId = default(StringHash32);//MapDB.LookupCurrentMap();
             if (!currentMapId.IsEmpty) {
                 if (inEntrance.IsEmpty && (inFlags & SceneLoadFlags.DoNotOverrideEntrance) == 0)
                     inEntrance = currentMapId;
             }
 
-            return Services.UI.ScreenFaders.WipeTransition(PauseDuration,
+            return screenFaderDisplay.WipeTransition(PauseDuration,
                 () => Sequence.Create(Services.State.LoadSceneFromMap(inMapId, inEntrance, inContext, inFlags)).Then(() => AfterLoad(inFadeDuration))
             );
-        }
+        }*/
 
         static public IEnumerator LoadPreviousSceneWithFader(StringHash32 inEntrance = default(StringHash32), object inContext = null, SceneLoadFlags inFlags = SceneLoadFlags.Default, float inFadeDuration = DefaultFadeDuration) {
             inFlags |= LoadFlags;
@@ -70,33 +72,8 @@ namespace WeatherStation {
                 return null;
             }
 
-            return Services.UI.ScreenFaders.FadeTransition(Color.black, inFadeDuration, PauseDuration,
+            return screenFaderDisplay.FadeTransition(Color.black, inFadeDuration, PauseDuration,
                 () => Sequence.Create(Services.State.LoadPreviousScene(DefaultBackScene, inEntrance, inContext, inFlags)).Then(() => AfterLoad(inFadeDuration))
-            );
-        }
-
-        static public IEnumerator LoadPreviousSceneWithWipe(StringHash32 inEntrance = default(StringHash32), object inContext = null, SceneLoadFlags inFlags = SceneLoadFlags.Default) {
-            string sceneToLoad = null;
-            StringHash32 currentMapId = MapDB.LookupCurrentMap();
-            if (!currentMapId.IsEmpty) {
-                if (inEntrance.IsEmpty && (inFlags & SceneLoadFlags.DoNotOverrideEntrance) == 0)
-                    inEntrance = currentMapId;
-                sceneToLoad = Assets.Map(currentMapId).Parent()?.SceneName();
-            }
-
-            inFlags |= LoadFlags;
-
-            if (!BeforeLoad(inFlags, DefaultFadeDuration)) {
-                return null;
-            }
-
-            if (!string.IsNullOrEmpty(sceneToLoad)) {
-                return Services.UI.ScreenFaders.WipeTransition(PauseDuration,
-                () => Sequence.Create(PreSceneChange).Then(Services.State.LoadScene(sceneToLoad, inEntrance, inContext, inFlags)).Then(AfterLoad)
-            );
-            }
-            return Services.UI.ScreenFaders.WipeTransition(PauseDuration,
-                () => Sequence.Create(PreSceneChange).Then(Services.State.LoadPreviousScene(DefaultBackScene, inEntrance, inContext, inFlags)).Then(AfterLoad)
             );
         }
 
@@ -106,18 +83,18 @@ namespace WeatherStation {
 
             s_LastFlags = inFlags;
             if ((s_LastFlags & SceneLoadFlags.Cutscene) != 0) {
-                Services.UI.ShowLetterbox();
+                //Services.UI.ShowLetterbox();
             }
             if ((s_LastFlags & SceneLoadFlags.StopMusic) != 0) {
-                Services.Audio.StopMusic();
+                //Services.Audio.StopMusic();
             }
             if ((s_LastFlags & SceneLoadFlags.SuppressAutoSave) != 0) {
-                AutoSave.Suppress();
+                //AutoSave.Suppress();
             }
-            Services.Input.PauseAll();
-            Services.Audio.FadeOut(inFadeDuration);
-            Services.Script.KillLowPriorityThreads(TriggerPriority.Cutscene, true);
-            Services.Events.Dispatch(GameEvents.SceneWillUnload);
+            //Services.Input.PauseAll();
+            //Services.Audio.FadeOut(inFadeDuration);
+            //Services.Script.KillLowPriorityThreads(TriggerPriority.Cutscene, true);
+            //Services.Events.Dispatch(GameEvents.SceneWillUnload);
             s_IsLoading = true;
             return true;
         }
@@ -128,10 +105,10 @@ namespace WeatherStation {
 
         static private void AfterLoad(float inFadeDuration) {
             if ((s_LastFlags & SceneLoadFlags.Cutscene) != 0) {
-                Services.UI.HideLetterbox();
+                //Services.UI.HideLetterbox();
             }
-            Services.Audio.FadeIn(inFadeDuration);
-            Services.Input.ResumeAll();
+            //Services.Audio.FadeIn(inFadeDuration);
+            //Services.Input.ResumeAll();
             s_IsLoading = false;
         }
 
