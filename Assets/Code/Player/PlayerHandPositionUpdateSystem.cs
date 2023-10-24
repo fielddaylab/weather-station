@@ -16,6 +16,7 @@ namespace WeatherStation {
 				if(m_State.LeftHandGrab.IsGrabPosed) {
 					//update rotation transform of grip pose hand to match that of the tracked if we are currently grabbing something
 					m_State.LeftHandGrab.gameObject.transform.rotation = m_State.LeftHandGrab.GrabberVisual.transform.rotation;
+					//m_State.LeftHandGrab.gameObject.transform.position = m_State.LeftHandGrab.GrabberVisual.transform.position;
 				}
 			}
 			
@@ -23,6 +24,9 @@ namespace WeatherStation {
 				if(m_State.RightHandGrab.IsGrabPosed) {
 					//update rotation transform of grip pose hand to match that of the tracked if we are currently grabbing something
 					m_State.RightHandGrab.gameObject.transform.rotation = m_State.RightHandGrab.GrabberVisual.transform.rotation;
+					
+					//Vector3 p = m_State.RightHandGrab.gameObject.position;
+					//p.y = 
 				}
 			}
         }

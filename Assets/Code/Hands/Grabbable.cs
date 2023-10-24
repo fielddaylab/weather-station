@@ -91,18 +91,18 @@ namespace WeatherStation {
 			
 			if(!grabbable.StayKinematic) {
 				grabbable.Rigidbody.isKinematic = false;
-			} else {
-				if(grabbable.UseGrabPoses) {
-					PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			}
+			
+			if(grabbable.UseGrabPoses) {
+				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
 
-					if(handRig.LeftHandGrab.GrabbableBy == grabber) {
-						GrabUtility.GrabPoseOn(handRig.LeftHandGrab, grabbable);
-					}
+				if(handRig.LeftHandGrab.GrabbableBy == grabber) {
+					GrabUtility.GrabPoseOn(handRig.LeftHandGrab, grabbable);
+				}
 
-					
-					if(handRig.RightHandGrab.GrabbableBy == grabber) {
-						GrabUtility.GrabPoseOn(handRig.RightHandGrab, grabbable);
-					}
+				
+				if(handRig.RightHandGrab.GrabbableBy == grabber) {
+					GrabUtility.GrabPoseOn(handRig.RightHandGrab, grabbable);
 				}
 			}
 			
@@ -145,18 +145,16 @@ namespace WeatherStation {
                     ArrayUtils.FastRemoveAt(grabber.Holding.CurrentGrabbers, ref grabber.Holding.CurrentGrabberCount, idx);
 					
 					if(grabber.Holding != null) {
-						if(grabber.Holding.StayKinematic) {
-							
-							if(grabber.Holding.UseGrabPoses) {
-								PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
 
-								if(handRig.LeftHandGrab.GrabbableBy == grabber && handRig.LeftHandGrab.IsGrabPosed) {
-									GrabUtility.GrabPoseOff(handRig.LeftHandGrab, grabber.Holding, grabber, applyReleaseForce, handRig.RightHandGrab);
-								}
+						if(grabber.Holding.UseGrabPoses) {
+							PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
 
-								if(handRig.RightHandGrab.GrabbableBy == grabber && handRig.RightHandGrab.IsGrabPosed) {
-									GrabUtility.GrabPoseOff(handRig.RightHandGrab, grabber.Holding, grabber, applyReleaseForce, handRig.LeftHandGrab);
-								}
+							if(handRig.LeftHandGrab.GrabbableBy == grabber && handRig.LeftHandGrab.IsGrabPosed) {
+								GrabUtility.GrabPoseOff(handRig.LeftHandGrab, grabber.Holding, grabber, applyReleaseForce, handRig.RightHandGrab);
+							}
+
+							if(handRig.RightHandGrab.GrabbableBy == grabber && handRig.RightHandGrab.IsGrabPosed) {
+								GrabUtility.GrabPoseOff(handRig.RightHandGrab, grabber.Holding, grabber, applyReleaseForce, handRig.LeftHandGrab);
 							}
 						}
 					}
@@ -235,9 +233,12 @@ namespace WeatherStation {
 			if(grabbable.CurrentGrabberCount == 0) {
 				
 				grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
-				grabbable.Rigidbody.useGravity = true;
 				gp.IsGrabPosed = false;
-				grabbable.Rigidbody.isKinematic = false;
+				
+				if(!grabbable.StayKinematic) {
+					grabbable.Rigidbody.useGravity = true;	
+					grabbable.Rigidbody.isKinematic = false;
+				}
 				
                 if (applyReleaseForce && grabber.ReleaseThrowForce > 0) {
                     Rigidbody connected = grabbable.Rigidbody;

@@ -21,8 +21,8 @@ namespace WeatherStation {
 		public Grabbable LeftHandle;
         #endregion // Inspector
 		
-		private bool LeftGrabbed = false;
 		private bool RightGrabbed = false;
+		private bool LeftGrabbed = false;
 		
 		private Vector3 GrabPointLeft = Vector3.zero;
 		private Vector3 GrabPointRight = Vector3.zero;
@@ -34,39 +34,40 @@ namespace WeatherStation {
 			}
 			
 			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			
+			//bool RightGrabbed = (RightHandle.CurrentGrabbers[0] == handRig.RightHand.Physics);
+			//bool LeftGrabbed = (LeftHandle.CurrentGrabbers[0] == handRig.LeftHand.Physics);
 
 			//Ross:  todo - optimize below...
-			/*if(LeftGrabbed || RightGrabbed) {
+			if(LeftGrabbed || RightGrabbed) {
+				
+				Vector3 solarPanelPos = SolarPanel.transform.position;
+				Vector3 trackedLeft = handRig.LeftHand.Visual.position;
+				Vector3 trackedRight = handRig.RightHand.Visual.position;
+				
 				if(LeftGrabbed && !RightGrabbed) {
-					Vector3 toLeft = Vector3.Normalize(GrabPointLeft - SolarPanel.transform.position);
-					Vector3 trackedLeft = LeftHandTracked.transform.position;
-					trackedLeft.y = SolarPanel.transform.position.y;
-					Vector3 newLeft = Vector3.Normalize(trackedLeft - SolarPanel.transform.position);
-					SolarPanel.transform.RotateAround(SolarPanel.transform.position, Vector3.up, Vector3.SignedAngle(toLeft, newLeft, Vector3.up));
-					GrabPointLeft = LeftHandTracked.transform.position;
-					GrabPointLeft.y = SolarPanel.transform.position.y;
+					Vector3 toLeft = Vector3.Normalize(GrabPointLeft - solarPanelPos);
+					trackedLeft.y = solarPanelPos.y;
+					Vector3 newLeft = Vector3.Normalize(trackedLeft - solarPanelPos);
+					SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toLeft, newLeft, Vector3.up));
+					GrabPointLeft = trackedLeft;
+					
 				} else if(!LeftGrabbed && RightGrabbed) {
-					Vector3 toRight = Vector3.Normalize(GrabPointRight - SolarPanel.transform.position);
-					Vector3 trackedRight = RightHandTracked.transform.position;
-					trackedRight.y = SolarPanel.transform.position.y;
-					Vector3 newRight = Vector3.Normalize(trackedRight - SolarPanel.transform.position);
-					SolarPanel.transform.RotateAround(SolarPanel.transform.position, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up));
-					GrabPointRight = RightHandTracked.transform.position;
-					GrabPointRight.y = SolarPanel.transform.position.y;
+					Vector3 toRight = Vector3.Normalize(GrabPointRight - solarPanelPos);
+					trackedRight.y = solarPanelPos.y;
+					Vector3 newRight = Vector3.Normalize(trackedRight - solarPanelPos);
+					SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up));
+					GrabPointRight = trackedRight;
 				} else if(LeftGrabbed && RightGrabbed) {
 					Vector3 toRight = Vector3.Normalize(GrabPointRight - GrabPointLeft);
-					Vector3 trackedRight = RightHandTracked.transform.position;
-					trackedRight.y = SolarPanel.transform.position.y;
-					Vector3 trackedLeft = LeftHandTracked.transform.position;
-					trackedLeft.y = SolarPanel.transform.position.y;
+					trackedRight.y = solarPanelPos.y;
+					trackedLeft.y = solarPanelPos.y;
 					Vector3 newRight = Vector3.Normalize(trackedRight - trackedLeft);
-					SolarPanel.transform.RotateAround(SolarPanel.transform.position, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
-					GrabPointRight = RightHandTracked.transform.position;
-					GrabPointRight.y = SolarPanel.transform.position.y;
-					GrabPointLeft = LeftHandTracked.transform.position;
-					GrabPointLeft.y = SolarPanel.transform.position.y;
+					SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
+					GrabPointRight = trackedRight;
+					GrabPointLeft = trackedLeft;
 				}
-			}*/
+			}
 			
 			VRInputState data = Game.SharedState.Get<VRInputState>();
 			
@@ -112,9 +113,40 @@ namespace WeatherStation {
 		}
 		
         private void Awake() {
-
+            RightHandle.OnGrabbed.Register(OnGrabPanel);
+			RightHandle.OnReleased.Register(OnReleasePanel);
+			LeftHandle.OnGrabbed.Register(OnGrabPanel);
+			LeftHandle.OnReleased.Register(OnReleasePanel);
         }
 		
+		private void OnGrabPanel(Grabber grabber) {
+			
+			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			
+			if(grabber == handRig.RightHand.Physics) {
+				RightGrabbed = true;
+				GrabPointRight = handRig.RightHand.Visual.position;
+				GrabPointRight.y = SolarPanel.transform.position.y;
+			}
+			
+			if(grabber == handRig.LeftHand.Physics) {
+				LeftGrabbed = true;
+				GrabPointLeft = handRig.LeftHand.Visual.position;
+				GrabPointLeft.y = SolarPanel.transform.position.y;
+			}	
+		}
+		
+		private void OnReleasePanel(Grabber grabber) {
+			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			
+			if(grabber == handRig.RightHand.Physics) {
+				RightGrabbed = false;
+			}
+			
+			if(grabber == handRig.LeftHand.Physics) {
+				LeftGrabbed = false;
+			}
+		}
     }
 
 }
