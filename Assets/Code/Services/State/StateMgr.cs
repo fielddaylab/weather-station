@@ -600,6 +600,36 @@ namespace WeatherStation
             yield return SceneManager.UnloadSceneAsync(unityScene);
         }
 
+        public IEnumerator ImportInitialScene(string path)
+        {
+            //Debug.Log(path);
+            #if UNITY_EDITOR
+            //string path = inImportSettings.ScenePath;
+            var editorScene = UnityEditor.SceneManagement.EditorSceneManager.GetSceneByPath(path);
+            if (!editorScene.isLoaded)
+            {
+                //Debug.Log(path);
+                yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(path, new LoadSceneParameters(LoadSceneMode.Additive));
+            }
+            #else
+            //string path = inImportSettings.ScenePath;
+            
+            yield return SceneManager.LoadSceneAsync(path, LoadSceneMode.Additive);
+            #endif // UNITY_EDITOR
+
+            SceneBinding unityScene = SceneHelper.FindSceneByPath(path, SceneCategories.Loaded);
+            GameObject[] roots = unityScene.Scene.GetRootGameObjects();
+            foreach(var root in roots)
+            {
+                //SceneManager.MoveGameObjectToScene(root, inActiveScene);
+                //SceneImportSettings.TransformRoot(root, inImportSettings);
+            }
+            //if (inImportSettings.ImportLighting)
+            {
+                //LightUtils.CopySettings(unityScene, inActiveScene);
+            }
+        }
+
         private void RecordCurrentMapAsSeen(SceneBinding inBinding)
         {
             /*if (inBinding.BuildIndex >= 0 && inBinding.BuildIndex < GameConsts.GameSceneIndexStart)
