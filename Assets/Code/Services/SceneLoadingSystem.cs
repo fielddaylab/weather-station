@@ -9,14 +9,17 @@ using UnityEngine;
 
 namespace WeatherStation {
 
-    [SysUpdate(GameLoopPhase.PreUpdate)]
+    [SysUpdate(GameLoopPhaseMask.PreUpdate)]
     public class SceneLoadingSystem : SharedStateSystemBehaviour<SceneLoader> {
          public override void ProcessWork(float deltaTime) {
 			
             VRInputState data = Game.SharedState.Get<VRInputState>();
 			
-            if(data.RightHand.Pressed(VRControllerButtons.Primary)) {
-                //switch scenes..
+            if(data.RightHand.Released(VRControllerButtons.Secondary)) {
+                //switch scenes.. why is this hitting twice?
+				//Debug.Log("SWITCH SCENES");
+				m_State.SwitchScenes();
+				data.RightHand.PrevButtons = 0;
             }
 
             m_State.UpdateStates();

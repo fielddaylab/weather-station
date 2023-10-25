@@ -390,7 +390,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4454787473430366244, guid: 5a93cb8311cb187439ee7d22358cee37,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 927548045}
   m_SourcePrefab: {fileID: 100100000, guid: 5a93cb8311cb187439ee7d22358cee37, type: 3}
 --- !u!1 &172512948
 GameObject:
@@ -836,7 +840,7 @@ PrefabInstance:
     - target: {fileID: 338487501840826878, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1493931848118738050, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
         type: 3}
@@ -851,7 +855,7 @@ PrefabInstance:
     - target: {fileID: 2149665469243038295, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2301431448041866808, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
         type: 3}
@@ -2172,7 +2176,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Root: {fileID: 641028190}
-  InitialScenePath: Assets/Scenes/West.unity
+  SceneList:
+  - Assets/Scenes/West.unity
+  - Assets/Scenes/East.unity
+  - Assets/Scenes/Northwest.unity
+  - Assets/Scenes/SouthEast.unity
+  - Assets/Scenes/South.unity
 --- !u!1001 &713909521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2792,6 +2801,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2f6ae78b471f1e4c9220109d323da8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &927548044 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4454787473430366244, guid: 5a93cb8311cb187439ee7d22358cee37,
+    type: 3}
+  m_PrefabInstance: {fileID: 151606829}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &927548045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927548044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7bfb77d0a69489ea1b10004af6d63c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &930406747

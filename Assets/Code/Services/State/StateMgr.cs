@@ -629,6 +629,26 @@ namespace WeatherStation
                 //LightUtils.CopySettings(unityScene, inActiveScene);
             }
         }
+		
+		public IEnumerator SwapCurrentScene(string oldScenePath, string newScenePath)
+		{
+			#if UNITY_EDITOR
+            //string path = inImportSettings.ScenePath;
+			Debug.Log(oldScenePath);
+			yield return UnityEditor.SceneManagement.EditorSceneManager.UnloadSceneAsync(oldScenePath);
+            var editorScene = UnityEditor.SceneManagement.EditorSceneManager.GetSceneByPath(newScenePath);
+            if (!editorScene.isLoaded)
+            {
+                //Debug.Log(path);
+                yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(newScenePath, new LoadSceneParameters(LoadSceneMode.Additive));
+            }
+            #else
+            //string path = inImportSettings.ScenePath;
+            yield return SceneManager.UnloadSceneAsync(oldScenePath);
+            yield return SceneManager.LoadSceneAsync(newScenePath, LoadSceneMode.Additive);
+            #endif // UNITY_EDITOR
+
+		}
 
         private void RecordCurrentMapAsSeen(SceneBinding inBinding)
         {
