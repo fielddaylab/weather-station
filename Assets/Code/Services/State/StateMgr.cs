@@ -35,6 +35,8 @@ namespace WeatherStation
 
         [SerializeField, Required] private GameObject m_InitialPreloadRoot = null;
 
+        [SerializeField] private OVRScreenFade ScreenFader;
+
         #endregion // Inspector
 
         private Routine m_SceneLoadRoutine;
@@ -630,22 +632,26 @@ namespace WeatherStation
             }
         }
 		
-		public IEnumerator SwapCurrentScene(string oldScenePath, string newScenePath)
+		public IEnumerator SwapCurrentScene(string oldScenePath, string newScenePath, float inFadeDuration)
 		{
 			#if UNITY_EDITOR
             //string path = inImportSettings.ScenePath;
-			Debug.Log(oldScenePath);
+			ScreenFader.FadeOut(inFadeDuration);
+
 			yield return UnityEditor.SceneManagement.EditorSceneManager.UnloadSceneAsync(oldScenePath);
             var editorScene = UnityEditor.SceneManagement.EditorSceneManager.GetSceneByPath(newScenePath);
             if (!editorScene.isLoaded)
             {
                 //Debug.Log(path);
                 yield return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(newScenePath, new LoadSceneParameters(LoadSceneMode.Additive));
+                ScreenFader.FadeIn(inFadeDuration);
             }
             #else
             //string path = inImportSettings.ScenePath;
+            ScreenFader.FadeOut(inFadeDuration);
             yield return SceneManager.UnloadSceneAsync(oldScenePath);
             yield return SceneManager.LoadSceneAsync(newScenePath, LoadSceneMode.Additive);
+            ScreenFader.FadeIn(inFadeDuration);
             #endif // UNITY_EDITOR
 
 		}

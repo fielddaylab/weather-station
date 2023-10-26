@@ -12,6 +12,7 @@ namespace WeatherStation {
     public class SceneLoader : SharedStateComponent {
         #region Inspector
         public GameObject Root;
+        
 		public List<string> SceneList = new List<string>(8);
         #endregion // Inspector
 		
@@ -20,6 +21,7 @@ namespace WeatherStation {
         void Awake() {
             Services.AutoSetup(Root);
             StartCoroutine(Services.State.ImportInitialScene(SceneList[0]));
+            //StartCoroutine(TestSwitch(5f));
         }
 
         public void UpdateStates() {
@@ -29,8 +31,13 @@ namespace WeatherStation {
 		public void SwitchScenes() {
 			int nextIndex = CurrentSceneIndex+1;
 			nextIndex = nextIndex % SceneList.Count;
-			StartCoroutine(Services.State.SwapCurrentScene(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
+			StartCoroutine(StateUtil.SwapSceneWithFader(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
 			CurrentSceneIndex = nextIndex;
 		}
+
+        /*IEnumerator TestSwitch(float duration) {
+            yield return new WaitForSeconds(duration);
+            SwitchScenes();
+        }*/
     }
 }

@@ -2027,6 +2027,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InitialPreloadRoot: {fileID: 641028190}
+  ScreenFader: {fileID: 1312827216}
 --- !u!1001 &668604797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3965,6 +3966,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1312827208}
+    - targetCorrespondingSourceObject: {fileID: 6263200719882507549, guid: 155f54ef2cdde924fb057c8160ce5280,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1312827216}
     - targetCorrespondingSourceObject: {fileID: 6263200719104149512, guid: 155f54ef2cdde924fb057c8160ce5280,
         type: 3}
       insertIndex: -1
@@ -4166,6 +4171,22 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &1312827216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312827205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d435f3f32e914db8bfd0df65d23fe74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeTime: 5
+  fadeColor: {r: 0.01, g: 0.01, b: 0.01, a: 1}
+  fadeOnStart: 1
+  renderQueue: 5000
 --- !u!1 &1321324154
 GameObject:
   m_ObjectHideFlags: 0

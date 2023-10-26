@@ -17,10 +17,29 @@ namespace WeatherStation {
         static private SceneLoadFlags s_LastFlags;
         static private bool s_IsLoading = false;
 
-        static private ScreenFaderDisplay screenFaderDisplay;
+        static private ScreenFaderDisplay screenFaderDisplay = null;
 
         static public bool IsLoading {
             get { return s_IsLoading || (Services.Valid && Services.State.IsLoadingScene()); }
+        }
+
+        /*static public void InitFaders() {
+            Debug.Log("In ALLOC");
+            screenFaderDisplay = new ScreenFaderDisplay();
+        }*/
+
+        static public IEnumerator SwapSceneWithFader(string oldSceneName, string newSceneName, object inContext = null, SceneLoadFlags inFlags = SceneLoadFlags.Default, float inFadeDuration = DefaultFadeDuration) {
+            inFlags |= LoadFlags;
+            
+            if (!BeforeLoad(inFlags, inFadeDuration)) {
+                return null;
+            }
+
+            return Sequence.Create(Services.State.SwapCurrentScene(oldSceneName, newSceneName, inFadeDuration)).Then(() => AfterLoad(inFadeDuration));
+
+            /*return screenFaderDisplay.FadeTransition(Color.black, inFadeDuration, PauseDuration,
+                () => Sequence.Create(Services.State.SwapCurrentScene(oldSceneName, newSceneName)).Then(() => AfterLoad(inFadeDuration))
+            );*/
         }
 
         static public IEnumerator LoadSceneWithFader(string inSceneName, StringHash32 inEntrance = default(StringHash32), object inContext = null, SceneLoadFlags inFlags = SceneLoadFlags.Default, float inFadeDuration = DefaultFadeDuration) {
