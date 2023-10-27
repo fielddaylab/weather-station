@@ -33,7 +33,43 @@ namespace WeatherStation {
                 case GrabberState.Holding: {
                     if (!component.Holding || !component.Holding.isActiveAndEnabled || !component.Holding.GrabEnabled) {
                         GrabUtility.DropCurrent(component, false);
-                    }
+                    } else {
+						if(component.Holding.UseGrabPoses && component.Holding.ConstrainGripPosition) {
+							
+							PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+							
+							if(handRig.LeftHandGrab.GrabbableBy == component && handRig.LeftHandGrab.IsGrabPosed) {
+								
+								int closestSpot = -1;
+								float dist = 9999f;
+								for(int i = 0; i < component.Holding.GrabSpots.Count; ++i) {
+									float currDist = Vector3.Distance(handRig.LeftHandGrab.GrabberVisual.transform.position, component.Holding.GrabSpots[i].position);
+									if(currDist < dist) {
+										dist = currDist;
+										closestSpot = i;
+									}
+								}
+								
+								//Debug.Log("Left: " + component.Holding.gameObject.transform.GetChild(closestSpot).position.ToString("F2"));
+								handRig.LeftHandGrab.ConstrainedGripPosition = component.Holding.gameObject.transform.GetChild(closestSpot).position;
+								
+							} else if(handRig.RightHandGrab.GrabbableBy == component && handRig.RightHandGrab.IsGrabPosed) {
+								
+								int closestSpot = -1;
+								float dist = 9999f;
+								for(int i = 0; i < component.Holding.GrabSpots.Count; ++i) {
+									float currDist = Vector3.Distance(handRig.RightHandGrab.GrabberVisual.transform.position, component.Holding.GrabSpots[i].position);
+									if(currDist < dist) {
+										dist = currDist;
+										closestSpot = i;
+									}
+								}
+								
+								
+								handRig.RightHandGrab.ConstrainedGripPosition = component.Holding.gameObject.transform.GetChild(closestSpot).position;
+							}
+						}
+					}
                     break;
                 }
 

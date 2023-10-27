@@ -17,18 +17,20 @@ namespace WeatherStation {
 		//public Transform OutsideSledLocation;
 		public Vector3 SledOffset;
 		public GameObject Sled;
+		public OVRScreenFade Fader;
 		#endregion //
 		
-		[NonSerialized] public HashSet<Grabbable> ItemsInSled = new HashSet<Grabbable>(8);
+		//[NonSerialized] public HashSet<Grabbable> ItemsInSled = new HashSet<Grabbable>(8);
 		
 		private bool IsInside = false;
 		private bool IsTeleporting = false;
+		private bool IsArgoIn = false;
 		
 		private void Awake() {
 	
 		}
 		
-		public void ItemAddedToSled(Collider c) {
+		/*public void ItemAddedToSled(Collider c) {
 			Grabbable g = c.gameObject.GetComponent<Grabbable>();
 			Socketable s = c.gameObject.GetComponent<Socketable>();
 			if(g.CurrentGrabberCount == 0 && s.CurrentSocket == null)	//make sure we aren't holding the object still, and that this object isn't socketed to a parent.
@@ -40,17 +42,25 @@ namespace WeatherStation {
 					StartTeleportCountdown(c);
 				}
 			}
-		}
+		}*/
 		
-		public void ItemRemovedFromSled(Collider c) {
+		/*public void ItemRemovedFromSled(Collider c) {
 			//Debug.Log(c.gameObject.name + " removed");
 			ItemsInSled.Remove(c.gameObject.GetComponent<Grabbable>());
+		}*/
+		
+		public void CheckArgoRemoved(Collider c) {
+			if(c.gameObject.name.Contains("Argo")) {
+				IsArgoIn = false;
+			}
 		}
 		
-		private void StartTeleportCountdown(Collider c) {
-			if(!IsTeleporting) {
-				IsTeleporting = true;
-				StartCoroutine(WaitForTeleport(c, 3f));
+		public void StartTeleportCountdown(Collider c) {
+			if(c.gameObject.name.Contains("Argo") && !IsArgoIn) {
+				if(!IsTeleporting) {
+					IsTeleporting = true;
+					StartCoroutine(WaitForTeleport(c, 3f));
+				}
 			}
 		}
 		
@@ -58,20 +68,30 @@ namespace WeatherStation {
 		{
 			yield return new WaitForSeconds(duration);
 			
+			if(Fader) {
+				Fader.FadeOut(1f);
+			}
+			
+			yield return new WaitForSeconds(1f);
+			
+			if(Fader) {
+				Fader.FadeIn(1f);
+			}
+			
 			if(IsInside) {
 
-				foreach(Grabbable g in ItemsInSled) {
+				/*foreach(Grabbable g in ItemsInSled) {
 					g.gameObject.transform.position -= (SledOffset);
-				}
+				}*/
 				
 				transform.position = OutsideLocation.position;
 				transform.rotation = OutsideLocation.rotation;
 				Sled.transform.position = Sled.transform.position - SledOffset;
 			} else {
 
-				foreach(Grabbable g in ItemsInSled) {
+				/*foreach(Grabbable g in ItemsInSled) {
 					g.gameObject.transform.position += (SledOffset);
-				}
+				}*/
 				
 				transform.position = InsideLocation.position;
 				transform.rotation = InsideLocation.rotation;
@@ -80,6 +100,7 @@ namespace WeatherStation {
 			
 			//c.isTrigger = true;
 			IsInside = !IsInside;
+			IsArgoIn = true;
 			IsTeleporting = false;
 		}
     }

@@ -14,14 +14,11 @@ namespace WeatherStation {
         #endregion // Inspector
 		
 		[NonSerialized] public bool IsGrabPosed = false;
-		//[NonSerialized] public bool UsedGravity = false;
+		[NonSerialized] public bool ConstrainGripPosition = false;
+		[NonSerialized] public Vector3 ConstrainedGripPosition = Vector3.zero;
 		
 		private void Awake() {
-			//set the grip parameter here...
-			/*Animator a = GetComponent<Animator>();
-			if(a != null) {
-				a.SetFloat(Animator.StringToHash("Flex"), GripAmount);
-			}*/
+			
 		}
 	}
 }

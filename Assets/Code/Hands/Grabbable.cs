@@ -22,6 +22,7 @@ namespace WeatherStation {
         public bool ReturnOnGroundHit = true;
 		
 		public float GripAmount = 0.0f;
+		public bool ConstrainGripPosition = false;
 		public List<Transform> GrabSpots = new List<Transform>(8);
 		
         [NonSerialized] public Rigidbody Rigidbody;
@@ -214,6 +215,13 @@ namespace WeatherStation {
 			if(closestSpot != -1) {
 				//for position, instead walk through list of possible grab points... attach to closest...
 				gp.gameObject.transform.position = grabbable.GrabSpots[closestSpot].transform.position;
+				if(grabbable.ConstrainGripPosition) {
+					gp.ConstrainGripPosition = true;
+					//gp.ConstrainedGripPosition = gp.gameObject.transform.position;
+				} else {
+					gp.ConstrainGripPosition = false;
+					gp.ConstrainedGripPosition = Vector3.zero;
+				}
 			}
 			
 		
