@@ -31,6 +31,14 @@ namespace WeatherStation {
 		private bool IsTesting = false;
 		private bool IsStopped = false;
 		
+		public void UnlockSocket(Collider c) {
+			if(PuzzleSockets.Count > 0) {
+				for(int i = 0; i < PuzzleSockets.Count; ++i) {
+					PuzzleSockets[i].Locked = false;
+				}
+			}
+		}
+		
 		public override bool IsComplete() {
             bool allMatched = true;
             for(int i = 0; i < PuzzleSockets.Count; ++i) {
