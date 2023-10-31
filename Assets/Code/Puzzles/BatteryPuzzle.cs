@@ -22,6 +22,7 @@ namespace WeatherStation {
 
         public float BlinkTiming = 1f;
         public GameObject PowerMeter;
+		public Grabbable Cover;
 
         #endregion // Inspector
 		
@@ -33,7 +34,13 @@ namespace WeatherStation {
         private bool BlinkOn = false;
 		
 		private const int MATCH_OFFSET = 6;
-
+			
+		public void UnlockCover() {
+			if(Cover) {
+				Cover.GrabEnabled = true;
+			}
+		}
+		
 		public override bool IsComplete() {
             for(int i = 0; i < PuzzleSockets.Count; ++i) {
                 if(!PuzzleSockets[i].IsMatched()) {

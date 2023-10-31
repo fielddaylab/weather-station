@@ -15,6 +15,8 @@ namespace WeatherStation {
         public bool Toggleable = false;
 
         public float YShift = 0.012f;
+		
+		public float XShift = 0.01f;
 
         public Color ButtonColor;
         
@@ -45,11 +47,13 @@ namespace WeatherStation {
                 if(!On) {
                     Vector3 vPos = transform.position;
                     vPos.y += YShift;
+					vPos.x += XShift;
                     transform.position = vPos;
                     CachedMeshRenderer.material.color = PriorColor;
                 } else {
                     Vector3 vPos = transform.position;
                     vPos.y -= YShift;
+					vPos.x -= XShift;
                     transform.position = vPos;
                     CachedMeshRenderer.material.color = ButtonColor;
                 }
@@ -61,6 +65,7 @@ namespace WeatherStation {
 				
 				Vector3 vPos = transform.position;
 				vPos.y -= YShift;
+				vPos.x -= XShift;
 				transform.position = vPos;
 				
 				Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
@@ -86,6 +91,7 @@ namespace WeatherStation {
 			yield return new WaitForSeconds(0.5f);
 			Vector3 vPos = transform.position;
 			vPos.y += YShift;
+			vPos.x += XShift;
 			transform.position = vPos;
 			Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
 			if(rb != null) {

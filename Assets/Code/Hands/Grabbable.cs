@@ -193,7 +193,7 @@ namespace WeatherStation {
 			gp.GrabberVisual.SetActive(false);
 			gp.gameObject.SetActive(true);
 			gp.IsGrabPosed = true;
-			//gp.UsedGravity = grabbable.Rigidbody.useGravity;
+			
 			grabbable.Rigidbody.useGravity = false;
 			grabbable.Rigidbody.isKinematic = true;
 			

@@ -1726,17 +1726,17 @@ PrefabInstance:
     - target: {fileID: 6000846690874421769, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6000846690874421769, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
-      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1141696965}
+      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WeatherStation.WindSensorPuzzle, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6000846690874421769, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
-      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
+      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6223265759662369286, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
@@ -1793,10 +1793,35 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7324154283222843648, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+    - target: {fileID: 7484149727983799832, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
-      propertyPath: Current
+      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7484149727983799832, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1141696965}
+    - target: {fileID: 7484149727983799832, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7484149727983799832, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UnlockSocket
+      objectReference: {fileID: 0}
+    - target: {fileID: 7484149727983799832, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WeatherStation.WindSensorPuzzle, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7484149727983799832, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_OnTriggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7623293822128967410, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
@@ -1970,12 +1995,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc837bd0b57681642a00d30230f9643a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1141696965 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8662988696226562584, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+--- !u!114 &1141696965 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7932528770994012411, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
     type: 3}
   m_PrefabInstance: {fileID: 1141696962}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7e7b67b049a45e28273668020ee0e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1144753092
 PrefabInstance:
   m_ObjectHideFlags: 0
