@@ -2293,6 +2293,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7295388910475618018}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4666501925582510969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2013084922650400469}
+  m_Layer: 7
+  m_Name: GrabPose1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2013084922650400469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666501925582510969}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.1424, y: 0.066, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6769740349917079966}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4936915971251586053
 GameObject:
   m_ObjectHideFlags: 0
@@ -2677,6 +2708,7 @@ GameObject:
   - component: {fileID: 4768681971260400859}
   - component: {fileID: 8258447574789438230}
   - component: {fileID: 5157939581522130285}
+  - component: {fileID: 1199123212158679819}
   m_Layer: 7
   m_Name: batteryBox_cover
   m_TagString: Untagged
@@ -2696,7 +2728,8 @@ Transform:
   m_LocalPosition: {x: 0.078, y: 0.076, z: -0.005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2013084922650400469}
   m_Father: {fileID: 5095926698040126875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &479026218770194325
@@ -2809,15 +2842,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b5a2248ddd1a24a95126fdc4b047d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GrabEnabled: 1
+  GrabEnabled: 0
   MaxGrabbers: 2
   IsHeavy: 0
   StayKinematic: 0
-  UseGrabPoses: 0
-  ReturnOnGroundHit: 1
-  GripAmount: 0
+  UseGrabPoses: 1
+  ReturnOnGroundHit: 0
+  GripAmount: 0.3
   ConstrainGripPosition: 0
-  GrabSpots: []
+  GrabSpots:
+  - {fileID: 2013084922650400469}
+--- !u!114 &1199123212158679819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767872678452898198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc837bd0b57681642a00d30230f9643a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5826131177506305196
 GameObject:
   m_ObjectHideFlags: 0
