@@ -228,7 +228,9 @@ namespace WeatherStation {
 			//we want to temporarily set the parent of the grab pose component to the thing we grabbed, but also set the thing we grabbed'd parent to the grabber visual
 			gp.gameObject.transform.SetParent(grabbable.transform);
 			
-			grabbable.transform.SetParent(gp.GrabberVisual.transform.parent);
+			if(!grabbable.ConstrainGripPosition) {
+				grabbable.transform.SetParent(gp.GrabberVisual.transform.parent);
+			}
 		}
 		
 		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable, Grabber grabber, bool applyReleaseForce, GrabPose otherGrabPose) 
@@ -240,7 +242,10 @@ namespace WeatherStation {
 			//Debug.Log(grabbable.CurrentGrabberCount);
 			if(grabbable.CurrentGrabberCount == 0) {
 				
-				grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
+				if(!grabbable.ConstrainGripPosition) {
+					grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
+				}
+				
 				gp.IsGrabPosed = false;
 				
 				if(!grabbable.StayKinematic) {

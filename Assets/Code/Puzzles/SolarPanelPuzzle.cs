@@ -27,6 +27,8 @@ namespace WeatherStation {
 		private Vector3 GrabPointLeft = Vector3.zero;
 		private Vector3 GrabPointRight = Vector3.zero;
 		
+		private Vector3 LastEuler = Vector3.zero;
+		
 		public override bool IsComplete() {
 			if(!PowerMeter || !SolarPanel || !DirectionalLight) {
 				Log.Msg("[SolarPanelPuzzle] Required references not set.");
@@ -34,6 +36,8 @@ namespace WeatherStation {
 			}
 			
 			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			
+			Vector3 euler = handRig.RightHand.Visual.rotation.eulerAngles;
 			
 			//bool RightGrabbed = (RightHandle.CurrentGrabbers[0] == handRig.RightHand.Physics);
 			//bool LeftGrabbed = (LeftHandle.CurrentGrabbers[0] == handRig.LeftHand.Physics);
@@ -64,19 +68,30 @@ namespace WeatherStation {
 					trackedLeft.y = solarPanelPos.y;
 					Vector3 newRight = Vector3.Normalize(trackedRight - trackedLeft);
 					SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
+					
+					SolarPanel.transform.RotateAround(solarPanelPos, toRight, euler.x - LastEuler.x);
+					
 					GrabPointRight = trackedRight;
 					GrabPointLeft = trackedLeft;
 				}
 			}
 			
+			LastEuler = euler;
+			
 			VRInputState data = Game.SharedState.Get<VRInputState>();
 			
 			Vector3 vSun = DirectionalLight.forward;
-			vSun.y = 0f;
+			if(Level == 0)
+			{
+				vSun.y = 0f;
+			}
 			vSun = Vector3.Normalize(vSun);
 			
 			Vector3 vMeter = PowerMeter.transform.forward;
-			vMeter.y = 0f;
+			if(Level == 0)
+			{
+				vMeter.y = 0f;
+			}
 			vMeter = Vector3.Normalize(vMeter);
 			
 			float closeNess = -Vector3.Dot(vSun, vMeter);
