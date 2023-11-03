@@ -231,10 +231,10 @@ namespace ScriptableBake {
         /// <summary>
         /// Flattens the hierarchy at this transform. Children will become siblings.
         /// </summary>
-        static public void FlattenHierarchy(Transform transform, bool destroyInactive, bool recursive = false, bool ignoreAnimators = true) {
-            if (recursive) {
+        static public void FlattenHierarchy(Transform transform, FlattenFlags flags) {
+            if ((flags & FlattenFlags.Recursive) != 0) {
                 int placeIdx = transform.GetSiblingIndex() + 1;
-                FlattenHierarchyRecursive(transform, transform.parent, destroyInactive, ignoreAnimators, ref placeIdx);
+                FlattenHierarchyRecursive(transform, transform.parent, flags, ref placeIdx);
                 return;
             }
 
@@ -244,7 +244,7 @@ namespace ScriptableBake {
                     PrefabUtility.UnpackPrefabInstance(root, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
             }
 
-            if (ignoreAnimators && transform.GetComponent<Animator>()) {
+            if ((flags & FlattenFlags.SkipAnimators) != 0 && transform.GetComponent<Animator>()) {
                 return;
             }
 
@@ -254,7 +254,7 @@ namespace ScriptableBake {
             int siblingIdx = transform.GetSiblingIndex() + 1;
             while (childCount-- > 0) {
                 child = transform.GetChild(0);
-                if (destroyInactive && !child.gameObject.activeSelf) {
+                if ((flags & FlattenFlags.DestroyInactive) != 0 && !child.gameObject.activeSelf) {
                     GameObject.DestroyImmediate(child.gameObject);
                 } else {
                     child.SetParent(parent, true);
@@ -263,14 +263,14 @@ namespace ScriptableBake {
             }
         }
 
-        static private void FlattenHierarchyRecursive(Transform transform, Transform parent, bool destroyInactive, bool ignoreAnimators, ref int siblingIndex) {
+        static private void FlattenHierarchyRecursive(Transform transform, Transform parent, FlattenFlags flags, ref int siblingIndex) {
             if (!Application.isPlaying) {
                 GameObject root = PrefabUtility.GetOutermostPrefabInstanceRoot(transform);
                 if (root != null)
                     PrefabUtility.UnpackPrefabInstance(root, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
             }
 
-            if (ignoreAnimators && transform.GetComponent<Animator>()) {
+            if ((flags & FlattenFlags.SkipAnimators) != 0 && transform.GetComponent<Animator>()) {
                 return;
             }
 
@@ -278,12 +278,12 @@ namespace ScriptableBake {
             int childCount = transform.childCount;
             while (childCount-- > 0) {
                 child = transform.GetChild(0);
-                if (destroyInactive && !child.gameObject.activeSelf) {
+                if ((flags & FlattenFlags.DestroyInactive) != 0 && !child.gameObject.activeSelf) {
                     GameObject.DestroyImmediate(child.gameObject);
                 } else {
                     child.SetParent(parent, true);
                     child.SetSiblingIndex(siblingIndex++);
-                    FlattenHierarchyRecursive(child, parent, destroyInactive, ignoreAnimators, ref siblingIndex);
+                    FlattenHierarchyRecursive(child, parent, flags, ref siblingIndex);
                 }
             }
         }
@@ -458,10 +458,37 @@ namespace ScriptableBake {
             }
         }
 
+        /// <summary>
+        /// Sets the given object as dirty.
+        /// </summary>
         static public void SetDirty(UnityEngine.Object obj) {
             #if UNITY_EDITOR
             EditorUtility.SetDirty(obj);
             #endif // UNITY_EDITOR
+        }
+
+        /// <summary>
+        /// Attempts to revert any overrides to the given prefab.
+        /// </summary>
+        static public bool TryRevertPrefabOverrides(GameObject obj) {
+#if UNITY_EDITOR
+            if (!PrefabUtility.IsPartOfPrefabInstance(obj)) {
+                return false;
+            }
+
+            GameObject prefabRoot;
+            if (prefabRoot = PrefabUtility.GetNearestPrefabInstanceRoot(obj)) {
+                if (PrefabUtility.HasPrefabInstanceAnyOverrides(prefabRoot, true)) {
+                    PrefabUtility.RevertPrefabInstance(prefabRoot, InteractionMode.AutomatedAction);
+                    SetDirty(prefabRoot);
+                    return true;
+                }
+            }
+
+            return false;
+#else
+            return false;
+#endif // UNITY_EDITOR
         }
 
         static private IEnumerator Process(List<IBaked> baked, string source, BakeFlags flags, BakeContext context, Action<UnityEngine.Object> onModify) {
@@ -500,6 +527,8 @@ namespace ScriptableBake {
             if (bVerbose) {
                 Debug.LogFormat("[Bake] Found {0} bakeable objects in {1}", baked.Count, source);
             }
+
+            List<Exception> exceptionsEncountered = new List<Exception>();
 
             try {
                 if (baked.Count > 0) {
@@ -546,6 +575,7 @@ namespace ScriptableBake {
                         }
                         catch(Exception e) {
                             Debug.LogException(e);
+                            exceptionsEncountered.Add(e);
                             bError = true;
                         }
                         yield return null;
@@ -581,7 +611,7 @@ namespace ScriptableBake {
             }
 
             if (bError) {
-                throw new BakeException("Baking failed");
+                throw new BakeException("Baking failed", new AggregateException(exceptionsEncountered));
             }
         }
 
@@ -594,6 +624,25 @@ namespace ScriptableBake {
             }
         }
 
+        #region Editor Menu
+
+        [MenuItem("Assets/Bake Selection", false, 10000)]
+        static private void Editor_BakeSelection() {
+            BakeObjects(Selection.objects, BakeFlags.Verbose);
+        }
+
+        [MenuItem("Assets/Bake Selection", true, 10000)]
+        static private bool Editor_BakeSelection_Validate() {
+            foreach(var obj in Selection.objects) {
+                if (obj is IBaked) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #endregion // Editor Menu
+
 #endif // UNITY_EDITOR
     }
 
@@ -605,8 +654,8 @@ namespace ScriptableBake {
             : base("Baking failed", inner)
         { }
 
-        public BakeException(string msg)
-            : base(msg)
+        public BakeException(string msg, AggregateException aggregate)
+            : base(msg, aggregate)
         { }
 
         public BakeException(string msg, params object[] args)
@@ -625,8 +674,21 @@ namespace ScriptableBake {
     }
 
     /// <summary>
+    /// Flags to modify transform flattening behavior.
+    /// </summary>
+    [Flags]
+    public enum FlattenFlags {
+        DestroyInactive = 0x01,
+        Recursive = 0x02,
+        SkipAnimators = 0x04,
+
+        Default = SkipAnimators
+    }
+
+    /// <summary>
     /// Flags to modify bake behavior.
     /// </summary>
+    [Flags]
     public enum BakeFlags {
 
         // Disabled scene objects will be ignored.

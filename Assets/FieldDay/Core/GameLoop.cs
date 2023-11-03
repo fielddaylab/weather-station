@@ -18,6 +18,7 @@ using FieldDay.Data;
 using BeauPools;
 using FieldDay.Audio;
 using System.Collections.Generic;
+using BeauUtil.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -40,6 +41,9 @@ namespace FieldDay {
 
         [SerializeField, Range(30, 120)]
         private int m_TargetFramerate = 60;
+
+        [SerializeField]
+        private Sprite m_DefaultPixelSprite;
 
         #endregion // Inspector
 
@@ -173,6 +177,7 @@ namespace FieldDay {
             Log.Msg("[GameLoop] Loading config vars...");
             ConfigVar.ReadAllFromResources();
             ConfigVar.ReadUserFromPlayerPrefs();
+            SharedCanvasResources.DefaultWhiteSprite = m_DefaultPixelSprite;
 
             // find all pre-boot
             foreach (var entrypoint in Reflect.FindMethods<InvokePreBootAttribute>(ReflectionCache.UserAssemblies, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)) {
@@ -255,6 +260,10 @@ namespace FieldDay {
             Game.Processes.Shutdown();
             Game.Processes = null;
 
+            Log.Msg("[GameLoop] Shutting down systems manager...");
+            Game.Systems.Shutdown();
+            Game.Systems = null;
+
             Log.Msg("[GameLoop] Shutting down shared state manager...");
             Game.SharedState.Shutdown();
             Game.SharedState = null;
@@ -263,9 +272,26 @@ namespace FieldDay {
             Game.Components.Shutdown();
             Game.Components = null;
 
-            Log.Msg("[GameLoop] Shutting down systems manager...");
-            Game.Systems.Shutdown();
-            Game.Systems = null;
+            // clearing all callbacks
+            OnCanvasPreRender.Clear();
+            OnDebugUpdate.Clear();
+            OnFixedUpdate.Clear();
+            OnFrameAdvance.Clear();
+            OnGuiEvent.Clear();
+            OnLateFixedUpdate.Clear();
+            OnLateUpdate.Clear();
+            OnPreUpdate.Clear();
+            OnShutdown.Clear();
+            OnUnscaledLateUpdate.Clear();
+            OnUnscaledUpdate.Clear();
+            OnUpdate.Clear();
+
+            // clearing all callback queues
+            s_AfterLateUpdateQueue.Clear();
+            s_CanvasPreRenderQueue.Clear();
+            s_EndOfFrameQueue.Clear();
+            s_FrameStartQueue.Clear();
+            s_OnBootQueue.Clear();
         }
 
         private void FixedUpdate() {
