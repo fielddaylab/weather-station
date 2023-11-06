@@ -53,7 +53,7 @@ namespace WeatherStation {
             }
         }
 
-        public bool IsMatched() { return (MatchingSocket == Current) || ((AltMatchingSocket != null) && (AltMatchingSocket == Current)); }
+        public bool IsMatched() { return ((MatchingSocket != null) && (MatchingSocket == Current)) || ((AltMatchingSocket != null) && (AltMatchingSocket == Current)); }
 
         public void SetPulse() {
             if(InMaterials.Count > 0) {
