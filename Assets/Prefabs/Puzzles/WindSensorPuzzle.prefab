@@ -387,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 256440089521572715}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.466, y: 0.591, z: 0.503}
+  m_LocalPosition: {x: 0.4842, y: 0.6009, z: 0.5043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -543,6 +543,7 @@ GameObject:
   - component: {fileID: 3688091176248218316}
   - component: {fileID: 7088000095331706400}
   - component: {fileID: 3178755929128518545}
+  - component: {fileID: 4056397903420861568}
   - component: {fileID: 8077759058668392533}
   m_Layer: 8
   m_Name: windSensor_FanTestButton
@@ -700,6 +701,27 @@ MonoBehaviour:
   XShift: 0.01
   ButtonColor: {r: 0.18431373, g: 1, b: 0, a: 1}
   SoundEffect: {fileID: 8077759058668392533}
+--- !u!65 &4056397903420861568
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077718739136290285}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.0000010430813}
 --- !u!82 &8077759058668392533
 AudioSource:
   m_ObjectHideFlags: 0
@@ -885,7 +907,7 @@ Transform:
   m_GameObject: {fileID: 3236514248455419208}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: 8.659561e-17, w: -0.7071068}
-  m_LocalPosition: {x: 0.477, y: 0.606, z: 0.49}
+  m_LocalPosition: {x: 0.4884, y: 0.606, z: 0.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1001,8 +1023,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 1103682017014218347}
-  MatchingSocket: {fileID: 5553602864421427092}
-  AltMatchingSocket: {fileID: 0}
+  MatchingSockets: []
   InMaterials:
   - {fileID: 2100000, guid: 8d323265f22774b61b778ce6ac6f7c52, type: 2}
   OutMaterials: []
@@ -1262,7 +1283,12 @@ MonoBehaviour:
   ReturnOnGroundHit: 0
   GripAmount: 0
   ConstrainGripPosition: 0
-  GrabSpots: []
+  GrabSpots:
+  - {fileID: 8669455020992776673}
+  - {fileID: 8597722187496341132}
+  - {fileID: 104666669038425531}
+  - {fileID: 7296215726388558485}
+  - {fileID: 6654839838942814751}
 --- !u!114 &7596906818420507280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1346,8 +1372,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6805881668401767369}
-  - component: {fileID: 3136405506475413099}
-  - component: {fileID: 1258400172380759494}
   m_Layer: 0
   m_Name: windSensor_Bay
   m_TagString: Untagged
@@ -1372,56 +1396,6 @@ Transform:
   - {fileID: 3789886177591654470}
   m_Father: {fileID: 7623293822128967410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3136405506475413099
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4639529672151265475}
-  m_Mesh: {fileID: -4566282909360668739, guid: f4f7277bf9bc15247ab089d84782b07d, type: 3}
---- !u!23 &1258400172380759494
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4639529672151265475}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 21567fe091750d84892d0e17521ec621, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5184245134021548775
 GameObject:
   m_ObjectHideFlags: 0
@@ -2782,6 +2756,7 @@ MonoBehaviour:
   NewColor: {r: 0.18472636, g: 1, b: 0, a: 1}
   TestButton: {fileID: 3178755929128518545}
   FanBlade: {fileID: 3236514248455419208}
+  BaySocket: {fileID: 7324154283222843648}
   FanRotate: {fileID: 4560087498030826627}
 --- !u!82 &4564690419894966791
 AudioSource:
