@@ -11,10 +11,8 @@ using UnityEditor;
 namespace WeatherStation {
     public class PuzzleSocket : ItemSocket {
         #region Inspector
-		public Socketable MatchingSocket = null;
-
-        public Socketable AltMatchingSocket = null;
-
+		public List<Socketable> MatchingSockets = new List<Socketable>();
+		
 		public List<Material> InMaterials = new List<Material>();
 
         public List<Material> OutMaterials = new List<Material>();
@@ -53,7 +51,15 @@ namespace WeatherStation {
             }
         }
 
-        public bool IsMatched() { return ((MatchingSocket != null) && (MatchingSocket == Current)) || ((AltMatchingSocket != null) && (AltMatchingSocket == Current)); }
+        public bool IsMatched() { 
+			for(int i = 0; i < MatchingSockets.Count; ++i) {
+				if(MatchingSockets[i] == Current) {
+					return true;
+				}
+			}
+			return false;
+			//return ((MatchingSocket != null) && (MatchingSocket == Current)) || ((AltMatchingSocket != null) && (AltMatchingSocket == Current)); 
+		}
 
         public void SetPulse() {
             if(InMaterials.Count > 0) {
