@@ -217,6 +217,7 @@ namespace WeatherStation {
 				gp.gameObject.transform.position = grabbable.GrabSpots[closestSpot].transform.position;
 				if(grabbable.ConstrainGripPosition) {
 					gp.ConstrainGripPosition = true;
+					gp.ConstrainedGripTransform = grabbable.GrabSpots[closestSpot].transform;
 					//gp.ConstrainedGripPosition = gp.gameObject.transform.position;
 				} else {
 					gp.ConstrainGripPosition = false;

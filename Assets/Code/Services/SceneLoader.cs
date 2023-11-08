@@ -25,7 +25,7 @@ namespace WeatherStation {
         void Awake() {
             Services.AutoSetup(Root);
             StartCoroutine(Services.State.ImportInitialScene(SceneList[0]));
-			StartCoroutine(BroadcastSwitch(SceneList[0], 1f));
+			StartCoroutine(BroadcastSwitch(SceneList[0], 3f));
             
         }
 

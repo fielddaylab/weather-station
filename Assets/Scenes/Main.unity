@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3292672, g: 0.5421191, b: 0.627003, a: 1}
+  m_IndirectSpecularColor: {r: 0.32923895, g: 0.542076, b: 0.62704915, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3488,7 +3488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1149791410
 Transform:
   m_ObjectHideFlags: 0
@@ -3498,7 +3498,7 @@ Transform:
   m_GameObject: {fileID: 1149791409}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.97774816, z: -0, w: -0.20978233}
-  m_LocalPosition: {x: 1.439, y: 0, z: 1.032}
+  m_LocalPosition: {x: 1.626, y: 0, z: 0.667}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5506,7 +5506,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1588656143
 Transform:
   m_ObjectHideFlags: 0
@@ -5515,13 +5515,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588656142}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9991673, z: -0, w: -0.040800326}
-  m_LocalPosition: {x: 4.668, y: 0, z: 1.921}
+  m_LocalRotation: {x: -0, y: 0.9902657, z: -0, w: -0.1391903}
+  m_LocalPosition: {x: 5.073, y: 0, z: 1.265}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 184.677, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 196.002, z: 0}
 --- !u!1 &1615411384
 GameObject:
   m_ObjectHideFlags: 0
@@ -6143,7 +6143,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InsideLocation: {fileID: 45486499}
   OutsideLocation: {fileID: 2004305807}
-  SledOffset: {x: 3.584, y: 0, z: 0.228}
+  SledInsideLocation: {fileID: 1588656143}
+  SledOutsideLocation: {fileID: 1149791410}
   Sled: {fileID: 205233655}
   Fader: {fileID: 1312827216}
 --- !u!114 &1886238375
