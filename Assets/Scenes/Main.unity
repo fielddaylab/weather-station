@@ -126,6 +126,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &14890292 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3150048145521420000, guid: 3730f7b992114b645abd51f2fc7db4dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1176573669}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &20989251
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,10 +530,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 557542460}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: Play
-        m_Mode: 3
+      - m_Target: {fileID: 557542462}
+        m_TargetAssemblyTypeName: MoveShelf, Assembly-CSharp
+        m_MethodName: TurnShelf
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1864,12 +1870,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.27095696, y: 0.2915339, z: 0.23952591}
   m_Center: {x: 0.0019570345, y: 0.027231723, z: -0.013313484}
---- !u!95 &557542460 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5618785416965314304, guid: 3730f7b992114b645abd51f2fc7db4dc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1176573669}
+--- !u!114 &557542462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14890292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85157005e7513ef45a5d9e69ee6be731, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &560153520
 GameObject:
   m_ObjectHideFlags: 0
@@ -3680,6 +3692,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1572788183}
+    - targetCorrespondingSourceObject: {fileID: 3150048145521420000, guid: 3730f7b992114b645abd51f2fc7db4dc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 557542462}
     - targetCorrespondingSourceObject: {fileID: 6109710797660676775, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
       insertIndex: -1
@@ -5749,13 +5765,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756435405}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071069, z: -0, w: 0.70710677}
-  m_LocalPosition: {x: -0.334, y: 0.551, z: -0.03}
+  m_LocalRotation: {x: -0, y: 0.937081, z: -0, w: 0.34911206}
+  m_LocalPosition: {x: -0.296, y: 0.551, z: -0.032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 696981835}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 139.134, z: 0}
 --- !u!114 &1756435407
 MonoBehaviour:
   m_ObjectHideFlags: 0

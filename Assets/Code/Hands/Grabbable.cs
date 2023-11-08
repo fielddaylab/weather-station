@@ -272,10 +272,12 @@ namespace WeatherStation {
 		}
 		
 		static public void ReturnToOriginalSpawnPoint(Grabbable component) {
-			component.Rigidbody.isKinematic = component.WasKinematic;
-			component.transform.position = component.OriginalPosition;
-			component.transform.rotation = component.OriginalRotation;
-			component.transform.SetParent(component.OriginalParent, true);
+			if(component != null && component.Rigidbody != null) {
+				component.Rigidbody.isKinematic = component.WasKinematic;
+				component.transform.position = component.OriginalPosition;
+				component.transform.rotation = component.OriginalRotation;
+				component.transform.SetParent(component.OriginalParent, true);
+			}
 		}
     }
 }
