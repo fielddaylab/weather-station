@@ -19,8 +19,7 @@ namespace WeatherStation {
 		private int CurrentSceneIndex = 0;
 		
         void Awake() {
-            Services.AutoSetup(Root);
-            StartCoroutine(Services.State.ImportInitialScene(SceneList[0]));
+            //StartCoroutine(Services.State.ImportInitialScene(SceneList[0]));
             //StartCoroutine(TestSwitch(5f));
         }
 
@@ -31,7 +30,7 @@ namespace WeatherStation {
 		public void SwitchScenes() {
 			int nextIndex = CurrentSceneIndex+1;
 			nextIndex = nextIndex % SceneList.Count;
-			StartCoroutine(StateUtil.SwapSceneWithFader(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
+			//StartCoroutine(StateUtil.SwapSceneWithFader(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
 			CurrentSceneIndex = nextIndex;
 		}
 

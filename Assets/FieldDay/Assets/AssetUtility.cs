@@ -1,4 +1,6 @@
 using UnityEngine;
+using System;
+using System.Reflection;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -9,15 +11,25 @@ namespace FieldDay.Assets {
     /// Asset utility methods.
     /// </summary>
     static public class AssetUtility {
+        private delegate bool UnityObjectPredicate(UnityEngine.Object obj);
+
+        static private readonly UnityObjectPredicate Object_IsPersistent;
+
+        static AssetUtility() {
+            Object_IsPersistent = (UnityObjectPredicate) typeof(UnityEngine.Object).GetMethod("IsPersistent", BindingFlags.Static | BindingFlags.NonPublic)?.CreateDelegate(typeof(UnityObjectPredicate));
+        }
+
         /// <summary>
         /// Manually unloads the given object.
         /// </summary>
-        static public void ManualUnload(UnityEngine.Object obj, bool isAsset = false) {
+        static public void ManualUnload(UnityEngine.Object obj) {
             if (!ReferenceEquals(obj, null)) {
-                Debug.LogFormat("[AssetUtility] Manually unloading object '{0}'", obj.name);
-                if (isAsset) {
+                bool isPersistent = IsPersistent(obj);
+                if (IsPersistent(obj)) {
+                    Debug.LogFormat("[AssetUtility] Manually unloading persistent object '{0}'", obj.name);
                     Resources.UnloadAsset(obj);
                 } else {
+                    Debug.LogFormat("[AssetUtility] Manually unloading object '{0}'", obj.name);
 #if UNITY_EDITOR
                     UnityEngine.Object.Destroy(obj);
 #else
@@ -33,7 +45,7 @@ namespace FieldDay.Assets {
         /// </summary>
         static public void DestroyAsset(UnityEngine.Object asset) {
             if (!ReferenceEquals(asset, null)) {
-                Debug.LogWarningFormat("[AssetUtility] Manually destroying asset '{0}'", asset.name);
+                Debug.LogWarningFormat("[AssetUtility] Manually destroying asset '{0}'!", asset.name);
 #if UNITY_EDITOR
                 UnityEngine.Object.DestroyImmediate(asset, true);
 #endif // UNITY_EDITOR
@@ -52,6 +64,17 @@ namespace FieldDay.Assets {
             }
 #endif // UNITY_EDITOR
             return Resources.UnloadUnusedAssets();
+        }
+
+        /// <summary>
+        /// Returns if the given asset is persistent.
+        /// </summary>
+        static public bool IsPersistent(UnityEngine.Object obj) {
+            if (Object_IsPersistent != null) {
+                return Object_IsPersistent(obj);
+            } else {
+                return false;
+            }
         }
     }
 }

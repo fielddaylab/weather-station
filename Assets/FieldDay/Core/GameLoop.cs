@@ -19,9 +19,13 @@ using BeauPools;
 using FieldDay.Audio;
 using System.Collections.Generic;
 using BeauUtil.UI;
+using FieldDay.Scenes;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using System.Threading;
+using System.Globalization;
+using BeauRoutine;
 #endif // UNITY_EDITOR
 
 #if USE_SRP
@@ -44,6 +48,9 @@ namespace FieldDay {
 
         [SerializeField]
         private Sprite m_DefaultPixelSprite;
+
+        [SerializeField]
+        private bool m_AllowMultiTouchInput = false;
 
         #endregion // Inspector
 
@@ -156,6 +163,12 @@ namespace FieldDay {
             Log.Msg("[GameLoop] Starting...");
             Frame.MarkTimestampOffset();
             Frame.CreateAllocator(m_SingleFrameAllocBufferSize);
+            CounterHandle.InitializeAllocator(256);
+
+            Input.multiTouchEnabled = m_AllowMultiTouchInput;
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
+            BuildInfo.Load();
 
             Log.Msg("[GameLoop] Creating systems manager...");
             Game.Systems = new SystemsMgr();
@@ -172,6 +185,9 @@ namespace FieldDay {
             Log.Msg("[GameLoop] Creating audio manager...");
             Game.Audio = new AudioMgr();
 
+            Log.Msg("[GameLoop] Creating scene manager...");
+            Game.Scenes = new SceneMgr();
+
             Application.targetFrameRate = m_TargetFramerate;
 
             Log.Msg("[GameLoop] Loading config vars...");
@@ -187,6 +203,8 @@ namespace FieldDay {
             enabled = false;
             useGUILayout = false;
             StartCoroutine(DelayedBoot());
+
+            Async.InvokeAsync(PotentiallyExpensiveSystemResourceRetrieval);
         }
 
         private void Start() {
@@ -228,6 +246,7 @@ namespace FieldDay {
             }
             Canvas.preWillRenderCanvases -= OnPreCanvasRender;
             Frame.DestroyAllocator();
+            CounterHandle.DestroyAllocator();
             s_Initialized = m_Initialized = false;
         }
 
@@ -251,6 +270,10 @@ namespace FieldDay {
             CameraHelper.RemoveOnPreCull(this);
             CameraHelper.RemoveOnPreRender(this);
             CameraHelper.RemoveOnPostRender(this);
+
+            Log.Msg("[GameLoop] Shutting down scene manager...");
+            Game.Scenes.Shutdown();
+            Game.Scenes = null;
 
             Log.Msg("[GameLoop] Shutting down audio manager...");
             Game.Audio.Shutdown();
@@ -378,6 +401,7 @@ namespace FieldDay {
             Game.Events?.Flush();
 
             FlushQueue(s_AfterLateUpdateQueue);
+            Game.Scenes.Update();
 
             m_ReadyForRender = true;
         }
@@ -534,6 +558,10 @@ namespace FieldDay {
             //        .Append("\n FrameAdvanced ").AppendNoAlloc(timing.Duration[10]);
             //    Log.Msg(psb.Builder.Flush());
             //}
+        }
+
+        static private void PotentiallyExpensiveSystemResourceRetrieval() {
+            char.IsWhiteSpace('0'); // char.IsWhitespace has sometimes caused spikes due to retrieval of system resources *shrug*
         }
 
         #endregion // Handlers

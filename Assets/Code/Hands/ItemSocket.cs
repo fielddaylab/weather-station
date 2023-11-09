@@ -27,7 +27,7 @@ namespace WeatherStation {
         public readonly CastableEvent<Socketable> OnAdded = new CastableEvent<Socketable>();
         public readonly CastableEvent<Socketable> OnRemoved = new CastableEvent<Socketable>();
 
-        protected void Awake() {
+        protected virtual void Awake() {
             if (!Location) {
                 Location = transform;
             }

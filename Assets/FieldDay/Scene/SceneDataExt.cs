@@ -26,6 +26,11 @@ namespace FieldDay.Scenes {
         /// </summary>
         public Component[] DynamicSubscenes;
 
+        /// <summary>
+        /// List of objects to enable late.
+        /// </summary>
+        public GameObject[] LateEnable;
+
         #region Tracking
 
         static private readonly List<SceneDataExt> s_Loaded = new List<SceneDataExt>(4);
