@@ -10,6 +10,7 @@ namespace WeatherStation {
     public class ItemSocket : BatchedComponent {
         public bool Locked = false;
         public Socketable Current = null;
+        public SocketFlags AllowedSockets = SocketFlags.Nothing;
 
         [Header("Configuration")]
         public ItemSocketMode Mode = ItemSocketMode.Reparent;
@@ -26,6 +27,10 @@ namespace WeatherStation {
 
         public readonly CastableEvent<Socketable> OnAdded = new CastableEvent<Socketable>();
         public readonly CastableEvent<Socketable> OnRemoved = new CastableEvent<Socketable>();
+
+        public bool IsSocketAllowed(SocketFlags Flags) {
+            return ((AllowedSockets & Flags) != 0);
+        }
 
         protected void Awake() {
             if (!Location) {

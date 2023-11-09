@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc837bd0b57681642a00d30230f9643a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flags: 16
 --- !u!64 &566050879911368210
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -224,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Locked: 0
   Current: {fileID: 0}
+  AllowedSockets: 2
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -990,6 +992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Locked: 1
   Current: {fileID: 7596906818420507280}
+  AllowedSockets: 16
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -1279,6 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc837bd0b57681642a00d30230f9643a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flags: 16
 --- !u!1 &4380027560130158963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1611,6 +1615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc837bd0b57681642a00d30230f9643a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flags: 16
 --- !u!64 &5640815805671654458
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2131,6 +2136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc837bd0b57681642a00d30230f9643a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flags: 16
 --- !u!64 &8070158140440072697
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2337,6 +2343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc837bd0b57681642a00d30230f9643a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flags: 2
 --- !u!65 &2368616303213432638
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2944,6 +2951,11 @@ PrefabInstance:
       propertyPath: Current
       value: 
       objectReference: {fileID: 9203071185673121955}
+    - target: {fileID: 1092880702828975181, guid: c1f916a2ee9feee488bb8274e1733de5,
+        type: 3}
+      propertyPath: AllowedSockets
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 2326379010311860058, guid: c1f916a2ee9feee488bb8274e1733de5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3068,6 +3080,11 @@ PrefabInstance:
       propertyPath: Current
       value: 
       objectReference: {fileID: 5553602864421427092}
+    - target: {fileID: 1092880702828975181, guid: c1f916a2ee9feee488bb8274e1733de5,
+        type: 3}
+      propertyPath: AllowedSockets
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 2326379010311860058, guid: c1f916a2ee9feee488bb8274e1733de5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3192,6 +3209,11 @@ PrefabInstance:
       propertyPath: Current
       value: 
       objectReference: {fileID: 4562757211047811573}
+    - target: {fileID: 1092880702828975181, guid: c1f916a2ee9feee488bb8274e1733de5,
+        type: 3}
+      propertyPath: AllowedSockets
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 2326379010311860058, guid: c1f916a2ee9feee488bb8274e1733de5,
         type: 3}
       propertyPath: m_LocalPosition.x
