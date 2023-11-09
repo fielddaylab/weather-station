@@ -91,7 +91,9 @@ namespace WeatherStation {
 				
 				if(allSetBefore) {
 					SensorMaterials[buttonIndex].mainTexture = SolutionTextures[buttonIndex];
-					PairedMaterials[buttonIndex-1].color = GlowColor;
+					if(buttonIndex > 0) {
+						PairedMaterials[buttonIndex-1].color = GlowColor;
+					}
 					//if this happens, then also walk ahead and see if we can switch any that are on a solution to final..
 					for(int i = buttonIndex+1; i < PuzzleButtons.Count; ++i) {
 						if(SensorMaterials[i].mainTexture == Solution[i]) {

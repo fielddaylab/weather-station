@@ -13,9 +13,9 @@ namespace WeatherStation {
 		#region Inspector
 		public Transform InsideLocation;
 		public Transform OutsideLocation;
-		//public Transform InsideSledLocation;
-		//public Transform OutsideSledLocation;
-		public Vector3 SledOffset;
+		public Transform SledInsideLocation;
+		public Transform SledOutsideLocation;
+		//public Vector3 SledOffset;	//3.585, 0, 0.228
 		public GameObject Sled;
 		public OVRScreenFade Fader;
 		#endregion //
@@ -86,7 +86,9 @@ namespace WeatherStation {
 				
 				transform.position = OutsideLocation.position;
 				transform.rotation = OutsideLocation.rotation;
-				Sled.transform.position = Sled.transform.position - SledOffset;
+				//Sled.transform.position = Sled.transform.position - SledOffset;
+				Sled.transform.position = SledOutsideLocation.transform.position;
+				Sled.transform.rotation = SledOutsideLocation.transform.rotation;
 			} else {
 
 				/*foreach(Grabbable g in ItemsInSled) {
@@ -95,7 +97,9 @@ namespace WeatherStation {
 				
 				transform.position = InsideLocation.position;
 				transform.rotation = InsideLocation.rotation;
-				Sled.transform.position = Sled.transform.position + SledOffset;
+				//Sled.transform.position = Sled.transform.position + SledOffset;
+				Sled.transform.position = SledInsideLocation.transform.position;
+				Sled.transform.rotation = SledInsideLocation.transform.rotation;
 			}
 			
 			//c.isTrigger = true;

@@ -23,6 +23,8 @@ namespace WeatherStation {
         public PuzzleButton TestButton;
 		
 		public GameObject FanBlade;
+		public GameObject BrokenProp;
+		public ItemSocket BaySocket;
 		public Transform FanRotate;
 
         #endregion // Inspector
@@ -71,8 +73,21 @@ namespace WeatherStation {
         private void Awake() {
             OldColor = FinalMaterial.color;
             TestButton.OnPressed.Register(TestComplete);
+			if(BaySocket != null) {
+				BaySocket.OnRemoved.Register(OnSensorRemoved);
+			}
         }
-
+		
+		private void OnSensorRemoved() {
+			if(FanBlade != null) {
+				IsStopped = true;
+			}
+			
+			if(BrokenProp != null) {
+				BrokenProp.SetActive(false);		//temp
+			}
+		}
+		
         private void TestComplete(PuzzleButton button) {
 			if(PuzzleSockets[0].Current) {
 				if(PuzzleSockets[0].IsMatched()) {

@@ -70,10 +70,14 @@ namespace FieldDay.Assets {
         /// Returns if the given asset is persistent.
         /// </summary>
         static public bool IsPersistent(UnityEngine.Object obj) {
+            if (ReferenceEquals(obj, null)) {
+                return false;
+            }
+
             if (Object_IsPersistent != null) {
                 return Object_IsPersistent(obj);
             } else {
-                return false;
+                return obj.GetInstanceID() > 0; // imperfect check
             }
         }
     }

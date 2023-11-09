@@ -56,7 +56,7 @@ Shader "URP/OToonCustomLit"
         [Space(10)]_BrushSize ("[Halftone]Brush Size", Range(0, 2)) = 0.8
         _SizeFalloff ("[Halftone]Lighting Size Factor", Range(0, 1)) = 0
         _HalfToneDiffuseStep ("[Halftone]HalfTone Diffuse Offset", Range(-1, 1)) = 0.0
-        _HalftoneFadeDistance ("[Halftone]Fade Distance", Range(0, 100)) = 10
+        _HalftoneFadeDistance ("[Halftone]Fade Distance", Range(0, 5000)) = 10
         _HalftoneFadeToColor ("[Halftone]Fade To Color", Range(0, 1)) = 0
         _BrushLowerCut ("[Halftone]Brush Lower Cut", Range(0, 0.5)) = 0
 
