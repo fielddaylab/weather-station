@@ -13,9 +13,9 @@ namespace WeatherStation {
     public class SceneLoader : SharedStateComponent {
         #region Inspector
         public GameObject Root;
-        
+        public string InteriorScene = "";
 		public List<string> SceneList = new List<string>(8);
-        public GameObject FanBlade;	//temp
+        //public GameObject FanBlade;	//temp
 		#endregion // Inspector
 		
 		private int CurrentSceneIndex = 0;
@@ -25,8 +25,8 @@ namespace WeatherStation {
         void Awake() {
             Services.AutoSetup(Root);
             StartCoroutine(Services.State.ImportInitialScene(SceneList[0]));
-			StartCoroutine(BroadcastSwitch(SceneList[0], 3f));
-            
+			StartCoroutine(Services.State.ImportInitialScene(InteriorScene));
+			//StartCoroutine(BroadcastSwitch(SceneList[0], 3f));
         }
 
         public void UpdateStates() {
@@ -38,10 +38,10 @@ namespace WeatherStation {
 			nextIndex = nextIndex % SceneList.Count;
 			StartCoroutine(StateUtil.SwapSceneWithFader(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
 			CurrentSceneIndex = nextIndex;
-			StartCoroutine(BroadcastSwitch(SceneList[CurrentSceneIndex], 3f));
+			//StartCoroutine(BroadcastSwitch(SceneList[CurrentSceneIndex], 3f));
 		}
 
-        IEnumerator BroadcastSwitch(string newScene, float duration) {
+        /*IEnumerator BroadcastSwitch(string newScene, float duration) {
             yield return new WaitForSeconds(duration);
 			//Debug.Log(newScene);
 			if(newScene == "Assets/Scenes/West.unity" || newScene == "Assets/Scenes/South.unity") {	//temp
@@ -50,6 +50,6 @@ namespace WeatherStation {
 				FanBlade.SetActive(true);
 			}
             OnSceneLoaded.Invoke();
-        }
+        }*/
     }
 }
