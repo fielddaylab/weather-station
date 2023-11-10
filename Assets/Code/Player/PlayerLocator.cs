@@ -36,7 +36,34 @@ namespace WeatherStation {
 			}
 		}
 
-		public void StartTeleportCountdown(Socketable s ) {
+		public void StartTeleportCountdown(Socketable s) {
+			
+			//we should return any item in your hand to their original location before teleporting...
+			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			if(handRig.LeftHand.Physics.State == GrabberState.Holding) {
+				Grabbable h = handRig.LeftHand.Physics.Holding;
+				Socketable s2 = h.gameObject.GetComponent<Socketable>();
+				if(s2 != s) {
+					if(h.OriginalSocket.Current == null) {
+						SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+					} else {
+						GrabUtility.ReturnToOriginalSpawnPoint(h);
+					}
+				}
+			}
+			
+			if(handRig.RightHand.Physics.State == GrabberState.Holding) {
+				Grabbable h = handRig.RightHand.Physics.Holding;
+				Socketable s2 = h.gameObject.GetComponent<Socketable>();
+				if(s2 != s) {
+					if(h.OriginalSocket.Current == null) {
+						SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+					} else {
+						GrabUtility.ReturnToOriginalSpawnPoint(h);
+					}
+				}
+			}
+			
 			if(s.SocketType == SocketFlags.Argo) {
 				if(!IsTeleporting) {
 					IsTeleporting = true;
