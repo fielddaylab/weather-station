@@ -14,6 +14,11 @@ namespace WeatherStation {
         #region Inspector
         public GameObject Root;
         public string InteriorScene = "";
+
+		public Material MapMaterial;
+
+		public List<Texture2D> MapTextures = new List<Texture2D>(5);
+
 		public List<string> SceneList = new List<string>(8);
         //public GameObject FanBlade;	//temp
 		#endregion // Inspector
@@ -38,6 +43,9 @@ namespace WeatherStation {
 			nextIndex = nextIndex % SceneList.Count;
 			StartCoroutine(StateUtil.SwapSceneWithFader(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
 			CurrentSceneIndex = nextIndex;
+			if(MapMaterial != null) {
+				MapMaterial.mainTexture = MapTextures[CurrentSceneIndex-1];
+			}
 			//StartCoroutine(BroadcastSwitch(SceneList[CurrentSceneIndex], 3f));
 		}
 

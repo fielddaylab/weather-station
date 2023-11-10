@@ -18,53 +18,34 @@ namespace WeatherStation {
 		//public Vector3 SledOffset;	//3.585, 0, 0.228
 		public GameObject Sled;
 		public OVRScreenFade Fader;
+
+		public ItemSocket ArgoInsideSocket;
+
+		public ItemSocket ArgoOutsideSocket;
+
+		public ItemSocket ArgoSledSocket;
+
 		#endregion //
-		
-		//[NonSerialized] public HashSet<Grabbable> ItemsInSled = new HashSet<Grabbable>(8);
 		
 		private bool IsInside = false;
 		private bool IsTeleporting = false;
-		private bool IsArgoIn = false;
-		
+
 		private void Awake() {
-	
-		}
-		
-		/*public void ItemAddedToSled(Collider c) {
-			Grabbable g = c.gameObject.GetComponent<Grabbable>();
-			Socketable s = c.gameObject.GetComponent<Socketable>();
-			if(g.CurrentGrabberCount == 0 && s.CurrentSocket == null)	//make sure we aren't holding the object still, and that this object isn't socketed to a parent.
-			{
-				//Debug.Log(c.gameObject.name + " added");
-				ItemsInSled.Add(c.gameObject.GetComponent<Grabbable>());
-				if(c.gameObject.name.Contains("Argo")) {
-					//c.isTrigger = false;
-					StartTeleportCountdown(c);
-				}
-			}
-		}*/
-		
-		/*public void ItemRemovedFromSled(Collider c) {
-			//Debug.Log(c.gameObject.name + " removed");
-			ItemsInSled.Remove(c.gameObject.GetComponent<Grabbable>());
-		}*/
-		
-		public void CheckArgoRemoved(Collider c) {
-			if(c.gameObject.name.Contains("Argo")) {
-				IsArgoIn = false;
+			if(ArgoSledSocket != null) {
+				ArgoSledSocket.OnAdded.Register(StartTeleportCountdown);
 			}
 		}
-		
-		public void StartTeleportCountdown(Collider c) {
-			if(c.gameObject.name.Contains("Argo") && !IsArgoIn) {
+
+		public void StartTeleportCountdown(Socketable s ) {
+			if(s.SocketType == SocketFlags.Argo) {
 				if(!IsTeleporting) {
 					IsTeleporting = true;
-					StartCoroutine(WaitForTeleport(c, 3f));
+					StartCoroutine(WaitForTeleport(s, 3f));
 				}
 			}
 		}
 		
-		IEnumerator WaitForTeleport(Collider c, float duration)
+		IEnumerator WaitForTeleport(Socketable s, float duration)
 		{
 			yield return new WaitForSeconds(duration);
 			
@@ -77,34 +58,28 @@ namespace WeatherStation {
 			if(Fader) {
 				Fader.FadeIn(1f);
 			}
+
+			//release Argo from the Sled
+			SocketUtility.TryReleaseFromCurrentSocket(s, false);
 			
 			if(IsInside) {
 
-				/*foreach(Grabbable g in ItemsInSled) {
-					g.gameObject.transform.position -= (SledOffset);
-				}*/
-				
 				transform.position = OutsideLocation.position;
 				transform.rotation = OutsideLocation.rotation;
-				//Sled.transform.position = Sled.transform.position - SledOffset;
 				Sled.transform.position = SledOutsideLocation.transform.position;
 				Sled.transform.rotation = SledOutsideLocation.transform.rotation;
+
+				SocketUtility.TryAddToSocket(ArgoOutsideSocket, s, false);
 			} else {
 
-				/*foreach(Grabbable g in ItemsInSled) {
-					g.gameObject.transform.position += (SledOffset);
-				}*/
-				
 				transform.position = InsideLocation.position;
 				transform.rotation = InsideLocation.rotation;
-				//Sled.transform.position = Sled.transform.position + SledOffset;
 				Sled.transform.position = SledInsideLocation.transform.position;
 				Sled.transform.rotation = SledInsideLocation.transform.rotation;
+				SocketUtility.TryAddToSocket(ArgoInsideSocket, s, false);
 			}
 			
-			//c.isTrigger = true;
 			IsInside = !IsInside;
-			IsArgoIn = true;
 			IsTeleporting = false;
 		}
     }

@@ -60,7 +60,7 @@ namespace WeatherStation {
                 return false;
             }
 
-            if(!socket.IsSocketAllowed(socketable.SocketType)) {
+            if(!force && !socket.IsSocketAllowed(socketable.SocketType)) {
                 return false;
             }
 
