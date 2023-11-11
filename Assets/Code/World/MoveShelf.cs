@@ -8,8 +8,7 @@ namespace WeatherStation {
 		Animator ShelfAnimator = null;
 		int CurrentShelf = 0;
 		// Start is called before the first frame update
-		void Awake()
-		{
+		void Awake() {
 			ShelfAnimator = GetComponent<Animator>();
 		}
 
@@ -24,6 +23,9 @@ namespace WeatherStation {
 			if(ShelfAnimator != null) {
 				ShelfAnimator.SetBool("MoveShelf"+CurrentShelf.ToString(), true);
 				CurrentShelf++;
+				if(CurrentShelf == 3) {
+					CurrentShelf = 0;
+				}
 			}
 		}
 	}
