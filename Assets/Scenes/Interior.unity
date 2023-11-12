@@ -157,8 +157,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0071027, y: 0.03938955, z: 0.23029083}
-  m_Center: {x: -0.008412123, y: -0.05804339, z: 0.0024733373}
+  m_Size: {x: 1.020848, y: 0.04041934, z: 0.29169312}
+  m_Center: {x: -0.015284779, y: -0.057528496, z: 0.010539498}
 --- !u!54 &90609156
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -185,7 +185,22 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
+--- !u!114 &90609157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90609149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671cce4c57e168d45b2e9dd922ae4df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GripMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &135372673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4019207622519256066, guid: 3730f7b992114b645abd51f2fc7db4dc,
@@ -364,7 +379,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 557542462}
-        m_TargetAssemblyTypeName: MoveShelf, Assembly-CSharp
+        m_TargetAssemblyTypeName: WeatherStation.MoveShelf, Assembly-CSharp
         m_MethodName: TurnShelf
         m_Mode: 1
         m_Arguments:
@@ -396,6 +411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85157005e7513ef45a5d9e69ee6be731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Shelf1: {fileID: 90609157}
+  Shelf2: {fileID: 1785828877}
+  Shelf3: {fileID: 1184389438}
 --- !u!1001 &713909521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -866,6 +884,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 90609156}
+    - targetCorrespondingSourceObject: {fileID: 6109710797660676775, guid: 3730f7b992114b645abd51f2fc7db4dc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 90609157}
     - targetCorrespondingSourceObject: {fileID: 501479925448263106, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
       insertIndex: -1
@@ -874,6 +896,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1785828876}
+    - targetCorrespondingSourceObject: {fileID: 501479925448263106, guid: 3730f7b992114b645abd51f2fc7db4dc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1785828877}
     - targetCorrespondingSourceObject: {fileID: 6851405788348465704, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
       insertIndex: -1
@@ -882,6 +908,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1184389437}
+    - targetCorrespondingSourceObject: {fileID: 6851405788348465704, guid: 3730f7b992114b645abd51f2fc7db4dc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1184389438}
   m_SourcePrefab: {fileID: 100100000, guid: 3730f7b992114b645abd51f2fc7db4dc, type: 3}
 --- !u!1 &1184389432 stripped
 GameObject:
@@ -908,8 +938,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9730203, y: 0.03715217, z: 0.23120439}
-  m_Center: {x: 0.0009114118, y: -0.025017738, z: 0.011972901}
+  m_Size: {x: 1.0452, y: 0.020632625, z: 0.28922737}
+  m_Center: {x: 0.0069064484, y: -0.044912577, z: 0.0050728335}
 --- !u!54 &1184389437
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -936,7 +966,22 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
+--- !u!114 &1184389438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184389432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671cce4c57e168d45b2e9dd922ae4df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GripMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1572788179 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7153731379356633904, guid: 3730f7b992114b645abd51f2fc7db4dc,
@@ -1126,8 +1171,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9623146, y: 0.045160532, z: 0.23452699}
-  m_Center: {x: 0.01496017, y: -0.019335508, z: 0.0028958207}
+  m_Size: {x: 0.9623146, y: 0.015597105, z: 0.29094207}
+  m_Center: {x: 0.014960168, y: -0.045615315, z: 0.0061767134}
 --- !u!54 &1785828876
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1154,7 +1199,22 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
+--- !u!114 &1785828877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785828871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 671cce4c57e168d45b2e9dd922ae4df0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GripMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1830525472
 GameObject:
   m_ObjectHideFlags: 0

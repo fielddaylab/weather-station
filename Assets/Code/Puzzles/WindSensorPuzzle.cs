@@ -84,7 +84,17 @@ namespace WeatherStation {
 			}
 			
 			if(BrokenProp != null) {
-				BrokenProp.SetActive(false);		//temp
+				bool allMatched = true;
+				for(int i = 0; i < PuzzleSockets.Count; ++i) {
+					if(!PuzzleSockets[i].IsMatched() && PuzzleSockets[i].Current != null) {
+						allMatched = false;
+						break;
+					}
+				}
+				
+				if(allMatched) {
+					BrokenProp.SetActive(false);		//temp
+				}
 			}
 		}
 		

@@ -7,15 +7,34 @@ namespace WeatherStation {
 	{
 		Animator ShelfAnimator = null;
 		int CurrentShelf = 0;
+		
+		public CabinetShelf Shelf1;
+		public CabinetShelf Shelf2;
+		public CabinetShelf Shelf3;
+		
+		bool Turning = false;
 		// Start is called before the first frame update
 		void Awake() {
 			ShelfAnimator = GetComponent<Animator>();
 		}
 
-		public void TurnShelf()
-		{
+		public void TurnShelf() {
+			if(!Turning) {
+				Turning = true;
+				Shelf1.QueryColliders();
+				Shelf2.QueryColliders();
+				Shelf3.QueryColliders();
+				
+				StartCoroutine("DoTurn");
+			}
+		}
+		
+		IEnumerator DoTurn() {
+			yield return new WaitForSeconds(0.25f);
+			
 			for(int i = 0; i < 3; ++i) {
 				if(ShelfAnimator != null) {
+					//Debug.Log("MoveShelf"+i.ToString());
 					ShelfAnimator.SetBool("MoveShelf"+i.ToString(), false);
 				}	
 			}
@@ -27,6 +46,8 @@ namespace WeatherStation {
 					CurrentShelf = 0;
 				}
 			}
+			
+			Turning = false;
 		}
 	}
 }
