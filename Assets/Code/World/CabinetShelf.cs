@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,32 +16,37 @@ namespace WeatherStation {
 		private readonly Collider[] OverlapCache = new Collider[32];
 		private int OverlapCount = 0;
 		
+		[NonSerialized] public bool IsReady = true;
+		
 		private void Awake() {
 			CachedBox = GetComponent<BoxCollider>();
         }
 		
 		public void QueryColliders() {
 			//Debug.Log("Query Colliders");
-			OverlapCount = Physics.OverlapBoxNonAlloc(transform.TransformPoint(CachedBox.center), CachedBox.size*0.5f, OverlapCache, transform.rotation, GripMask, QueryTriggerInteraction.Ignore);
-			//Debug.Log(gameObject.name + " Overlap Count: " + OverlapCount);
-			for(int i = 0; i < OverlapCount; ++i) {
-				//Debug.Log(OverlapCache[i].gameObject.name);
-				OverlapCache[i].gameObject.transform.parent = gameObject.transform;
-				OverlapCache[i].gameObject.GetComponent<Rigidbody>().isKinematic = true;
-				OverlapCache[i].gameObject.GetComponent<Rigidbody>().detectCollisions = false;
+			if(IsReady) {
+				IsReady = false;
+				OverlapCount = Physics.OverlapBoxNonAlloc(transform.TransformPoint(CachedBox.center), CachedBox.size*0.5f, OverlapCache, transform.rotation, GripMask, QueryTriggerInteraction.Ignore);
+				//Debug.Log(gameObject.name + " Overlap Count: " + OverlapCount);
+				for(int i = 0; i < OverlapCount; ++i) {
+					//Debug.Log(OverlapCache[i].gameObject.name);
+					OverlapCache[i].gameObject.transform.parent = gameObject.transform;
+					OverlapCache[i].gameObject.GetComponent<Rigidbody>().isKinematic = true;
+					OverlapCache[i].gameObject.GetComponent<Rigidbody>().detectCollisions = false;
+				}
+				
+				StartCoroutine("SwitchBack");
 			}
-			
-			StartCoroutine("SwitchBack");
 		}
 		
 		IEnumerator SwitchBack() {
-			yield return new WaitForSeconds(2.5f);
+			yield return new WaitForSeconds(2f);
 			for(int i = 0; i < OverlapCount; ++i) {
 				OverlapCache[i].transform.SetParent(OverlapCache[i].gameObject.GetComponent<Grabbable>().OriginalParent, true);
 				OverlapCache[i].gameObject.GetComponent<Rigidbody>().isKinematic = false;
 				OverlapCache[i].gameObject.GetComponent<Rigidbody>().detectCollisions = true;
 			}
-			
+			IsReady = true;
 		}
 		
 		// Start is called before the first frame update

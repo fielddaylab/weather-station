@@ -20,12 +20,16 @@ namespace WeatherStation {
 
 		public void TurnShelf() {
 			if(!Turning) {
-				Turning = true;
-				Shelf1.QueryColliders();
-				Shelf2.QueryColliders();
-				Shelf3.QueryColliders();
-				
-				StartCoroutine("DoTurn");
+				if(Shelf1.IsReady && Shelf2.IsReady && Shelf3.IsReady) {
+					
+					Turning = true;
+					
+					Shelf1.QueryColliders();
+					Shelf2.QueryColliders();
+					Shelf3.QueryColliders();
+					
+					StartCoroutine("DoTurn");
+				}
 			}
 		}
 		

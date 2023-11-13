@@ -29,6 +29,7 @@ namespace WeatherStation {
         public List<Texture2D> SolutionTextures = new List<Texture2D>(); 
 
 		public Color GlowColor;
+		public Material SensorMaterial;
 
         #endregion // Inspector
 
@@ -49,6 +50,12 @@ namespace WeatherStation {
             State = PuzzleState.Complete;
 
             return true;
+		}
+		
+		public void SensorPlaced() {
+			if(SensorMaterial != null) {
+				SensorMaterial.color = GlowColor;
+			}
 		}
 		
         private void Awake() {
@@ -108,7 +115,10 @@ namespace WeatherStation {
 					if(SensorMaterials[i].mainTexture == SolutionTextures[i]) {
 						SensorMaterials[i].mainTexture = Solution[i];
 					}
-					PairedMaterials[i-1].color = PriorColors[i-1];
+					
+					if(i > 0) {
+						PairedMaterials[i-1].color = PriorColors[i-1];
+					}
 				}
 			}
             

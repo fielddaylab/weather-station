@@ -1001,6 +1001,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 0d8316135444d42b68a001009daf16df, type: 3}
   - {fileID: 2800000, guid: 43e7fc3a46e3e4b2a90ad64c696f5e17, type: 3}
   GlowColor: {r: 0.4392157, g: 0.9372549, b: 0.99607843, a: 1}
+  SensorMaterial: {fileID: 2100000, guid: f0faa491a521e48d693d2680ae923bbd, type: 2}
 --- !u!1 &5085490974589523479
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,7 +1736,7 @@ Transform:
   m_GameObject: {fileID: 8418608011009266018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.003, y: 0.128, z: -0.069}
+  m_LocalPosition: {x: -0.013, y: 0.13, z: -0.069}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2219,7 +2220,7 @@ MonoBehaviour:
   StayKinematic: 0
   UseGrabPoses: 1
   ReturnOnGroundHit: 1
-  GripAmount: 1
+  GripAmount: 0.01
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 5370286847247733463}
