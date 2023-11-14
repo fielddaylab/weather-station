@@ -22,6 +22,7 @@ namespace WeatherStation {
         public bool ReturnOnGroundHit = true;
 		
 		public float GripAmount = 0.0f;
+		public int GripPoseIndex = -1;
 		public bool ConstrainGripPosition = false;
 		public List<Transform> GrabSpots = new List<Transform>(8);
 		
@@ -199,7 +200,11 @@ namespace WeatherStation {
 			
 			Animator a = gp.gameObject.GetComponent<Animator>();
 			if(a != null) {
-				a.SetFloat(Animator.StringToHash("Flex"), grabbable.GripAmount);
+				if(grabbable.GripPoseIndex != -1) {
+					a.SetInteger(Animator.StringToHash("Pose"), grabbable.GripPoseIndex);
+				} else {
+					a.SetFloat(Animator.StringToHash("Flex"), grabbable.GripAmount);
+				}
 			}
 			
 			int closestSpot = -1;
