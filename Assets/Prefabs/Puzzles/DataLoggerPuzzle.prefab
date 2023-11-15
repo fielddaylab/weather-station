@@ -819,7 +819,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.025
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6762598483360318427
 MonoBehaviour:
@@ -941,7 +941,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.025
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7078606316602555870
 MonoBehaviour:
@@ -1402,7 +1402,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.025
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6147477803244174803
 MonoBehaviour:
@@ -1579,6 +1579,13 @@ MonoBehaviour:
   - {fileID: 0}
   FinalMaterial: {fileID: 2100000, guid: abf4d8a9f5da141c29988c9ec0cf7766, type: 2}
   NewColor: {r: 0.4392157, g: 0.9372549, b: 0.99607843, a: 1}
+  DoorPieceMaterials:
+  - {fileID: 2100000, guid: febd0906564f5c64a9bb86468ae155c1, type: 2}
+  - {fileID: 2100000, guid: 388ce0b3848e6234da065d688d3cbb59, type: 2}
+  - {fileID: 2100000, guid: 9536d3af3a9e8b444b2e7aeeeda457fa, type: 2}
+  - {fileID: 2100000, guid: 76824bfe320565b4a9b8cb99b8b0774c, type: 2}
+  - {fileID: 2100000, guid: d39cf1d4f1ee47e4aa7e91e33272daf1, type: 2}
+  - {fileID: 2100000, guid: 3d14f84a1c3035247bcdf3dd80eb750d, type: 2}
 --- !u!1 &3751310934133605814
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,7 +2349,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.025
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3205118103479891313
 MonoBehaviour:
@@ -2597,7 +2604,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.025
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6521834317149603079
 MonoBehaviour:
@@ -3115,7 +3122,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.025
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9077268721315616620
 MonoBehaviour:
@@ -3202,7 +3209,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.025
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2084763104097390167
 MonoBehaviour:
@@ -3698,7 +3705,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.025
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &279516937124333364
 MonoBehaviour:
@@ -4037,7 +4044,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.025
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6559982405451969751
 MonoBehaviour:
@@ -5036,6 +5043,7 @@ MonoBehaviour:
   UseGrabPoses: 0
   ReturnOnGroundHit: 1
   GripAmount: 0
+  GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots: []
 --- !u!114 &7310101397379940754
@@ -5124,6 +5132,7 @@ MonoBehaviour:
   UseGrabPoses: 0
   ReturnOnGroundHit: 1
   GripAmount: 0
+  GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots: []
 --- !u!114 &6978917779019992841
@@ -5212,6 +5221,7 @@ MonoBehaviour:
   UseGrabPoses: 0
   ReturnOnGroundHit: 1
   GripAmount: 0
+  GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots: []
 --- !u!114 &1728101104868773800
@@ -5306,6 +5316,7 @@ MonoBehaviour:
   UseGrabPoses: 0
   ReturnOnGroundHit: 1
   GripAmount: 0
+  GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots: []
 --- !u!114 &557513632041301900
@@ -5394,6 +5405,7 @@ MonoBehaviour:
   UseGrabPoses: 0
   ReturnOnGroundHit: 1
   GripAmount: 0
+  GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots: []
 --- !u!114 &7673835989922035176
@@ -5482,6 +5494,7 @@ MonoBehaviour:
   UseGrabPoses: 0
   ReturnOnGroundHit: 1
   GripAmount: 0
+  GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots: []
 --- !u!114 &5197465949136047528

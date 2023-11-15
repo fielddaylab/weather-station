@@ -33,7 +33,7 @@ namespace WeatherStation {
         private void Awake() {
             base.Awake();
 #if UNITY_EDITOR
-            ResetColors();
+            //ResetColors();
 #endif
             if(InMaterials.Count > 0) {
                 OldColorsIn = new List<Color>(InMaterials.Count);

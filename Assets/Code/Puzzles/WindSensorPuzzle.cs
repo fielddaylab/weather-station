@@ -152,6 +152,8 @@ namespace WeatherStation {
                 t += Time.deltaTime;
             }
 			
+			TestButton.Untoggle();
+			
 			IsTesting = false;
 			IsStopped = false;
         }

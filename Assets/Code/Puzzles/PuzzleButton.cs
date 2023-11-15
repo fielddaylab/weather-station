@@ -63,6 +63,8 @@ namespace WeatherStation {
                     transform.position = vPos;
                     CachedMeshRenderer.material.color = ButtonColor;
                 }
+				
+				StartCoroutine(TurnBackOn(c));
                 
             } else {
                 if(SoundEffect != null && SoundEffect.clip != null) {

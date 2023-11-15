@@ -19,10 +19,12 @@ namespace WeatherStation {
         public List<PuzzleSocket> PuzzleSockets = new List<PuzzleSocket>();
         public Material FinalMaterial;
         public Color NewColor;
-        
+        public List<Material> DoorPieceMaterials = new List<Material>(6);
+		
         #endregion // Inspector
 		
         private Color OldColor;
+		private Color DoorPieceColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
 		public override bool IsComplete() {
             bool allMatched = true;
@@ -57,7 +59,14 @@ namespace WeatherStation {
 		
         private void Awake() {
             OldColor = FinalMaterial.color;
+			ResetColors();
         }
+		
+		public void ResetColors() {
+			for(int i = 0; i < DoorPieceMaterials.Count; ++i) {
+				DoorPieceMaterials[i].color = DoorPieceColor;
+			}
+		}
     }
 
 #if UNITY_EDITOR
@@ -69,6 +78,7 @@ namespace WeatherStation {
             if(GUILayout.Button("Reset Colors")) {
                 Color c1 = new Color(185f/255f,185f/255f,185f/255f,1f);
                 p.FinalMaterial.color = c1;
+				p.ResetColors();
             }
         }
     }
