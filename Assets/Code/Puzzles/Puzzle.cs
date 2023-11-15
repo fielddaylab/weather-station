@@ -14,6 +14,8 @@ namespace WeatherStation {
 		  
 		[NonSerialized] public PuzzleState State = PuzzleState.Inactive;
 		
+        public ActionEvent OnCompleted = new ActionEvent();
+        
 		public virtual bool IsComplete() { return false; }
 		
         public virtual void UpdatePuzzle() {}
