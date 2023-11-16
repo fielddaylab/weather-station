@@ -217,6 +217,7 @@ namespace WeatherStation {
 				gp.gameObject.transform.position = grabbable.GrabSpots[closestSpot].transform.position;
 				if(grabbable.ConstrainGripPosition) {
 					gp.ConstrainGripPosition = true;
+					gp.ConstrainedGripTransform = grabbable.GrabSpots[closestSpot].transform;
 					//gp.ConstrainedGripPosition = gp.gameObject.transform.position;
 				} else {
 					gp.ConstrainGripPosition = false;
@@ -271,10 +272,12 @@ namespace WeatherStation {
 		}
 		
 		static public void ReturnToOriginalSpawnPoint(Grabbable component) {
-			component.Rigidbody.isKinematic = component.WasKinematic;
-			component.transform.position = component.OriginalPosition;
-			component.transform.rotation = component.OriginalRotation;
-			component.transform.SetParent(component.OriginalParent, true);
+			if(component != null && component.Rigidbody != null) {
+				component.Rigidbody.isKinematic = component.WasKinematic;
+				component.transform.position = component.OriginalPosition;
+				component.transform.rotation = component.OriginalRotation;
+				component.transform.SetParent(component.OriginalParent, true);
+			}
 		}
     }
 }

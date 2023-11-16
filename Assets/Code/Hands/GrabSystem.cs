@@ -50,7 +50,6 @@ namespace WeatherStation {
 									}
 								}
 								
-								//Debug.Log("Left: " + component.Holding.gameObject.transform.GetChild(closestSpot).position.ToString("F2"));
 								handRig.LeftHandGrab.ConstrainedGripPosition = component.Holding.gameObject.transform.GetChild(closestSpot).position;
 								
 							} else if(handRig.RightHandGrab.GrabbableBy == component && handRig.RightHandGrab.IsGrabPosed) {

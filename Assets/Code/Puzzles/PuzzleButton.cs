@@ -44,7 +44,13 @@ namespace WeatherStation {
                 if(SoundEffect != null && SoundEffect.clip != null) {
                     SoundEffect.Play();
                 }
-                if(!On) {
+				
+				Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
+				if(rb != null) {
+					rb.detectCollisions = false;
+				}
+                
+				if(!On) {
                     Vector3 vPos = transform.position;
                     vPos.y += YShift;
 					vPos.x += XShift;
@@ -101,6 +107,15 @@ namespace WeatherStation {
 			if(Toggleable) {
 				CachedMeshRenderer.material.color = PriorColor;
 			}
+		}
+		
+		IEnumerator TurnBackOn(Collider c) {
+			yield return new WaitForSeconds(0.5f);
+			Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
+			if(rb != null) {
+				rb.detectCollisions = true;
+			}
+			
 		}
 		
         private void Awake() {

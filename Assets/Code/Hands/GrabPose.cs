@@ -16,6 +16,7 @@ namespace WeatherStation {
 		[NonSerialized] public bool IsGrabPosed = false;
 		[NonSerialized] public bool ConstrainGripPosition = false;
 		[NonSerialized] public Vector3 ConstrainedGripPosition = Vector3.zero;
+		[NonSerialized] public Transform ConstrainedGripTransform;
 		
 		private void Awake() {
 			

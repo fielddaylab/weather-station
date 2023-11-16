@@ -13,21 +13,23 @@ namespace WeatherStation {
                 return;
             }
 
-            component.HighlightedSocket = GetClosest(component.CachedTransform, component.PotentialSockets);
+            component.HighlightedSocket = GetClosest(component, component.PotentialSockets);
             // TODO: visual?
         }
 
-        static private ItemSocket GetClosest(Transform target, HashSet<ItemSocket> sockets) {
-            Vector3 sourcePos = target.position;
+        static private ItemSocket GetClosest(Socketable component, HashSet<ItemSocket> sockets) {
+            Vector3 sourcePos = component.CachedTransform.position;
             ItemSocket closest = null;
             float closestDistSq = float.MaxValue;
 
             foreach(var socket in sockets) {
-                Vector3 dist = socket.Location.position - sourcePos;
-                if (dist.sqrMagnitude < closestDistSq) {
-                    closestDistSq = dist.sqrMagnitude;
-                    closest = socket;
-                }
+				if(socket.IsSocketAllowed(component.SocketType)) {
+					Vector3 dist = socket.Location.position - sourcePos;
+					if (dist.sqrMagnitude < closestDistSq) {
+						closestDistSq = dist.sqrMagnitude;
+						closest = socket;
+					}
+				}
             }
 
             return closest;

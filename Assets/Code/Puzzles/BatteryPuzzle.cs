@@ -24,6 +24,8 @@ namespace WeatherStation {
         public GameObject PowerMeter;
 		public Grabbable Cover;
 
+		public int PowerMeterOffset = 6;
+		
         #endregion // Inspector
 		
         private Color NewColor;
@@ -33,7 +35,6 @@ namespace WeatherStation {
 
         private bool BlinkOn = false;
 		
-		private const int MATCH_OFFSET = 6;
 			
 		public void UnlockCover() {
 			if(Cover) {
@@ -73,13 +74,13 @@ namespace WeatherStation {
 						matchCount++;
 					}
 					
-					PowerMeter.transform.GetChild(MATCH_OFFSET + i*2).gameObject.SetActive(false);
-					PowerMeter.transform.GetChild(MATCH_OFFSET + i*2+1).gameObject.SetActive(false);
+					PowerMeter.transform.GetChild(PowerMeterOffset + i*2).gameObject.SetActive(false);
+					PowerMeter.transform.GetChild(PowerMeterOffset + i*2+1).gameObject.SetActive(false);
 				}
 				
 				for(int i = 0; i < matchCount; ++i) {
-					PowerMeter.transform.GetChild(MATCH_OFFSET + i*2).gameObject.SetActive(true);
-					PowerMeter.transform.GetChild(MATCH_OFFSET + i*2+1).gameObject.SetActive(true);
+					PowerMeter.transform.GetChild(PowerMeterOffset + i*2).gameObject.SetActive(true);
+					PowerMeter.transform.GetChild(PowerMeterOffset + i*2+1).gameObject.SetActive(true);
 				}
 
 			
@@ -98,7 +99,7 @@ namespace WeatherStation {
 		
         private void Awake() {
             if(PowerMeter != null) {
-                NewColor = PowerMeter.transform.GetChild(MATCH_OFFSET).gameObject.GetComponent<MeshRenderer>().material.color;
+                NewColor = PowerMeter.transform.GetChild(PowerMeterOffset).gameObject.GetComponent<MeshRenderer>().material.color;
 				BlinkOldColor = PowerMeter.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.color;
             }            
         }

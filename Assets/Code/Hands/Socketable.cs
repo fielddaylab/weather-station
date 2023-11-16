@@ -16,6 +16,8 @@ namespace WeatherStation {
         [NonSerialized] public HashSet<ItemSocket> PotentialSockets = new HashSet<ItemSocket>(4);
         [NonSerialized] public ItemSocket HighlightedSocket;
 
+        public SocketFlags SocketType = SocketFlags.Nothing;
+
         public readonly CastableEvent<ItemSocket> OnAddedToSocket = new CastableEvent<ItemSocket>();
         public readonly CastableEvent<ItemSocket> OnRemovedFromSocket = new CastableEvent<ItemSocket>();
 
@@ -55,6 +57,10 @@ namespace WeatherStation {
             }
 
             if (!force && (socket.Locked || socket.Current)) {
+                return false;
+            }
+
+            if(!socket.IsSocketAllowed(socketable.SocketType)) {
                 return false;
             }
 
@@ -138,5 +144,20 @@ namespace WeatherStation {
         static public void RotateSocketed(ItemSocket socket, Socketable socketed, float angle) {
             socketed.gameObject.transform.RotateAround(socket.transform.position, socket.transform.right, angle);
         }
+    }
+
+    [Flags]
+    public enum SocketFlags
+    {
+        [Hidden]
+        Nothing = 0,
+        Argo = 0x01,
+        WindSensor = 0x02,
+        BatteryBase = 0x04,
+        SnowSensor = 0x08,
+        WindSensorBlade = 0x10,
+        BatteryPiece = 0x20,
+        BatteryPlug = 0x40,
+        DataLoggerPiece = 0x80
     }
 }

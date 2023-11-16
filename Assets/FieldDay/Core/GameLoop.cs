@@ -20,12 +20,12 @@ using FieldDay.Audio;
 using System.Collections.Generic;
 using BeauUtil.UI;
 using FieldDay.Scenes;
-
-#if UNITY_EDITOR
-using UnityEditor;
 using System.Threading;
 using System.Globalization;
 using BeauRoutine;
+
+#if UNITY_EDITOR
+using UnityEditor;
 #endif // UNITY_EDITOR
 
 #if USE_SRP
@@ -51,6 +51,9 @@ namespace FieldDay {
 
         [SerializeField]
         private bool m_AllowMultiTouchInput = false;
+
+        [SerializeField]
+        private AudioMgr.Config m_AudioConfig = new AudioMgr.Config();
 
         #endregion // Inspector
 
@@ -183,7 +186,7 @@ namespace FieldDay {
             Game.Processes = new ProcessMgr();
 
             Log.Msg("[GameLoop] Creating audio manager...");
-            Game.Audio = new AudioMgr();
+            Game.Audio = new AudioMgr(m_AudioConfig);
 
             Log.Msg("[GameLoop] Creating scene manager...");
             Game.Scenes = new SceneMgr();
