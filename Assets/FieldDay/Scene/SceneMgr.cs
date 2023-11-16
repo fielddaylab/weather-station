@@ -11,17 +11,41 @@ using System;
 using BeauUtil.Debugger;
 using BeauRoutine;
 using BeauPools;
+using System.Collections.Generic;
+using System.Reflection;
 
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using System.Collections.Generic;
-using System.Reflection;
 #endif // UNITY_EDITOR
 
 namespace FieldDay.Scenes {
     public sealed class SceneMgr {
         #region Types
+
+        private class LoadProcess {
+            public SceneReference MainLoad;
+            public readonly RingBuffer<SceneImportSettings> ImportQueue = new RingBuffer<SceneImportSettings>();
+            public readonly RingBuffer<SceneDataExt> AllScenes = new RingBuffer<SceneDataExt>();
+
+            public readonly PreloadManifest.Reader PreloadReader = new PreloadManifest.Reader();
+            public WorkSlicer.EnumeratedState PreloadState;
+            public readonly RingBuffer<IScenePreload> PreloadQueue = new RingBuffer<IScenePreload>();
+        }
+
+        private class UnloadProcess {
+            public readonly RingBuffer<SceneBinding> UnloadQueue = new RingBuffer<SceneBinding>();
+        }
+
+        #region Operations
+
+        private struct LateEnableOperation
+        {
+            public GameObject[] Objects;
+            public CounterHandle Counter;
+        }
+
+        #endregion // Operations
 
         private struct QueuedLoadItem {
             public SceneBinding Scene;
@@ -47,18 +71,11 @@ namespace FieldDay.Scenes {
         public struct SceneArgs {
             public SceneBinding Scene;
             public SceneLoadType LoadType;
-            public SceneLoadPhase Phase;
         }
 
         private struct SceneSlot {
             public SceneBinding Scene;
             public StringHash32 Tag;
-        }
-
-        private class PreloadExecutionContext {
-            public readonly PreloadManifest.Reader Reader = new PreloadManifest.Reader();
-            public readonly WorkSlicer.EnumeratedState State;
-            public readonly RingBuffer<IScenePreload> Queue = new RingBuffer<IScenePreload>();
         }
 
         #endregion // Types
@@ -71,12 +88,11 @@ namespace FieldDay.Scenes {
         private LLIndexList m_AuxSlotList = LLIndexList.Empty;
         private LLIndexList m_PersistentSlotList = LLIndexList.Empty;
 
-        // load requests
-        private readonly RingBuffer<QueuedLoadItem> m_LoadQueue = new RingBuffer<QueuedLoadItem>();
-        private readonly RingBuffer<QueuedUnloadItem> m_UnloadQueue = new RingBuffer<QueuedUnloadItem>();
+        // queues
+        private readonly RingBuffer<LateEnableOperation> m_QueuedLateEnable = new RingBuffer<LateEnableOperation>(64, RingBufferMode.Expand);
 
         // resources
-        private readonly IPool<PreloadExecutionContext> m_PreloadExecPool = new FixedPool<PreloadExecutionContext>(4, Pool.DefaultConstructor<PreloadExecutionContext>());
+        private readonly IPool<LoadProcess> m_LoadProcessPool = new FixedPool<LoadProcess>(4, Pool.DefaultConstructor<LoadProcess>());
 
         #endregion // State
 
@@ -130,13 +146,13 @@ namespace FieldDay.Scenes {
         #region Events
 
         internal void Update() {
-            if (UpdateSceneLoadQueue()) {
-                return;
-            }
+            //if (UpdateSceneLoadQueue()) {
+            //    return;
+            //}
 
-            if (UpdateSceneUnloadQueue()) {
-                return;
-            }
+            //if (UpdateSceneUnloadQueue()) {
+            //    return;
+            //}
         }
 
         internal void Shutdown() {
@@ -146,84 +162,84 @@ namespace FieldDay.Scenes {
 
         #region Internal
 
-        private bool UpdateSceneLoadQueue() {
-            if (m_LoadQueue.Count <= 0) {
-                return false;
-            }
-            ref QueuedLoadItem data = ref m_LoadQueue[0];
-            if (data.Operation == null) {
-                switch (data.LoadType) {
-                    case SceneLoadType.Main: {
-                        m_MainScene = data.Scene;
-                        break;
-                    }
+//        private bool UpdateSceneLoadQueue() {
+//            if (m_LoadQueue.Count <= 0) {
+//                return false;
+//            }
+//            ref QueuedLoadItem data = ref m_LoadQueue[0];
+//            if (data.Operation == null) {
+//                switch (data.LoadType) {
+//                    case SceneLoadType.Main: {
+//                        m_MainScene = data.Scene;
+//                        break;
+//                    }
 
-                    case SceneLoadType.Aux: {
-                        AddToSlotList(m_SceneSlots, ref m_AuxSlotList, data.Scene, data.Tag);
-                        break;
-                    }
+//                    case SceneLoadType.Aux: {
+//                        AddToSlotList(m_SceneSlots, ref m_AuxSlotList, data.Scene, data.Tag);
+//                        break;
+//                    }
 
-                    case SceneLoadType.Persistent: {
-                        AddToSlotList(m_SceneSlots, ref m_PersistentSlotList, data.Scene, data.Tag);
-                        break;
-                    }
-                }
+//                    case SceneLoadType.Persistent: {
+//                        AddToSlotList(m_SceneSlots, ref m_PersistentSlotList, data.Scene, data.Tag);
+//                        break;
+//                    }
+//                }
 
-                Scene unityScene = data.Scene.Scene;
-#if UNITY_EDITOR
-                if (IsLoadingOrLoaded(unityScene)) {
+//                Scene unityScene = data.Scene.Scene;
+//#if UNITY_EDITOR
+//                if (IsLoadingOrLoaded(unityScene)) {
 
-                }
-#endif // UNITY_EDITOR
-                data.Operation = SceneManager.UnloadSceneAsync(data.Scene.Scene);
-                return true;
-            } else {
-                if (data.Operation.isDone) {
-                    data.Counter.Decrement();
-                    m_LoadQueue.PopFront();
-                    return true;
-                }
-            }
+//                }
+//#endif // UNITY_EDITOR
+//                data.Operation = SceneManager.UnloadSceneAsync(data.Scene.Scene);
+//                return true;
+//            } else {
+//                if (data.Operation.isDone) {
+//                    data.Counter.Decrement();
+//                    m_LoadQueue.PopFront();
+//                    return true;
+//                }
+//            }
 
-            return false;
-        }
+//            return false;
+//        }
 
-        private bool UpdateSceneUnloadQueue() {
-            if (m_UnloadQueue.Count <= 0) {
-                return false;
-            }
+        //private bool UpdateSceneUnloadQueue() {
+        //    if (m_UnloadQueue.Count <= 0) {
+        //        return false;
+        //    }
 
-            ref QueuedUnloadItem data = ref m_UnloadQueue[0];
-            if (data.Operation == null) {
-                switch (data.LoadType) {
-                    case SceneLoadType.Main: {
-                        m_MainScene = default;
-                        break;
-                    }
+        //    ref QueuedUnloadItem data = ref m_UnloadQueue[0];
+        //    if (data.Operation == null) {
+        //        switch (data.LoadType) {
+        //            case SceneLoadType.Main: {
+        //                m_MainScene = default;
+        //                break;
+        //            }
 
-                    case SceneLoadType.Aux: {
-                        RemoveFromSlotList(m_SceneSlots, ref m_AuxSlotList, data.Scene);
-                        break;
-                    }
+        //            case SceneLoadType.Aux: {
+        //                RemoveFromSlotList(m_SceneSlots, ref m_AuxSlotList, data.Scene);
+        //                break;
+        //            }
 
-                    case SceneLoadType.Persistent: {
-                        RemoveFromSlotList(m_SceneSlots, ref m_PersistentSlotList, data.Scene);
-                        break;
-                    }
-                }
-                data.Scene.BroadcastUnload();
-                data.Operation = SceneManager.UnloadSceneAsync(data.Scene.Scene);
-                return true;
-            } else {
-                if (data.Operation.isDone) {
-                    data.Counter.Decrement();
-                    m_UnloadQueue.PopFront();
-                    return true;
-                }
-            }
+        //            case SceneLoadType.Persistent: {
+        //                RemoveFromSlotList(m_SceneSlots, ref m_PersistentSlotList, data.Scene);
+        //                break;
+        //            }
+        //        }
+        //        data.Scene.BroadcastUnload();
+        //        data.Operation = SceneManager.UnloadSceneAsync(data.Scene.Scene);
+        //        return true;
+        //    } else {
+        //        if (data.Operation.isDone) {
+        //            data.Counter.Decrement();
+        //            m_UnloadQueue.PopFront();
+        //            return true;
+        //        }
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         static internal readonly Predicate<SceneBinding, Scene> FindBindingByScene = (a, b) => a.Scene == b;
 
@@ -253,7 +269,7 @@ namespace FieldDay.Scenes {
             OnPrepareScene.Invoke(new SceneArgs() {
                 Scene = loadedScene,
                 LoadType = loadType,
-                Phase = SceneLoadPhase.BeforeActivation,
+                //Phase = SceneLoadPhase.BeforeActivation,
             });
 
             yield return null;
@@ -267,7 +283,7 @@ namespace FieldDay.Scenes {
             OnSceneAwake.Invoke(new SceneArgs() {
                 Scene = loadedScene,
                 LoadType = loadType,
-                Phase = SceneLoadPhase.Awake
+                //Phase = SceneLoadPhase.Awake
             });
 
             yield return null;
@@ -312,30 +328,26 @@ namespace FieldDay.Scenes {
 
         #region Is Loaded
 
-        private delegate object GetLoadingStateInternalDelegate(int handle);
-        static private readonly GetLoadingStateInternalDelegate Scene_GetLoadingStateInternal = (GetLoadingStateInternalDelegate) typeof(Scene).GetMethod("GetLoadingStateInternal", BindingFlags.Static | BindingFlags.NonPublic)?.CreateDelegate(typeof(GetLoadingStateInternalDelegate));
-
         static private bool IsLoadingOrLoaded(Scene scene) {
-            if (scene.isLoaded) {
-                return true;
-            }
-
-            if (Scene_GetLoadingStateInternal == null) {
-                return false;
-            }
-
-            LoadingState unboxedState = (LoadingState) Convert.ToInt32(Scene_GetLoadingStateInternal(scene.handle));
-            return unboxedState == LoadingState.Loading;
-        }
-
-        private enum LoadingState {
-            NotLoaded,
-            Loading,
-            Loaded,
-            Unloading
+            SceneHelper.LoadingState loadingState = scene.GetLoadingState();
+            return loadingState == SceneHelper.LoadingState.Loading || loadingState == SceneHelper.LoadingState.Loaded;
         }
 
         #endregion // Is Loaded
+
+        #region Micro Operations
+
+
+
+        #endregion // Micro Operations
+
+        #region Routines
+
+        //private IEnumerator LoadSequence(SceneReference scene) {
+
+        //}
+
+        #endregion // Routines
     }
 
     /// <summary>

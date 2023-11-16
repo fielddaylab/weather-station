@@ -1,6 +1,9 @@
 using UnityEngine;
 using System;
 using System.Reflection;
+using BeauUtil;
+using System.Runtime.CompilerServices;
+using BeauUtil.Debugger;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -11,20 +14,11 @@ namespace FieldDay.Assets {
     /// Asset utility methods.
     /// </summary>
     static public class AssetUtility {
-        private delegate bool UnityObjectPredicate(UnityEngine.Object obj);
-
-        static private readonly UnityObjectPredicate Object_IsPersistent;
-
-        static AssetUtility() {
-            Object_IsPersistent = (UnityObjectPredicate) typeof(UnityEngine.Object).GetMethod("IsPersistent", BindingFlags.Static | BindingFlags.NonPublic)?.CreateDelegate(typeof(UnityObjectPredicate));
-        }
-
         /// <summary>
         /// Manually unloads the given object.
         /// </summary>
         static public void ManualUnload(UnityEngine.Object obj) {
             if (!ReferenceEquals(obj, null)) {
-                bool isPersistent = IsPersistent(obj);
                 if (IsPersistent(obj)) {
                     Debug.LogFormat("[AssetUtility] Manually unloading persistent object '{0}'", obj.name);
                     Resources.UnloadAsset(obj);
@@ -45,6 +39,7 @@ namespace FieldDay.Assets {
         /// </summary>
         static public void DestroyAsset(UnityEngine.Object asset) {
             if (!ReferenceEquals(asset, null)) {
+                Assert.True(IsPersistent(asset), "Asset is not persistent");
                 Debug.LogWarningFormat("[AssetUtility] Manually destroying asset '{0}'!", asset.name);
 #if UNITY_EDITOR
                 UnityEngine.Object.DestroyImmediate(asset, true);
@@ -69,12 +64,9 @@ namespace FieldDay.Assets {
         /// <summary>
         /// Returns if the given asset is persistent.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static public bool IsPersistent(UnityEngine.Object obj) {
-            if (Object_IsPersistent != null) {
-                return Object_IsPersistent(obj);
-            } else {
-                return false;
-            }
+            return UnityHelper.IsPersistent(obj);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace FieldDay.Scenes {
         public SceneReference Scene;
 
         [Tooltip("Additional import flags")]
-        [AutoEnum] public SceneImportFlags Flags = SceneImportFlags.AttachToLoad;
+        [AutoEnum] public SceneImportFlags Flags = 0;
 
         [Tooltip("If checked, the provided scene will be merged into the active scene.")]
         public bool Merge = true;
@@ -124,12 +124,6 @@ namespace FieldDay.Scenes {
         /// By default, scenes will load additively at runtime.
         /// </summary>
         Auxillary = 0,
-
-        /// <summary>
-        /// This load will be attached to the load of the parent scene.
-        /// This will also inherit the tag of the parent scene if one is not specified.
-        /// </summary>
-        AttachToLoad = 0x01,
         
         /// <summary>
         /// Imports lighting data into the main scene.
