@@ -12,6 +12,8 @@ namespace WeatherStation {
 		
 		public AudioSource GroundHitSound = null;	//temp - eventually different per object.
 		
+		static public bool ForceSkip = false;
+		
         private float ReturnTime = 2f;
 
         public override void ProcessWorkForComponent(Grabbable component, float deltaTime) {
@@ -37,18 +39,22 @@ namespace WeatherStation {
         private IEnumerator WaitToReturn(Grabbable component, float duration) {
             
             yield return new WaitForSeconds(duration);
-
-            if(component.OriginalSocket) {
-                if(component.TryGetComponent(out Socketable s)) {
-					if(component.OriginalSocket.Current == null) {
-						SocketUtility.TryAddToSocket(component.OriginalSocket, s, true);
-					} else {
-						GrabUtility.ReturnToOriginalSpawnPoint(component);
+			
+			if(!ForceSkip) {
+				if(component.OriginalSocket) {
+					if(component.TryGetComponent(out Socketable s)) {
+						if(component.OriginalSocket.Current == null) {
+							SocketUtility.TryAddToSocket(component.OriginalSocket, s, true);
+						} else {
+							GrabUtility.ReturnToOriginalSpawnPoint(component);
+						}
 					}
-                }
-            } else {
-                GrabUtility.ReturnToOriginalSpawnPoint(component);
-            }
+				} else {
+					GrabUtility.ReturnToOriginalSpawnPoint(component);
+				}
+			}
+			
+			//ForceSkip = false;
         }
     }
 }

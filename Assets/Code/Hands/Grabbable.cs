@@ -239,11 +239,19 @@ namespace WeatherStation {
 			}
 		}
 		
+		static public void ForceGrabPoseOff(GrabPose gp) {
+			gp.GrabberVisual.SetActive(true);
+			gp.SetToOriginalParent();
+			gp.gameObject.SetActive(false);
+			gp.IsGrabPosed = false;
+		}
+		
 		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable, Grabber grabber, bool applyReleaseForce, GrabPose otherGrabPose) 
 		{
 			gp.GrabberVisual.SetActive(true);
-			gp.transform.SetParent(null);
+			gp.SetToOriginalParent();
 			gp.gameObject.SetActive(false);
+			gp.IsGrabPosed = false;
 			
 			//Debug.Log(grabbable.CurrentGrabberCount);
 			if(grabbable.CurrentGrabberCount == 0) {
@@ -251,8 +259,6 @@ namespace WeatherStation {
 				if(!grabbable.ConstrainGripPosition) {
 					grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
 				}
-				
-				gp.IsGrabPosed = false;
 				
 				if(!grabbable.StayKinematic) {
 					grabbable.Rigidbody.useGravity = true;	
@@ -262,17 +268,15 @@ namespace WeatherStation {
                 if (applyReleaseForce && grabber.ReleaseThrowForce > 0) {
                     Rigidbody connected = grabbable.Rigidbody;
                     if (connected) {
-                        //Vector3 anchor = grabber.Joint.connectedAnchor;
-                        //anchor = connected.transform.TransformPoint(anchor);
+                        Vector3 anchor = grabber.Joint.connectedAnchor;
+                        anchor = connected.transform.TransformPoint(anchor);
                         Vector3 velocity = grabber.CachedRB.velocity;
 
-                        connected.AddForceAtPosition(Vector3.up * grabber.ReleaseThrowForce, grabbable.gameObject.transform.position, ForceMode.Impulse);
+                        connected.AddForceAtPosition(Vector3.up * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
                     }
                 }
 			} else {
-				//switch parent to other grabber...
-				otherGrabPose.gameObject.transform.SetParent(grabbable.transform);
-				grabbable.gameObject.transform.SetParent(otherGrabPose.GrabberVisual.transform.parent);
+				GrabPoseOn(otherGrabPose, grabbable);
 			}
 		}
 		

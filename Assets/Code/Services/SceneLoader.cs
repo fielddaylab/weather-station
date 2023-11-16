@@ -15,14 +15,19 @@ namespace WeatherStation {
         public string InteriorScene = "";
 
 		public Material MapMaterial;
-
+		
 		public List<Texture2D> MapTextures = new List<Texture2D>(5);
 
 		public List<string> SceneList = new List<string>(8);
+		
+		public List<ItemSocket> SledSockets = new List<ItemSocket>(8);
+		
         //public GameObject FanBlade;	//temp
 		#endregion // Inspector
 		
 		private int CurrentSceneIndex = 0;
+		
+		private bool SwitchingScenes = false;
 		
 		public ActionEvent OnSceneLoaded = new ActionEvent();
 		
@@ -38,16 +43,64 @@ namespace WeatherStation {
         }
 		
 		public void SwitchScenes() {
-			int nextIndex = CurrentSceneIndex+1;
-			nextIndex = nextIndex % SceneList.Count;
-			StartCoroutine(StateUtil.SwapSceneWithFader(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
-			CurrentSceneIndex = nextIndex;
-			if(MapMaterial != null) {
-				MapMaterial.mainTexture = MapTextures[CurrentSceneIndex-1];
+			
+			if(!SwitchingScenes) {
+				SwitchingScenes = true;
+				//return anything in your hands when switching scenes.
+				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+				
+				//if(handRig.LeftHandGrab.IsGrabPosed) {
+					GrabUtility.ForceGrabPoseOff(handRig.LeftHandGrab);
+				//}
+				
+				if(handRig.LeftHand.Physics.State == GrabberState.Holding) {
+					Grabbable h = handRig.LeftHand.Physics.Holding;
+					if(h != null) {
+						GrabUtility.ReturnToOriginalSpawnPoint(h);
+					}
+				}
+				
+				//if(handRig.RightHandGrab.IsGrabPosed) {
+					GrabUtility.ForceGrabPoseOff(handRig.RightHandGrab);
+				//}
+				
+				if(handRig.RightHand.Physics.State == GrabberState.Holding) {
+					Grabbable h = handRig.RightHand.Physics.Holding;
+					if(h != null) {
+						GrabUtility.ReturnToOriginalSpawnPoint(h);
+					}
+				}
+				
+				//unsocket anything in the sled when switching scenes...
+				for(int i = 0; i < SledSockets.Count; ++i) {
+					if(SledSockets[i].Current != null) {
+						Grabbable g = SledSockets[i].Current.gameObject.GetComponent<Grabbable>();
+						if(g != null) {
+							GrabUtility.ReturnToOriginalSpawnPoint(g);
+						}
+					}
+				}
+				
+				GrabReturnSystem.ForceSkip = true;
+				
+				int nextIndex = CurrentSceneIndex+1;
+				nextIndex = nextIndex % SceneList.Count;
+				StartCoroutine(StateUtil.SwapSceneWithFader(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
+				CurrentSceneIndex = nextIndex;
+				if(MapMaterial != null) {
+					MapMaterial.mainTexture = MapTextures[nextIndex];
+				}
+				//StartCoroutine(BroadcastSwitch(SceneList[CurrentSceneIndex], 3f));
+				StartCoroutine(PostLoad(3f));
 			}
-			//StartCoroutine(BroadcastSwitch(SceneList[CurrentSceneIndex], 3f));
 		}
 
+		IEnumerator PostLoad(float waitTime) {
+			yield return new WaitForSeconds(waitTime);
+			GrabReturnSystem.ForceSkip = false;
+			SwitchingScenes = false;
+		}
+		
         /*IEnumerator BroadcastSwitch(string newScene, float duration) {
             yield return new WaitForSeconds(duration);
 			//Debug.Log(newScene);

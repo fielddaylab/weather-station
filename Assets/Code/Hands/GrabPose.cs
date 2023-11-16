@@ -18,8 +18,14 @@ namespace WeatherStation {
 		[NonSerialized] public Vector3 ConstrainedGripPosition = Vector3.zero;
 		[NonSerialized] public Transform ConstrainedGripTransform;
 		
+		private Transform OriginalParent;
+		
 		private void Awake() {
-			
+			OriginalParent = transform.parent;
+		}
+		
+		public void SetToOriginalParent() {
+			transform.parent = OriginalParent;
 		}
 	}
 }
