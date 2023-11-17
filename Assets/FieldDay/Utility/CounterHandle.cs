@@ -30,6 +30,21 @@ namespace FieldDay {
         }
 
         /// <summary>
+        /// Resets the counter.
+        /// </summary>
+        public int Reset() {
+            unsafe {
+                if (Value == null) {
+                    return -1;
+                } else {
+                    int val = *Value;
+                    *Value = 0;
+                    return val;
+                }
+            }
+        }
+
+        /// <summary>
         /// Returns if the counter is done.
         /// </summary>
         public bool IsDone() {
@@ -80,6 +95,10 @@ namespace FieldDay {
         }
 
         #region Pool
+
+        static public CounterHandle Alloc() {
+            return Alloc(0);
+        }
 
         static public CounterHandle Alloc(int count) {
             unsafe {

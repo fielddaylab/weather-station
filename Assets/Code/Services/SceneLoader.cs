@@ -1,12 +1,9 @@
-using FieldDay;
-using FieldDay.Components;
 using FieldDay.SharedState;
-using FieldDay.Systems;
 using BeauUtil;
-using FieldDay.Components;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FieldDay;
 
 namespace WeatherStation {
 
@@ -22,11 +19,8 @@ namespace WeatherStation {
 		
 		public ActionEvent OnSceneLoaded = new ActionEvent();
 		
-        void Awake() {
-            //Services.AutoSetup(Root);
-            //StartCoroutine(Services.State.ImportInitialScene(SceneList[0]));
-			StartCoroutine(BroadcastSwitch(SceneList[0], 3f));
-            
+        void Start() {
+            StartCoroutine(BroadcastSwitch(SceneList[0], 3f));
         }
 
         public void UpdateStates() {
@@ -36,7 +30,8 @@ namespace WeatherStation {
 		public void SwitchScenes() {
 			int nextIndex = CurrentSceneIndex+1;
 			nextIndex = nextIndex % SceneList.Count;
-			//StartCoroutine(StateUtil.SwapSceneWithFader(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
+            Game.Scenes.UnloadScenesByTag("Exterior");
+            Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Exterior");
 			CurrentSceneIndex = nextIndex;
 			StartCoroutine(BroadcastSwitch(SceneList[CurrentSceneIndex], 3f));
 		}

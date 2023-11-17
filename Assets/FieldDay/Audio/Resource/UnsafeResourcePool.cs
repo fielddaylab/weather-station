@@ -25,7 +25,7 @@ namespace FieldDay.Audio {
             T* ptr = m_Data.Ptr + m_AllocHead;
             m_BitMap.Set(m_AllocHead);
             m_AllocHead = (m_AllocHead + 1) % m_Data.Length;
-            Unsafe.Clear(ptr, 1);
+            *ptr = default(T);
             return ptr;
         }
 

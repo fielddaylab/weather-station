@@ -60,7 +60,7 @@ namespace FieldDay.Rendering {
             }
         }
 
-        static public void CopySettingsToActive(SceneBinding src) {
+        static public void CopySettingsToActive(Scene src) {
             SceneBinding currentActive = SceneManager.GetActiveScene();
 
             SceneManager.SetActiveScene(src);
@@ -70,8 +70,8 @@ namespace FieldDay.Rendering {
             settings.Write();
         }
 
-        static public void CopySettings(SceneBinding src, SceneBinding dest) {
-            SceneBinding currentActive = SceneManager.GetActiveScene();
+        static public void CopySettings(Scene src, Scene dest) {
+            Scene currentActive = SceneManager.GetActiveScene();
             
             SceneManager.SetActiveScene(src);
             SceneSettings settings = default;

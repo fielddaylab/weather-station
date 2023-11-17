@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using BeauUtil;
 using BeauUtil.Editor;
@@ -16,9 +17,11 @@ namespace FieldDay.Editor {
         static private LruCache<uint, CacheEntry> s_ListCache = new LruCache<uint, CacheEntry>(32);
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) {
-            base.OnGUI(position, property, label);
+            FieldInfo field = SerializedObjectUtils.GetFieldInfoFromProperty(property, out Type fieldType);
         }
 
-        static public void Render(Rect position, SerializedProperty property, GUIContent label, FieldInfo field, AssetNameAttribute attribute)
+        static public void Render(Rect position, SerializedProperty property, GUIContent label, FieldInfo field, AssetNameAttribute attribute) {
+
+        }
     }
 }

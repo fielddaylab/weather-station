@@ -133,9 +133,13 @@ namespace FieldDay.Editor {
         public void OnProcessScene(Scene scene, BuildReport report) {
             using (Profiling.Time("generating SceneDataExt")) {
 
-                SceneDataExt ext = GameObject.FindObjectOfType<SceneDataExt>();
+                List<SceneDataExt> list = new List<SceneDataExt>();
+                scene.GetAllComponents(list);
+                SceneDataExt ext = list.Count > 0 ? list[0] : null;
                 if (ext == null) {
-                    ext = new GameObject("__SceneDataExt").AddComponent<SceneDataExt>();
+                    GameObject extGO = new GameObject("__SceneDataExt");
+                    SceneManager.MoveGameObjectToScene(extGO, scene);
+                    ext = extGO.AddComponent<SceneDataExt>();
                 }
 
                 // preload manifest

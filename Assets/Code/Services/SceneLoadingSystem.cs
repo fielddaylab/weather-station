@@ -15,7 +15,11 @@ namespace WeatherStation {
 			
             VRInputState data = Game.SharedState.Get<VRInputState>();
 			
-            if(data.RightHand.Released(VRControllerButtons.Secondary)) {
+            if (Game.Scenes.IsMainLoading()) {
+                return;
+            }
+
+            if(data.RightHand.Released(VRControllerButtons.Secondary) || Input.GetKeyDown(KeyCode.Tab)) {
                 //switch scenes.. why is this hitting twice?
 				//Debug.Log("SWITCH SCENES");
 				m_State.SwitchScenes();

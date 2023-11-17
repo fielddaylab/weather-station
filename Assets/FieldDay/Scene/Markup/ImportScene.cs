@@ -37,6 +37,23 @@ namespace FieldDay.Scenes {
 
         #region Utilities
 
+        static private readonly List<GameObject> s_RootWorkList = new List<GameObject>(256);
+
+        /// <summary>
+        /// Transforms the given scene's roots by the given matrix.
+        /// </summary>
+        static public void TransformRoots(Scene scene, Matrix4x4? matrix) {
+            if (!matrix.HasValue) {
+                return;
+            }
+
+            scene.GetRootGameObjects(s_RootWorkList);
+            foreach(var root in s_RootWorkList) {
+                TransformRoot(root.transform, matrix);
+            }
+            s_RootWorkList.Clear();
+        }
+
         /// <summary>
         /// Transforms the given transform by the given matrix.
         /// </summary>
@@ -86,12 +103,12 @@ namespace FieldDay.Scenes {
             Tag = tag;
         }
 
-        public SceneLoadType LoadType {
+        public SceneType LoadType {
             get {
                 if ((Flags & SceneImportFlags.Persistent) != 0) {
-                    return SceneLoadType.Persistent;
+                    return SceneType.Persistent;
                 } else {
-                    return SceneLoadType.Aux;
+                    return SceneType.Aux;
                 }
             }
         }
@@ -124,6 +141,11 @@ namespace FieldDay.Scenes {
         /// By default, scenes will load additively at runtime.
         /// </summary>
         Auxillary = 0,
+
+        /// <summary>
+        /// Attaches the scene as a child of its parent.
+        /// </summary>
+        AttachAsChild = 0x01,
         
         /// <summary>
         /// Imports lighting data into the main scene.
