@@ -19,6 +19,9 @@ namespace WeatherStation {
 		
 		public Grabbable RightHandle;
 		public Grabbable LeftHandle;
+		
+		public bool LockRoll = false;
+		
         #endregion // Inspector
 		
 		private bool RightGrabbed = false;
@@ -69,14 +72,18 @@ namespace WeatherStation {
 					Vector3 newRight = Vector3.Normalize(trackedRight - trackedLeft);
 					SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
 					
-					SolarPanel.transform.RotateAround(solarPanelPos, toRight, euler.x - LastEuler.x);
+					if(!LockRoll) {
+						SolarPanel.transform.RotateAround(solarPanelPos, toRight, euler.x - LastEuler.x);
+					}
 					
 					GrabPointRight = trackedRight;
 					GrabPointLeft = trackedLeft;
 				}
 			}
 			
-			LastEuler = euler;
+			if(!LockRoll) {
+				LastEuler = euler;
+			}
 			
 			VRInputState data = Game.SharedState.Get<VRInputState>();
 			
