@@ -60,7 +60,28 @@ namespace WeatherStation {
         private void Awake() {
             OldColor = FinalMaterial.color;
 			ResetColors();
+			
+			for(int i = 0; i < PuzzleSockets.Count; ++i) {
+				PuzzleSockets[i].OnRemoved.Register(OnDataPieceRemoved);
+			}
         }
+		
+		private void OnDataPieceRemoved(Socketable s)
+		{
+			Debug.Log("Piece removed");
+			Material[] m = s.gameObject.GetComponent<MeshRenderer>().sharedMaterials;
+			for(int i = 0; i < m.Length; ++i)
+			{
+				for(int j = 0; j < DoorPieceMaterials.Count; ++j)
+				{
+					if(DoorPieceMaterials[j] == m[i])
+					{
+						m[i].color = DoorPieceColor;
+						break;
+					}
+				}
+			}
+		}
 		
 		public void ResetColors() {
 			for(int i = 0; i < DoorPieceMaterials.Count; ++i) {

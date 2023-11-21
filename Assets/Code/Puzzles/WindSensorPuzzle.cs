@@ -93,6 +93,7 @@ namespace WeatherStation {
 				}
 				
 				if(allMatched) {
+					PuzzleSockets[0].Locked = true;
 					BrokenProp.SetActive(false);		//temp
 				}
 			}
