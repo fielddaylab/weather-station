@@ -22,8 +22,9 @@ namespace WeatherStation {
 
         public float BlinkTiming = 1f;
         public GameObject PowerMeter;
-		public Grabbable Cover;
-
+		//public Grabbable Cover;
+		public ItemSocket BatteryBase;
+		
 		public int PowerMeterOffset = 6;
 		
         #endregion // Inspector
@@ -36,11 +37,11 @@ namespace WeatherStation {
         private bool BlinkOn = false;
 		
 			
-		public void UnlockCover() {
+		/*public void UnlockCover() {
 			if(Cover) {
 				Cover.GrabEnabled = true;
 			}
-		}
+		}*/
 		
 		public override bool IsComplete() {
             for(int i = 0; i < PuzzleSockets.Count; ++i) {
@@ -102,7 +103,18 @@ namespace WeatherStation {
                 NewColor = PowerMeter.transform.GetChild(PowerMeterOffset).gameObject.GetComponent<MeshRenderer>().material.color;
 				BlinkOldColor = PowerMeter.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.color;
             }            
+			
+			if(BatteryBase != null) {
+				BatteryBase.OnAdded.Register(LockBase);
+			}
         }
+		
+		private void LockBase(Socketable s)
+		{
+			if(BatteryBase) {
+				BatteryBase.Locked = true;
+			}
+		}
 
     }
 

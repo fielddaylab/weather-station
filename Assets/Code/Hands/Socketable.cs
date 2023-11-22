@@ -92,7 +92,7 @@ namespace WeatherStation {
                 }
             }
 
-            socket.Detector.enabled = false;
+            //socket.Detector.enabled = false;
 
             grabbable.OriginalSocket = socket;
             

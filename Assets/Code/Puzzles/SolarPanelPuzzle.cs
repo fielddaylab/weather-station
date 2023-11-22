@@ -70,11 +70,15 @@ namespace WeatherStation {
 					trackedRight.y = solarPanelPos.y;
 					trackedLeft.y = solarPanelPos.y;
 					Vector3 newRight = Vector3.Normalize(trackedRight - trackedLeft);
-					SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
+					//SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
 					
 					if(!LockRoll) {
-						SolarPanel.transform.RotateAround(solarPanelPos, toRight, euler.x - LastEuler.x);
+						if(euler.x < 70f || euler.x > 290f) {
+							SolarPanel.transform.RotateAround(solarPanelPos, toRight, euler.x - LastEuler.x);
+						}
 					}
+					
+					//Debug.Log(euler.x);
 					
 					GrabPointRight = trackedRight;
 					GrabPointLeft = trackedLeft;
@@ -82,7 +86,9 @@ namespace WeatherStation {
 			}
 			
 			if(!LockRoll) {
-				LastEuler = euler;
+				if(euler.x < 70f || euler.x > 290f) {
+					LastEuler = euler;
+				}
 			}
 			
 			VRInputState data = Game.SharedState.Get<VRInputState>();
