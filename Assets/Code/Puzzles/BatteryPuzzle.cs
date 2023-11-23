@@ -49,6 +49,12 @@ namespace WeatherStation {
 					return false;
                 }
             }
+			
+			if(BatteryBase.Locked)
+			{
+				BatteryBase.Locked = false;
+			}
+			
 			return true;
 		}
 

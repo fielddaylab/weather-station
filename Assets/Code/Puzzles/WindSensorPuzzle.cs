@@ -33,7 +33,7 @@ namespace WeatherStation {
 		private bool IsTesting = false;
 		private bool IsStopped = false;
 		
-		public void UnlockSocket(Collider c) {
+		public void UnlockSocket(Socketable s) {
 			if(PuzzleSockets.Count > 0) {
 				for(int i = 0; i < PuzzleSockets.Count; ++i) {
 					PuzzleSockets[i].Locked = false;
@@ -75,6 +75,7 @@ namespace WeatherStation {
             TestButton.OnPressed.Register(TestComplete);
 			if(BaySocket != null) {
 				BaySocket.OnRemoved.Register(OnSensorRemoved);
+				BaySocket.OnAdded.Register(UnlockSocket);
 			}
         }
 		
@@ -92,8 +93,10 @@ namespace WeatherStation {
 					}
 				}
 				
+				TestButton.Untoggle();
+				IsTesting = false;
+
 				if(allMatched) {
-					PuzzleSockets[0].Locked = true;
 					BrokenProp.SetActive(false);		//temp
 				}
 			}
@@ -108,33 +111,48 @@ namespace WeatherStation {
 						IsStopped = true;
 					} else {
 						IsTesting = true;
+						PuzzleSockets[0].Locked = true;
 						StartCoroutine(RotateAndFinish(PuzzleSockets[0], PuzzleSockets[0].Current, 120f));
 					}
 				} else {
 					if(!IsTesting) {
 						IsTesting = true;
+						PuzzleSockets[0].Locked = true;
 						//rotate a bit, then have it detach and fall..
 						StartCoroutine(RotateAndFall(PuzzleSockets[0], PuzzleSockets[0].Current, 3f));
 					}
+					else
+					{
+						IsStopped = true;
+					}
 				}
+			}
+			else
+			{
+				TestButton.Untoggle();
 			}
         }
 
         private IEnumerator RotateAndFall(ItemSocket socket, Socketable socketable, float duration) {
             float t = 0f;
-            while(t < duration) {
+            while(t < duration && !IsStopped) {
 				//Debug.Log("Rotating");
-                SocketUtility.RotateSocketed(PuzzleSockets[0], PuzzleSockets[0].Current, 0.5f);
+				if(PuzzleSockets[0].Current)
+				{
+					SocketUtility.RotateSocketed(PuzzleSockets[0], PuzzleSockets[0].Current, 0.5f);
+				}
                 yield return new WaitForEndOfFrame();
                 t += Time.deltaTime;
             }
 
             //unsocket and have it fall to the ground...
-			SocketUtility.TryReleaseFromCurrentSocket(PuzzleSockets[0].Current, false);
+			SocketUtility.TryReleaseFromCurrentSocket(PuzzleSockets[0].Current, true);
 			
 			TestButton.Untoggle();
 			
+			PuzzleSockets[0].Locked = false;
 			IsTesting = false;
+			IsStopped = false;
         }
 
         private IEnumerator RotateAndFinish(ItemSocket socket, Socketable socketable, float duration) {

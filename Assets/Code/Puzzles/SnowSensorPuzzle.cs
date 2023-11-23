@@ -106,6 +106,8 @@ namespace WeatherStation {
 						if(SensorMaterials[i].mainTexture == Solution[i]) {
 							SensorMaterials[i].mainTexture = SolutionTextures[i];
 							PairedMaterials[i-1].color = GlowColor;
+						} else {
+							break;
 						}
 					}
 				}
