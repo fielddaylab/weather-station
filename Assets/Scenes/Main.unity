@@ -214,7 +214,7 @@ Transform:
   m_GameObject: {fileID: 45486498}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.189, y: -0.554, z: 0}
+  m_LocalPosition: {x: 33.539, y: -0.554, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2358,7 +2358,7 @@ Transform:
   m_GameObject: {fileID: 657980116}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5.01, y: 0.94, z: -0.04}
+  m_LocalPosition: {x: 33.36, y: 0.94, z: -0.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5561,7 +5561,7 @@ Transform:
   m_GameObject: {fileID: 1588656142}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9902657, z: -0, w: -0.1391903}
-  m_LocalPosition: {x: 5.073, y: 0.078, z: 1.265}
+  m_LocalPosition: {x: 33.423, y: 0.078, z: 1.265}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6059,6 +6059,7 @@ MonoBehaviour:
   SledInsideLocation: {fileID: 1588656143}
   SledOutsideLocation: {fileID: 1149791410}
   Sled: {fileID: 205233655}
+  PlaneExterior: {fileID: 8863540290056324907}
   Fader: {fileID: 1312827216}
   ArgoInsideSocket: {fileID: 2003770718}
   ArgoOutsideSocket: {fileID: 594095264}
@@ -6132,7 +6133,7 @@ Transform:
   m_GameObject: {fileID: 1912945178}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.900663, y: 1.47, z: 1.2396353}
+  m_LocalPosition: {x: 33.250664, y: 1.47, z: 1.2396353}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6995,6 +6996,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7292223922517554457, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7292223922517554457, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -7073,6 +7079,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48e2e93fbf71a894e8c9aad8dccf06af, type: 3}
+--- !u!1 &8863540290056324907 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7292223922517554457, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
+    type: 3}
+  m_PrefabInstance: {fileID: 8863540290056324906}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

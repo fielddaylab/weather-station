@@ -17,6 +17,7 @@ namespace WeatherStation {
 		public Transform SledOutsideLocation;
 		//public Vector3 SledOffset;	//3.585, 0, 0.228
 		public GameObject Sled;
+		public GameObject PlaneExterior;
 		public OVRScreenFade Fader;
 
 		public ItemSocket ArgoInsideSocket;
@@ -97,6 +98,10 @@ namespace WeatherStation {
 				Sled.transform.rotation = SledOutsideLocation.transform.rotation;
 
 				SocketUtility.TryAddToSocket(ArgoOutsideSocket, s, false);
+				
+				if(PlaneExterior != null) {
+					PlaneExterior.SetActive(true);
+				}
 			} else {
 
 				transform.position = InsideLocation.position;
@@ -104,6 +109,10 @@ namespace WeatherStation {
 				Sled.transform.position = SledInsideLocation.transform.position;
 				Sled.transform.rotation = SledInsideLocation.transform.rotation;
 				SocketUtility.TryAddToSocket(ArgoInsideSocket, s, false);
+				
+				if(PlaneExterior != null) {
+					PlaneExterior.SetActive(false);
+				}
 			}
 			
 			IsInside = !IsInside;
