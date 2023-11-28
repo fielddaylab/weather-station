@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BeauPools;
 using BeauRoutine;
 using BeauUtil;
+using BeauUtil.Debugger;
 using FieldDay.SharedState;
 using Leaf;
 using Leaf.Runtime;
@@ -122,6 +123,8 @@ namespace FieldDay.Scripting {
             }
 
             package.m_SourceAsset = sourceAsset;
+
+            Log.Msg("[ScriptDatabase] Script '{0}' registered", package.Name());
         }
 
         static public void DeregisterPackage(ScriptDatabase db, ScriptNodePackage package) {
@@ -148,6 +151,8 @@ namespace FieldDay.Scripting {
             foreach (var node in package.Queued()) {
                 db.LoadedRandomAccessNodes.Remove(node.Id());
             }
+
+            Log.Msg("[ScriptDatabase] Script '{0}' deregistered", package.Name());
 
             db.LoadedSourceAssetMap.Remove(package.m_SourceAsset);
             package.m_SourceAsset = null;

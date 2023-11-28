@@ -1,0 +1,14 @@
+#basePath   TestScript
+
+:: TestSomethingOut
+@trigger    GameReady
+@evalPriority   100
+@once
+
+$call Wait(2)
+{@argo} Hi there!
+{@argo} I'm your friendly robot helper A.R.G.O.!
+{@argo} What does that stand for?
+$call Wait(1)
+$call TheSled->Deactivate()
+{@argo} That's not an authorized question!

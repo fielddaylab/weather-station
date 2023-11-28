@@ -9,6 +9,7 @@ using Leaf;
 using Leaf.Runtime;
 using UnityEngine;
 using WeatherStation;
+using WeatherStation.Scripting;
 using Random = System.Random;
 
 namespace FieldDay.Scripting {
@@ -38,7 +39,7 @@ namespace FieldDay.Scripting {
             ResolverOverride = new CustomVariantResolver();
             ResolverOverride.Base = Resolver;
             
-            Plugin = new ScriptPlugin(this, Resolver);
+            Plugin = new ScriptPlugin(this, Resolver, LeafUtils.CreateMethodCache(typeof(IScriptActorComponent)));
             Plugin.ConfigureDisplay(Subtitles, null);
 
             ThreadPool = new DynamicPool<ScriptThread>(16, (p) => {

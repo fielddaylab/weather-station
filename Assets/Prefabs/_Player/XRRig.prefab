@@ -981,8 +981,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7101123366120485163, guid: b268cd3ea293ffc40ac9293811be92e6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 990770962062584600}
   m_SourcePrefab: {fileID: 100100000, guid: b268cd3ea293ffc40ac9293811be92e6, type: 3}
+--- !u!1 &1512126708427713008 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7101123366120485163, guid: b268cd3ea293ffc40ac9293811be92e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8534432521455179995}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &990770962062584600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512126708427713008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f69addabb33eb048b0c60bd1469cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id:
+    m_Source: player.leftHand
+    m_HashValue: 1960365278
+  m_DisableOnStart: 0
 --- !u!4 &8835793092991551857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 932084766914384298, guid: b268cd3ea293ffc40ac9293811be92e6,

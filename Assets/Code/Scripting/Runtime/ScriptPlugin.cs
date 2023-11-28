@@ -111,8 +111,57 @@ namespace FieldDay.Scripting {
         }
 
         public override IEnumerator RunLine(LeafThreadState<ScriptNode> inThreadState, LeafLineInfo inLine) {
+            if (inLine.IsEmptyOrWhitespace)
+                yield break;
+
+            LeafThreadHandle handle = inThreadState.GetHandle();
+            TagString eventString = inThreadState.TagString;
+            TagStringEventHandler eventHandler = m_TagHandler;
+
+            m_TagParser.Parse(ref eventString, inLine.Text, inThreadState);
+
             // TODO: Play VO?
-            return base.RunLine(inThreadState, inLine);
+            if (eventString.TryFindEvent(LeafUtils.Events.Character, out TagEventData charData)) {
+                StringHash32 charId = charData.GetStringHash();
+                // TODO: Find the character in the scene that maps to the character id
+                // Play the VO from there
+                //inLine.LineCode;
+            }
+
+            TagStringEventHandler overrideHandler = m_TextDisplayer.PrepareLine(eventString, eventHandler);
+            if (overrideHandler != null) {
+                overrideHandler.Base = eventHandler;
+                eventHandler = overrideHandler;
+            }
+
+            for (int i = 0; i < eventString.Nodes.Length; i++) {
+                TagNodeData node = eventString.Nodes[i];
+                switch (node.Type) {
+                    case TagNodeType.Event: {
+                        IEnumerator coroutine;
+                        if (eventHandler.TryEvaluate(node.Event, inThreadState, out coroutine)) {
+                            // if executing this event somehow killed this thread, stop here
+                            if (!handle.IsRunning())
+                                yield break;
+
+                            if (coroutine != null)
+                                yield return coroutine;
+                        }
+                        break;
+                    }
+
+                    case TagNodeType.Text: {
+                        yield return Routine.Inline(m_TextDisplayer.TypeLine(eventString, node.Text));
+                        break;
+                    }
+                }
+            }
+
+            if (eventString.RichText.Length > 0) {
+                yield return m_TextDisplayer.CompleteLine();
+            }
+
+            yield return Routine.Command.BreakAndResume;
         }
 
         public override void OnEnd(LeafThreadState<ScriptNode> inThreadState) {

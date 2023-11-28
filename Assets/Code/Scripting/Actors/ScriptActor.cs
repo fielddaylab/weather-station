@@ -92,4 +92,6 @@ namespace WeatherStation.Scripting {
 
         #endregion // Unity Events
     }
+
+    public interface IScriptActorComponent { }
 }

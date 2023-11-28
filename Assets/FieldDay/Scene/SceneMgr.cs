@@ -4,22 +4,20 @@
 
 using System.Collections;
 using BeauUtil;
-using ScriptableBake;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using BeauUtil.Debugger;
 using BeauRoutine;
-using BeauPools;
 using System.Collections.Generic;
 using System.Reflection;
 using FieldDay.Rendering;
 using FieldDay.Assets;
+using System.IO;
 
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
-using System.IO;
 #endif // UNITY_EDITOR
 
 namespace FieldDay.Scenes {
