@@ -36,7 +36,7 @@ namespace FieldDay {
     /// <summary>
     /// Game loop manager.
     /// </summary>
-    [DefaultExecutionOrder(-10000000), DisallowMultipleComponent]
+    [DefaultExecutionOrder(-23000), DisallowMultipleComponent]
     public sealed class GameLoop : MonoBehaviour, ICameraPreCullCallback, ICameraPostRenderCallback, ICameraPreRenderCallback {
         #region Inspector
 
@@ -222,6 +222,11 @@ namespace FieldDay {
             // find all boot
             foreach (var entrypoint in Reflect.FindMethods<InvokeOnBootAttribute>(ReflectionCache.UserAssemblies, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)) {
                 entrypoint.Info.Invoke(null, null);
+            }
+
+            // fallback
+            if (Game.Events == null) {
+                Game.SetEventDispatcher(new EventDispatcher<object>());
             }
         }
 
