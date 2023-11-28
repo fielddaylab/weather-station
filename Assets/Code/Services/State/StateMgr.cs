@@ -264,8 +264,6 @@ namespace WeatherStation
             yield return WaitForServiceLoading();
             yield return WaitForCleanup();
 
-            RecordCurrentMapAsSeen(active);
-            
             //Services.Camera.EnableRendering();
 
             m_SceneLock = false;
@@ -385,7 +383,6 @@ namespace WeatherStation
             yield return WaitForServiceLoading();
             yield return WaitForCleanup();
 
-            RecordCurrentMapAsSeen(inNextScene);
             //Services.Camera.EnableRendering();
             //Services.Secrets.UnblockCheats();
 
@@ -514,38 +511,6 @@ namespace WeatherStation
             }
         }
 
-        /*private IEnumerator LoadConditionalSubscenes(SceneBinding inBinding, object inContext)
-        {
-            using(PooledList<ISceneSubsceneSelector> selectors = PooledList<ISceneSubsceneSelector>.Create())
-            using(PooledList<SceneImportSettings> subScenes = PooledList<SceneImportSettings>.Create())
-            {
-                inBinding.Scene.GetAllComponents<ISceneSubsceneSelector>(false, selectors);
-                if (selectors.Count > 0)
-                {
-                    foreach(var selector in selectors)
-                    {
-                        foreach(var importSettings in selector.GetAdditionalScenesNames(inBinding, inContext))
-                        {
-                            if (!string.IsNullOrEmpty(importSettings.ScenePath))
-                                subScenes.Add(importSettings);
-                        }
-                    }
-                }
-
-                if (subScenes.Count > 0)
-                {
-                    DebugService.Log(LogMask.Loading, "[StateMgr] Loading {0} conditional subscenes...", subScenes.Count);
-                    using(Profiling.Time("load conditional subscenes"))
-                    {
-                        foreach(var subscene in subScenes)
-                        {
-                            yield return ImportScene(subscene, inBinding);
-                        }
-                    }
-                }
-            }
-        }*/
-
         #if UNITY_EDITOR
         
         private IEnumerator WaitForBake(SceneBinding inBinding, object inContext)
@@ -621,11 +586,38 @@ namespace WeatherStation
 
             SceneBinding unityScene = SceneHelper.FindSceneByPath(path, SceneCategories.Loaded);
             GameObject[] roots = unityScene.Scene.GetRootGameObjects();
-            foreach(var root in roots)
-            {
-                //SceneManager.MoveGameObjectToScene(root, inActiveScene);
-                //SceneImportSettings.TransformRoot(root, inImportSettings);
-            }
+			if(path.Contains("Interior"))
+			{
+				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+	            foreach(var root in roots)
+				{
+					//Debug.Log(root);
+					if(root.name == "PlaneInterior")
+					{
+						playerLocator.PlaneInterior = root;
+					}
+					else if(root.name == "Directional Light")
+					{
+						playerLocator.InteriorLight = root;
+					}
+					//SceneManager.MoveGameObjectToScene(root, inActiveScene);
+					//SceneImportSettings.TransformRoot(root, inImportSettings);
+				}			
+			}
+			else if(path.Contains("West"))
+			{
+				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+	            foreach(var root in roots)
+				{
+					if(root.name == "Directional Light")
+					{
+						playerLocator.ExteriorLight = root;
+					}
+					//SceneManager.MoveGameObjectToScene(root, inActiveScene);
+					//SceneImportSettings.TransformRoot(root, inImportSettings);
+				}
+			}
+
             //if (inImportSettings.ImportLighting)
             {
                 //LightUtils.CopySettings(unityScene, inActiveScene);
@@ -653,18 +645,23 @@ namespace WeatherStation
             yield return SceneManager.LoadSceneAsync(newScenePath, LoadSceneMode.Additive);
             ScreenFader.FadeIn(inFadeDuration);
             #endif // UNITY_EDITOR
+			
+			SceneBinding unityScene = SceneHelper.FindSceneByPath(newScenePath, SceneCategories.Loaded);
+            GameObject[] roots = unityScene.Scene.GetRootGameObjects();
 
+			PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+			foreach(var root in roots)
+			{
+				//Debug.Log(root.name);
+				if(root.name == "Directional Light")
+				{
+					playerLocator.ExteriorLight = root;
+					break;
+				}
+				//SceneManager.MoveGameObjectToScene(root, inActiveScene);
+				//SceneImportSettings.TransformRoot(root, inImportSettings);
+			}			
 		}
-
-        private void RecordCurrentMapAsSeen(SceneBinding inBinding)
-        {
-            /*if (inBinding.BuildIndex >= 0 && inBinding.BuildIndex < GameConsts.GameSceneIndexStart)
-                return;
-
-            StringHash32 map = MapDB.LookupMap(inBinding);
-            if (!map.IsEmpty)
-                Save.Map.RecordVisitedLocation(map);*/
-        }
 
         public void OnLoad(Action inAction, int priority)
         {

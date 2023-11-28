@@ -18,6 +18,9 @@ namespace WeatherStation {
 		//public Vector3 SledOffset;	//3.585, 0, 0.228
 		public GameObject Sled;
 		public GameObject PlaneExterior;
+		public GameObject PlaneInterior;
+		public GameObject ExteriorLight;
+		public GameObject InteriorLight;
 		public OVRScreenFade Fader;
 
 		public ItemSocket ArgoInsideSocket;
@@ -102,6 +105,18 @@ namespace WeatherStation {
 				if(PlaneExterior != null) {
 					PlaneExterior.SetActive(true);
 				}
+				
+				if(PlaneInterior != null) {
+					PlaneInterior.SetActive(false);
+				}
+				
+				if(ExteriorLight != null) {
+					ExteriorLight.SetActive(true);
+				}
+				
+				if(InteriorLight != null) {
+					InteriorLight.SetActive(false);
+				}
 			} else {
 
 				transform.position = InsideLocation.position;
@@ -112,6 +127,18 @@ namespace WeatherStation {
 				
 				if(PlaneExterior != null) {
 					PlaneExterior.SetActive(false);
+				}
+				
+				if(PlaneInterior != null) {
+					PlaneInterior.SetActive(true);
+				}
+				
+				if(ExteriorLight != null) {
+					ExteriorLight.SetActive(false);
+				}
+				
+				if(InteriorLight != null) {
+					InteriorLight.SetActive(true);
 				}
 			}
 			
