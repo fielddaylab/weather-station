@@ -1,5 +1,6 @@
 using BeauUtil;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -16,7 +17,6 @@ namespace FieldDay {
             public string[] Names;
         }
 
-        static private Assembly[] s_CachedUserAssemblies;
         static private readonly Dictionary<Type, EnumInfoCache> s_CachedEnumInfo = new Dictionary<Type, EnumInfoCache>(4);
 
         #region Assemblies
@@ -24,14 +24,9 @@ namespace FieldDay {
         /// <summary>
         /// Array of all user assemblies.
         /// </summary>
-        static public Assembly[] UserAssemblies {
+        static public IEnumerable<Assembly> UserAssemblies {
             get {
-                if (s_CachedUserAssemblies == null) {
-                    List<Assembly> userAssemblies = new List<Assembly>(16);
-                    userAssemblies.AddRange(Reflect.FindAllUserAssemblies());
-                    s_CachedUserAssemblies = userAssemblies.ToArray();
-                }
-                return s_CachedUserAssemblies;
+                return Reflect.FindAllUserAssemblies();
             }
         }
 
@@ -114,5 +109,83 @@ namespace FieldDay {
         }
 
         #endregion // String
+    }
+
+    /// <summary>
+    /// Attribute enumerator.
+    /// </summary>
+    public struct AttributeEnumerable<TAttr, TInfo> : IEnumerable<AttributeBinding<TAttr, TInfo>>, IEnumerator<AttributeBinding<TAttr, TInfo>>, IDisposable
+        where TAttr : Attribute
+        where TInfo : MemberInfo {
+
+        private IEnumerator<AttributeBinding<TAttr, TInfo>> m_Native;
+        private IEnumerator<SerializedAttributeSet.AttributePair<TAttr>> m_FromSet;
+
+        public AttributeEnumerable(IEnumerable<AttributeBinding<TAttr, TInfo>> enumerable) {
+            m_Native = enumerable.GetEnumerator();
+            m_FromSet = null;
+        }
+
+        public AttributeEnumerable(IEnumerable<SerializedAttributeSet.AttributePair<TAttr>> enumerable) {
+            m_Native = null;
+            m_FromSet = enumerable.GetEnumerator();
+        }
+
+        #region Disposable
+
+        public void Dispose() {
+            (m_Native as IDisposable)?.Dispose();
+            (m_FromSet as IDisposable)?.Dispose();
+
+            m_Native = null;
+            m_FromSet = null;
+        }
+
+        #endregion // Disposable
+
+        #region Enumerable
+
+        public AttributeEnumerable<TAttr, TInfo> GetEnumerator() {
+            return this;
+        }
+
+        IEnumerator<AttributeBinding<TAttr, TInfo>> IEnumerable<AttributeBinding<TAttr, TInfo>>.GetEnumerator() {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return this;
+        }
+
+        #endregion // Enumerable
+
+        #region Enumerator
+
+        public AttributeBinding<TAttr, TInfo> Current {
+            get {
+                if (m_Native != null) {
+                    return m_Native.Current;
+                } else {
+                    return new AttributeBinding<TAttr, TInfo>(m_FromSet.Current.Attribute, (TInfo) m_FromSet.Current.Info);
+                }
+            }
+        }
+
+        object IEnumerator.Current { get { return Current; } }
+
+        public bool MoveNext() {
+            if (m_Native != null) {
+                return m_Native.MoveNext();
+            } else {
+                return m_FromSet.MoveNext();
+            }
+        }
+
+        public void Reset() {
+            m_Native?.Reset();
+            m_FromSet?.Reset();
+        }
+
+        #endregion // Enumerator
     }
 }

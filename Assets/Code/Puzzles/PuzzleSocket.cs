@@ -30,7 +30,7 @@ namespace WeatherStation {
         private float BlinkTime = 0;
         private bool BlinkOn = false;
 
-        private void Awake() {
+        protected override void Awake() {
             base.Awake();
 #if UNITY_EDITOR
             //ResetColors();

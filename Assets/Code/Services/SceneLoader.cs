@@ -31,10 +31,8 @@ namespace WeatherStation {
 		
 		public ActionEvent OnSceneLoaded = new ActionEvent();
 		
-        void Awake() {
-            Services.AutoSetup(Root);
-            StartCoroutine(Services.State.ImportInitialScene(SceneList[0]));
-			StartCoroutine(Services.State.ImportInitialScene(InteriorScene));
+        void Start() {
+            Game.Scenes.LoadAuxScene(SceneList[0], "Additional");
 			//StartCoroutine(BroadcastSwitch(SceneList[0], 3f));
         }
 
@@ -85,8 +83,9 @@ namespace WeatherStation {
 				
 				int nextIndex = CurrentSceneIndex+1;
 				nextIndex = nextIndex % SceneList.Count;
-				StartCoroutine(StateUtil.SwapSceneWithFader(SceneList[CurrentSceneIndex], SceneList[nextIndex]));
-				CurrentSceneIndex = nextIndex;
+                Game.Scenes.UnloadScene(SceneList[CurrentSceneIndex]);
+                Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional");
+                CurrentSceneIndex = nextIndex;
 				if(MapMaterial != null) {
 					MapMaterial.mainTexture = MapTextures[nextIndex];
 				}

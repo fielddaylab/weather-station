@@ -31,8 +31,7 @@ namespace WeatherStation {
         public bool IsSocketAllowed(SocketFlags Flags) {
             return ((AllowedSockets & Flags) != 0);
         }
-
-        protected void Awake() {
+        protected virtual void Awake() {
             if (!Location) {
                 Location = transform;
             }

@@ -18,6 +18,11 @@ using FieldDay.Data;
 using BeauPools;
 using FieldDay.Audio;
 using System.Collections.Generic;
+using BeauUtil.UI;
+using FieldDay.Scenes;
+using System.Threading;
+using System.Globalization;
+using BeauRoutine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -31,7 +36,7 @@ namespace FieldDay {
     /// <summary>
     /// Game loop manager.
     /// </summary>
-    [DefaultExecutionOrder(-10000000), DisallowMultipleComponent]
+    [DefaultExecutionOrder(-23000), DisallowMultipleComponent]
     public sealed class GameLoop : MonoBehaviour, ICameraPreCullCallback, ICameraPostRenderCallback, ICameraPreRenderCallback {
         #region Inspector
 
@@ -40,6 +45,15 @@ namespace FieldDay {
 
         [SerializeField, Range(30, 120)]
         private int m_TargetFramerate = 60;
+
+        [SerializeField]
+        private Sprite m_DefaultPixelSprite;
+
+        [SerializeField]
+        private bool m_AllowMultiTouchInput = false;
+
+        [SerializeField]
+        private AudioMgr.Config m_AudioConfig = new AudioMgr.Config();
 
         #endregion // Inspector
 
@@ -152,6 +166,12 @@ namespace FieldDay {
             Log.Msg("[GameLoop] Starting...");
             Frame.MarkTimestampOffset();
             Frame.CreateAllocator(m_SingleFrameAllocBufferSize);
+            CounterHandle.InitializeAllocator(256);
+
+            Input.multiTouchEnabled = m_AllowMultiTouchInput;
+            CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+            CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
+            BuildInfo.Load();
 
             Log.Msg("[GameLoop] Creating systems manager...");
             Game.Systems = new SystemsMgr();
@@ -166,13 +186,17 @@ namespace FieldDay {
             Game.Processes = new ProcessMgr();
 
             Log.Msg("[GameLoop] Creating audio manager...");
-            Game.Audio = new AudioMgr();
+            Game.Audio = new AudioMgr(m_AudioConfig);
+
+            Log.Msg("[GameLoop] Creating scene manager...");
+            Game.Scenes = new SceneMgr();
 
             Application.targetFrameRate = m_TargetFramerate;
 
             Log.Msg("[GameLoop] Loading config vars...");
             ConfigVar.ReadAllFromResources();
             ConfigVar.ReadUserFromPlayerPrefs();
+            SharedCanvasResources.DefaultWhiteSprite = m_DefaultPixelSprite;
 
             // find all pre-boot
             foreach (var entrypoint in Reflect.FindMethods<InvokePreBootAttribute>(ReflectionCache.UserAssemblies, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)) {
@@ -182,11 +206,14 @@ namespace FieldDay {
             enabled = false;
             useGUILayout = false;
             StartCoroutine(DelayedBoot());
+
+            Async.InvokeAsync(PotentiallyExpensiveSystemResourceRetrieval);
         }
 
         private void Start() {
             Log.Msg("[GameLoop] Boot finished");
             SetCurrentPhase(GameLoopPhase.Booted);
+			Game.Scenes.Prepare();
             Game.Systems.ProcessInitQueue();
             FlushQueue(s_OnBootQueue);
 
@@ -195,6 +222,11 @@ namespace FieldDay {
             // find all boot
             foreach (var entrypoint in Reflect.FindMethods<InvokeOnBootAttribute>(ReflectionCache.UserAssemblies, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)) {
                 entrypoint.Info.Invoke(null, null);
+            }
+
+            // fallback
+            if (Game.Events == null) {
+                Game.SetEventDispatcher(new EventDispatcher<object>());
             }
         }
 
@@ -223,6 +255,7 @@ namespace FieldDay {
             }
             Canvas.preWillRenderCanvases -= OnPreCanvasRender;
             Frame.DestroyAllocator();
+            CounterHandle.DestroyAllocator();
             s_Initialized = m_Initialized = false;
         }
 
@@ -247,6 +280,10 @@ namespace FieldDay {
             CameraHelper.RemoveOnPreRender(this);
             CameraHelper.RemoveOnPostRender(this);
 
+            Log.Msg("[GameLoop] Shutting down scene manager...");
+            Game.Scenes.Shutdown();
+            Game.Scenes = null;
+
             Log.Msg("[GameLoop] Shutting down audio manager...");
             Game.Audio.Shutdown();
             Game.Audio = null;
@@ -254,6 +291,10 @@ namespace FieldDay {
             Log.Msg("[GameLoop] Shutting down process manager...");
             Game.Processes.Shutdown();
             Game.Processes = null;
+
+            Log.Msg("[GameLoop] Shutting down systems manager...");
+            Game.Systems.Shutdown();
+            Game.Systems = null;
 
             Log.Msg("[GameLoop] Shutting down shared state manager...");
             Game.SharedState.Shutdown();
@@ -263,9 +304,26 @@ namespace FieldDay {
             Game.Components.Shutdown();
             Game.Components = null;
 
-            Log.Msg("[GameLoop] Shutting down systems manager...");
-            Game.Systems.Shutdown();
-            Game.Systems = null;
+            // clearing all callbacks
+            OnCanvasPreRender.Clear();
+            OnDebugUpdate.Clear();
+            OnFixedUpdate.Clear();
+            OnFrameAdvance.Clear();
+            OnGuiEvent.Clear();
+            OnLateFixedUpdate.Clear();
+            OnLateUpdate.Clear();
+            OnPreUpdate.Clear();
+            OnShutdown.Clear();
+            OnUnscaledLateUpdate.Clear();
+            OnUnscaledUpdate.Clear();
+            OnUpdate.Clear();
+
+            // clearing all callback queues
+            s_AfterLateUpdateQueue.Clear();
+            s_CanvasPreRenderQueue.Clear();
+            s_EndOfFrameQueue.Clear();
+            s_FrameStartQueue.Clear();
+            s_OnBootQueue.Clear();
         }
 
         private void FixedUpdate() {
@@ -352,6 +410,7 @@ namespace FieldDay {
             Game.Events?.Flush();
 
             FlushQueue(s_AfterLateUpdateQueue);
+            Game.Scenes.Update();
 
             m_ReadyForRender = true;
         }
@@ -508,6 +567,10 @@ namespace FieldDay {
             //        .Append("\n FrameAdvanced ").AppendNoAlloc(timing.Duration[10]);
             //    Log.Msg(psb.Builder.Flush());
             //}
+        }
+
+        static private void PotentiallyExpensiveSystemResourceRetrieval() {
+            char.IsWhiteSpace('0'); // char.IsWhitespace has sometimes caused spikes due to retrieval of system resources *shrug*
         }
 
         #endregion // Handlers
