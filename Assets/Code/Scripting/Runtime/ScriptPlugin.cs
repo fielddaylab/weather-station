@@ -11,6 +11,7 @@ using Leaf;
 using Leaf.Defaults;
 using Leaf.Runtime;
 using UnityEngine;
+using WeatherStation;
 
 namespace FieldDay.Scripting {
     public class ScriptPlugin : DefaultLeafManager<ScriptNode> {
@@ -121,8 +122,12 @@ namespace FieldDay.Scripting {
             m_TagParser.Parse(ref eventString, inLine.Text, inThreadState);
 
             // TODO: Play VO?
+            StringHash32 voiceoverLineCode = default;
+            // TODO: Voiceover
             if (eventString.TryFindEvent(LeafUtils.Events.Character, out TagEventData charData)) {
                 StringHash32 charId = charData.GetStringHash();
+                voiceoverLineCode = inLine.LineCode;
+                VoiceoverUtility.QueueImmediateLineLoad(inLine.LineCode);
                 // TODO: Find the character in the scene that maps to the character id
                 // Play the VO from there
                 //inLine.LineCode;
@@ -132,6 +137,18 @@ namespace FieldDay.Scripting {
             if (overrideHandler != null) {
                 overrideHandler.Base = eventHandler;
                 eventHandler = overrideHandler;
+            }
+
+            if (!voiceoverLineCode.IsEmpty) {
+                AudioClip clip;
+                while (!VoiceoverUtility.TryGetClip(voiceoverLineCode, out clip)) {
+                    yield return null;
+                }
+
+                // TODO: Prepare next line so we aren't left sitting
+                //LeafRuntime.PredictLine(inThreadState);
+
+                //AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
             }
 
             for (int i = 0; i < eventString.Nodes.Length; i++) {
