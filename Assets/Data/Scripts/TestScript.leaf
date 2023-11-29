@@ -10,8 +10,16 @@ $call Wait(2)
 {@alex} Sure, perfect. If you’re a penguin.
 {@missioncontrol} Otter Three, we’re still not getting a signal from Athena Station. Any sign of damage?
 {@argo} What does that stand for?
+//add fade in here...
+{@alex} Station's a little beat up. Not too bad, considering how long we've been away.  But it looks like there's no power.
+{@rae} We have no time to mess around.  We've only got two hours of clear weather before I need to take off. You guys better boot up Argo.
+{@alex} Ugh. Do we have to?
+{@rae} It'll know what to do.  It was made for this.  Besides, I kinda miss that little robot.
+{@alex} Alright Matt. Do you see ARGO on the tower? I know it's been a while, you just need to press the red button to boot him up.  
+$call argo->SetLocked(false)
 $call Wait(1)
-$call rightPanelHandle->Play()
-$call rightPanelHandle->ShowHighlight()
+//$call rightPanelHandle->Play()
+//$call rightPanelHandle->ShowHighlight()
 //$call TheSled->Deactivate()
-{@argo} That's not an authorized question!
+{@argo} Ahh!! You're here, at last! My favorite Antarctic weather researcher!  And... Alex. You are here as well.
+{@alex} Gee, thanks Argo. Nice to see you too.

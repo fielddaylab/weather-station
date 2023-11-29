@@ -11,23 +11,20 @@ using Leaf.Runtime;
 using UnityEngine;
 
 namespace WeatherStation.Scripting {
-	[RequireComponent(typeof(MeshRenderer))]
     public class ScriptHighlight : MonoBehaviour, IScriptActorComponent {
 		
         #region Inspector
 		
 		[SerializeField, Required] private int m_MaterialIndex=0;
+        [SerializeField, Required] private MeshRenderer m_MR=null;
         
 		#endregion // Inspector
 		
 		private static Color HighlightOutline = new Color(0.12549f, 0.93725f, 0.294117f, 1f);
-		
-		private MeshRenderer m_MR;
 		private Color CurrentOutline;
 		private bool Highlighting = false;
 		
 		private void Awake() {
-			m_MR = GetComponent<MeshRenderer>();
 			CurrentOutline = m_MR.materials[m_MaterialIndex].GetColor("_OutlineColor");
 		}
 		

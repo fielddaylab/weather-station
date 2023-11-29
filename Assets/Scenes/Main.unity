@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37509254, g: 0.57763714, b: 0.8078356, a: 1}
+  m_IndirectSpecularColor: {r: 0.37526244, g: 0.57848704, b: 0.8069914, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1789,6 +1789,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2094817123}
     m_Modifications:
+    - target: {fileID: 1092880702828975181, guid: c1f916a2ee9feee488bb8274e1733de5,
+        type: 3}
+      propertyPath: Locked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1092880702828975181, guid: c1f916a2ee9feee488bb8274e1733de5,
         type: 3}
       propertyPath: Current
@@ -6862,6 +6867,8 @@ GameObject:
   - component: {fileID: 919132148871580472}
   - component: {fileID: 919132148871580474}
   - component: {fileID: 919132148871580475}
+  - component: {fileID: 919132148871580476}
+  - component: {fileID: 919132148871580477}
   m_Layer: 7
   m_Name: Argo00
   m_TagString: Untagged
@@ -6956,6 +6963,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SocketType: 1
+--- !u!114 &919132148871580476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148871580471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f69addabb33eb048b0c60bd1469cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id:
+    m_Source: argo
+    m_HashValue: 2433389656
+  m_DisableOnStart: 0
+--- !u!114 &919132148871580477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148871580471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ee338a9d94544368ed52ca2ed63def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Button: {fileID: 7362691586429858552}
 --- !u!23 &1008220945334578230
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7342,7 +7378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719e428cfdd784b89a929c931dc88ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Locked: 0
+  Locked: 1
   Toggleable: 0
   YShift: 0
   XShift: 0.01
