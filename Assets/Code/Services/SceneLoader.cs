@@ -2,6 +2,7 @@ using FieldDay;
 using FieldDay.Components;
 using FieldDay.SharedState;
 using FieldDay.Systems;
+using FieldDay.Scenes;
 using BeauUtil;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,12 +29,10 @@ namespace WeatherStation {
 		private int CurrentSceneIndex = 0;
 		
 		private bool SwitchingScenes = false;
-		
-		public ActionEvent OnSceneLoaded = new ActionEvent();
-		
+			
         void Start() {
+			Game.Scenes.OnSceneReady.Register(SceneIsReady);
             Game.Scenes.LoadAuxScene(SceneList[0], "Additional");
-			//StartCoroutine(BroadcastSwitch(SceneList[0], 3f));
         }
 
         public void UpdateStates() {
@@ -89,7 +88,6 @@ namespace WeatherStation {
 				if(MapMaterial != null) {
 					MapMaterial.mainTexture = MapTextures[nextIndex];
 				}
-				//StartCoroutine(BroadcastSwitch(SceneList[CurrentSceneIndex], 3f));
 				StartCoroutine(PostLoad(3f));
 			}
 		}
@@ -100,15 +98,37 @@ namespace WeatherStation {
 			SwitchingScenes = false;
 		}
 		
-        /*IEnumerator BroadcastSwitch(string newScene, float duration) {
-            yield return new WaitForSeconds(duration);
-			//Debug.Log(newScene);
-			if(newScene == "Assets/Scenes/West.unity" || newScene == "Assets/Scenes/South.unity") {	//temp
-				FanBlade.SetActive(false);
-			} else {
-				FanBlade.SetActive(true);
+		private void SceneIsReady(SceneEventArgs sceneArgs) {
+			
+			if(sceneArgs.Scene.path.Contains("Interior"))
+			{
+				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
+				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+	            foreach(var root in roots)
+				{
+					//Debug.Log(root);
+					if(root.name == "PlaneInterior")
+					{
+						playerLocator.PlaneInterior = root;
+					}
+					else if(root.name == "Directional Light")
+					{
+						playerLocator.InteriorLight = root;
+					}
+				}			
 			}
-            OnSceneLoaded.Invoke();
-        }*/
+			else if(sceneArgs.Scene.path.Contains("West"))
+			{
+				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
+				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+	            foreach(var root in roots)
+				{
+					if(root.name == "Directional Light")
+					{
+						playerLocator.ExteriorLight = root;
+					}
+				}
+			}
+		}
     }
 }

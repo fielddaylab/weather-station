@@ -26,7 +26,7 @@ namespace WeatherStation {
 
         public IEnumerator TypeLine(TagString inSourceString, TagTextData inType) {
             gameObject.SetActive(true);
-            yield return inType.VisibleCharacterCount * 0.01f;
+            yield return inType.VisibleCharacterCount * 0.05f;
         }
     }
 }

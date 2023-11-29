@@ -6,9 +6,11 @@
 @once
 
 $call Wait(2)
-{@argo} Hi there!
-{@argo} I'm your friendly robot helper A.R.G.O.!
+{@rae} Mission Control, this is Otter three, We just touched down at Athena Station. Killer landing. Definitely one of my top five! The dream team’s out on the ice. Sky’s clear as a bell, temperature clocking in at -15 degrees Fahrenheit. Perfect daytime conditions.
+{@alex} Sure, perfect. If you’re a penguin.
+{@missioncontrol} Otter Three, we’re still not getting a signal from Athena Station. Any sign of damage?
 {@argo} What does that stand for?
 $call Wait(1)
-$call TheSled->Deactivate()
+$call rightPanelHandle->Play()
+//$call TheSled->Deactivate()
 {@argo} That's not an authorized question!

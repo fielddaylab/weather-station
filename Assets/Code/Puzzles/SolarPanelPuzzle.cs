@@ -70,12 +70,13 @@ namespace WeatherStation {
 					trackedRight.y = solarPanelPos.y;
 					trackedLeft.y = solarPanelPos.y;
 					Vector3 newRight = Vector3.Normalize(trackedRight - trackedLeft);
-					//SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
 					
 					if(!LockRoll) {
 						if(euler.x < 70f || euler.x > 290f) {
 							SolarPanel.transform.RotateAround(solarPanelPos, toRight, euler.x - LastEuler.x);
 						}
+					} else {
+						SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
 					}
 					
 					//Debug.Log(euler.x);
