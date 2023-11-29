@@ -10,12 +10,11 @@ using Leaf.Runtime;
 using UnityEngine;
 
 namespace WeatherStation.Scripting {
-    public class ScriptParticleFX : ScriptObject {
-        #region Inspector
-
-        #endregion // Inspector
+    public class ScriptParticleFX : MonoBehaviour, IScriptActorComponent {
 		
-		private ParticleSystem m_PS;
+        #region Inspector
+		[SerializeField, Required] private ParticleSystem m_PS = null;
+        #endregion // Inspector
 		
         #region ILeafActor
 
@@ -25,9 +24,6 @@ namespace WeatherStation.Scripting {
 
         [LeafMember("Play")]
         public void Play() {
-			if(m_PS == null) {
-				m_PS = transform.GetComponentInChildren<ParticleSystem>();
-			}
 			
 			if(m_PS != null) {
 				m_PS.Play();
