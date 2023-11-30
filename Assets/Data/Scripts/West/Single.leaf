@@ -5,9 +5,7 @@
 @evalPriority   100
 @once
 
-{@Rae} Mission Control, this is Otter three, We just touched down at Athena Station. 
-{@Rae} Killer landing. Definitely one of my top five! The dream team’s out on the ice. 
-{@Rae} Sky’s clear as a bell, temperature clocking in at -15 degrees Fahrenheit. Perfect daytime conditions.
+{@Rae} Mission Control, this is Otter three, We just touched down at Athena Station. Killer landing. Definitely one of my top five! The dream team’s out on the ice. Sky’s clear as a bell, temperature clocking in at -15 degrees Fahrenheit. Perfect daytime conditions.
 {@Alex} Sure, perfect. If you’re a penguin.
 {@MissionControl} Otter Three, we’re still not getting a signal from Athena Station. Any sign of damage?
 {@Alex} Station's a little beat up. Not too bad, considering how long we've been away.  But it looks like there's no power.
@@ -16,3 +14,9 @@
 {@Rae} It'll know what to do.  It was made for this.  Besides, I kinda miss that little robot.
 {@Alex} Alright Matt. Do you see ARGO on the tower? I know it's been a while, you just need to press the red button to boot him up.
 $call argo->SetButtonLocked(false)
+$while ButtonNotPressed(argo)
+$call Wait(2)
+$if ButtonNotPressed(argo)
+{@Alex} Matt, Press Argo's red button to boot him up.
+$endif
+$endwhile

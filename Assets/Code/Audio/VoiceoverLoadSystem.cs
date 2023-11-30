@@ -20,7 +20,7 @@ namespace WeatherStation {
             if (hasLoad) {
                 if (m_State.CurrentLoad.isDone) {
                     if (m_State.CurrentLoad.result != UnityWebRequest.Result.Success) {
-                        //Log.Error("[VoiceoverLoadSystem] Could not load clip '{0}'", m_State.CurrentLoadingFileId);
+                        Log.Error("[VoiceoverLoadSystem] Could not load clip '{0}'", m_State.CurrentLoadingFileId);
                         m_State.FileMap.Add(m_State.CurrentLoadingFileId, default);
                     } else {
                         AudioClip clip = ((DownloadHandlerAudioClip) m_State.CurrentLoad.downloadHandler).audioClip;

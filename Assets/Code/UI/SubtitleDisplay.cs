@@ -34,7 +34,7 @@ namespace WeatherStation {
                 StringHash32 charId = charData.GetStringHash();
 				CharacterLabel.SetText(charId.ToDebugString() + ":");
 			}
-            yield return inType.VisibleCharacterCount * 0.05f;
+            yield return inType.VisibleCharacterCount * 0.095f;	//todo - should be based on length of vo clip...
         }
     }
 }

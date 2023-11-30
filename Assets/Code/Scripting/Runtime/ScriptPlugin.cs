@@ -140,15 +140,17 @@ namespace FieldDay.Scripting {
             }
 
             if (!voiceoverLineCode.IsEmpty) {
-                AudioClip clip;
+                AudioClip clip = null;
                 while (!VoiceoverUtility.TryGetClip(voiceoverLineCode, out clip)) {
                     yield return null;
                 }
 
                 // TODO: Prepare next line so we aren't left sitting
                 //LeafRuntime.PredictLine(inThreadState);
-
-                //AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+				if(clip != null) {
+					//Debug.Log("PLAYING CLIP");
+					AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+				}
             }
 
             for (int i = 0; i < eventString.Nodes.Length; i++) {
