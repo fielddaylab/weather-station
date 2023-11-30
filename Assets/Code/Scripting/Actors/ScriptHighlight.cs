@@ -11,7 +11,7 @@ using Leaf.Runtime;
 using UnityEngine;
 
 namespace WeatherStation.Scripting {
-    public class ScriptHighlight : MonoBehaviour, IScriptActorComponent {
+    public class ScriptHighlight : ScriptComponent {
 		
         #region Inspector
 		

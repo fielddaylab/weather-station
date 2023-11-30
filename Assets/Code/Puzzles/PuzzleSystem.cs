@@ -17,7 +17,7 @@ namespace WeatherStation {
             component.UpdatePuzzle();
             
             //Log.Msg("Processing work for: " + component.gameObject.name);
-			if(/*component.State != PuzzleState.Complete &&*/ component.IsComplete()) {
+			if(/*component.State != PuzzleState.Complete &&*/ component.CheckComplete()) {
 				//do something cool, advance game, etc.
                 component.State = PuzzleState.Complete;
                 //component.OnCompleted.Invoke();

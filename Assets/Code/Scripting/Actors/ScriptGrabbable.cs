@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace WeatherStation.Scripting {
 	[RequireComponent(typeof(Grabbable))]
-    public class ScriptGrabbable : MonoBehaviour, IScriptActorComponent {
+    public class ScriptGrabbable : ScriptComponent {
 		
         #region Inspector
 		
@@ -25,11 +25,25 @@ namespace WeatherStation.Scripting {
         private void Awake() {
             m_Grabbable = GetComponent<Grabbable>();
         }
-
-        [LeafMember("SetGrabbable")]
+		
+		public bool IsGrabbed() { return m_Grabbable.CurrentGrabberCount > 0; }
+        
+		[LeafMember("SetGrabbable")]
         public void SetGrabbable(bool grabParam) {
 			m_Grabbable.GrabEnabled = grabParam;
         }
+		
+		[LeafMember("NotIsGrabbed")]
+		static public bool NotIsGrabbed(StringHash32 id) {
+			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
+				ScriptGrabbable sg = ((ScriptObject)act).gameObject.GetComponent<ScriptGrabbable>();
+				if(sg != null) {
+					return !sg.IsGrabbed();
+				}
+			}
+			
+			return false;
+		}
 
         #endregion // Leaf
 		

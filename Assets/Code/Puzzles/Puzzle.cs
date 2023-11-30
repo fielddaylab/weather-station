@@ -16,7 +16,9 @@ namespace WeatherStation {
 		
         public ActionEvent OnCompleted = new ActionEvent();
         
-		public virtual bool IsComplete() { return false; }
+		public bool IsComplete() { return State == PuzzleState.Complete; }
+		
+		public virtual bool CheckComplete() { return false; }
 		
         public virtual void UpdatePuzzle() {}
 

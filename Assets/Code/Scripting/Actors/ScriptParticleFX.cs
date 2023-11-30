@@ -10,7 +10,7 @@ using Leaf.Runtime;
 using UnityEngine;
 
 namespace WeatherStation.Scripting {
-    public class ScriptParticleFX : MonoBehaviour, IScriptActorComponent {
+    public class ScriptParticleFX : ScriptComponent {
 		
         #region Inspector
 		[SerializeField, Required] private ParticleSystem m_PS = null;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using BeauUtil;
 using FieldDay;
 using FieldDay.Components;
+using FieldDay.Scripting;
 using UnityEngine;
 
 namespace WeatherStation {
@@ -23,8 +24,9 @@ namespace WeatherStation {
 		public AudioSource SoundEffect;
         #endregion // Inspector
 		
-        private bool On;
+		[NonSerialized] public bool WasPressed = false;
 
+        private bool On;
         private Color PriorColor;
         private MeshRenderer CachedMeshRenderer;
 
@@ -39,60 +41,73 @@ namespace WeatherStation {
 		}
 		
 		public void ButtonTrigger(Collider c) {
-            if(Toggleable) {
-                On = !On;
-                if(SoundEffect != null && SoundEffect.clip != null) {
-                    SoundEffect.Play();
-                }
-				
-				Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
-				if(rb != null) {
-					rb.detectCollisions = false;
-				}
-                
-				if(!On) {
-                    Vector3 vPos = transform.position;
-                    vPos.y += YShift;
-					vPos.x += XShift;
-                    transform.position = vPos;
-                    CachedMeshRenderer.material.color = PriorColor;
-                } else {
-                    Vector3 vPos = transform.position;
-                    vPos.y -= YShift;
+			if(!Locked) {
+				if(Toggleable) {
+					On = !On;
+					if(SoundEffect != null && SoundEffect.clip != null) {
+						SoundEffect.Play();
+					}
+					
+					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
+					if(rb != null) {
+						rb.detectCollisions = false;
+					}
+					
+					if(!On) {
+						Vector3 vPos = transform.position;
+						vPos.y += YShift;
+						vPos.x += XShift;
+						transform.position = vPos;
+						CachedMeshRenderer.material.color = PriorColor;
+					} else {
+						Vector3 vPos = transform.position;
+						vPos.y -= YShift;
+						vPos.x -= XShift;
+						transform.position = vPos;
+						CachedMeshRenderer.material.color = ButtonColor;
+					}
+					
+					StartCoroutine(TurnBackOn(c));
+					
+				} else {
+					
+					if(!WasPressed) {
+						ScriptUtility.Trigger("ArgoPressed");
+						/*using (var table = TempVarTable.Alloc()) {
+							table.Set("someRandomValue", RNG.Instance.Next(60));
+							
+						}*/
+						WasPressed = true;
+					}
+					
+					
+					if(SoundEffect != null && SoundEffect.clip != null) {
+						SoundEffect.Play();
+					}
+					
+					Vector3 vPos = transform.position;
+					vPos.y -= YShift;
 					vPos.x -= XShift;
-                    transform.position = vPos;
-                    CachedMeshRenderer.material.color = ButtonColor;
-                }
-				
-				StartCoroutine(TurnBackOn(c));
-                
-            } else {
-                if(SoundEffect != null && SoundEffect.clip != null) {
-                    SoundEffect.Play();
-                }
-				
-				Vector3 vPos = transform.position;
-				vPos.y -= YShift;
-				vPos.x -= XShift;
-				transform.position = vPos;
-				
-				Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
-				if(rb != null) {
-					rb.detectCollisions = false;
+					transform.position = vPos;
+					
+					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
+					if(rb != null) {
+						rb.detectCollisions = false;
+					}
+					StartCoroutine(ShiftBack(c));
 				}
-				StartCoroutine(ShiftBack(c));
-            }
-			
-			//haptics...
-			//todo - optimize
-			VRInputState data = Game.SharedState.Get<VRInputState>();
-			if(c.gameObject.name.StartsWith("Left")) {
-				data.LeftHand.HapticImpulse = 0.1f;
-			} else if(c.gameObject.name.StartsWith("Right")) {
-				data.RightHand.HapticImpulse = 0.1f;
-			}
+				
+				//haptics...
+				//todo - optimize
+				VRInputState data = Game.SharedState.Get<VRInputState>();
+				if(c.gameObject.name.StartsWith("Left")) {
+					data.LeftHand.HapticImpulse = 0.1f;
+				} else if(c.gameObject.name.StartsWith("Right")) {
+					data.RightHand.HapticImpulse = 0.1f;
+				}
 
-            OnPressed.Invoke(this);
+				OnPressed.Invoke(this);
+			}
 		}
 		
 		IEnumerator ShiftBack(Collider c) {

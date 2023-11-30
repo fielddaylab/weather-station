@@ -43,7 +43,7 @@ namespace WeatherStation {
 			}
 		}*/
 		
-		public override bool IsComplete() {
+		public override bool CheckComplete() {
             for(int i = 0; i < PuzzleSockets.Count; ++i) {
                 if(!PuzzleSockets[i].IsMatched()) {
 					return false;

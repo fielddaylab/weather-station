@@ -37,7 +37,7 @@ namespace WeatherStation {
 
 		private List<Color> PriorColors = new List<Color>();
 
-		public override bool IsComplete() {
+		public override bool CheckComplete() {
             for(int i = 0; i < PuzzleButtons.Count; ++i) {
                 if(SensorMaterials[i].mainTexture != SolutionTextures[i]) {
 					PairedMaterials[PairedMaterials.Count-1].color = PriorColors[PairedMaterials.Count-1];

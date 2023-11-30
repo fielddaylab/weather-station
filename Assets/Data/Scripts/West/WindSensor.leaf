@@ -1,0 +1,108 @@
+#basePath   WindSensor
+
+:: Argo
+@trigger    SolarPanelComplete
+@evalPriority   100
+@once
+
+$call Wait(1)
+{@Argo} The panel is generating electricity! Excellent work, partner!
+{@Alex} Partner seems like a reach.  I mean, can you even have a partner?  You're an outdated AI in a flimsy little handheld tablet.
+{@Argo} Outdated!?!?!? Flimsy? If I had the capability for laughter, I would laugh right now.
+{@Argo} I was designed to withstand these extreme conditions. I have guided your boss on these expeditions for many years.
+{@Argo} Together, we built the weather station program from the ice up. They have even called it their baby!  Isn't that right, partner?
+{@Alex} Well, they've got a new baby back home now... a real, human one.  Maybe next year, they'll stay behind in Wisconsin and I'll be in charge here.
+{@Alex} I guess I'll be your partner then.
+{@Alex} Unless I convince our funders to let me switch to the new ARGO upgrade unit. I hear it has a quiet setting.
+{@Argo} Upgrade... unit..?
+{@Rae} Oookay, that's probably enough drama for one day. I've got a flight schedule to keep. Argo, is Athena Station all fixed up?
+{@Argo} Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model.
+$call windSensorSocket->SetLocked(false)
+{@Argo} Ok, first step is removing the wind sensor from the tower.
+$call windSensor->SetGrabbable(true)
+$call windSensor->ShowHighlight()
+$call windSensor->Play()
+$while NotIsGrabbed(windSensor)
+$call Wait(2)
+//$if NotIsGrabbed(windSensor)
+//{@Argo} Grab the wind senaor and yank it off the tower!
+//$endif
+$endwhile
+$call windSensor->StopHighlight()
+$call windSensor->Stop()
+{@Argo} Great!  Now place it in the sled!
+$call windSensorSled->Play()
+$while NotIsSocketed(windSensorSled)
+$call Wait(2)
+//$if NotIsSocketed(windSensorSled)
+//{@Argo} Just drop the wind sensor into the sled.
+//$endif
+$endwhile
+$call windSensorSled->Stop()
+$call Wait(2)
+{@Argo} Awesome!  Ok, just one last thing... Toss ME in the sled.
+$call argo->SetGrabbable(true)
+$call argoTowerSocket->SetLocked(false)
+$call argoSled->Play()
+$while NotIsSocketed(argoSled)
+$call Wait(2)
+//$if NotIsSocketed(argoSled)
+//{@Argo} Just like you did the wind sensor... Just grab me. And throw me in the sled. Well, don't THROW me, place me.. gently.
+//$endif
+$endwhile
+$call argoSled->Stop()
+$call Wait(1)
+{@Argo} Could have been a bit more gentle, but no matter. to the repair unit!
+$call Wait(1)
+{@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor.
+{@Argo} You need to take the wind sensor out of the sled, and place it in the wind sensor repair dock.
+$call windSensor->ShowHighlight()
+$call windSensor->Play()
+$while IsSocketed(argoSled)
+$call Wait(20)
+$if IsSocketed(argoSled)
+{@Argo} Take the wind sensor out of the sled and put it in the repair dock on the work bench.
+$endif
+$endwhile
+{@Argo} Great, now set it in the repair dock on your work bench. Gently! These things are several thousand dollars.
+$call windSensorBay->Play()
+$call windSensorBay->ShowHighlight()
+$while NotIsSocketed(windSensorBaySocket)
+$call Wait(2)
+//$if NotIsSocketed(windSensorBaySocket)
+//{@Argo} Now you just need to place the wind sensor in the repair dock. It's the thing that looks like a robot hand on your work bench.
+//$endif
+$endwhile
+$call windSensorBay->Stop()
+$call windSensorBay->StopHighlight()
+{@Argo} Great, ok, it looks like the propeller unit is bad, take it off the wind sensor.
+{@Argo} Yup, that propeller is cracked, it won't work, take it off the wind sensor.
+$call brokenBlade->Play()
+$call brokenBlade->ShowHighlight()
+$while NotIsGrabbed(brokenBlade)
+$call Wait(2)
+//$if NotIsGrabbed(brokenBlade)
+//{@Argo} Just grab the propeller off the wind sensor.
+//$endif
+$endwhile
+$call brokenBlade->Stop()
+$call brokenBlade->StopHighlight()
+{@Argo} Great, this is trash now, so we need to pack it out. There is a garbage bin under your desk.
+{@Argo} Just open the garbage chute and toss the bad propeller in.
+$call trashChute->Play()
+$call trashChute->ShowHighlight()
+$while NotIsGrabbed(trashChute)
+$call Wait(2)
+//$if NotIsGrabbed(trashChute)
+//{@Argo} Just open the garbage chute and toss the bad propeller in.
+//$endif
+$endwhile
+$call trashChute->Stop()
+$call trashChute->StopHighlight()
+{@Argo} Let's replace the bad propeller with a good one!  Behind you is your inventory.  Grab a new propeller and see if it's a good match.
+$call propM->Play()
+$call propM->ShowHighlight()
+$call propM->SetGrabbable(true)
+$call propS->Play()
+$call propS->ShowHighlight()
+$call propS->SetGrabbable(true)

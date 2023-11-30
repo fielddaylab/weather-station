@@ -7,6 +7,7 @@ using FieldDay;
 using FieldDay.Components;
 using FieldDay.SharedState;
 using FieldDay.Systems;
+using FieldDay.Scripting;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -32,7 +33,7 @@ namespace WeatherStation {
 		
 		private Vector3 LastEuler = Vector3.zero;
 		
-		public override bool IsComplete() {
+		public override bool CheckComplete() {
 			if(!PowerMeter || !SolarPanel || !DirectionalLight) {
 				Log.Msg("[SolarPanelPuzzle] Required references not set.");
 				return false;
@@ -121,6 +122,10 @@ namespace WeatherStation {
 				
 				if(numToHighlight == cc-1) {
 					//Log.Msg("[SolarPanelPuzzle] completed solar panel puzzle.");
+					if(State != PuzzleState.Complete) {
+						ScriptUtility.Trigger("SolarPanelComplete");
+					}
+					State = PuzzleState.Complete;
 					return true;
 				} else {
 					if(LeftGrabbed) {

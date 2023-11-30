@@ -93,5 +93,11 @@ namespace WeatherStation.Scripting {
         #endregion // Unity Events
     }
 
-    public interface IScriptActorComponent { }
+    public interface IScriptActorComponent { 
+	
+	    ScriptObject Parent { get; }
+        void OnRegister(ScriptObject inObject);
+        void PostRegister();
+        void OnDeregister(ScriptObject inObject);
+	}
 }

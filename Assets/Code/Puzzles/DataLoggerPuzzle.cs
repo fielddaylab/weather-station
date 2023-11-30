@@ -26,7 +26,7 @@ namespace WeatherStation {
         private Color OldColor;
 		private Color DoorPieceColor = new Color(0.5f, 0.5f, 0.5f, 1f);
 
-		public override bool IsComplete() {
+		public override bool CheckComplete() {
             bool allMatched = true;
             for(int i = 0; i < PuzzleSockets.Count; ++i) {
                 if(!PuzzleSockets[i].IsMatched()) {
