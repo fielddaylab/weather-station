@@ -11,13 +11,11 @@ $call Wait(2)
 {@Rae} Sky’s clear as a bell, temperature clocking in at -15 degrees Fahrenheit. Perfect daytime conditions.
 {@Alex} Sure, perfect. If you’re a penguin.
 {@MissionControl} Otter Three, we’re still not getting a signal from Athena Station. Any sign of damage?
-//add fade in here...
 {@Alex} Station's a little beat up. Not too bad, considering how long we've been away.  But it looks like there's no power.
 {@Rae} We have no time to mess around.  We've only got two hours of clear weather before I need to take off. You guys better boot up Argo.
 {@Alex} Ugh. Do we have to?
 {@Rae} It'll know what to do.  It was made for this.  Besides, I kinda miss that little robot.
 {@Alex} Alright Matt. Do you see ARGO on the tower? I know it's been a while, you just need to press the red button to boot him up.
-//loop repeating until the button is pressed...
 $call argo->SetButtonLocked(false)
 $while ButtonNotPressed(argo)
 $call Wait(20)
