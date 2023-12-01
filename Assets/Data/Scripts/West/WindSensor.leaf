@@ -5,16 +5,15 @@
 @evalPriority   100
 @once
 
+{@Argo} The panel is generating electricity! Excellent work, partner! $[argo_the_panel]
+{@Alex} Partner seems like a reach.  I mean, can you even have a partner?  You're an outdated AI in a flimsy little handheld tablet. $[alex_partner_seems]
+{@Argo} Outdated!?!?!? Flimsy? If I had the capability for laughter, I would laugh right now. I was designed to withstand these extreme conditions. I have guided your boss on these expeditions for many years. Together, we built the weather station program from the ice up. They have even called it their baby!  Isn't that right, partner? $[argo_outdated_flimsy]
+{@Alex} Well, they've got a new baby back home now... a real, human one.  Maybe next year, they'll stay behind in Wisconsin and I'll be in charge here. I guess I'll be your partner then. Unless I convince our funders to let me switch to the new ARGO upgrade unit. I hear it has a quiet setting. $[alex_well_they]
+{@Argo} Upgrade... unit..? $[argo_upgrade_unit]
+{@Rae} Oookay, that's probably enough drama for one day. I've got a flight schedule to keep. Argo, is Athena Station all fixed up? $[rae_okay_thats]
+{@Argo} Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model. $[argo_hmm_not]
 
-{@Argo} The panel is generating electricity! Excellent work, partner!
-{@Alex} Partner seems like a reach.  I mean, can you even have a partner?  You're an outdated AI in a flimsy little handheld tablet.
-{@Argo} Outdated!?!?!? Flimsy? If I had the capability for laughter, I would laugh right now. I was designed to withstand these extreme conditions. I have guided your boss on these expeditions for many years. Together, we built the weather station program from the ice up. They have even called it their baby!  Isn't that right, partner?
-{@Alex} Well, they've got a new baby back home now... a real, human one.  Maybe next year, they'll stay behind in Wisconsin and I'll be in charge here. I guess I'll be your partner then. Unless I convince our funders to let me switch to the new ARGO upgrade unit. I hear it has a quiet setting.
-{@Argo} Upgrade... unit..?
-{@Rae} Oookay, that's probably enough drama for one day. I've got a flight schedule to keep. Argo, is Athena Station all fixed up?
-{@Argo} Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model.
-
-{@Argo} Ok, first step is removing the wind sensor from the tower.
+{@Argo} Ok, first step is removing the wind sensor from the tower. $[argo_ok_first]
 $call windSensorSocket->SetLocked(false)
 $call windSensor->SetGrabbable(true)
 $call windSensor->ShowHighlight()
@@ -25,7 +24,7 @@ $endwhile
 $call windSensor->StopHighlight()
 $call windSensor->Stop()
 
-{@Argo} Great!  Now place it in the sled!
+{@Argo} Great!  Now place it in the sled! $[argo_great_now]
 
 $call windSensorSled->Play()
 $while NotIsSocketed(windSensorSled)
@@ -34,20 +33,20 @@ $endwhile
 $call windSensorSled->Stop()
 
 $call Wait(2)
-{@Argo} Awesome!  Ok, just one last thing... Toss ME in the sled.
+{@Argo} Awesome!  Ok, just one last thing... Toss ME in the sled. $[argo_awesome_ok]
 
 $call argo->SetGrabbable(true)
 $call argoTowerSocket->SetLocked(false)
 $call argoSled->Play()
-$while IsNotSocketed(argoSled)
+$while NotIsSocketed(argoSled)
 $call Wait(2)
 $endwhile
 $call argoSled->Stop()
 $call Wait(1)
 
-{@Argo} Could have been a bit more gentle, but no matter. to the repair unit!
-{@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor.
-{@Argo} You need to take the wind sensor out of the sled, and place it in the wind sensor repair dock.
+{@Argo} Could have been a bit more gentle, but no matter. to the repair unit! $[argo_could_have]
+{@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
+{@Argo} You need to take the wind sensor out of the sled, and place it in the wind sensor repair dock. $[argo_you_need]
 
 $call windSensor->ShowHighlight()
 $call windSensor->Play()
@@ -57,7 +56,7 @@ $endwhile
 $call windSensor->StopHighlight()
 $call windSensor->Stop()
 
-{@Argo} Great, now set it in the repair dock on your work bench. Gently! These things are several thousand dollars.
+{@Argo} Great, now set it in the repair dock on your work bench. Gently! These things are several thousand dollars. $[argo_great_nowset]
 $call windSensorBay->Play()
 $call windSensorBay->ShowHighlight()
 $while NotIsSocketed(windSensorBaySocket)
@@ -66,7 +65,7 @@ $endwhile
 $call windSensorBay->Stop()
 $call windSensorBay->StopHighlight()
 
-{@Argo} Wonderful, ok, it looks like the propeller unit is bad, take it off the wind sensor.
+{@Argo} Wonderful, ok, it looks like the propeller unit is bad, take it off the wind sensor. $[argo_wonderful_ok]
 $call brokenBlade->Play()
 $call brokenBlade->ShowHighlight()
 $while NotIsGrabbed(brokenBlade)
@@ -75,7 +74,7 @@ $endwhile
 $call brokenBlade->Stop()
 $call brokenBlade->StopHighlight()
 
-{@Argo} Great, this is trash now, so we need to pack it out. There is a garbage bin under your desk.
+{@Argo} Great, this is trash now, so we need to pack it out. There is a garbage bin under your desk. $[argo_great_this]
 $call trashChute->SetGrabbable(true)
 $call trashChute->Play()
 $call trashChute->ShowHighlight()
@@ -85,7 +84,7 @@ $endwhile
 $call trashChute->Stop()
 $call trashChute->StopHighlight()
 
-{@Argo} Let's replace the bad propeller with a good one!  Behind you is your inventory.  Grab a new propeller and see if it's a good match.
+{@Argo} Let's replace the bad propeller with a good one!  Behind you is your inventory.  Grab a new propeller and see if it's a good match. $[argo_lets_replace]
 $call propM->Play()
 $call propM->ShowHighlight()
 $call propM->SetGrabbable(true)
@@ -98,16 +97,16 @@ $call Wait(2)
 $endwhile
 
 $if IsGrabbed(propM)
-{@Argo} Great, now pop it on the wind sensor and see if it's a match.
+{@Argo} Great, now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
 $elseif IsGrabbed(propS)
-{@Argo} Great, now pop it on the wind sensor and see if it's a match.
+{@Argo} Great, now pop it on the wind sensor and see if it's a match. $[argo_great_now3]
 $endif
 
 $while NotIsSocketed(windSensorBladeSocket)
 $call Wait(2)
 $endwhile
 
-{@Argo} Now let's test it, press the test button.
+{@Argo} Now let's test it, press the test button. $[argo_now_lets]
 $call windSensorButton->ShowHighlight()
 $while ButtonNotPressed(windSensorButton)
 $call Wait(2)
@@ -117,5 +116,5 @@ $call windSensorButton->StopHighlight()
 $call Wait(2)
 
 $if PuzzleIsNotComplete(windSensorPuzzle)
-{@Argo} Hmm, that's not the right size, let's try another one.
+{@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
 $endif

@@ -42,6 +42,9 @@ public class ArgoHelp : SharedStateComponent {
 			
 			if(m_CurrentClip != -1) {
 				AudioSource.PlayClipAtPoint(m_ArgoHelpAudio[m_CurrentClip], transform.position);
+				if(m_SubTitles != null) {
+					StartCoroutine(m_SubTitles.TypeLineString("Argo:", m_ArgoHelpSubtitles[m_CurrentClip]));
+				}
 			}
 		}
 	}

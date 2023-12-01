@@ -36,5 +36,13 @@ namespace WeatherStation {
 			}
             yield return inType.VisibleCharacterCount * 0.095f;	//todo - should be based on length of vo clip...
         }
+		
+		public IEnumerator TypeLineString(string inHeader, string inText) {
+            gameObject.SetActive(true);
+			Text.SetText(inText);
+			CharacterLabel.gameObject.SetActive(true);
+			CharacterLabel.SetText(inHeader + ":");
+            yield return inText.Length * 0.095f;	//todo - should be based on length of vo clip...
+        }
     }
 }

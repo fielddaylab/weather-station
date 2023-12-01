@@ -35,7 +35,7 @@ namespace WeatherStation.Scripting {
         }
 
 		[LeafMember("NotIsSocketed"), Preserve]
-		public bool IsNotSocketed(StringHash32 id) {
+		public bool NotIsSocketed(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
 				ScriptSocket ss = ((ScriptObject)act).gameObject.GetComponent<ScriptSocket>();
 				if(ss != null) {
