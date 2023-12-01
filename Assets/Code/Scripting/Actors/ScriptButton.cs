@@ -29,10 +29,14 @@ namespace WeatherStation.Scripting {
 			m_Button.Locked = lockParam;
         }
 		
-		//public bool ButtonNotPressed() {
-		//	return !m_Button.WasPressed;
-		//}
-		
+		[LeafMember("SetCurrentClip"), Preserve]
+		public void SetCurrentClip(int clipIndex) {
+			ArgoHelp argo = Game.SharedState.Get<ArgoHelp>();
+			if(argo != null) {
+				argo.SetCurrentClip(clipIndex);
+			}
+		}
+
 		[LeafMember("ButtonNotPressed"), Preserve]
 		static bool ButtonNotPressed(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {

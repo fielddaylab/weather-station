@@ -22,6 +22,7 @@ $call Wait(2)
 {@Argo} Most people think this refers to the fact that there are no polar bears here. But actually, the meaning is based on the stars! The bear constellations, Ursa Major and Ursa Minor, are visible from the Arctic, but not visible from here. So the Arctic is the land of bears, and the Antarctic is the land of no bears! It just so happens that there aren't polar bears here, either. Fascinating isn't it? $[argo_most_people]
 {@Alex} Ay, dios mio. Can we just get to work?  Please? $[alex_ay_dios]
 {@Argo} Ok, we don't have much time!  We need to align the solar panel with the sun so the battery can charge! Oh, and remember!  You can always push my big red button if you need help. $[alex_ok_we]
+
 $call argo->SetButtonLocked(false)
 $call rightPanelHandle->Play()
 $call rightPanelHandle->ShowHighlight()

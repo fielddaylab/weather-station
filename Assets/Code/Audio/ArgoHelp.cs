@@ -25,7 +25,6 @@ public class ArgoHelp : SharedStateComponent {
         
     }
 	
-	[LeafMember("SetCurrentClip"), Preserve]
 	public void SetCurrentClip(int clip) { m_CurrentClip = clip; }
 	
     // Update is called once per frame

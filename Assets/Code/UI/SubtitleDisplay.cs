@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.IO;
 using BeauUtil;
 using BeauUtil.Tags;
 using Leaf;
@@ -10,12 +12,14 @@ namespace WeatherStation {
     public class SubtitleDisplay : MonoBehaviour, ITextDisplayer {
         public TMP_Text CharacterLabel;
         public TMP_Text Text;
-
+		
+		[NonSerialized] public float ClipDisplayLength = 0f;
+		
         private void Start() {
             gameObject.SetActive(false);
             CharacterLabel.gameObject.SetActive(false);
         }
-
+		
         public IEnumerator CompleteLine() {
             yield return 1;
             gameObject.SetActive(false);
@@ -34,7 +38,12 @@ namespace WeatherStation {
                 StringHash32 charId = charData.GetStringHash();
 				CharacterLabel.SetText(charId.ToDebugString() + ":");
 			}
-            yield return inType.VisibleCharacterCount * 0.095f;	//todo - should be based on length of vo clip...
+			
+			if(ClipDisplayLength == 0f) {
+				yield return inType.VisibleCharacterCount * 0.095f;
+			} else {
+				yield return ClipDisplayLength;
+			}
         }
 		
 		public IEnumerator TypeLineString(string inHeader, string inText) {
@@ -42,7 +51,11 @@ namespace WeatherStation {
 			Text.SetText(inText);
 			CharacterLabel.gameObject.SetActive(true);
 			CharacterLabel.SetText(inHeader + ":");
-            yield return inText.Length * 0.095f;	//todo - should be based on length of vo clip...
+			if(ClipDisplayLength == 0f) {
+				yield return inText.Length * 0.095f;
+			} else {
+				yield return ClipDisplayLength;
+			}
         }
     }
 }

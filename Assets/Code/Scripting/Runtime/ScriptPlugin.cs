@@ -150,6 +150,7 @@ namespace FieldDay.Scripting {
 				if(clip != null) {
 					//Debug.Log("PLAYING CLIP");
 					AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+					((SubtitleDisplay)m_TextDisplayer).ClipDisplayLength = clip.length;
 				}
             }
 
