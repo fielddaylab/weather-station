@@ -43,7 +43,7 @@ $while NotIsSocketed(argoSled)
 $call Wait(2)
 $endwhile
 $call argoSled->Stop()
-$call Wait(2)
+$call Wait(4)
 
 {@Argo} Could have been a bit more gentle! $[argo_could_have]
 $call Wait(3)
@@ -105,18 +105,18 @@ $endwhile
 $if IsGrabbed(propM)
 {@Argo} Great, now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
 $call propM->Stop()
-$call propM->ShowHighlight()
+$call propM->StopHighlight()
 $elseif IsGrabbed(propS)
 {@Argo} Great, now pop it on the wind sensor and see if it's a match. $[argo_great_now3]
 $call propS->Stop()
-$call propS->ShowHighlight()
+$call propS->StopHighlight()
 $endif
+
+
 $call argo->SetCurrentClip(9)
 $while NotIsSocketed(windSensorBladeSocket)
 $call Wait(2)
 $endwhile
-
-
 
 {@Argo} Now let's test it, press the test button. $[argo_now_lets]
 $call argo->SetCurrentClip(10)

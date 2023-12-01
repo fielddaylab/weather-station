@@ -21,13 +21,13 @@ $while NotIsSocketed(argoSled)
 $call Wait(2)
 $endwhile
 $call argoSled->Stop()
-$call Wait(1)
+$call Wait(4)
 
 {@Argo} Back in your homeland of "Wisconsin", a basic wind sensor might cost approimately 50 American dollars. But here, we have the most extreme, state of the art version, estimated at a cost of $2700! Just like me it is designed to withstand gusting winds and temperatures as low as -150 degrees Fahrenheight. I'd like to see the new ARGO unit try that! $[argo_back_in]
 {@Alex} ARGO! We have work to do! $[alex_argo_we]
 {@Argo} Ok ok, put the wind sensor back on the tower and we should be good to go! $[argo_ok_ok]
 $call argo->SetCurrentClip(14)
-$call windSensorSocket->ShowHightlight()
+$call windSensorSocket->ShowHighlight()
 $call windSensorSocket->Play()
 $while NotIsSocketed(windSensorSocket)
 $call Wait(2)
@@ -43,10 +43,10 @@ $while NotIsSocketed(argoSled)
 $call Wait(2)
 $endwhile
 $call argoSled->Stop()
-$call Wait(1)
+$call Wait(4)
 
 {@Argo} Ok, let's take a look at the map. See all that red?  That's bad.  We aren't collecting any weather data in that area. Press the button below the map to test the tower. $[argo_ok_lets]
-$call uplinkButton->ShowHightlight()
+$call uplinkButton->ShowHighlight()
 $call uplinkButton->Play()
 $while ButtonNotPressed(uplinkButton)
 $call Wait(2)
