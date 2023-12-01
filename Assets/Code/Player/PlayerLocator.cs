@@ -28,9 +28,13 @@ namespace WeatherStation {
 		public ItemSocket ArgoOutsideSocket;
 
 		public ItemSocket ArgoSledSocket;
+		
+		public AudioClip OutsideMusic;
+		public AudioClip InsideMusic;
 
 		#endregion //
 		
+		private Camera MainCamera = null;	//temp hack for playing music...
 		private bool IsInside = false;
 		private bool IsTeleporting = false;
 
@@ -38,6 +42,8 @@ namespace WeatherStation {
 			if(ArgoSledSocket != null) {
 				ArgoSledSocket.OnAdded.Register(StartTeleportCountdown);
 			}
+			
+			MainCamera = Camera.main;
 		}
 
 		public void StartTeleportCountdown(Socketable s) {
@@ -117,6 +123,12 @@ namespace WeatherStation {
 				if(InteriorLight != null) {
 					InteriorLight.SetActive(false);
 				}
+				
+				if(MainCamera != null) {
+					MainCamera.gameObject.GetComponent<AudioSource>().Stop();
+					MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic;
+					MainCamera.gameObject.GetComponent<AudioSource>().Play();
+				}
 			} else {
 
 				transform.position = InsideLocation.position;
@@ -139,6 +151,12 @@ namespace WeatherStation {
 				
 				if(InteriorLight != null) {
 					InteriorLight.SetActive(true);
+				}
+			
+				if(MainCamera != null) {
+					MainCamera.gameObject.GetComponent<AudioSource>().Stop();
+					MainCamera.gameObject.GetComponent<AudioSource>().clip = InsideMusic;
+					MainCamera.gameObject.GetComponent<AudioSource>().Play();
 				}
 			}
 			

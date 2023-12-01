@@ -35,6 +35,7 @@ namespace WeatherStation.Scripting {
         public void ShowHighlight() {
 			if(!Highlighting) {
 				Highlighting = true;
+				m_MR.materials[m_MaterialIndex].SetFloat("_OutlineWidth", 10f);
 				StartCoroutine("PulseHighlight");
 			}
 			
@@ -42,6 +43,7 @@ namespace WeatherStation.Scripting {
 
         [LeafMember("StopHighlight"), Preserve]
         public void StopHighlight() {
+			m_MR.materials[m_MaterialIndex].SetFloat("_OutlineWidth", 6f);
 			Highlighting = false;
         }
 
