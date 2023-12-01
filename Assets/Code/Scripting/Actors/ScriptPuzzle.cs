@@ -9,6 +9,7 @@ using FieldDay.Scenes;
 using FieldDay.Scripting;
 using Leaf.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace WeatherStation.Scripting {
 	[RequireComponent(typeof(Puzzle))]
@@ -28,7 +29,7 @@ namespace WeatherStation.Scripting {
 		
 		public bool IsComplete() { return m_Puzzle.IsComplete(); }
 
-        [LeafMember("PuzzleIsNotComplete")]
+        [LeafMember("PuzzleIsNotComplete"), Preserve]
         static bool PuzzleIsComplete(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
 				ScriptPuzzle sp = ((ScriptObject)act).gameObject.GetComponent<ScriptPuzzle>();

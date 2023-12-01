@@ -1,0 +1,67 @@
+#basePath   AfterWindSensor
+
+:: Introduction
+@trigger    WindSensorComplete
+@evalPriority   100
+@once
+
+{@Argo} Great, that's a match.  Now we can put the whole wind sensor back into the sled.
+
+$call windSensorSled->Play()
+$while NotIsSocketed(windSensorSled)
+$call Wait(2)
+$endwhile
+$call windSensorSled->Stop()
+
+$call Wait(2)
+{@Argo} Perfect, now you know the drill, toss me in the sled as well.
+
+$call argoSled->Play()
+$while NotIsSocketed(argoSled)
+$call Wait(2)
+$endwhile
+$call argoSled->Stop()
+$call Wait(1)
+
+{@Argo} Back in your homeland of "Wisconsin", a basic wind sensor might cost approimately 50 American dollars. But here, we have the most extreme, state of the art version, estimated at a cost of $2700! Just like me it is designed to withstand gusting winds and temperatures as low as -150 degrees Fahrenheight. I'd like to see the new ARGO unit try that!
+{@Alex} ARGO! We have work to do!
+{@Argo} Ok ok, put the wind sensor back on the tower and we should be good to go!
+
+$call windSensorSocket->ShowHightlight()
+$call windSensorSocket->Play()
+$while NotIsSocketed(windSensorSocket)
+$call Wait(2)
+$endwhile
+$call windSensorSocket->StopHighlight()
+$call windSensorSocket->Stop()
+$call windSensorSocket->SetLocked(true)
+
+{@Argo} Great! Now pop me in the sled, let's test our Data uplink and make sure the tower is transmitting data!
+
+$call argoSled->Play()
+$while NotIsSocketed(argoSled)
+$call Wait(2)
+$endwhile
+$call argoSled->Stop()
+$call Wait(1)
+
+{@Argo} Ok, let's take a look at the map. See all that red?  That's bad.  We aren't collecting any weather data in that area. Press the button below the map to test the tower.
+$call uplinkButton->ShowHightlight()
+$call uplinkButton->Play()
+$while ButtonNotPressed(uplinkButton)
+$call Wait(2)
+$endwhile
+$call uplinkButton->StopHighlight()
+$call uplinkButton->Stop()
+
+{@Argo} Ugh, I always get so nervous at this part... progress bars are so anxiety inducing.
+$call Wait(5)
+{@Argo} Hooray!  See there was nothing to be concerned about.
+
+{@Argo} The repair is complete! Athena station is once again transmitting data. Excellent work partner!
+{@Alex} Great. Let's get out of here. It's cribbage night back at base camp.
+{@Rae} Every night is cribbage night.
+{@Argo} Cribbage is a card game that was invented in the early 1600s by Sir John Suckling!
+{@Alex} Argo, I reeeealy don't see how that's relevant.
+{@Argo} That is your loss. My trusty partner here loves my fun facts!
+{@Alex} Well, they've got a colicky baby at home... they've probably gotten used to unpleasant background noise.

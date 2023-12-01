@@ -8,6 +8,7 @@ using FieldDay.Scenes;
 using FieldDay.Scripting;
 using Leaf.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace WeatherStation.Scripting {
     public class ScriptObject : BatchedComponent, ILeafActor {
@@ -30,22 +31,22 @@ namespace WeatherStation.Scripting {
 
         #region Leaf
 
-        [LeafMember("Activate")]
+        [LeafMember("Activate"), Preserve]
         public void Activate() {
             gameObject.SetActive(true);
         }
 
-        [LeafMember("Deactivate")]
+        [LeafMember("Deactivate"), Preserve]
         public void Deactivate() {
             gameObject.SetActive(false);
         }
 
-        [LeafMember("ToggleActive")]
+        [LeafMember("ToggleActive"), Preserve]
         public void ToggleActive() {
             gameObject.SetActive(!gameObject.activeSelf);
         }
 
-        [LeafMember("Unload")]
+        [LeafMember("Unload"), Preserve]
         public void Unload() {
             Destroy(gameObject);
         }

@@ -9,6 +9,7 @@ using FieldDay.Scenes;
 using FieldDay.Scripting;
 using Leaf.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace WeatherStation.Scripting {
 	[RequireComponent(typeof(Grabbable))]
@@ -28,12 +29,12 @@ namespace WeatherStation.Scripting {
 		
 		public bool IsGrabbed() { return m_Grabbable.CurrentGrabberCount > 0; }
         
-		[LeafMember("SetGrabbable")]
+		[LeafMember("SetGrabbable"), Preserve]
         public void SetGrabbable(bool grabParam) {
 			m_Grabbable.GrabEnabled = grabParam;
         }
 		
-		[LeafMember("NotIsGrabbed")]
+		[LeafMember("NotIsGrabbed"), Preserve]
 		static public bool NotIsGrabbed(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
 				ScriptGrabbable sg = ((ScriptObject)act).gameObject.GetComponent<ScriptGrabbable>();
@@ -44,7 +45,18 @@ namespace WeatherStation.Scripting {
 			
 			return false;
 		}
-
+		
+		[LeafMember("IsGrabbed"), Preserve]
+		static public bool IsGrabbed(StringHash32 id) {
+			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
+				ScriptGrabbable sg = ((ScriptObject)act).gameObject.GetComponent<ScriptGrabbable>();
+				if(sg != null) {
+					return sg.IsGrabbed();
+				}
+			}
+			
+			return false;
+		}
         #endregion // Leaf
 		
     }

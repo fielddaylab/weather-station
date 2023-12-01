@@ -8,6 +8,7 @@ using FieldDay.Scenes;
 using FieldDay.Scripting;
 using Leaf.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace WeatherStation.Scripting {
     public class ScriptParticleFX : ScriptComponent {
@@ -22,7 +23,7 @@ namespace WeatherStation.Scripting {
 
         #region Leaf
 
-        [LeafMember("Play")]
+        [LeafMember("Play"), Preserve]
         public void Play() {
 			
 			if(m_PS != null) {
@@ -30,7 +31,7 @@ namespace WeatherStation.Scripting {
 			}
         }
 
-        [LeafMember("Stop")]
+        [LeafMember("Stop"), Preserve]
         public void Stop() {
             if(m_PS != null) {
 				m_PS.Stop();

@@ -7,6 +7,7 @@ using FieldDay;
 using FieldDay.Components;
 using FieldDay.SharedState;
 using FieldDay.Systems;
+using FieldDay.Scripting;
 using UnityEngine;
 using UnityEngine.XR;
 #if UNITY_EDITOR
@@ -32,6 +33,7 @@ namespace WeatherStation {
         private Color OldColor;
 		private bool IsTesting = false;
 		private bool IsStopped = false;
+		private bool TestSuccess = false;
 		
 		public void UnlockSocket(Socketable s) {
 			if(PuzzleSockets.Count > 0) {
@@ -51,7 +53,16 @@ namespace WeatherStation {
                     FinalMaterial.color = NewColor;
                 }
             }
-			return allMatched;
+			
+			if(allMatched && TestSuccess) {
+				if(State != PuzzleState.Complete) {
+					ScriptUtility.Trigger("WindSensorComplete");
+				}
+				State = PuzzleState.Complete;
+				return true;
+			}
+			
+			return false;
 		}
 
         public override void UpdatePuzzle() {
@@ -113,6 +124,7 @@ namespace WeatherStation {
 						IsTesting = true;
 						PuzzleSockets[0].Locked = true;
 						StartCoroutine(RotateAndFinish(PuzzleSockets[0], PuzzleSockets[0].Current, 120f));
+						TestSuccess = true;
 					}
 				} else {
 					if(!IsTesting) {

@@ -9,6 +9,7 @@ using FieldDay.Scenes;
 using FieldDay.Scripting;
 using Leaf.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace WeatherStation.Scripting {
     public class ScriptHighlight : ScriptComponent {
@@ -30,7 +31,7 @@ namespace WeatherStation.Scripting {
 		
         #region Leaf
 		
-        [LeafMember("ShowHighlight")]
+        [LeafMember("ShowHighlight"), Preserve]
         public void ShowHighlight() {
 			if(!Highlighting) {
 				Highlighting = true;
@@ -39,7 +40,7 @@ namespace WeatherStation.Scripting {
 			
         }
 
-        [LeafMember("StopHighlight")]
+        [LeafMember("StopHighlight"), Preserve]
         public void StopHighlight() {
 			Highlighting = false;
         }

@@ -9,6 +9,7 @@ using FieldDay.Scenes;
 using FieldDay.Scripting;
 using Leaf.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace WeatherStation.Scripting {
 	[RequireComponent(typeof(ItemSocket))]
@@ -28,12 +29,12 @@ namespace WeatherStation.Scripting {
 		
 		public bool IsSocketed() { return m_Socket.Current != null; }
 
-        [LeafMember("SetLocked")]
+        [LeafMember("SetLocked"), Preserve]
         public void SetLocked(bool lockParam) {
 			m_Socket.Locked = lockParam;
         }
 
-		[LeafMember("IsNotSocketed")]
+		[LeafMember("NotIsSocketed"), Preserve]
 		public bool IsNotSocketed(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
 				ScriptSocket ss = ((ScriptObject)act).gameObject.GetComponent<ScriptSocket>();
@@ -45,7 +46,7 @@ namespace WeatherStation.Scripting {
 			return false;
 		}
 		
-		[LeafMember("IsSocketed")]
+		[LeafMember("IsSocketed"), Preserve]
 		public bool IsSocketed(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
 				ScriptSocket ss = ((ScriptObject)act).gameObject.GetComponent<ScriptSocket>();

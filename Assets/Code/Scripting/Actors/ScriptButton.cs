@@ -9,6 +9,7 @@ using FieldDay.Scenes;
 using FieldDay.Scripting;
 using Leaf.Runtime;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace WeatherStation.Scripting {
 
@@ -23,7 +24,7 @@ namespace WeatherStation.Scripting {
 		
 		public bool WasButtonPressed() { return ((m_Button != null) && m_Button.WasPressed); }
 		
-        [LeafMember("SetButtonLocked")]
+        [LeafMember("SetButtonLocked"), Preserve]
         public void SetButtonLocked(bool lockParam) {
 			m_Button.Locked = lockParam;
         }
@@ -32,7 +33,7 @@ namespace WeatherStation.Scripting {
 		//	return !m_Button.WasPressed;
 		//}
 		
-		[LeafMember("ButtonNotPressed")]
+		[LeafMember("ButtonNotPressed"), Preserve]
 		static bool ButtonNotPressed(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
 				ScriptButton sb = ((ScriptObject)act).gameObject.GetComponent<ScriptButton>();
