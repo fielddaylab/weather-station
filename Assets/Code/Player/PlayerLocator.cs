@@ -77,7 +77,7 @@ namespace WeatherStation {
 			if(s.SocketType == SocketFlags.Argo) {
 				if(!IsTeleporting) {
 					IsTeleporting = true;
-					StartCoroutine(WaitForTeleport(s, 3f));
+					StartCoroutine(WaitForTeleport(s, 4f));
 				}
 			}
 		}

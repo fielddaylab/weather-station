@@ -22,7 +22,7 @@ namespace WeatherStation {
             if(data.RightHand.Released(VRControllerButtons.Secondary) || Input.GetKeyDown(KeyCode.Tab)) {
                 //switch scenes.. why is this hitting twice?
 				//Debug.Log("SWITCH SCENES");
-				m_State.SwitchScenes();
+				//m_State.SwitchScenes();
 				data.RightHand.PrevButtons = 0;
             }
 

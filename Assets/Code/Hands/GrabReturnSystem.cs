@@ -14,7 +14,7 @@ namespace WeatherStation {
 		
 		static public bool ForceSkip = false;
 		
-        private float ReturnTime = 2f;
+        private float ReturnTime = 1f;
 
         public override void ProcessWorkForComponent(Grabbable component, float deltaTime) {
             if(component.HitGround && component.ReturnOnGroundHit) {

@@ -6,11 +6,7 @@
 @once
 
 {@Argo} The panel is generating electricity! Excellent work, partner! $[argo_the_panel]
-{@Alex} Partner seems like a reach.  I mean, can you even have a partner?  You're an outdated AI in a flimsy little handheld tablet. $[alex_partner_seems]
-{@Argo} Outdated!?!?!? Flimsy? If I had the capability for laughter, I would laugh right now. I was designed to withstand these extreme conditions. I have guided your boss on these expeditions for many years. Together, we built the weather station program from the ice up. They have even called it their baby!  Isn't that right, partner? $[argo_outdated_flimsy]
-{@Alex} Well, they've got a new baby back home now... a real, human one.  Maybe next year, they'll stay behind in Wisconsin and I'll be in charge here. I guess I'll be your partner then. Unless I convince our funders to let me switch to the new ARGO upgrade unit. I hear it has a quiet setting. $[alex_well_they]
-{@Argo} Upgrade... unit..? $[argo_upgrade_unit]
-{@Rae} Oookay, that's probably enough drama for one day. I've got a flight schedule to keep. Argo, is Athena Station all fixed up? $[rae_okay_thats]
+{@Alex} Argo, is the station all fixed up? $[rae_okay_thats]
 {@Argo} Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model. $[argo_hmm_not]
 
 {@Argo} Ok, first step is removing the wind sensor from the tower. $[argo_ok_first]
@@ -18,20 +14,24 @@ $call argo->SetCurrentClip(1)
 $call windSensorSocket->SetLocked(false)
 $call windSensor->SetGrabbable(true)
 $call windSensor->ShowHighlight()
+$call windSensor->PlaySound()
 $call windSensor->Play()
 $while NotIsGrabbed(windSensor)
 $call Wait(2)
 $endwhile
 $call windSensor->StopHighlight()
 $call windSensor->Stop()
+$call windSensor->StopSound()
 
 {@Argo} Great!  Now place it in the sled! $[argo_great_now]
 $call argo->SetCurrentClip(2)
 $call windSensorSled->Play()
+$call windSensorSled->PlaySound()
 $while NotIsSocketed(windSensorSled)
 $call Wait(2)
 $endwhile
 $call windSensorSled->Stop()
+$call windSensorSled->StopSound()
 
 $call Wait(2)
 {@Argo} Awesome!  Ok, just one last thing... Toss ME in the sled. $[argo_awesome_ok]
@@ -43,10 +43,10 @@ $while NotIsSocketed(argoSled)
 $call Wait(2)
 $endwhile
 $call argoSled->Stop()
+
+{@Argo} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
 $call Wait(4)
 
-{@Argo} Could have been a bit more gentle! $[argo_could_have]
-$call Wait(3)
 {@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
 {@Argo} You need to take the wind sensor out of the sled, and place it in the wind sensor repair dock. $[argo_you_need]
 $call argo->SetCurrentClip(4)
@@ -103,18 +103,18 @@ $call Wait(2)
 $endwhile
 
 $if IsGrabbed(propM)
-{@Argo} Great, now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
 $call propM->Stop()
 $call propM->StopHighlight()
-$elseif IsGrabbed(propS)
-{@Argo} Great, now pop it on the wind sensor and see if it's a match. $[argo_great_now3]
+$endif
+
+$if IsGrabbed(propS)
 $call propS->Stop()
 $call propS->StopHighlight()
 $endif
 
-
+{@Argo} Great, now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
 $call argo->SetCurrentClip(9)
-$while NotIsSocketed(windSensorBladeSocket)
+$while NotIsPuzzleSocketed(windSensorBladeSocket)
 $call Wait(2)
 $endwhile
 
@@ -128,7 +128,13 @@ $call windSensorButton->StopHighlight()
 
 $call Wait(2)
 
-$if PuzzleIsNotComplete(windSensorPuzzle)
+$if IsNotMatched(windSensorBladeSocket)
 {@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
 $call argo->SetCurrentClip(11)
 $endif
+
+$call propM->Stop()
+$call propM->StopHighlight()
+
+$call propM->Stop()
+$call propM->StopHighlight()

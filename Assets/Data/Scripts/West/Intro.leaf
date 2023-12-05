@@ -5,19 +5,16 @@
 @evalPriority   100
 @once
 
-{@Rae} Mission Control, this is Otter three, We just touched down at Athena Station. Killer landing. Definitely one of my top five! The dream team’s out on the ice. Sky’s clear as a bell, temperature clocking in at -15 degrees Fahrenheit. Perfect daytime conditions. $[rae_mission_control]
+{@Rae} Mission Control, this is Otter three, We just touched down at Mount Rea Station. Sky’s clear as a bell, temperature clocking in at -15 degrees Fahrenheit. Perfect daytime conditions. $[rae_mission_control]
 {@Alex} Sure, perfect. If you’re a penguin. $[alex_sure_perfect]
-{@MissionControl} Otter Three, we’re still not getting a signal from Athena Station. Any sign of damage? $[mc_otter_three]
 {@Alex} Station's a little beat up. Not too bad, considering how long we've been away.  But it looks like there's no power. $[alex_stations_a]
 {@Rae} We don't have time to mess around.  We've only got two hours of clear weather before I need to take off. You guys better boot up Argo. $[rae_we_dont]
-{@Alex} Ugh. Do we have to? $[alex_ugh_do]
-{@Rae} It'll know what to do.  It was made for this.  Besides, I kinda miss that little robot. $[rae_itll_know]
-{@Alex} Alright Matt. Do you see ARGO on the tower? I know it's been a while, you just need to press the red button to boot him up. $[alex_alright_matt]
+{@Rae} Do you see ARGO on the tower? Press the red button to boot him up. $[alex_alright_matt]
 $call argo->SetButtonLocked(false)
 $while ButtonNotPressed(argo)
 $call Wait(20)
 $if ButtonNotPressed(argo)
-{@Alex} Matt, Press Argo's red button to boot him up. $[alex_matt_press]
+{@Alex} Press Argo's red button to boot him up. $[alex_matt_press]
 $endif
 $endwhile
 $call argo->SetButtonLocked(true)

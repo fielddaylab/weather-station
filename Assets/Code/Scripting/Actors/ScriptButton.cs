@@ -22,6 +22,12 @@ namespace WeatherStation.Scripting {
 		
         #region Leaf
 		
+		private void Awake() {
+			if(m_Button == null) {
+				m_Button = GetComponent<PuzzleButton>();
+			}
+        }
+		
 		public bool WasButtonPressed() { return ((m_Button != null) && m_Button.WasPressed); }
 		
         [LeafMember("SetButtonLocked"), Preserve]

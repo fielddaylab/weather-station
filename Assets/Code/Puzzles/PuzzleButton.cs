@@ -43,6 +43,10 @@ namespace WeatherStation {
 		public void ButtonTrigger(Collider c) {
 			if(!Locked) {
 				if(Toggleable) {
+					if(!WasPressed) {
+						WasPressed = true;
+					}
+					
 					On = !On;
 					if(SoundEffect != null && SoundEffect.clip != null) {
 						SoundEffect.Play();

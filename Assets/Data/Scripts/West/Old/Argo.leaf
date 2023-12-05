@@ -1,0 +1,31 @@
+#basePath   Argo
+
+:: Argo
+@trigger    ArgoPressed
+@evalPriority   100
+@once
+
+$call Wait(2)
+{@Argo} Ahh!! You're here, at last! My favorite Antarctic weather researcher!  And... Alex. You are here as well. $[argo_ahh_youre]
+{@Alex} Gee, thanks Argo. Nice to see you too. What's the status ARGO? $[alex_gee_thanks]
+{@Argo} The station is without power. The most likely culprit is the solar panel. It appears to be angled away from the sun. $[argo_well_at]
+{@Alex} Hmm. Must've been caught in a windstorm. $[alex_hmm_must]
+{@Argo} Ok, we don't have much time!  We need to align the solar panel with the sun so the battery can charge! Oh, and remember!  You can always push my big red button if you need help. $[alex_ok_we]
+
+$call argo->SetButtonLocked(false)
+$call rightPanelHandle->Play()
+$call rightPanelHandle->ShowHighlight()
+$call rightPanelHandle->SetGrabbable(true)
+$call leftPanelHandle->Play()
+$call leftPanelHandle->ShowHighlight()
+$call leftPanelHandle->SetGrabbable(true)
+$while PuzzleIsNotComplete(solarPanel)
+$call Wait(2)
+$endwhile
+$call leftPanelHandle->Stop()
+$call leftPanelHandle->StopHighlight()
+$call leftPanelHandle->SetGrabbable(false)
+$call rightPanelHandle->Stop()
+$call rightPanelHandle->StopHighlight()
+$call rightPanelHandle->SetGrabbable(false)
+$call Wait(2)

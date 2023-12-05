@@ -5,6 +5,11 @@
 @evalPriority   100
 @once
 
+$call propM->Stop()
+$call propM->StopHighlight()
+$call propS->Stop()
+$call propS->StopHighlight()
+
 {@Argo} Great, that's a match.  Now we can put the whole wind sensor back into the sled.
 $call argo->SetCurrentClip(12)
 $call windSensorSled->Play()
@@ -23,8 +28,6 @@ $endwhile
 $call argoSled->Stop()
 $call Wait(4)
 
-{@Argo} Back in your homeland of "Wisconsin", a basic wind sensor might cost approimately 50 American dollars. But here, we have the most extreme, state of the art version, estimated at a cost of $2700! Just like me it is designed to withstand gusting winds and temperatures as low as -150 degrees Fahrenheight. I'd like to see the new ARGO unit try that! $[argo_back_in]
-{@Alex} ARGO! We have work to do! $[alex_argo_we]
 {@Argo} Ok ok, put the wind sensor back on the tower and we should be good to go! $[argo_ok_ok]
 $call argo->SetCurrentClip(14)
 $call windSensorSocket->ShowHighlight()
@@ -45,7 +48,7 @@ $endwhile
 $call argoSled->Stop()
 $call Wait(4)
 
-{@Argo} Ok, let's take a look at the map. See all that red?  That's bad.  We aren't collecting any weather data in that area. Press the button below the map to test the tower. $[argo_ok_lets]
+{@Argo} Ok, let's take a look at the map. See that button below? We need to press that to test the tower’s data uplink. Press it to run the test. $[argo_ok_lets]
 $call uplinkButton->ShowHighlight()
 $call uplinkButton->Play()
 $while ButtonNotPressed(uplinkButton)
@@ -54,14 +57,15 @@ $endwhile
 $call uplinkButton->StopHighlight()
 $call uplinkButton->Stop()
 
-{@Argo} Ugh, I always get so nervous at this part... progress bars are so anxiety inducing. $[argo_ugh_i]
-$call Wait(5)
-{@Argo} Hooray!  See there was nothing to be concerned about. $[argo_hooray_see]
+$call map->NextTexture()
 
-{@Argo} The repair is complete! Athena station is once again transmitting data. Excellent work partner! $[argo_the_repair]
-{@Alex} Great. Let's get out of here. It's cribbage night back at base camp. $[alex_great_lets]
-{@Rae} Every night is cribbage night. $[rae_every_night]
-{@Argo} Cribbage is a card game that was invented in the early 1600s by Sir John Suckling! $[argo_cribbage_is]
-{@Alex} Argo, I reeeealy don't see how that's relevant. $[alex_argo_i]
-{@Argo} That is your loss. My trusty partner here loves my fun facts! $[argo_that_is]
-{@Alex} Well, they've got a colicky baby at home... they've probably gotten used to unpleasant background noise. $[alex_well_theyve]
+{@Argo} Ugh, I always get so nervous at this part... progress bars are so anxiety inducing. $[argo_ugh_i]
+$call Wait(3)
+$call map->NextTexture()
+{@Argo} Hooray!  See there was nothing to be concerned about. $[argo_hooray_see]
+$call Wait(2)
+$call map->NextTexture()
+
+{@Argo} The repair is complete! Mount Rea station is transmitting data again. Excellent work! $[argo_the_repair]
+{@Alex} Great. Let's get out of here. It's cribbage night back at McMurdo. $[alex_great_lets]
+{@Rae} Every night is cribbage night back at McMurdo station. $[rae_every_night]
