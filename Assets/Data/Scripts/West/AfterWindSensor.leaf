@@ -10,7 +10,7 @@ $call propM->StopHighlight()
 $call propS->Stop()
 $call propS->StopHighlight()
 
-{@Argo} Great, that's a match.  Now we can put the whole wind sensor back into the sled.
+{@Argo} Great, now place it in the sled. $[argo_great_now]
 $call argo->SetCurrentClip(12)
 $call windSensorSled->Play()
 $while NotIsSocketed(windSensorSled)
@@ -19,14 +19,14 @@ $endwhile
 $call windSensorSled->Stop()
 
 $call Wait(2)
-{@Argo} Perfect, now you know the drill, toss me in the sled as well.
+{@Argo} Perfect, now you know the drill, toss me in the sled as well. $[perfect_no_you]
 $call argo->SetCurrentClip(13)
 $call argoSled->Play()
 $while NotIsSocketed(argoSled)
 $call Wait(2)
 $endwhile
 $call argoSled->Stop()
-$call Wait(4)
+$call Wait(7)
 
 {@Argo} Ok ok, put the wind sensor back on the tower and we should be good to go! $[argo_ok_ok]
 $call argo->SetCurrentClip(14)
@@ -46,7 +46,7 @@ $while NotIsSocketed(argoSled)
 $call Wait(2)
 $endwhile
 $call argoSled->Stop()
-$call Wait(4)
+$call Wait(7)
 
 {@Argo} Ok, let's take a look at the map. See that button below? We need to press that to test the tower’s data uplink. Press it to run the test. $[argo_ok_lets]
 $call uplinkButton->ShowHighlight()

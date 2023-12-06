@@ -89,7 +89,7 @@ $endwhile
 $call trashChute->Stop()
 $call trashChute->StopHighlight()
 
-{@Argo} Let's replace the bad propeller with a good one!  Behind you is your inventory.  Grab a new propeller and see if it's a good match. $[argo_lets_replace]
+{@Argo} Let's replace the bad propeller with a good one!  Behind you is your inventory.  Grab a new propeller and we'll see if it's a good match. $[argo_lets_replace]
 $call argo->SetCurrentClip(8)
 $call propM->Play()
 $call propM->ShowHighlight()
