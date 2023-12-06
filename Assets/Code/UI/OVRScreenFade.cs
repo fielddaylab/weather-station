@@ -122,12 +122,16 @@ public class OVRScreenFade : MonoBehaviour
 		mesh.uv = uv;
 
 		explicitFadeAlpha = 0.0f;
-		animatedFadeAlpha = 0.0f;
+		animatedFadeAlpha = 1.0f;
 		uiFadeAlpha = 0.0f;
 
 		if (fadeOnStart)
 		{
 			FadeIn();
+		}
+		else
+		{
+			SetMaterialAlpha();
 		}
 
 		instance = this;
@@ -151,6 +155,9 @@ public class OVRScreenFade : MonoBehaviour
 	/// </summary>
 	public void FadeIn(float duration) {
         m_FadeRoutine.Replace(this, Fade(1.0f, 0.0f, duration)).TryManuallyUpdate(0);
+    }
+	public void FadeIn(float duration, float waitTime) {
+        m_FadeRoutine.Replace(this, Fade(1.0f, 0.0f, duration, waitTime)).TryManuallyUpdate(0);
     }
 
     /// <summary>
@@ -238,6 +245,22 @@ public class OVRScreenFade : MonoBehaviour
 	/// </summary>
 	IEnumerator Fade(float startAlpha, float endAlpha, float duration)
 	{
+		float elapsedTime = 0.0f;
+		while (elapsedTime < duration)
+		{
+			elapsedTime += Routine.UnscaledDeltaTime;
+			animatedFadeAlpha = Mathf.Lerp(startAlpha, endAlpha, Mathf.Clamp01(elapsedTime / duration));
+			SetMaterialAlpha();
+            yield return Routine.WaitForEndOfFrame();
+		}
+		animatedFadeAlpha = endAlpha;
+		SetMaterialAlpha();
+	}
+
+	IEnumerator Fade(float startAlpha, float endAlpha, float duration, float waitTime=0f)
+	{
+		yield return new WaitForSeconds(waitTime);
+
 		float elapsedTime = 0.0f;
 		while (elapsedTime < duration)
 		{
