@@ -30,7 +30,11 @@ $endwhile
 $call argo->SetButtonLocked(true)
 $call argoSled->Stop()
 
-$call Wait(5)
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(2.0, 1.0)
 
 {@Argo} Ok ok, put the wind sensor back on the tower and we should be good to go! $[argo_ok_ok]
 $call argo->SetCurrentClip(14)
@@ -55,7 +59,12 @@ $endwhile
 $call argo->SetButtonLocked(true)
 $call argoSled->Stop()
 
-$call Wait(5)
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(2.0, 1.0)
+
 
 {@Argo} Ok, let's take a look at the map. See that button below? We need to press that to test the tower’s data uplink. Press it to run the test. $[argo_ok_lets]
 $call uplinkButton->ShowHighlight()

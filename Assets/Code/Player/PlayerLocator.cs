@@ -26,8 +26,9 @@ namespace WeatherStation {
 		public ItemSocket ArgoInsideSocket;
 
 		public ItemSocket ArgoOutsideSocket;
-
-		public ItemSocket ArgoSledSocket;
+		
+		public Socketable Argo;
+		//public ItemSocket ArgoSledSocket;
 		
 		public AudioClip OutsideMusic;
 		public AudioClip InsideMusic;
@@ -39,11 +40,17 @@ namespace WeatherStation {
 		private bool IsTeleporting = false;
 
 		private void Awake() {
-			if(ArgoSledSocket != null) {
+			/*if(ArgoSledSocket != null) {
 				ArgoSledSocket.OnAdded.Register(StartTeleportCountdown);
-			}
+			}*/
 			
 			MainCamera = Camera.main;
+		}
+		
+		public void Teleport() {
+			if(Argo != null) {
+				StartTeleportCountdown(Argo);
+			}
 		}
 
 		public void StartTeleportCountdown(Socketable s) {
@@ -77,7 +84,7 @@ namespace WeatherStation {
 			if(s.SocketType == SocketFlags.Argo) {
 				if(!IsTeleporting) {
 					IsTeleporting = true;
-					StartCoroutine(WaitForTeleport(s, 7f));
+					StartCoroutine(WaitForTeleport(s, 1f));
 				}
 			}
 		}
@@ -86,7 +93,7 @@ namespace WeatherStation {
 		{
 			yield return new WaitForSeconds(duration);
 			
-			if(Fader) {
+			/*if(Fader) {
 				Fader.FadeOut(1f);
 			}
 			
@@ -94,14 +101,17 @@ namespace WeatherStation {
 			
 			if(Fader) {
 				Fader.FadeIn(1f);
-			}
+			}*/
 
 			//release Argo from the Sled
 			SocketUtility.TryReleaseFromCurrentSocket(s, false);
 			
 			if(IsInside) {
-
-				transform.position = OutsideLocation.position;
+				
+				Vector3 headPos = transform.GetChild(0).transform.localPosition;
+				headPos.y = 0f;
+				
+				transform.position = OutsideLocation.position - headPos;
 				transform.rotation = OutsideLocation.rotation;
 				Sled.transform.position = SledOutsideLocation.transform.position;
 				Sled.transform.rotation = SledOutsideLocation.transform.rotation;
@@ -130,8 +140,11 @@ namespace WeatherStation {
 					MainCamera.gameObject.GetComponent<AudioSource>().Play();
 				}
 			} else {
-
-				transform.position = InsideLocation.position;
+				
+				Vector3 headPos = transform.GetChild(0).transform.localPosition;
+				headPos.y = 0f;
+				
+				transform.position = InsideLocation.position - headPos;
 				transform.rotation = InsideLocation.rotation;
 				Sled.transform.position = SledInsideLocation.transform.position;
 				Sled.transform.rotation = SledInsideLocation.transform.rotation;

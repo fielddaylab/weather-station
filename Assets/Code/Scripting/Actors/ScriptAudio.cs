@@ -29,15 +29,15 @@ namespace WeatherStation.Scripting {
 		
 		[LeafMember("PlaySound"), Preserve]
         public void PlaySound() {
-			//m_Source.Play();
-			if(m_Source.clip != null) {
-				AudioSource.PlayClipAtPoint(m_Source.clip, transform.position);
-			}
+			m_Source.Play();
+			//if(m_Source.clip != null) {
+			//	AudioSource.PlayClipAtPoint(m_Source.clip, transform.position);
+			//}
         }
 		
 		[LeafMember("StopSound"), Preserve]
         public void StopSound() {
-			//m_Source.Stop();
+			m_Source.Stop();
         }
 		
         #endregion // Leaf

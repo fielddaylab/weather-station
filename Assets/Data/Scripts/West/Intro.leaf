@@ -10,7 +10,7 @@ $call fader->FadeIn(20.0, 15.0)
 {@Alex} Sure, perfect. If you’re a penguin. $[alex_sure_perfect]
 {@Alex} Station's a little beat up. Not too bad, considering how long we've been away.  But it looks like there's no power. $[alex_stations_a]
 {@Rae} We don't have time to mess around.  We've only got two hours of clear weather before I need to take off. You guys better boot up Argo. $[rae_we_dont]
-{@Alex} Do you see ARGO on the tower? Press the red button to boot him up. $[alex_alright_matt]
+{@Alex} Do you see Argo on the tower? Press the red button to boot him up. $[alex_alright_matt]
 $call argo->SetButtonLocked(false)
 $while ButtonNotPressed(argo)
 $call Wait(10)

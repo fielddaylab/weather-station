@@ -2529,10 +2529,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.1
+  MaxDistance: 2
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -5036,6 +5036,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1886238375}
+    - targetCorrespondingSourceObject: {fileID: 6263200718750490604, guid: 155f54ef2cdde924fb057c8160ce5280,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1886238381}
+    - targetCorrespondingSourceObject: {fileID: 6263200718750490604, guid: 155f54ef2cdde924fb057c8160ce5280,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1886238382}
     - targetCorrespondingSourceObject: {fileID: 6263200719882507549, guid: 155f54ef2cdde924fb057c8160ce5280,
         type: 3}
       insertIndex: -1
@@ -6582,7 +6590,7 @@ Transform:
   m_GameObject: {fileID: 1743825283}
   serializedVersion: 2
   m_LocalRotation: {x: -0.006933085, y: 0.00014737144, z: 0.0042307074, w: 0.99996704}
-  m_LocalPosition: {x: 0.0135, y: 0.328, z: 0.2365}
+  m_LocalPosition: {x: 0.0135, y: 0.087249696, z: 0.2365}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6687,7 +6695,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.46526426, y: 0.42795742, z: 0.48008034}
+  m_Size: {x: 0.53, y: 0.55, z: 0.54}
   m_Center: {x: -0.040720195, y: 0.095443465, z: -0.009813325}
 --- !u!1 &1790684996
 GameObject:
@@ -7201,7 +7209,7 @@ MonoBehaviour:
   Fader: {fileID: 1312827216}
   ArgoInsideSocket: {fileID: 1345201399}
   ArgoOutsideSocket: {fileID: 1744024146}
-  ArgoSledSocket: {fileID: 560153522}
+  Argo: {fileID: 919132148871580475}
   OutsideMusic: {fileID: 8300000, guid: 7dcdf3e2e5ec7334f851904b2d2e9eee, type: 3}
   InsideMusic: {fileID: 8300000, guid: 8f489e798b1203e468eb12e2964fcedc, type: 3}
 --- !u!114 &1886238375
@@ -7214,6 +7222,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a7bfb77d0a69489ea1b10004af6d63c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1886238381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312827198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f69addabb33eb048b0c60bd1469cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id:
+    m_Source: playerLocation
+    m_HashValue: 1639138727
+  m_DisableOnStart: 0
+--- !u!114 &1886238382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312827198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f9440d1c728da4e9ed4b4f213d19bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1897595198
@@ -8173,8 +8209,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148871580471}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14759383, y: 0.98780096, z: -0.0026190397, w: -0.049583007}
-  m_LocalPosition: {x: 0.38344967, y: 1.2357503, z: 0.010769688}
+  m_LocalRotation: {x: -0.012473321, y: 0.9986887, z: -0.010524289, w: -0.048523936}
+  m_LocalPosition: {x: 0.4293, y: 0.9966052, z: 0.0104}
   m_LocalScale: {x: 0.5471775, y: 0.5471777, z: 0.5471777}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8185,7 +8221,7 @@ Transform:
   - {fileID: 8598253020808208459}
   - {fileID: 930406748}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -0.542, y: 185.666, z: 16.969}
+  m_LocalEulerAnglesHint: {x: 1.274, y: 185.548, z: -1.369}
 --- !u!224 &608493697422557616
 RectTransform:
   m_ObjectHideFlags: 0

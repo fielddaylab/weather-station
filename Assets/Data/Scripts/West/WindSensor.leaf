@@ -51,8 +51,13 @@ $call argo->SetButtonLocked(true)
 $call argoSled->Stop()
 
 {@Argo} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
 
-$call Wait(5)
+$call Wait(3)
 
 {@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
 {@Argo} You need to take the wind sensor out of the sled, and place it in the wind sensor repair dock. $[argo_you_need]
@@ -128,7 +133,7 @@ $call propS->Stop()
 $call propS->StopHighlight()
 $endif
 
-{@Argo} Great, now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
+{@Argo} Now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
 $call argo->SetCurrentClip(9)
 $call argo->SetButtonLocked(false)
 $while NotIsPuzzleSocketed(windSensorBladeSocket)

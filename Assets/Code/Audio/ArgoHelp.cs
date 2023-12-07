@@ -35,14 +35,10 @@ public class ArgoHelp : SharedStateComponent {
 	public void ArgoHelpPressed() {
 		
 		if(!m_Button.Locked && m_Button.WasPressed) {
-			if(m_CurrentClip == -1) {
-				m_CurrentClip = 0;
-			}
-			
 			if(m_CurrentClip != -1) {
 				AudioSource.PlayClipAtPoint(m_ArgoHelpAudio[m_CurrentClip], transform.position);
 				if(m_SubTitles != null) {
-					StartCoroutine(m_SubTitles.TypeLineString("Argo:", m_ArgoHelpSubtitles[m_CurrentClip]));
+					StartCoroutine(m_SubTitles.TypeLineString("Argo", m_ArgoHelpSubtitles[m_CurrentClip]));
 				}
 			}
 		}
