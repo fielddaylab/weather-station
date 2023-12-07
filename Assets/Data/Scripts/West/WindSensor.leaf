@@ -16,9 +16,11 @@ $call windSensor->SetGrabbable(true)
 $call windSensor->ShowHighlight()
 $call windSensor->PlaySound()
 $call windSensor->Play()
+$call argo->SetButtonLocked(false)
 $while NotIsGrabbed(windSensor)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 $call windSensor->StopHighlight()
 $call windSensor->Stop()
 $call windSensor->StopSound()
@@ -27,9 +29,11 @@ $call windSensor->StopSound()
 $call argo->SetCurrentClip(2)
 $call windSensorSled->Play()
 $call windSensorSled->PlaySound()
+$call argo->SetButtonLocked(false)
 $while NotIsSocketed(windSensorSled)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 $call windSensorSled->Stop()
 $call windSensorSled->StopSound()
 
@@ -39,22 +43,27 @@ $call argo->SetCurrentClip(3)
 $call argo->SetGrabbable(true)
 $call argoTowerSocket->SetLocked(false)
 $call argoSled->Play()
+$call argo->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 $call argoSled->Stop()
 
 {@Argo} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
-$call Wait(4)
+
+$call Wait(5)
 
 {@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
 {@Argo} You need to take the wind sensor out of the sled, and place it in the wind sensor repair dock. $[argo_you_need]
 $call argo->SetCurrentClip(4)
 $call windSensor->ShowHighlight()
 $call windSensor->Play()
+$call argo->SetButtonLocked(false)
 $while IsSocketed(windSensorSled)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 $call windSensor->StopHighlight()
 $call windSensor->Stop()
 
@@ -62,9 +71,11 @@ $call windSensor->Stop()
 $call argo->SetCurrentClip(5)
 $call windSensorBay->Play()
 $call windSensorBay->ShowHighlight()
+$call argo->SetButtonLocked(false)
 $while NotIsSocketed(windSensorBaySocket)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 $call windSensorBay->Stop()
 $call windSensorBay->StopHighlight()
 
@@ -72,9 +83,11 @@ $call windSensorBay->StopHighlight()
 $call argo->SetCurrentClip(6)
 $call brokenBlade->Play()
 $call brokenBlade->ShowHighlight()
+$call argo->SetButtonLocked(false)
 $while NotIsGrabbed(brokenBlade)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 $call brokenBlade->Stop()
 $call brokenBlade->StopHighlight()
 
@@ -83,9 +96,11 @@ $call argo->SetCurrentClip(7)
 $call trashChute->SetGrabbable(true)
 $call trashChute->Play()
 $call trashChute->ShowHighlight()
+$call argo->SetButtonLocked(false)
 $while NotIsGrabbed(trashChute)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 $call trashChute->Stop()
 $call trashChute->StopHighlight()
 
@@ -97,10 +112,11 @@ $call propM->SetGrabbable(true)
 $call propS->Play()
 $call propS->ShowHighlight()
 $call propS->SetGrabbable(true)
-
+$call argo->SetButtonLocked(false)
 $while NotIsGrabbed(propM), NotIsGrabbed(propS)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 
 $if IsGrabbed(propM)
 $call propM->Stop()
@@ -114,16 +130,20 @@ $endif
 
 {@Argo} Great, now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
 $call argo->SetCurrentClip(9)
+$call argo->SetButtonLocked(false)
 $while NotIsPuzzleSocketed(windSensorBladeSocket)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 
 {@Argo} Now let's test it, press the test button. $[argo_now_lets]
 $call argo->SetCurrentClip(10)
+$call argo->SetButtonLocked(false)
 $call windSensorButton->ShowHighlight()
 $while ButtonNotPressed(windSensorButton)
 $call Wait(2)
 $endwhile
+$call argo->SetButtonLocked(true)
 $call windSensorButton->StopHighlight()
 
 $call Wait(2)
@@ -132,6 +152,7 @@ $if IsNotMatched(windSensorBladeSocket)
 {@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
 $call argo->SetCurrentClip(11)
 $endif
+$call argo->SetButtonLocked(false)
 
 $call propM->Stop()
 $call propM->StopHighlight()
