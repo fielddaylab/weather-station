@@ -29,7 +29,8 @@ namespace WeatherStation {
 			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
 
 			Vector3 currPos = Vector3.zero;
-			
+			Vector3 euler = transform.rotation.eulerAngles;
+				
 			if(LeftGrabbed || RightGrabbed) {
 				
 				if(LeftGrabbed) {
@@ -38,20 +39,22 @@ namespace WeatherStation {
 					currPos = handRig.RightHand.Visual.position;
 				}
 				
-				Vector3 euler = transform.rotation.eulerAngles;
 				
 				float dotProd = Vector3.Dot(transform.right, Vector3.Normalize(LastPos - currPos));
 				float dir = -1f;
 				if(dotProd > 0f) {
 					dir = 1f;
 				}
-				//if(euler.x < 70f || euler.x > 290f) {
+				
+				if((euler.z + 10f > 300 && euler.x - 10f < 360f) || (euler.z - 10f <= 0f && euler.z + 10f > -60f)) {
 					transform.RotateAround(transform.position, transform.forward * dir, Vector3.Distance(LastPos, currPos)*100f);
-				//}
+				}
 			
-				//Debug.Log(euler.x);
+				//
 				LastPos = currPos;
 			} 
+			
+			//Debug.Log(euler.z);
 		}
 		
         private void Awake() {

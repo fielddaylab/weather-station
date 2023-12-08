@@ -41,13 +41,17 @@ $call Wait(2)
 {@Argo} Awesome!  Ok, just one last thing... Toss ME in the sled. $[argo_awesome_ok]
 $call argo->SetCurrentClip(3)
 $call argo->SetGrabbable(true)
+$call argo->Play()
 $call argoTowerSocket->SetLocked(false)
 $call argoSled->Play()
+$call argoSled->PlaySound()
 $call argo->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(2)
 $endwhile
 $call argo->SetButtonLocked(true)
+$call argo->Stop()
+$call argoSled->StopSound()
 $call argoSled->Stop()
 
 {@Argo} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
@@ -63,6 +67,7 @@ $call Wait(3)
 {@Argo} You need to take the wind sensor out of the sled, and place it in the wind sensor repair dock. $[argo_you_need]
 $call argo->SetCurrentClip(4)
 $call windSensor->ShowHighlight()
+$call windSensor->PlaySound()
 $call windSensor->Play()
 $call argo->SetButtonLocked(false)
 $while IsSocketed(windSensorSled)
@@ -70,11 +75,13 @@ $call Wait(2)
 $endwhile
 $call argo->SetButtonLocked(true)
 $call windSensor->StopHighlight()
+$call windSensor->StopSound()
 $call windSensor->Stop()
 
 {@Argo} Great, now set it in the repair dock on your work bench. Gently! These things are several thousand dollars. $[argo_great_nowset]
 $call argo->SetCurrentClip(5)
 $call windSensorBay->Play()
+$call windSensorBay->PlaySound()
 $call windSensorBay->ShowHighlight()
 $call argo->SetButtonLocked(false)
 $while NotIsSocketed(windSensorBaySocket)
@@ -82,11 +89,13 @@ $call Wait(2)
 $endwhile
 $call argo->SetButtonLocked(true)
 $call windSensorBay->Stop()
+$call windSensorBay->StopSound()
 $call windSensorBay->StopHighlight()
 
 {@Argo} Wonderful, ok, it looks like the propeller unit is bad, take it off the wind sensor. $[argo_wonderful_ok]
 $call argo->SetCurrentClip(6)
 $call brokenBlade->Play()
+$call brokenBlade->PlaySound()
 $call brokenBlade->ShowHighlight()
 $call argo->SetButtonLocked(false)
 $while NotIsGrabbed(brokenBlade)
@@ -94,12 +103,14 @@ $call Wait(2)
 $endwhile
 $call argo->SetButtonLocked(true)
 $call brokenBlade->Stop()
+$call brokenBlade->StopSound()
 $call brokenBlade->StopHighlight()
 
 {@Argo} Great, this is trash now, so we need to pack it out. There is a garbage bin under your desk. $[argo_great_this]
 $call argo->SetCurrentClip(7)
 $call trashChute->SetGrabbable(true)
 $call trashChute->Play()
+$call trashChute->PlaySound()
 $call trashChute->ShowHighlight()
 $call argo->SetButtonLocked(false)
 $while NotIsGrabbed(trashChute)
@@ -107,6 +118,7 @@ $call Wait(2)
 $endwhile
 $call argo->SetButtonLocked(true)
 $call trashChute->Stop()
+$call trashChute->StopSound()
 $call trashChute->StopHighlight()
 
 {@Argo} Let's replace the bad propeller with a good one!  Behind you is your inventory.  Grab a new propeller and we'll see if it's a good match. $[argo_lets_replace]
@@ -114,8 +126,10 @@ $call argo->SetCurrentClip(8)
 $call propM->Play()
 $call propM->ShowHighlight()
 $call propM->SetGrabbable(true)
+$call propM->PlaySound()
 $call propS->Play()
 $call propS->ShowHighlight()
+$call propS->PlaySound()
 $call propS->SetGrabbable(true)
 $call argo->SetButtonLocked(false)
 $while NotIsGrabbed(propM), NotIsGrabbed(propS)
@@ -126,11 +140,15 @@ $call argo->SetButtonLocked(true)
 $if IsGrabbed(propM)
 $call propM->Stop()
 $call propM->StopHighlight()
+$call propM->StopSound()
+$call propS->StopSound()
 $endif
 
 $if IsGrabbed(propS)
 $call propS->Stop()
 $call propS->StopHighlight()
+$call propM->StopSound()
+$call propS->StopSound()
 $endif
 
 {@Argo} Now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
@@ -145,11 +163,13 @@ $call argo->SetButtonLocked(true)
 $call argo->SetCurrentClip(10)
 $call argo->SetButtonLocked(false)
 $call windSensorButton->ShowHighlight()
+$call windSensorButton->Play()
 $while ButtonNotPressed(windSensorButton)
 $call Wait(2)
 $endwhile
 $call argo->SetButtonLocked(true)
 $call windSensorButton->StopHighlight()
+$call windSensorButton->Stop()
 
 $call Wait(2)
 
@@ -159,8 +179,6 @@ $call argo->SetCurrentClip(11)
 $endif
 $call argo->SetButtonLocked(false)
 
-$call propM->Stop()
-$call propM->StopHighlight()
 
-$call propM->Stop()
-$call propM->StopHighlight()
+$call propS->Stop()
+$call propS->StopHighlight()
