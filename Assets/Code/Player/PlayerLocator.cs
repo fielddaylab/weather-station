@@ -33,6 +33,10 @@ namespace WeatherStation {
 		public AudioClip OutsideMusic;
 		public AudioClip InsideMusic;
 
+		public AudioClip InsideDropEffect;
+
+		public AudioClip OutsideDropEffect;
+
 		#endregion //
 		
 		private Camera MainCamera = null;	//temp hack for playing music...
@@ -133,6 +137,10 @@ namespace WeatherStation {
 				if(InteriorLight != null) {
 					InteriorLight.SetActive(false);
 				}
+
+				if(OutsideDropEffect != null) {
+					GetComponent<AudioSource>().clip = OutsideDropEffect;
+				}
 				
 				if(MainCamera != null) {
 					MainCamera.gameObject.GetComponent<AudioSource>().Stop();
@@ -165,7 +173,11 @@ namespace WeatherStation {
 				if(InteriorLight != null) {
 					InteriorLight.SetActive(true);
 				}
-			
+				
+				if(InsideDropEffect != null) {
+					GetComponent<AudioSource>().clip = InsideDropEffect;
+				}
+				
 				if(MainCamera != null) {
 					MainCamera.gameObject.GetComponent<AudioSource>().Stop();
 					MainCamera.gameObject.GetComponent<AudioSource>().clip = InsideMusic;
