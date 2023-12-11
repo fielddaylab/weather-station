@@ -25,7 +25,7 @@ namespace FieldDay.Editor {
             importer.ReadTextureSettings(settings);
 
             if ((flags & Flags.Texture) != 0) {
-                settings.npotScale = TextureImporterNPOTScale.ToLarger;
+                //settings.npotScale = TextureImporterNPOTScale.ToLarger;
                 if (settings.textureType == TextureImporterType.Sprite) {
                     settings.textureType = TextureImporterType.Default;
                 }

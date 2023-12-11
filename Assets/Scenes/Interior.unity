@@ -894,9 +894,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3534022923358878581, guid: f99f41da1536f7c47976fb87c5f23530,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534022923358878581, guid: f99f41da1536f7c47976fb87c5f23530,
+        type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: e6ede95a13bccd44b99ff371b78f8d9c, type: 2}
+      objectReference: {fileID: 2100000, guid: 818d61206221e0e4aac0ba74b27e5392, type: 2}
     - target: {fileID: 7447152389936019480, guid: f99f41da1536f7c47976fb87c5f23530,
         type: 3}
       propertyPath: m_Name
@@ -966,6 +971,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9196381951740899442, guid: f99f41da1536f7c47976fb87c5f23530,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9196381951740899442, guid: f99f41da1536f7c47976fb87c5f23530,
         type: 3}
@@ -2865,7 +2875,7 @@ AudioSource:
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Spatialize: 0
+  Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
