@@ -24,7 +24,6 @@ namespace WeatherStation {
         public PuzzleButton TestButton;
 		
 		public GameObject FanBlade;
-		public GameObject BrokenProp;
 		public ItemSocket BaySocket;
 		public Transform FanRotate;
 
@@ -95,22 +94,16 @@ namespace WeatherStation {
 				IsStopped = true;
 			}
 			
-			if(BrokenProp != null) {
-				bool allMatched = true;
-				for(int i = 0; i < PuzzleSockets.Count; ++i) {
-					if(!PuzzleSockets[i].IsMatched() && PuzzleSockets[i].Current != null) {
-						allMatched = false;
-						break;
-					}
-				}
-				
-				TestButton.Untoggle();
-				IsTesting = false;
-
-				if(allMatched) {
-					BrokenProp.SetActive(false);		//temp
+			bool allMatched = true;
+			for(int i = 0; i < PuzzleSockets.Count; ++i) {
+				if(!PuzzleSockets[i].IsMatched() && PuzzleSockets[i].Current != null) {
+					allMatched = false;
+					break;
 				}
 			}
+			
+			TestButton.Untoggle();
+			IsTesting = false;
 		}
 		
         private void TestComplete(PuzzleButton button) {

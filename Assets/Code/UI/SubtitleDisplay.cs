@@ -13,6 +13,8 @@ namespace WeatherStation {
         public TMP_Text CharacterLabel;
         public TMP_Text Text;
 		
+		[NonSerialized] public bool ForceExit = false;
+		
 		[NonSerialized] public float ClipDisplayLength = 0f;
 		
         private void Start() {
@@ -37,6 +39,11 @@ namespace WeatherStation {
 			if (inSourceString.TryFindEvent(LeafUtils.Events.Character, out TagEventData charData)) {
                 StringHash32 charId = charData.GetStringHash();
 				CharacterLabel.SetText(charId.ToDebugString() + ":");
+			}
+			
+			if(ForceExit) {
+				ForceExit = false;
+				yield return null;
 			}
 			
 			if(ClipDisplayLength == 0f) {

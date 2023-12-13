@@ -17,7 +17,9 @@ namespace FieldDay.Scripting {
     public class ScriptPlugin : DefaultLeafManager<ScriptNode> {
         private readonly ScriptRuntimeState m_RuntimeState;
         private readonly Action LateEndCutsceneDelegate;
-
+		
+		private StringHash32 m_LastVOLineCode;
+		
         public ScriptPlugin(ScriptRuntimeState inHost, CustomVariantResolver inResolver, IMethodCache inCache = null, LeafRuntimeConfiguration inConfiguration = null)
             : base(inHost, inResolver, inCache, inConfiguration) {
             m_RuntimeState = inHost;
@@ -127,6 +129,7 @@ namespace FieldDay.Scripting {
             if (eventString.TryFindEvent(LeafUtils.Events.Character, out TagEventData charData)) {
                 StringHash32 charId = charData.GetStringHash();
                 voiceoverLineCode = inLine.LineCode;
+				m_LastVOLineCode = voiceoverLineCode;
                 VoiceoverUtility.QueueImmediateLineLoad(inLine.LineCode);
                 // TODO: Find the character in the scene that maps to the character id
                 // Play the VO from there
