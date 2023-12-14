@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Aqua;
 using BeauPools;
 using BeauRoutine;
@@ -14,11 +15,16 @@ using UnityEngine;
 using WeatherStation;
 
 namespace FieldDay.Scripting {
+	
+
+	
     public class ScriptPlugin : DefaultLeafManager<ScriptNode> {
         private readonly ScriptRuntimeState m_RuntimeState;
         private readonly Action LateEndCutsceneDelegate;
 		
-		private StringHash32 m_LastVOLineCode;
+		static public bool ForceVOSkipSet = false;
+		
+		public Func<bool> ForceVOSkip = new Func<bool>(() => ForceVOSkipSet);
 		
         public ScriptPlugin(ScriptRuntimeState inHost, CustomVariantResolver inResolver, IMethodCache inCache = null, LeafRuntimeConfiguration inConfiguration = null)
             : base(inHost, inResolver, inCache, inConfiguration) {
@@ -112,7 +118,7 @@ namespace FieldDay.Scripting {
                 // TODO: End cutscene
             }
         }
-
+		
         public override IEnumerator RunLine(LeafThreadState<ScriptNode> inThreadState, LeafLineInfo inLine) {
             if (inLine.IsEmptyOrWhitespace)
                 yield break;
@@ -129,7 +135,6 @@ namespace FieldDay.Scripting {
             if (eventString.TryFindEvent(LeafUtils.Events.Character, out TagEventData charData)) {
                 StringHash32 charId = charData.GetStringHash();
                 voiceoverLineCode = inLine.LineCode;
-				m_LastVOLineCode = voiceoverLineCode;
                 VoiceoverUtility.QueueImmediateLineLoad(inLine.LineCode);
                 // TODO: Find the character in the scene that maps to the character id
                 // Play the VO from there
@@ -173,10 +178,22 @@ namespace FieldDay.Scripting {
                         break;
                     }
 
+                    //case TagNodeType.Text: {
+                    //    yield return Routine.Inline(m_TextDisplayer.TypeLine(eventString, node.Text));
+                    //    break;
                     case TagNodeType.Text: {
-                        yield return Routine.Inline(m_TextDisplayer.TypeLine(eventString, node.Text));
-                        break;
-                    }
+						List<IEnumerator> routineList = new List<IEnumerator>();
+						routineList.Add(m_TextDisplayer.TypeLine(eventString, node.Text));
+						routineList.Add(Routine.WaitCondition(ForceVOSkip));
+						yield return Routine.Race(routineList);
+						
+						//if should skip vo fails passes here, turn off audio...
+						if(ForceVOSkipSet) {
+							
+							ForceVOSkipSet = false;
+						}
+						break;
+					}
                 }
             }
 
