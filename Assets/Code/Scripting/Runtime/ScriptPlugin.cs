@@ -21,8 +21,9 @@ namespace FieldDay.Scripting {
         private readonly Action LateEndCutsceneDelegate;
 		
 		static public bool ForceVOSkipSet = false;
+		static public bool ForceKill = false;
 		
-		public Func<bool> ForceVOSkip = new Func<bool>(() => ForceVOSkipSet);
+		public Func<bool> ForceVOSkip = new Func<bool>(() => (ForceVOSkipSet || ForceKill));
 		
         public ScriptPlugin(ScriptRuntimeState inHost, CustomVariantResolver inResolver, IMethodCache inCache = null, LeafRuntimeConfiguration inConfiguration = null)
             : base(inHost, inResolver, inCache, inConfiguration) {
@@ -82,7 +83,7 @@ namespace FieldDay.Scripting {
 
         public override void OnNodeEnter(ScriptNode inNode, LeafThreadState<ScriptNode> inThreadState) {
             ScriptPersistence persistence = Game.SharedState.Get<ScriptPersistence>();
-
+	
             StringHash32 nodeId = inNode.Id();
             persistence.RecentViewedNodeIds.PushFront(nodeId);
             if ((inNode.Flags & ScriptNodeFlags.Once) != 0) {
@@ -120,8 +121,16 @@ namespace FieldDay.Scripting {
         public override IEnumerator RunLine(LeafThreadState<ScriptNode> inThreadState, LeafLineInfo inLine) {
             if (inLine.IsEmptyOrWhitespace)
                 yield break;
-
-            LeafThreadHandle handle = inThreadState.GetHandle();
+			
+			if(ForceKill) {
+				yield break;
+			}
+			
+			if(ForceVOSkipSet) {
+				yield break;
+			}
+			
+			LeafThreadHandle handle = inThreadState.GetHandle();
             TagString eventString = inThreadState.TagString;
             TagStringEventHandler eventHandler = m_TagHandler;
 
@@ -195,12 +204,12 @@ namespace FieldDay.Scripting {
 						yield return Routine.Race(routineList);
 						
 						//if should skip vo fails passes here, turn off audio...
-						if(ForceVOSkipSet) {
+						if(ForceVOSkipSet || ForceKill) {
 							if(voiceCharacter != null) {
 								AudioSource a = voiceCharacter.GetComponent<AudioSource>();
 								a.Stop();
 							}
-							ForceVOSkipSet = false;
+							ForceVOSkipSet = false;	//this just skips one VO...
 						}
 						break;
 					}
@@ -218,7 +227,8 @@ namespace FieldDay.Scripting {
             if (m_RuntimeState.Cutscene == inThreadState.GetHandle()) {
                 m_RuntimeState.Cutscene = default;
             }
-
+			//Debug.Log("HIT END");
+			ForceKill = false;
             base.OnEnd(inThreadState);
         }
     

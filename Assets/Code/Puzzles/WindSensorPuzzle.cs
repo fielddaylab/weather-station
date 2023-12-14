@@ -24,6 +24,7 @@ namespace WeatherStation {
         public PuzzleButton TestButton;
 		
 		public GameObject FanBlade;
+		public GameObject BrokenProp;
 		public ItemSocket BaySocket;
 		public Transform FanRotate;
 
@@ -55,6 +56,8 @@ namespace WeatherStation {
 			
 			if(allMatched && TestSuccess) {
 				if(State != PuzzleState.Complete) {
+					//ScriptPlugin.ForceKill = true;
+					//StartCoroutine(WindSensorComplete(1f));
 					ScriptUtility.Trigger("WindSensorComplete");
 				}
 				State = PuzzleState.Complete;
@@ -119,12 +122,23 @@ namespace WeatherStation {
 						StartCoroutine(RotateAndFinish(PuzzleSockets[0], PuzzleSockets[0].Current, 120f));
 						TestSuccess = true;
 					}
-				} else {
+				} else if(PuzzleSockets[0].Current == BrokenProp) {
 					if(!IsTesting) {
 						IsTesting = true;
 						PuzzleSockets[0].Locked = true;
 						//rotate a bit, then have it detach and fall..
 						StartCoroutine(RotateAndFall(PuzzleSockets[0], PuzzleSockets[0].Current, 3f));
+					}
+					else
+					{
+						IsStopped = true;
+					}				
+				} else {
+					if(!IsTesting) {
+						IsTesting = true;
+						PuzzleSockets[0].Locked = true;
+						//rotate a bit, then have it detach and fall..
+						StartCoroutine(RotateAndFail(PuzzleSockets[0], PuzzleSockets[0].Current, 10f));
 					}
 					else
 					{
@@ -159,6 +173,29 @@ namespace WeatherStation {
 			IsTesting = false;
 			IsStopped = false;
         }
+		
+		private IEnumerator RotateAndFail(ItemSocket socket, Socketable socketable, float duration) {
+            float t = 0f;
+            while(t < duration && !IsStopped) {
+				//Debug.Log("Rotating");
+				if(PuzzleSockets[0].Current)
+				{
+					SocketUtility.RotateSocketed(PuzzleSockets[0], PuzzleSockets[0].Current, 2.5f);
+				}
+                yield return new WaitForEndOfFrame();
+                t += Time.deltaTime;
+            }
+
+            //unsocket and have it fall to the ground...
+			SocketUtility.TryReleaseFromCurrentSocket(PuzzleSockets[0].Current, true);
+			
+			TestButton.Untoggle();
+			
+			PuzzleSockets[0].Locked = false;
+			IsTesting = false;
+			IsStopped = false;
+        }
+
 
         private IEnumerator RotateAndFinish(ItemSocket socket, Socketable socketable, float duration) {
             
@@ -170,8 +207,8 @@ namespace WeatherStation {
 			float t = 0f;
             while(t < duration && !IsStopped) {
                 //Debug.Log("Rotating");
-				SocketUtility.RotateSocketed(PuzzleSockets[0], PuzzleSockets[0].Current, 5f);
-				FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, 5f);
+				SocketUtility.RotateSocketed(PuzzleSockets[0], PuzzleSockets[0].Current, 10f);
+				FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, 10f);
                 yield return new WaitForEndOfFrame();
                 t += Time.deltaTime;
             }
@@ -181,6 +218,15 @@ namespace WeatherStation {
 			IsTesting = false;
 			IsStopped = false;
         }
+		
+		IEnumerator WindSensorComplete(float waitTime) {
+			yield return new WaitForSeconds(waitTime);
+			//while(ScriptPlugin.ForceKill) {
+			//	yield return null;
+			//}
+			//Debug.Log("TRIGGERING NEXT SCRIPT");
+			ScriptUtility.Trigger("WindSensorComplete");
+		}
     }
 
 #if UNITY_EDITOR

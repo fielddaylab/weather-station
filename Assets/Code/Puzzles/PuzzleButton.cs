@@ -76,7 +76,8 @@ namespace WeatherStation {
 				} else {
 					
 					if(!WasPressed) {
-						ScriptUtility.Trigger("ArgoPressed");
+						ScriptPlugin.ForceKill = true;
+						StartCoroutine(ArgoWasPressed(1f));
 						/*using (var table = TempVarTable.Alloc()) {
 							table.Set("someRandomValue", RNG.Instance.Next(60));
 							
@@ -145,5 +146,14 @@ namespace WeatherStation {
                 PriorColor = CachedMeshRenderer.material.color;
             }
         }
+		
+		IEnumerator ArgoWasPressed(float waitTime) {
+			yield return new WaitForSeconds(waitTime);
+			while(ScriptPlugin.ForceKill) {
+				yield return null;
+			}
+			//Debug.Log("TRIGGERING NEXT SCRIPT");
+			ScriptUtility.Trigger("ArgoPressed");
+		}
     }
 }

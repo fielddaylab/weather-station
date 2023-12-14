@@ -123,7 +123,9 @@ namespace WeatherStation {
 				if(numToHighlight == cc-1) {
 					//Log.Msg("[SolarPanelPuzzle] completed solar panel puzzle.");
 					if(State != PuzzleState.Complete) {
-						ScriptUtility.Trigger("SolarPanelComplete");
+						ScriptPlugin.ForceKill = true;
+						StartCoroutine(SolarPanelComplete(1f));
+						
 					}
 					State = PuzzleState.Complete;
 					return true;
@@ -180,6 +182,15 @@ namespace WeatherStation {
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = false;
 			}
+		}
+		
+		IEnumerator SolarPanelComplete(float waitTime) {
+			yield return new WaitForSeconds(waitTime);
+			while(ScriptPlugin.ForceKill) {
+				yield return null;
+			}
+			//Debug.Log("TRIGGERING NEXT SCRIPT");
+			ScriptUtility.Trigger("SolarPanelComplete");
 		}
     }
 

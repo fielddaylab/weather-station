@@ -22,6 +22,8 @@ namespace WeatherStation {
 		private bool RightGrabbed = false;
 		private bool LeftGrabbed = false;
 		
+		[NonSerialized] public bool WasGrabbed = false;
+		
 		private Vector3 LastPos = Vector3.zero;
 		
 		void Update() {
@@ -32,6 +34,8 @@ namespace WeatherStation {
 			Vector3 euler = transform.rotation.eulerAngles;
 				
 			if(LeftGrabbed || RightGrabbed) {
+				
+				WasGrabbed = true;
 				
 				if(LeftGrabbed) {
 					currPos = handRig.LeftHand.Visual.position;
