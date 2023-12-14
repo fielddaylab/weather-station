@@ -131,6 +131,8 @@ namespace FieldDay.Scripting {
 
             // TODO: Play VO?
             StringHash32 voiceoverLineCode = default;
+            GameObject voiceCharacter = null;
+
             // TODO: Voiceover
             if (eventString.TryFindEvent(LeafUtils.Events.Character, out TagEventData charData)) {
                 StringHash32 charId = charData.GetStringHash();
@@ -138,7 +140,7 @@ namespace FieldDay.Scripting {
                 VoiceoverUtility.QueueImmediateLineLoad(inLine.LineCode);
                 // TODO: Find the character in the scene that maps to the character id
                 // Play the VO from there
-                //inLine.LineCode;
+                voiceCharacter = VoiceoverUtility.GetCharacterForLineCode(charId);
             }
 
             TagStringEventHandler overrideHandler = m_TextDisplayer.PrepareLine(eventString, eventHandler);
@@ -156,8 +158,15 @@ namespace FieldDay.Scripting {
                 // TODO: Prepare next line so we aren't left sitting
                 //LeafRuntime.PredictLine(inThreadState);
 				if(clip != null) {
-					//Debug.Log("PLAYING CLIP");
-					AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+                    if(voiceCharacter != null) {
+                        AudioSource a = voiceCharacter.GetComponent<AudioSource>();
+                        if(a != null) {
+                            a.clip = clip;
+                            a.Play();
+                        }
+                    } else {
+					    AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+                    }
 					((SubtitleDisplay)m_TextDisplayer).ClipDisplayLength = clip.length;
 				}
             }
