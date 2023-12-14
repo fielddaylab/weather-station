@@ -16,8 +16,6 @@ using WeatherStation;
 
 namespace FieldDay.Scripting {
 	
-
-	
     public class ScriptPlugin : DefaultLeafManager<ScriptNode> {
         private readonly ScriptRuntimeState m_RuntimeState;
         private readonly Action LateEndCutsceneDelegate;
@@ -198,7 +196,10 @@ namespace FieldDay.Scripting {
 						
 						//if should skip vo fails passes here, turn off audio...
 						if(ForceVOSkipSet) {
-							
+							if(voiceCharacter != null) {
+								AudioSource a = voiceCharacter.GetComponent<AudioSource>();
+								a.Stop();
+							}
 							ForceVOSkipSet = false;
 						}
 						break;

@@ -23,6 +23,7 @@ namespace WeatherStation {
                 //switch scenes.. why is this hitting twice?
 				//Debug.Log("SWITCH SCENES");
 				//m_State.SwitchScenes();
+				FieldDay.Scripting.ScriptPlugin.ForceVOSkipSet = true;
 				data.RightHand.PrevButtons = 0;
             }
 
