@@ -10,6 +10,8 @@ using UnityEngine.Networking;
 namespace WeatherStation {
     public class VoiceoverLoadState : SharedStateComponent {
         public string BasePath = "vo/";
+        public List<GameObject> VOCharacters = new List<GameObject>(8);
+
         [NonSerialized] public string LanguagePath = "en/";
 
         #region State
@@ -21,6 +23,8 @@ namespace WeatherStation {
 
         public RingBuffer<StringHash32> EntryLoadQueue = new RingBuffer<StringHash32>(64, RingBufferMode.Expand);
         public RingBuffer<StringHash32> EntryUnloadQueue = new RingBuffer<StringHash32>(64, RingBufferMode.Expand);
+
+        public Dictionary<StringHash32, GameObject> CharacterAudioMap = MapUtils.Create<StringHash32, GameObject>(8);
 
         [NonSerialized] public StringHash32 CurrentLoadingFileId;
         [NonSerialized] public UnityWebRequest CurrentLoad;
@@ -100,6 +104,23 @@ namespace WeatherStation {
 
         static public void UnloadLine(StringHash32 lineCode) {
             Loader.EntryUnloadQueue.PushBack(lineCode);
+        }
+
+        static public GameObject GetCharacterForLineCode(StringHash32 lineCode) {
+            if(Loader.CharacterAudioMap.ContainsKey(lineCode)) {
+                return Loader.CharacterAudioMap[lineCode];
+            } else {
+                //Debug.Log(lineCode);
+                string s = lineCode.ToDebugString();
+                for(int i = 0; i < Loader.VOCharacters.Count; ++i) {
+                    if(s == Loader.VOCharacters[i].name) {
+                        Loader.CharacterAudioMap.Add(lineCode, Loader.VOCharacters[i]);
+                        return Loader.VOCharacters[i];
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }
