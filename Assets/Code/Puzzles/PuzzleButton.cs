@@ -76,8 +76,10 @@ namespace WeatherStation {
 				} else {
 					
 					if(!WasPressed) {
-						ScriptPlugin.ForceKill = true;
-						StartCoroutine(ArgoWasPressed(1f));
+						if(gameObject.name == "ArgoFaceButton") {
+							ScriptPlugin.ForceKill = true;
+							StartCoroutine(ArgoWasPressed(1f));
+						}
 						/*using (var table = TempVarTable.Alloc()) {
 							table.Set("someRandomValue", RNG.Instance.Next(60));
 							
