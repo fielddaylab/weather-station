@@ -113,10 +113,23 @@ namespace WeatherStation {
 			if(IsInside) {
 				
 				Vector3 headPos = transform.GetChild(0).transform.localPosition;
+				Quaternion localHead = transform.GetChild(0).transform.localRotation;
+				
+				headPos.y = 0f;
+				
+				Quaternion qInv = (OutsideLocation.rotation * Quaternion.Inverse(localHead));
+				
+				Vector3 euler = qInv.eulerAngles;
+				euler.x = 0f;
+				euler.z = 0f;
+				qInv.eulerAngles = euler;
+				
+				headPos = qInv * headPos;
 				headPos.y = 0f;
 				
 				transform.position = OutsideLocation.position - headPos;
-				transform.rotation = OutsideLocation.rotation;
+				transform.rotation = qInv;
+				
 				Sled.transform.position = SledOutsideLocation.transform.position;
 				Sled.transform.rotation = SledOutsideLocation.transform.rotation;
 
@@ -150,10 +163,27 @@ namespace WeatherStation {
 			} else {
 				
 				Vector3 headPos = transform.GetChild(0).transform.localPosition;
+				Quaternion localHead = transform.GetChild(0).transform.localRotation;
+				headPos.y = 0f;
+				
+				transform.position = InsideLocation.position - (InsideLocation.rotation * Quaternion.Inverse(localHead)) * headPos;
+				
+				transform.rotation = InsideLocation.rotation * Quaternion.Inverse(localHead);
+				
+				//zero out the x and z rotation in case user had head tilted at point of transport
+				Quaternion qInv = (InsideLocation.rotation * Quaternion.Inverse(localHead));
+				
+				Vector3 euler = qInv.eulerAngles;
+				euler.x = 0f;
+				euler.z = 0f;
+				qInv.eulerAngles = euler;
+				
+				headPos = qInv * headPos;
 				headPos.y = 0f;
 				
 				transform.position = InsideLocation.position - headPos;
-				transform.rotation = InsideLocation.rotation;
+				transform.rotation = qInv;
+				
 				Sled.transform.position = SledInsideLocation.transform.position;
 				Sled.transform.rotation = SledInsideLocation.transform.rotation;
 				SocketUtility.TryAddToSocket(ArgoInsideSocket, s, false);
