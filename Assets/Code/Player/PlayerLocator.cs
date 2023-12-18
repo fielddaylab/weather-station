@@ -44,11 +44,10 @@ namespace WeatherStation {
 		private bool IsTeleporting = false;
 
 		private void Awake() {
-			/*if(ArgoSledSocket != null) {
-				ArgoSledSocket.OnAdded.Register(StartTeleportCountdown);
-			}*/
-			
+
 			MainCamera = Camera.main;
+			
+			StartCoroutine("InitialAlignment");
 		}
 		
 		public void Teleport() {
@@ -91,6 +90,29 @@ namespace WeatherStation {
 					StartCoroutine(WaitForTeleport(s, 1f));
 				}
 			}
+		}
+		
+		IEnumerator InitialAlignment()
+		{
+			yield return new WaitForSeconds(2f);
+			
+			Vector3 headPos = transform.GetChild(0).transform.localPosition;
+			Quaternion localHead = transform.GetChild(0).transform.localRotation;
+			
+			headPos.y = 0f;
+			
+			Quaternion qInv = (OutsideLocation.rotation * Quaternion.Inverse(localHead));
+			
+			Vector3 euler = qInv.eulerAngles;
+			euler.x = 0f;
+			euler.z = 0f;
+			qInv.eulerAngles = euler;
+			
+			headPos = qInv * headPos;
+			headPos.y = 0f;
+			
+			transform.position = OutsideLocation.position - headPos;
+			transform.rotation = qInv;	
 		}
 		
 		IEnumerator WaitForTeleport(Socketable s, float duration)
