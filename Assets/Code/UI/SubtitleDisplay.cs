@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using BeauRoutine;
 using BeauUtil;
 using BeauUtil.Tags;
 using Leaf;
@@ -49,9 +50,21 @@ namespace WeatherStation {
 			if(ClipDisplayLength == 0f) {
 				yield return inType.VisibleCharacterCount * 0.095f;
 			} else {
-				yield return ClipDisplayLength;
+				yield return Routine.Inline(TruncateLine(ClipDisplayLength / (float)Text.text.Length));//ClipDisplayLength;
 			}
         }
+		
+		public IEnumerator TruncateLine(float freq) {
+			
+			yield return new WaitForSeconds(1.5f);
+			
+			while(Text.text.Length > 0) {
+				yield return new WaitForSeconds(freq);
+				string s = Text.text;
+				s = s.Remove(0,1);
+				Text.SetText(s);
+			}
+		}
 		
 		public IEnumerator TypeLineString(string inHeader, string inText) {
             gameObject.SetActive(true);
