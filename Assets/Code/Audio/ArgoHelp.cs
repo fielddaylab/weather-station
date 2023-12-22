@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.Scripting;
 
 namespace WeatherStation {
+	[RequireComponent(typeof(AudioSource))]
 public class ArgoHelp : SharedStateComponent {
 
 	public List<AudioClip> m_ArgoHelpAudio = new List<AudioClip>(20);
@@ -20,9 +21,11 @@ public class ArgoHelp : SharedStateComponent {
 	
 	private int m_CurrentClip = -1;
 	
+	private AudioSource ArgoAudio = null;
+	
     // Start is called before the first frame update
     private void Awake() {
-        
+        ArgoAudio = GetComponent<AudioSource>();
     }
 	
 	public void SetCurrentClip(int clip) { m_CurrentClip = clip; }
@@ -36,7 +39,10 @@ public class ArgoHelp : SharedStateComponent {
 		
 		if(!m_Button.Locked && m_Button.WasPressed) {
 			if(m_CurrentClip != -1) {
-				AudioSource.PlayClipAtPoint(m_ArgoHelpAudio[m_CurrentClip], transform.position);
+				ArgoAudio.Stop();
+				ArgoAudio.clip = m_ArgoHelpAudio[m_CurrentClip];
+				ArgoAudio.Play();
+				//AudioSource.PlayClipAtPoint(m_ArgoHelpAudio[m_CurrentClip], transform.position);
 				if(m_SubTitles != null) {
 					StartCoroutine(m_SubTitles.TypeLineString("Argo", m_ArgoHelpSubtitles[m_CurrentClip]));
 				}

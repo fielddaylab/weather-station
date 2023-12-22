@@ -61,7 +61,9 @@ namespace WeatherStation {
 			while(Text.text.Length > 0) {
 				yield return new WaitForSeconds(freq);
 				string s = Text.text;
-				s = s.Remove(0,1);
+				if(s.Length > 0) {
+					s = s.Remove(0,1);
+				}
 				Text.SetText(s);
 			}
 		}
