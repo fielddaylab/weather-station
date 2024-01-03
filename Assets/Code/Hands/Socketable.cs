@@ -122,8 +122,15 @@ namespace WeatherStation {
             }
 
             if (socket.Mode == ItemSocketMode.Reparent) {
+
                 socket.Current.CachedTransform.SetParent(socket.Current.OriginalParent, true);
                 socket.Current.CachedRB.isKinematic = false;
+				
+				if(applyReleaseForce) {
+					Vector3 force = socket.ReleaseForce;
+                    force = socket.Location.TransformDirection(force);
+                    socket.Current.CachedRB.AddForce(force, ForceMode.Impulse);
+				}
             }
 
             if (socket.ReleaseLocation) {

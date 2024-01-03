@@ -84,7 +84,7 @@ $call argo->Play()
 
 $if NotIsSocketed(argoSled)
 {@Argo} Great! Now pop me in the sled, let's test our Data uplink and make sure the tower is transmitting data! $[argo_great_nowpop]
-$call argo->SetCurrentClip(15)
+
 $call argo->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
@@ -107,6 +107,7 @@ $call uplinkButton->Play()
 
 {@Argo} Ok, let's take a look at the map. See that button below? We need to press that to test the tower’s data uplink. Press it to run the test. $[argo_ok_lets]
 $call argo->SetButtonLocked(false)
+$call argo->SetCurrentClip(15)
 $while ButtonNotPressed(uplinkButton)
 $call Wait(1)
 $endwhile
