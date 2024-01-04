@@ -26,6 +26,11 @@ namespace WeatherStation {
 				FieldDay.Scripting.ScriptPlugin.ForceVOSkipSet = true;
 				data.RightHand.PrevButtons = 0;
             }
+			
+			if(data.LeftHand.Released(VRControllerButtons.Secondary)) {
+				m_State.SwitchScenes();
+				data.LeftHand.PrevButtons = 0;
+			}
 
             m_State.UpdateStates();
 
