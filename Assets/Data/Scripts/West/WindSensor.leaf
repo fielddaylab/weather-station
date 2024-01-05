@@ -11,8 +11,8 @@ $call windSensorSocket->SetLocked(false)
 $call windSensor->SetGrabbable(true)
 $call windSensor->ShowHighlight()
 $call windSensor->PlaySound()
-$call windSensor->Play()
-$call windSensorSled->Play()
+$call windSensor->PlayFX()
+$call windSensorSled->PlayFX()
 $call windSensorSled->PlaySound()
 {@Argo} Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model. $[argo_hmm_not]
 
@@ -27,13 +27,13 @@ $call argo->SetButtonLocked(true)
 $endif
 
 $call windSensor->StopHighlight()
-$call windSensor->Stop()
+$call windSensor->StopFX()
 $call windSensor->StopSound()
 
 $call argo->SetGrabbable(true)
-$call argo->Play()
+$call argo->PlayFX()
 $call argoTowerSocket->SetLocked(false)
-$call argoSled->Play()
+$call argoSled->PlayFX()
 $call argoSled->PlaySound()
 
 $if NotIsSocketed(windSensorSled)
@@ -46,7 +46,7 @@ $endwhile
 $call argo->SetButtonLocked(true)
 $endif
 
-$call windSensorSled->Stop()
+$call windSensorSled->StopFX()
 $call windSensorSled->StopSound()
 
 $if NotIsSocketed(argoSled)
@@ -59,9 +59,9 @@ $endwhile
 $call argo->SetButtonLocked(true)
 $endif
 
-$call argo->Stop()
+$call argo->StopFX()
 $call argoSled->StopSound()
-$call argoSled->Stop()
+$call argoSled->StopFX()
 
 {@Argo} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
 $call fader->FadeOut(3.0)
@@ -75,8 +75,8 @@ $call Wait(3)
 {@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
 $call windSensor->ShowHighlight()
 $call windSensor->PlaySound()
-$call windSensor->Play()
-$call windSensorBay->Play()
+$call windSensor->PlayFX()
+$call windSensorBay->PlayFX()
 $call windSensorBay->PlaySound()
 $call windSensorBay->ShowHighlight()
 
@@ -93,7 +93,7 @@ $endif
 
 $call windSensor->StopHighlight()
 $call windSensor->StopSound()
-$call windSensor->Stop()
+$call windSensor->StopFX()
 
 $if NotIsSocketed(windSensorBaySocket)
 {@Argo} Great, now set it in the repair dock on your work bench. Gently! These things are several thousand dollars. $[argo_great_nowset]
@@ -107,11 +107,11 @@ $endwhile
 $call argo->SetButtonLocked(true)
 $endif
 
-$call windSensorBay->Stop()
+$call windSensorBay->StopFX()
 $call windSensorBay->StopSound()
 $call windSensorBay->StopHighlight()
 
-$call brokenBlade->Play()
+$call brokenBlade->PlayFX()
 $call brokenBlade->PlaySound()
 $call brokenBlade->ShowHighlight()
 
@@ -125,12 +125,12 @@ $endwhile
 $call argo->SetButtonLocked(true)
 $endif
 
-$call brokenBlade->Stop()
+$call brokenBlade->StopFX()
 $call brokenBlade->StopSound()
 $call brokenBlade->StopHighlight()
 
 $call trashChute->SetGrabbable(true)
-$call trashChute->Play()
+$call trashChute->PlayFX()
 $call trashChute->PlaySound()
 $call trashChute->ShowHighlight()
 
@@ -144,15 +144,15 @@ $endwhile
 $call argo->SetButtonLocked(true)
 $endif
 
-$call trashChute->Stop()
+$call trashChute->StopFX()
 $call trashChute->StopSound()
 $call trashChute->StopHighlight()
 
-$call propM->Play()
+$call propM->PlayFX()
 $call propM->ShowHighlight()
 $call propM->SetGrabbable(true)
 $call propM->PlaySound()
-$call propS->Play()
+$call propS->PlayFX()
 $call propS->ShowHighlight()
 $call propS->PlaySound()
 $call propS->SetGrabbable(true)
@@ -169,14 +169,14 @@ $call argo->SetButtonLocked(true)
 $endif
 
 $if IsGrabbed(propM)
-$call propM->Stop()
+$call propM->StopFX()
 $call propM->StopHighlight()
 $call propM->StopSound()
 $call propS->StopSound()
 $endif
 
 $if IsGrabbed(propS)
-$call propS->Stop()
+$call propS->StopFX()
 $call propS->StopHighlight()
 $call propM->StopSound()
 $call propS->StopSound()
@@ -194,7 +194,7 @@ $call argo->SetButtonLocked(true)
 $endif
 
 $call windSensorButton->ShowHighlight()
-$call windSensorButton->Play()
+$call windSensorButton->PlayFX()
 
 $if ButtonNotPressed(windSensorButton)
 {@Argo} Now let's test it, press the test button. $[argo_now_lets]
@@ -207,7 +207,7 @@ $call argo->SetButtonLocked(true)
 $endif
 
 $call windSensorButton->StopHighlight()
-$call windSensorButton->Stop()
+$call windSensorButton->StopFX()
 
 $call Wait(1)
 
@@ -217,5 +217,5 @@ $call argo->SetCurrentClip(11)
 $endif
 $call argo->SetButtonLocked(false)
 
-$call propS->Stop()
+$call propS->StopFX()
 $call propS->StopHighlight()

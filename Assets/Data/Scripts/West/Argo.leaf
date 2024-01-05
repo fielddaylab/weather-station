@@ -10,11 +10,11 @@ $call Wait(1)
 {@Argo} Ahh!! You're here, at last! My favorite Antarctic weather researcher!  And... Alex. You are here as well. $[argo_ahh_youre]
 {@Alex} Gee, thanks Argo. Nice to see you too. What's the status? $[alex_gee_thanks]
 
-$call rightPanelHandle->Play()
+$call rightPanelHandle->PlayFX()
 $call rightPanelHandle->ShowHighlight()
 $call rightPanelHandle->SetGrabbable(true)
 $call rightPanelHandle->PlaySound()
-$call leftPanelHandle->Play()
+$call leftPanelHandle->PlayFX()
 $call leftPanelHandle->ShowHighlight()
 $call leftPanelHandle->SetGrabbable(true)
 $call leftPanelHandle->PlaySound()
@@ -29,11 +29,11 @@ $call Wait(1)
 $endwhile
 $endif
 
-$call leftPanelHandle->Stop()
+$call leftPanelHandle->StopFX()
 $call leftPanelHandle->StopHighlight()
 $call leftPanelHandle->SetGrabbable(false)
 $call leftPanelHandle->StopSound()
-$call rightPanelHandle->Stop()
+$call rightPanelHandle->StopFX()
 $call rightPanelHandle->StopHighlight()
 $call rightPanelHandle->StopSound()
 $call rightPanelHandle->SetGrabbable(false)

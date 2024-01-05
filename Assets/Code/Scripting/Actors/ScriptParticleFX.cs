@@ -23,16 +23,16 @@ namespace WeatherStation.Scripting {
 
         #region Leaf
 
-        [LeafMember("Play"), Preserve]
-        public void Play() {
+        [LeafMember("PlayFX"), Preserve]
+        public void PlayFX() {
 			
 			if(m_PS != null) {
 				m_PS.Play();
 			}
         }
 
-        [LeafMember("Stop"), Preserve]
-        public void Stop() {
+        [LeafMember("StopFX"), Preserve]
+        public void StopFX() {
             if(m_PS != null) {
 				m_PS.Stop();
 			}

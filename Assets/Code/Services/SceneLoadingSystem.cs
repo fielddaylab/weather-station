@@ -2,7 +2,7 @@ using FieldDay;
 using FieldDay.Components;
 using FieldDay.SharedState;
 using FieldDay.Systems;
-
+using FieldDay.Scripting;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +19,8 @@ namespace WeatherStation {
                 return;
             }
 
+			//both below button functionalities are temporary.
+			//temp
             if(data.RightHand.Released(VRControllerButtons.Secondary) || Input.GetKeyDown(KeyCode.Tab)) {
                 //switch scenes.. why is this hitting twice?
 				//Debug.Log("SWITCH SCENES");
@@ -27,8 +29,10 @@ namespace WeatherStation {
 				data.RightHand.PrevButtons = 0;
             }
 			
-			if(data.LeftHand.Released(VRControllerButtons.Secondary)) {
+			//temp
+			if(data.LeftHand.Released(VRControllerButtons.Secondary) || Input.GetKeyDown(KeyCode.S)) {
 				m_State.SwitchScenes();
+				ScriptUtility.Trigger("LevelOneFinished");
 				data.LeftHand.PrevButtons = 0;
 			}
 
