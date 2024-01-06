@@ -297,6 +297,8 @@ GameObject:
   - component: {fileID: 2810243548157866040}
   - component: {fileID: 9105172751785255468}
   - component: {fileID: 3534022923358878581}
+  - component: {fileID: 64973229886934639}
+  - component: {fileID: 2783405927294843384}
   m_Layer: 0
   m_Name: Map_TopScreen
   m_TagString: Untagged
@@ -370,3 +372,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &64973229886934639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196381951740899442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f69addabb33eb048b0c60bd1469cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id:
+    m_Source: map
+    m_HashValue: 3751997361
+  m_DisableOnStart: 0
+--- !u!114 &2783405927294843384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9196381951740899442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55fe761325eaa249a11f15c3b28dbaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaterialIndex: 1
+  m_MR: {fileID: 3534022923358878581}
+  Textures:
+  - {fileID: 2800000, guid: 800cf642c013c7a4d85a3d6afd554a34, type: 3}
+  - {fileID: 2800000, guid: 6a9bdda77f80bae408d9f0010a9f73c8, type: 3}
+  - {fileID: 2800000, guid: 311f3b6f5f39cfb469c944eabac641f8, type: 3}
