@@ -6,7 +6,7 @@
 @once
 
 $call Wait(1)
-
+{@MissionControl} Come in, Otter Three. Wind speeds are starting to pick up at your coordinates. Better pick up the pace. $[come_in_otter]
 $call fader->FadeIn(10.0, 5.0)
 {@Argo} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
 {@Rae} Morning, ARGO. $[morning_argo]
@@ -228,7 +228,7 @@ $endwhile
 $endif
 $endwhile
 
-{@Argo} This looks like the right one! Now we just need to add cells, that’s in your inventory as well. $[this_looks_like]
+{@Argo} This looks like the right one! Now we just need to power add cells, those are in your inventory as well. $[this_looks_like]
 
 cellOne->ShowHighlight()
 cellTwo->ShowHighlight()
@@ -239,7 +239,7 @@ cellTwo->PlayFX()
 cellThree->PlayFX()
 cellFour->PlayFX()
 
-$while NotPuzzleIsComplete(batteryPuzzle)
+$while PuzzleIsNotComplete(batteryPuzzle)
 $call Wait(1)
 $endwhile
 
@@ -258,12 +258,12 @@ $while NotIsSocketed(batterySledSocket)
 $call Wait(1)
 $endwhile
 
-{@Argo} Ok, all we have left is the wind sensor. See if you can recalibrate it by completing the signal sequence $[ok_all_we]
+{@Argo} Ok, all we have left is the temperature sensor. See if you can recalibrate it by completing the signal sequence $[ok_all_we]
 
 $call argo->SetCurrentClip(19)
 $call argo->SetButtonLocked(false)
 
-$while NotPuzzleIsComplete(snowPuzzle)
+$while PuzzleIsNotComplete(snowPuzzle)
 $call Wait(1)
 $endwhile
 
@@ -281,6 +281,85 @@ $call fader->FadeIn(3.0, 1.0)
 
 {@Argo} Now we just need to put the battery and the sensor back on the tower. $[now_we_just]
 
-{@MissionControl} Be advised, Otter Three, wind gusts are now predicted to reach thirty knots ${be_advised_otter]
+{@MissionControl} Be advised, Otter Three, wind gusts are now predicted to reach thirty knots $[be_advised_otter]
 {@Rae} Acknowledged $[acknowledged_acknowledged_acknowledged]
 
+snowTowerSocket->ShowHighlight()
+snowTowerSocket->PlayFX()
+batterySnowSocket->PlayFX()
+
+$while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+
+$if NotIsSocketed(batterySnowSocket)
+snowTowerSocket->StopHighlight()
+snowTowerSocket->StopFX()
+$while NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+batterySnowSocket->StopFX()
+$endif
+
+$if NotIsSocketed(snowTowerSocket)
+batterySnowSocket->StopFX()
+$while NotIsSocketed(snowTowerSocket)
+$call Wait(1)
+$endwhile
+snowTowerSocket->StopHighlight()
+snowTowerSocket->StopFX()
+$endif
+
+{@Argo} Nice work partner! $[nice_work_partner]
+{@MissionControl} Come in, Otter Three. Wind speeds are starting to pick up at your coordinates. Better pick up the pace. $[come_in_otter]
+
+$call argoSled->PlayFX()
+$call argoSled->PlaySound()
+$call argo->PlayFX()
+
+$if NotIsSocketed(argoSled)
+{@Argo} Ok, put me in the sled, let’s test our uplink. $[ok_put_me]
+$call argo->SetCurrentClip(18)
+$call argo->SetButtonLocked(false)
+$while NotIsSocketed(argoSled)
+$call Wait(1)
+$endwhile
+$call argo->SetButtonLocked(true)
+$endif
+
+$call argo->StopFX()
+$call argoSled->StopFX()
+$call argoSled->StopSound()
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(2.0, 1.0)
+
+$call uplinkButton->ShowHighlight()
+$call uplinkButton->PlayFX()
+
+$call argo->SetButtonLocked(false)
+$call argo->SetCurrentClip(15)
+$while ButtonNotPressed(uplinkButton)
+$call Wait(1)
+$endwhile
+$call argo->SetButtonLocked(true)
+
+$call uplinkButton->StopHighlight()
+$call uplinkButton->StopFX()
+
+$call map->NextTexture()
+
+$call Wait(2)
+$call map->NextTexture()
+
+$call Wait(2)
+$call map->NextTexture()
+
+{@Argo} The Phoenix station is up and running again! $[the_phoenix_station]
+{@Rae} Ok Mission Control, the Tower is transmitting, we’re outta here! $[ok_mission_control]
+
+$call fader->FadeOut(10.0)
+$call Wait(4)

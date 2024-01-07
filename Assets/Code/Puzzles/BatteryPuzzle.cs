@@ -55,6 +55,12 @@ namespace WeatherStation {
 				BatteryBase.Locked = false;
 			}
 			
+			if(State != PuzzleState.Complete) {
+				//ScriptPlugin.ForceKill = true;
+				//StartCoroutine(WindSensorComplete(1f));
+				State = PuzzleState.Complete;
+			}
+			
 			return true;
 		}
 
