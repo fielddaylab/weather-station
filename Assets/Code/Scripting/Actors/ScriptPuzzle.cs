@@ -30,7 +30,7 @@ namespace WeatherStation.Scripting {
 		public bool IsComplete() { return m_Puzzle.IsComplete(); }
 
         [LeafMember("PuzzleIsNotComplete"), Preserve]
-        static bool PuzzleIsComplete(StringHash32 id) {
+        static bool PuzzleIsNotComplete(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
 				ScriptPuzzle sp = ((ScriptObject)act).gameObject.GetComponent<ScriptPuzzle>();
 				if(sp != null) {

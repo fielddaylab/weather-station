@@ -4428,6 +4428,8 @@ GameObject:
   - component: {fileID: 4731231971094623070}
   - component: {fileID: 8744512707802569790}
   - component: {fileID: 5968427274763984746}
+  - component: {fileID: 7425780508840345167}
+  - component: {fileID: 6197055974296607590}
   m_Layer: 0
   m_Name: Socket
   m_TagString: Untagged
@@ -4573,6 +4575,34 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7425780508840345167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284252478227802916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f69addabb33eb048b0c60bd1469cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id:
+    m_Source: batteryBaySocket
+    m_HashValue: 3734794683
+  m_DisableOnStart: 0
+--- !u!114 &6197055974296607590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284252478227802916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395d1dd30c02f4598a378d435b86ed9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5401318790591477187
 GameObject:
   m_ObjectHideFlags: 0
@@ -5147,7 +5177,6 @@ MonoBehaviour:
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 2013084922650400469}
-  CurrentGrabberCount: 0
 --- !u!114 &1199123212158679819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8333,7 +8362,6 @@ MonoBehaviour:
   - {fileID: 1383555522755640882}
   - {fileID: 7600525044692956392}
   - {fileID: 9167934420830434739}
-  CurrentGrabberCount: 0
 --- !u!65 &6893140671831238844
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9043,7 +9071,6 @@ MonoBehaviour:
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 4831359412892857187}
-  CurrentGrabberCount: 0
 --- !u!114 &2711397213722452158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9318,7 +9345,6 @@ MonoBehaviour:
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 6556109918523911870}
-  CurrentGrabberCount: 0
 --- !u!114 &7697168068245586776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9580,7 +9606,6 @@ MonoBehaviour:
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 1037278853809432702}
-  CurrentGrabberCount: 0
 --- !u!114 &3878873578123246677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10669,7 +10694,6 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 7845547372670129801}
   - {fileID: 1274809884958388407}
-  CurrentGrabberCount: 0
 --- !u!65 &3301927271282023063
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10843,7 +10867,6 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 5244594934436635109}
   - {fileID: 4561046514480672294}
-  CurrentGrabberCount: 0
 --- !u!114 &2862057143268704483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10926,7 +10949,6 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 3789003272626118499}
   - {fileID: 1195054086704590122}
-  CurrentGrabberCount: 0
 --- !u!65 &3506209071960219011
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11103,7 +11125,6 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 3666912826108309253}
   - {fileID: 4373190769412868865}
-  CurrentGrabberCount: 0
 --- !u!114 &7727623734890981298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11180,7 +11201,6 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 7303572128603039199}
   - {fileID: 7027881938744959376}
-  CurrentGrabberCount: 0
 --- !u!65 &6305009750508131193
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11290,7 +11310,6 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 3265108701219724504}
   - {fileID: 2210094991749534078}
-  CurrentGrabberCount: 0
 --- !u!65 &6173158249622136390
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11437,7 +11456,6 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 325447446397379749}
   - {fileID: 3409845638724667913}
-  CurrentGrabberCount: 0
 --- !u!65 &770644887937828587
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11529,7 +11547,6 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 4292922770330297155}
   - {fileID: 9175892889035130469}
-  CurrentGrabberCount: 0
 --- !u!65 &3428831835401545327
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11627,7 +11644,6 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 5682408482708350769}
   - {fileID: 6826947242567107153}
-  CurrentGrabberCount: 0
 --- !u!65 &4481862569570409277
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11868,7 +11884,6 @@ MonoBehaviour:
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 5662261257420036143}
-  CurrentGrabberCount: 0
 --- !u!114 &3848315131994847713
 MonoBehaviour:
   m_ObjectHideFlags: 0
