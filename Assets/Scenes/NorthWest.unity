@@ -300,6 +300,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7546027206140992303, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
+      propertyPath: FinalMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: d08b2a257bb305b4ba9c4ba0e62af885, type: 2}
+    - target: {fileID: 7546027206140992303, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
       propertyPath: PuzzleSockets.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -1284,6 +1289,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283748361669144876, guid: ac258cd2bb0e1464fb1321702c3e7190,
+        type: 3}
+      propertyPath: NewColor.b
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283748361669144876, guid: ac258cd2bb0e1464fb1321702c3e7190,
+        type: 3}
+      propertyPath: NewColor.g
+      value: 0.21960786
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283748361669144876, guid: ac258cd2bb0e1464fb1321702c3e7190,
+        type: 3}
+      propertyPath: NewColor.r
+      value: 0.21960786
       objectReference: {fileID: 0}
     - target: {fileID: 7283748361669144876, guid: ac258cd2bb0e1464fb1321702c3e7190,
         type: 3}
@@ -2647,6 +2667,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 614366977960517388, guid: 4a7dad240dec4e84ba06601d3adbddb6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1160545952114440551, guid: 4a7dad240dec4e84ba06601d3adbddb6,
         type: 3}
       propertyPath: m_Name
@@ -2726,7 +2751,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_MR
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1213982056116122410}
     - target: {fileID: 6437925704892355673, guid: 4a7dad240dec4e84ba06601d3adbddb6,
         type: 3}
       propertyPath: m_IsActive
@@ -2742,6 +2767,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a7dad240dec4e84ba06601d3adbddb6, type: 3}
+--- !u!23 &1213982056116122410 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3214377066979365781, guid: 4a7dad240dec4e84ba06601d3adbddb6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1213982056116122409}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

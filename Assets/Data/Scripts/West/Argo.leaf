@@ -15,7 +15,6 @@ $call rightPanelHandle->ShowHighlight()
 $call rightPanelHandle->SetGrabbable(true)
 $call rightPanelHandle->PlaySound()
 $call leftPanelHandle->PlayFX()
-$call leftPanelHandle->ShowHighlight()
 $call leftPanelHandle->SetGrabbable(true)
 $call leftPanelHandle->PlaySound()
 
@@ -30,7 +29,6 @@ $endwhile
 $endif
 
 $call leftPanelHandle->StopFX()
-$call leftPanelHandle->StopHighlight()
 $call leftPanelHandle->SetGrabbable(false)
 $call leftPanelHandle->StopSound()
 $call rightPanelHandle->StopFX()
