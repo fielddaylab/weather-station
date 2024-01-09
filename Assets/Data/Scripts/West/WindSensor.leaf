@@ -111,6 +111,8 @@ $call windSensorBay->StopFX()
 $call windSensorBay->StopSound()
 $call windSensorBay->StopHighlight()
 
+$call windSensor->SetGrabbable(false)
+
 $call brokenBlade->PlayFX()
 $call brokenBlade->PlaySound()
 $call brokenBlade->ShowHighlight()
@@ -158,15 +160,15 @@ $call propS->PlaySound()
 $call propS->SetGrabbable(true)
 
 $if NotIsGrabbed(propM), NotIsGrabbed(propS)
+
 {@Argo} Let's replace the bad propeller with a good one!  Behind you is your inventory.  Grab a new propeller and we'll see if it's a good match. $[argo_lets_replace]
 
 $call argo->SetCurrentClip(8)
 $call argo->SetButtonLocked(false)
+
 $while NotIsGrabbed(propM), NotIsGrabbed(propS)
+
 $call Wait(1)
-$endwhile
-$call argo->SetButtonLocked(true)
-$endif
 
 $if IsGrabbed(propM)
 $call propM->StopFX()
@@ -181,6 +183,12 @@ $call propS->StopHighlight()
 $call propM->StopSound()
 $call propS->StopSound()
 $endif
+
+$endwhile
+
+$endif
+
+$call argo->SetButtonLocked(true)
 
 $if NotIsPuzzleSocketed(windSensorBladeSocket)
 {@Argo} Now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
