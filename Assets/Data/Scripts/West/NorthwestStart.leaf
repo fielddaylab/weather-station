@@ -18,14 +18,57 @@ $call fader->FadeIn(10.0, 5.0)
 {@Alex} What? You said it wasn’t too bad. $[what_you_said]
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
+
 $call argo->SetCurrentClip(16)
 $call argo->SetButtonLocked(false)
 {@Argo} Bad is a matter of perspective. We just need to repair the data connections in the logger. Seems easy enough, see if you can figure it out Matt. $[bad_is_a]
-$while PuzzleIsNotComplete(dataLoggerPuzzle)
+
+$if NotIsGrabbed(dataLoggerDoor)
+$call dataLoggerDoor->ShowHighlight()
+$while DoorWasNotGrabbed(dataLoggerDoor)
 $call Wait(1)
 $endwhile
-$call argo->SetButtonLocked(true)
+$call dataLoggerDoor->StopHighlight()
 $endif
+
+$call loggerPieceOne->ShowHighlight()
+$call loggerPieceTwo->ShowHighlight()
+$call loggerPieceThree->ShowHighlight()
+$call loggerPieceFour->ShowHighlight()
+$call loggerPieceFive->ShowHighlight()
+$call loggerPieceSix->ShowHighlight()
+
+$while PuzzleIsNotComplete(dataLoggerPuzzle)
+$call Wait(1)
+$if IsGrabbed(loggerPieceOne)
+$call loggerPieceOne->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceTwo)
+$call loggerPieceTwo->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceThree)
+$call loggerPieceThree->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceFour)
+$call loggerPieceFour->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceFive)
+$call loggerPieceFive->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceSix)
+$call loggerPieceSix->StopHighlight()
+$endif
+$endwhile
+$call argo->SetButtonLocked(true)
+
+$endif
+
+$call loggerPieceOne->StopHighlight()
+$call loggerPieceTwo->StopHighlight()
+$call loggerPieceThree->StopHighlight()
+$call loggerPieceFour->StopHighlight()
+$call loggerPieceFive->StopHighlight()
+$call loggerPieceSix->StopHighlight()
 
 $call snowWindSocket->SetLocked(false)
 $call snowSensor->ShowHighlight()

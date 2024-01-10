@@ -50,7 +50,7 @@ namespace WeatherStation {
 									}
 								}
 								
-								handRig.LeftHandGrab.ConstrainedGripPosition = component.Holding.gameObject.transform.GetChild(closestSpot).position;
+								handRig.LeftHandGrab.ConstrainedGripPosition = component.Holding.GrabSpots[closestSpot].position;
 								
 							} else if(handRig.RightHandGrab.GrabbableBy == component && handRig.RightHandGrab.IsGrabPosed) {
 								
@@ -65,7 +65,7 @@ namespace WeatherStation {
 								}
 								
 								
-								handRig.RightHandGrab.ConstrainedGripPosition = component.Holding.gameObject.transform.GetChild(closestSpot).position;
+								handRig.RightHandGrab.ConstrainedGripPosition = component.Holding.GrabSpots[closestSpot].position;
 							}
 						}
 					}

@@ -13,19 +13,20 @@ namespace WeatherStation {
         #region Inspector
 		public List<Socketable> MatchingSockets = new List<Socketable>();
 		
-		public List<Material> InMaterials = new List<Material>();
+		public List<MeshRenderer> InMaterials = new List<MeshRenderer>();
+		
+        public List<MeshRenderer> OutMaterials = new List<MeshRenderer>();
+		public List<int> OutMaterialIndex = new List<int>();
 
-        public List<Material> OutMaterials = new List<Material>();
-
-        public Color NewColor;
+        public Material NewColor;
         public float BlinkTiming = 1f;
 
         #endregion // Inspector
 		
         [NonSerialized] public bool PulseSet = false;
 
-        private List<Color> OldColorsIn;
-        private List<Color> OldColorsOut;
+        private List<Material> OldColorsIn;
+        private List<Material> OldColorsOut;
 
         private float BlinkTime = 0;
         private bool BlinkOn = false;
@@ -36,17 +37,17 @@ namespace WeatherStation {
             //ResetColors();
 #endif
             if(InMaterials.Count > 0) {
-                OldColorsIn = new List<Color>(InMaterials.Count);
+                OldColorsIn = new List<Material>(InMaterials.Count);
                 for(int i = 0; i < InMaterials.Count; ++i) {
-                    OldColorsIn.Add(InMaterials[i].color);
+                    OldColorsIn.Add(InMaterials[i].material);
                 }
                 BlinkTime = Time.time;
             }
 
             if(OutMaterials.Count > 0) {
-                OldColorsOut = new List<Color>(OutMaterials.Count);
+                OldColorsOut = new List<Material>(OutMaterials.Count);
                 for(int i = 0; i < OutMaterials.Count; ++i) {
-                    OldColorsOut.Add(OutMaterials[i].color);
+                    OldColorsOut.Add(OutMaterials[i].materials[OutMaterialIndex[i]]);
                 } 
             }
         }
@@ -64,11 +65,11 @@ namespace WeatherStation {
         public void SetPulse() {
             if(InMaterials.Count > 0) {
                 for(int i = 0; i < InMaterials.Count; ++i) {
-                    InMaterials[i].color = NewColor;
+                    InMaterials[i].material = NewColor;
                 }
 
                 for(int i = 0; i < OutMaterials.Count; ++i) {
-                    OutMaterials[i].color = NewColor;
+                    OutMaterials[i].materials[OutMaterialIndex[i]] = NewColor;
                 }
 
                 PulseSet = true;
@@ -78,11 +79,11 @@ namespace WeatherStation {
         public void UnsetPulse() {
             if(InMaterials.Count > 0) {
                 for(int i = 0; i < InMaterials.Count; ++i) {
-                    InMaterials[i].color = OldColorsIn[i];
+                    InMaterials[i].material = OldColorsIn[i];
                 }
 
                 for(int i = 0; i < OutMaterials.Count; ++i) {
-                    OutMaterials[i].color = OldColorsOut[i];
+                    OutMaterials[i].materials[OutMaterialIndex[i]] = OldColorsOut[i];
                 }
 
                 PulseSet = false;
@@ -95,11 +96,11 @@ namespace WeatherStation {
                 if(t - BlinkTime > BlinkTiming) {
                     if(BlinkOn) {
                         for(int i = 0; i < InMaterials.Count; ++i) {
-                            InMaterials[i].color = NewColor;
+                            InMaterials[i].material = NewColor;
                         }
                     } else {
                         for(int i = 0; i < InMaterials.Count; ++i) {
-                            InMaterials[i].color = OldColorsIn[i];
+                            InMaterials[i].material = OldColorsIn[i];
                         }
                     }
 
@@ -109,41 +110,5 @@ namespace WeatherStation {
             }
         }
 
-#if UNITY_EDITOR
-        public void ResetColors() {
-            Color c1 = new Color(141f/255f,141f/255f,141f/255f,1f);
-            Color c2 = new Color(185f/255f,185f/255f,185f/255f,1f);
-            Color c3 = new Color(74f/255f,74f/255f,74f/255f,1f);
-            for(int i = 0; i < InMaterials.Count; ++i) {
-                if(InMaterials[i].name.Contains("S")) {
-                    InMaterials[i].color = c1;
-                } else if(InMaterials[i].name.Contains("Prop")) {
-                    InMaterials[i].color = c3;
-                } else {
-                    InMaterials[i].color = c2;
-                }
-            }
-            for(int i = 0; i < OutMaterials.Count; ++i) {
-                if(OutMaterials[i].name.Contains("S")) {
-                    OutMaterials[i].color = c1;
-                } else {
-                    OutMaterials[i].color = c2;
-                }
-            }
-        }
-#endif
     }
-
-#if UNITY_EDITOR
-[CustomEditor(typeof(PuzzleSocket))]
-    public class PuzzleSocketEditor : Editor {
-        public override void OnInspectorGUI() {
-            base.OnInspectorGUI();
-            PuzzleSocket p = (PuzzleSocket)target;
-            if(GUILayout.Button("Reset Colors")) {
-                p.ResetColors();
-            }
-        }
-    }
-#endif
 }   

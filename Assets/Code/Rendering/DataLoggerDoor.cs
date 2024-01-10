@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.XR;
 
 namespace WeatherStation {
-    public class TrashChute : MonoBehaviour {
+    public class DataLoggerDoor : MonoBehaviour {
         #region Inspector
 
 		
@@ -32,7 +32,7 @@ namespace WeatherStation {
 
 			Vector3 currPos = Vector3.zero;
 			Vector3 euler = transform.rotation.eulerAngles;
-				
+			//Debug.Log(euler.ToString("F5"));
 			if(LeftGrabbed || RightGrabbed) {
 				
 				WasGrabbed = true;
@@ -50,11 +50,9 @@ namespace WeatherStation {
 					dir = 1f;
 				}
 				
-				if((euler.z + 10f > 300 && euler.z - 10f < 360f) || (euler.z - 10f <= 0f && euler.z + 10f > -60f)) {
-					transform.RotateAround(transform.position, transform.forward * dir, Vector3.Distance(LastPos, currPos)*100f);
+				if((euler.y + 10f > 275f && euler.y <= 360f) || (euler.y >= 0f && euler.y + 10f < 65f)) {
+					transform.RotateAround(transform.position, Vector3.up * dir, Vector3.Distance(LastPos, currPos)*100f);
 				}
-			
-				//
 				LastPos = currPos;
 			} 
 			
@@ -93,17 +91,6 @@ namespace WeatherStation {
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = false;
-			}
-		}
-		
-		public void OnItemEntered(Collision c)
-		{
-			Socketable s = c.gameObject.GetComponent<Socketable>();
-			if(s != null) {	
-				if(s.SocketType == SocketFlags.WindSensorBlade) {
-					//temp - only can trash wind sensor blades at the moment
-					Destroy(c.gameObject);
-				}
 			}
 		}
     }
