@@ -316,6 +316,7 @@ MonoBehaviour:
   BlinkColor: {r: 1, g: 1, b: 0, a: 1}
   BlinkTiming: 1
   PowerMeter: {fileID: 5253026531913541839}
+  CoverAnim: {fileID: 8054060642623301849}
   BatteryBase: {fileID: 8744512707802569790}
   PowerMeterOffset: 6
 --- !u!114 &6594505632991338042
@@ -2849,6 +2850,7 @@ GameObject:
   - component: {fileID: 7121778000478193599}
   - component: {fileID: 2369846376538294236}
   - component: {fileID: 2093667479389390112}
+  - component: {fileID: 2726513608123289978}
   m_Layer: 7
   m_Name: batteryBox
   m_TagString: Untagged
@@ -3108,6 +3110,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaterialIndex: 0
   m_MR: {fileID: 2110511162547139542}
+--- !u!114 &2726513608123289978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3378880807813949113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec789212fd9f34dbca28ba8daf84892f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3543584978695131488
 GameObject:
   m_ObjectHideFlags: 0
@@ -4566,14 +4580,14 @@ AudioSource:
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
+  Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.1
+  MaxDistance: 2
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -4606,7 +4620,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4621,7 +4635,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.013888889
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -5101,6 +5115,7 @@ GameObject:
   - component: {fileID: 479026218770194325}
   - component: {fileID: 2110511162547139542}
   - component: {fileID: 8054060642623301849}
+  - component: {fileID: 2808144040832072046}
   m_Layer: 0
   m_Name: batteryBox_cover
   m_TagString: Untagged
@@ -5195,6 +5210,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2808144040832072046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767872678452898198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a5b86588ea04b478e027d43c3d6eaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5847836833993390541
 GameObject:
   m_ObjectHideFlags: 0

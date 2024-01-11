@@ -118,25 +118,15 @@ $endif
 $call argo->SetButtonLocked(true)
 $endif
 
-$if NotIsSocketed(snowSledSocket)
-$while NotIsSocketed(snowSledSocket)
-$call Wait(1)
-$endwhile
-$call snowSledSocket->StopFX()
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
+$call snowSledSocket->StopFX()
 $call snowSensor->StopSound()
-$endif
 
-$if NotIsSocketed(batterySledSocket)
-$while NotIsSocketed(batterySledSocket)
-$call Wait(1)
-$endwhile
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
 $call batteryBase->StopSound()
-$endif
 
 $call argo->SetGrabbable(true)
 $call argo->PlayFX()
@@ -271,7 +261,7 @@ $endif
 
 {@Argo} Great! pop it in the battery box to see if it’s the right kind! $[great_pop_it]
 
-$while NotIsSocketed(batterySocket)
+$while NotIsPuzzleSocketed(batterySocket)
 $call Wait(1)
 $endwhile
 
@@ -292,8 +282,8 @@ $call batteryThree->StopFX()
 $call batteryThree->StopHighlight()
 $endif
 
-$if NotIsSocketed(batterySocket)
-$while NotIsSocketed(batterySocket)
+$if NotIsPuzzleSocketed(batterySocket)
+$while NotIsPuzzleSocketed(batterySocket)
 $call Wait(1)
 $endwhile
 $endif
@@ -303,10 +293,6 @@ $if IsNotMatched(batterySocket)
 {@Argo} Hmm, it looks like this would supply too much power. Try a different one. $[hmm_it_looks]
 
 $while NotIsGrabbed(batteryOne), NotIsGrabbed(batteryTwo), NotIsGrabbed(batteryThree)
-$call Wait(1)
-$endwhile
-
-$while NotIsSocketed(batterySocket)
 $call Wait(1)
 $endwhile
 

@@ -22,7 +22,9 @@ namespace WeatherStation {
 
         public float BlinkTiming = 1f;
         public GameObject PowerMeter;
-		//public Grabbable Cover;
+		
+		public Animator CoverAnim;
+		
 		public ItemSocket BatteryBase;
 		
 		public int PowerMeterOffset = 6;
@@ -53,6 +55,10 @@ namespace WeatherStation {
 			if(BatteryBase.Locked)
 			{
 				BatteryBase.Locked = false;
+				if(CoverAnim != null)
+				{
+					CoverAnim.SetBool("Open", false);
+				}
 			}
 			
 			if(State != PuzzleState.Complete) {
@@ -125,6 +131,10 @@ namespace WeatherStation {
 		{
 			if(BatteryBase) {
 				BatteryBase.Locked = true;
+				if(CoverAnim != null)
+				{
+					CoverAnim.SetBool("Open", true);
+				}
 			}
 		}
 

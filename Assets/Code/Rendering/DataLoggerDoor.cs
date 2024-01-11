@@ -43,8 +43,7 @@ namespace WeatherStation {
 					currPos = handRig.RightHand.Visual.position;
 				}
 				
-				
-				float dotProd = Vector3.Dot(transform.right, Vector3.Normalize(LastPos - currPos));
+				float dotProd = Vector3.Dot(transform.forward, Vector3.Normalize(LastPos - currPos));
 				float dir = -1f;
 				if(dotProd > 0f) {
 					dir = 1f;

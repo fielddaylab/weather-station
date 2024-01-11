@@ -25,6 +25,7 @@ namespace WeatherStation {
 		[NonSerialized] public bool WasGrabbed = false;
 		
 		private Vector3 LastPos = Vector3.zero;
+		private List<GameObject> TowerObjects;
 		
 		void Update() {
 
@@ -44,13 +45,17 @@ namespace WeatherStation {
 				}
 				
 
-				float dir = -1f;
+				float dir = 1f;
 				if(LastPos.y - currPos.y > 0f) {
-					dir = 1f;
+					dir = -1f;
 				}
 				
-				if(currPos.y > 0.5f && currPos.y < 2.5f) {
-					transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos)*100f);
+				if(currPos.y > 0.25f && currPos.y < 2.0f) {
+					transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
+					for(int i = 0; i < TowerObjects.Count; ++i)
+					{
+						TowerObjects[i].transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
+					}
 				}
 				
 				LastPos = currPos;
@@ -66,6 +71,10 @@ namespace WeatherStation {
 				Handle.OnReleased.Register(OnReleasePanel);
 			}
         }
+		
+		private void Start() {
+			TowerObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tower"));
+		}
 		
 		private void OnGrabPanel(Grabber grabber) {
 			
