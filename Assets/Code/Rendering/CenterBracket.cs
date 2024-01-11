@@ -50,7 +50,7 @@ namespace WeatherStation {
 					dir = -1f;
 				}
 				
-				if(currPos.y > 0.25f && currPos.y < 2.0f) {
+				if(currPos.y > 0.25f && currPos.y < 1.5f) {
 					transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
 					for(int i = 0; i < TowerObjects.Count; ++i)
 					{
