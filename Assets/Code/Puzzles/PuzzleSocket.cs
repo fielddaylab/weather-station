@@ -33,9 +33,7 @@ namespace WeatherStation {
 
         protected override void Awake() {
             base.Awake();
-#if UNITY_EDITOR
-            //ResetColors();
-#endif
+
             if(InMaterials.Count > 0) {
                 OldColorsIn = new List<Material>(InMaterials.Count);
                 for(int i = 0; i < InMaterials.Count; ++i) {
@@ -68,9 +66,14 @@ namespace WeatherStation {
                     InMaterials[i].material = NewColor;
                 }
 
-                for(int i = 0; i < OutMaterials.Count; ++i) {
-                    OutMaterials[i].materials[OutMaterialIndex[i]] = NewColor;
-                }
+				if(OutMaterials.Count > 0)
+				{
+					for(int i = 0; i < OutMaterials.Count; ++i) {
+						Material[] mats = OutMaterials[i].materials;
+						mats[OutMaterialIndex[i]] = NewColor;
+						OutMaterials[i].materials = mats;
+					}
+				}
 
                 PulseSet = true;
             }
@@ -81,10 +84,15 @@ namespace WeatherStation {
                 for(int i = 0; i < InMaterials.Count; ++i) {
                     InMaterials[i].material = OldColorsIn[i];
                 }
-
-                for(int i = 0; i < OutMaterials.Count; ++i) {
-                    OutMaterials[i].materials[OutMaterialIndex[i]] = OldColorsOut[i];
-                }
+				
+				if(OutMaterials.Count > 0)
+				{
+					for(int i = 0; i < OutMaterials.Count; ++i) {
+						Material[] mats = OutMaterials[i].materials;
+						mats[OutMaterialIndex[i]] = OldColorsOut[i];
+						OutMaterials[i].materials = mats;
+					}
+				}
 
                 PulseSet = false;
             }

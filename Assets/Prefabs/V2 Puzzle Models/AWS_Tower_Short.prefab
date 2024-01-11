@@ -68,6 +68,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec18ec4e536c4dc448dad1c580984e1d, type: 3}
+--- !u!114 &3506700906426250472 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4338828942657742898, guid: ec18ec4e536c4dc448dad1c580984e1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 908829967421267162}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0270a952bd6bf247924c1b0977a04e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5645246074653061928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4812977389212725234, guid: ec18ec4e536c4dc448dad1c580984e1d,
@@ -159,8 +171,31 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5645246074653061928}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 17f5d1925f5ec80438cc562a129a12e9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8775227254556073196}
   m_SourcePrefab: {fileID: 100100000, guid: 17f5d1925f5ec80438cc562a129a12e9, type: 3}
+--- !u!1 &1160545952114440551 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 17f5d1925f5ec80438cc562a129a12e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2079114592834896950}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8775227254556073196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160545952114440551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9cc56b1cdfc26a4ba4ec2cade194626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ArgoOutsideMount: {fileID: 3506700906426250472}
 --- !u!4 &1968291606435734493 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 17f5d1925f5ec80438cc562a129a12e9,

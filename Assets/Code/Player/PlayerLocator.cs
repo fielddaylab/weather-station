@@ -15,7 +15,7 @@ namespace WeatherStation {
 		public Transform OutsideLocation;
 		public Transform SledInsideLocation;
 		public Transform SledOutsideLocation;
-		//public Vector3 SledOffset;	//3.585, 0, 0.228
+
 		public GameObject Sled;
 		public GameObject PlaneExterior;
 		public GameObject PlaneInterior;
@@ -28,8 +28,7 @@ namespace WeatherStation {
 		public ItemSocket ArgoOutsideSocket;
 		
 		public Socketable Argo;
-		//public ItemSocket ArgoSledSocket;
-		
+
 		public AudioClip OutsideMusic;
 		public AudioClip InsideMusic;
 
@@ -55,7 +54,12 @@ namespace WeatherStation {
 				StartTeleportCountdown(Argo);
 			}
 		}
-
+		
+		public void SocketArgoOutside()
+		{
+			SocketUtility.TryAddToSocket(ArgoOutsideSocket, Argo, false);
+		}
+		
 		public void StartTeleportCountdown(Socketable s) {
 			
 			//we should return any item in your hand to their original location before teleporting...

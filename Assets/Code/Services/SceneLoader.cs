@@ -23,7 +23,8 @@ namespace WeatherStation {
 		
 		public List<ItemSocket> SledSockets = new List<ItemSocket>(8);
 		
-        //public GameObject FanBlade;	//temp
+		public List<Material> SkyboxMaterials = new List<Material>(8);
+		
 		#endregion // Inspector
 		
 		private int CurrentSceneIndex = 0;
@@ -78,6 +79,10 @@ namespace WeatherStation {
 					}
 				}
 				
+				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				
+				GrabUtility.ReturnToOriginalSpawnPoint(playerLocator.Argo.gameObject.GetComponent<Grabbable>());
+				
 				GrabReturnSystem.ForceSkip = true;
 				
 				int nextIndex = CurrentSceneIndex+1;
@@ -88,6 +93,7 @@ namespace WeatherStation {
 				if(MapMaterial != null) {
 					MapMaterial.mainTexture = MapTextures[nextIndex];
 				}
+				RenderSettings.skybox = SkyboxMaterials[CurrentSceneIndex];
 				StartCoroutine(PostLoad(3f));
 			}
 		}
@@ -99,6 +105,8 @@ namespace WeatherStation {
 		}
 		
 		private void SceneIsReady(SceneEventArgs sceneArgs) {
+			
+			//Debug.Log("Scene ready");
 			
 			if(sceneArgs.Scene.path.Contains("Interior"))
 			{
@@ -117,15 +125,26 @@ namespace WeatherStation {
 					}
 				}			
 			}
-			else if(sceneArgs.Scene.path.Contains("West"))
+			else
 			{
 				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
 				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
 	            foreach(var root in roots)
 				{
+					
 					if(root.name == "Directional Light")
 					{
 						playerLocator.ExteriorLight = root;
+					}
+					else if(root.name.Contains("AWS"))
+					{
+						Debug.Log(root.name);
+						ArgoMount am = root.GetComponent<ArgoMount>();
+						if(am != null)
+						{
+							playerLocator.ArgoOutsideSocket = am.ArgoOutsideMount;
+							playerLocator.SocketArgoOutside();
+						}
 					}
 				}
 			}

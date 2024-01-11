@@ -93,8 +93,10 @@ namespace WeatherStation {
             }
 
             //socket.Detector.enabled = false;
-
-            grabbable.OriginalSocket = socket;
+			if(grabbable != null)
+			{
+				grabbable.OriginalSocket = socket;
+			}
             
             socketable.OnAddedToSocket.Invoke(socket);
             socket.OnAdded.Invoke(socketable);
@@ -165,6 +167,8 @@ namespace WeatherStation {
         WindSensorBlade = 0x10,
         BatteryPiece = 0x20,
         BatteryPlug = 0x40,
-        DataLoggerPiece = 0x80
+        DataLoggerPiece = 0x80,
+		DataLoggerPuzzle = 0x100,
+		SolarPanel = 0x200
     }
 }

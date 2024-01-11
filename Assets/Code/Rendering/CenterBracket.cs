@@ -52,10 +52,10 @@ namespace WeatherStation {
 				
 				if(currPos.y > 0.25f && currPos.y < 1.5f) {
 					transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
-					for(int i = 0; i < TowerObjects.Count; ++i)
+					/*for(int i = 0; i < TowerObjects.Count; ++i)
 					{
 						TowerObjects[i].transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
-					}
+					}*/
 				}
 				
 				LastPos = currPos;
@@ -73,7 +73,7 @@ namespace WeatherStation {
         }
 		
 		private void Start() {
-			TowerObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tower"));
+			//TowerObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tower"));
 		}
 		
 		private void OnGrabPanel(Grabber grabber) {

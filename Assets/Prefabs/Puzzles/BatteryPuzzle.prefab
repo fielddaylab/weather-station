@@ -1262,6 +1262,8 @@ GameObject:
   - component: {fileID: 615011594258082391}
   - component: {fileID: 7271149512796441760}
   - component: {fileID: 7283748361669144876}
+  - component: {fileID: 1334536008319870951}
+  - component: {fileID: 6180824191065214998}
   m_Layer: 0
   m_Name: Battery
   m_TagString: Untagged
@@ -1402,7 +1404,7 @@ MonoBehaviour:
     BreakTorque: Infinity
     MassScale: 1
     ConnectedMassScale: 1
-  Location: {fileID: 615011594258082391}
+  Location: {fileID: 7473105975492924801}
   Detector: {fileID: 5362619810544229623}
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
@@ -1413,6 +1415,34 @@ MonoBehaviour:
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+--- !u!114 &1334536008319870951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046600554717936989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f69addabb33eb048b0c60bd1469cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id:
+    m_Source: batterySocket
+    m_HashValue: 1022859055
+  m_DisableOnStart: 0
+--- !u!114 &6180824191065214998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046600554717936989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d0cdc9d2a6f914a97f7b8da7befe3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1587397813586512196
 GameObject:
   m_ObjectHideFlags: 0
