@@ -34,6 +34,7 @@ namespace WeatherStation.Scripting {
 		
 		[LeafMember("LoadNorthwest"), Preserve]
 		public void LoadNorthwest() {
+			m_Loader.SwitchScenes();
 			ScriptUtility.Trigger("LevelOneFinished");
 		}
 		
