@@ -27,6 +27,7 @@ namespace WeatherStation.Scripting {
             m_Grabbable = GetComponent<Grabbable>();
         }
 		
+		public bool WasGrabbed() { return m_Grabbable.WasGrabbed; }
 		public bool IsGrabbed() { return m_Grabbable.CurrentGrabberCount > 0; }
         
 		[LeafMember("SetGrabbable"), Preserve]
@@ -46,12 +47,24 @@ namespace WeatherStation.Scripting {
 			return false;
 		}
 		
-		[LeafMember("IsGrabbed"), Preserve]
-		static public bool IsGrabbed(StringHash32 id) {
+		[LeafMember("NotWasGrabbed"), Preserve]
+		static public bool NotWasGrabbed(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
 				ScriptGrabbable sg = ((ScriptObject)act).gameObject.GetComponent<ScriptGrabbable>();
 				if(sg != null) {
-					return sg.IsGrabbed();
+					return !sg.WasGrabbed();
+				}
+			}
+			
+			return false;
+		}
+
+		[LeafMember("WasGrabbed"), Preserve]
+		static public bool WasGrabbed(StringHash32 id) {
+			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
+				ScriptGrabbable sg = ((ScriptObject)act).gameObject.GetComponent<ScriptGrabbable>();
+				if(sg != null) {
+					return sg.WasGrabbed();
 				}
 			}
 			

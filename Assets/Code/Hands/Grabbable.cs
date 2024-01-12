@@ -32,6 +32,8 @@ namespace WeatherStation {
 
         [NonSerialized] public bool HitGround = false;
 
+        [NonSerialized] public bool WasGrabbed = false;
+
         [NonSerialized] public bool WasKinematic = false;
         [NonSerialized] public Vector3 OriginalPosition;
         [NonSerialized] public Quaternion OriginalRotation;
@@ -71,7 +73,8 @@ namespace WeatherStation {
 
             grabber.Holding = grabbable;
             grabbable.CurrentGrabbers[grabbable.CurrentGrabberCount++] = grabber;
-
+            grabbable.WasGrabbed = true;
+            
             if (!grabber.Joint) {
                 grabber.Joint = grabber.gameObject.AddComponent<FixedJoint>();
             }

@@ -138,7 +138,7 @@ namespace WeatherStation {
 					}
 					else if(root.name.Contains("AWS"))
 					{
-						Debug.Log(root.name);
+						//Debug.Log(root.name);
 						ArgoMount am = root.GetComponent<ArgoMount>();
 						if(am != null)
 						{
