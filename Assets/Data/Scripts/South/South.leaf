@@ -5,11 +5,11 @@
 @evalPriority   100
 @once
 
-{@Alex} Those clouds don’t look so good. $[those_clouds_dont]
-{@MC} Be advised, Otter Three. We’ve got our eye on a storm front heading your way. $[be_advised_otter]
+{@Alex} Those clouds don't look so good.$[those_clouds_dont]
+{@MC} Be advised, Otter Three. We've got our eye on a storm front heading your way. $[be_advised_otter]
 {@Alex} Yeah, we noticed that too. $[yeah_we_noticed]
 {@Argo} Status Report: We have a dead battery and a damaged wind sensor, data logger, and snow sensor. $[status_report_we]
-{@Rae} You guys better work fast. I can’t take off in white-out conditions.  If you’re not back on the plane in time, I’ll have to leave without you. $[you_guys_better]
+{@Rae} You guys better work fast. I can't take off in white-out conditions. If you're not back on the plane in time, I'll have to leave without you. $[you_guys_better]
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 
@@ -56,7 +56,7 @@ $call argo->SetButtonLocked(true)
 
 $endif
 
-{@Argo} Ooh. It’s been years since we’ve had a campout! Remember, partner? That time out on Thurston Island? $[ooh_its_been]
+{@Argo} Ooh. It's been years since we've had a campout! Remember, partner? That time out on Thurston Island? $[ooh_its_been]
 
 $call loggerPieceOne->StopHighlight()
 $call loggerPieceTwo->StopHighlight()
@@ -65,21 +65,18 @@ $call loggerPieceFour->StopHighlight()
 $call loggerPieceFive->StopHighlight()
 $call loggerPieceSix->StopHighlight() 
 
-{@Argo} Let’s get to work, and fast.  There’s no way I’m spending all night stranded here with that little chatterbox. $[lets_get_to]
+{@Argo} Let's get to work, and fast. There's no way I'm spending all night stranded here with that little chatterbox. $[lets_get_to]
 
+{@MC} Otter Three, storm is moving in faster than expected. You've only got about an hour left. $[otter_three_storm]
 
-{@MC} Otter Three, storm is moving in faster than expected. You’ve only got about an hour left. $[otter_three_storm]
+{@Alex} We're working as fast as we can. $[were_working_as]
 
-{@Alex} We’re working as fast as we can. $[were_working_as]
-
-{@Rae} Okay, dream team, I’m prepping the plane for take-off. How’s it going out there? $[okay_dream_time]
+{@Rae} Okay, dream team, I'm prepping the plane for take-off. How's it going out there? $[okay_dream_time]
 
 {@Alex} Just need to get everything back on the tower... give us a minute. $[just_need_to]
 
-{@Alex} Phew. We can finally test the uplink. $[phew_we_can]
+{@Alex} Phew. We can finally test the uplink. $[phew_we_can]
 
-{@Rae} Hey, you all still alive out there? Conditions are getting worse. I’m taking off in T-minus five minutes. $[hey_you_all]
+{@Rae} Hey, you all still alive out there? Conditions are getting worse. I'm taking off in T-minus five minutes. $[hey_you_all]
 
-Alex
-Load up the stuff. We’re on our way!
-
+{@Alex} Load up the stuff. We're on our way! $[load_up_the]
