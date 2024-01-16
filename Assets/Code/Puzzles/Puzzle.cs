@@ -11,12 +11,18 @@ namespace WeatherStation {
 		public int Level = 0;  //difficulty level
 		
         #endregion // Inspector
-		  
+		 
+		protected bool TestSuccess = false;
+		
 		[NonSerialized] public PuzzleState State = PuzzleState.Inactive;
 		
         public ActionEvent OnCompleted = new ActionEvent();
         
 		public bool IsComplete() { return (State == PuzzleState.Complete); }
+		
+		public void SetTestSuccess(bool success) {
+			TestSuccess = success;
+		}
 		
 		public virtual bool CheckComplete() { return false; }
 		

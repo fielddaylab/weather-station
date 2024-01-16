@@ -312,13 +312,11 @@ MonoBehaviour:
   - {fileID: 7283748361669144876}
   - {fileID: 0}
   - {fileID: 0}
-  FinalMaterial: {fileID: 2100000, guid: ab09c9cb3010f484fa79032a5ff2a50d, type: 2}
+  PowerMeter:
+  - {fileID: 0}
   BlinkColor: {r: 1, g: 1, b: 0, a: 1}
   BlinkTiming: 1
-  PowerMeter: {fileID: 5253026531913541839}
   CoverAnim: {fileID: 8054060642623301849}
-  BatteryBase: {fileID: 8744512707802569790}
-  PowerMeterOffset: 6
 --- !u!114 &6594505632991338042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5145,7 +5143,6 @@ GameObject:
   - component: {fileID: 479026218770194325}
   - component: {fileID: 2110511162547139542}
   - component: {fileID: 8054060642623301849}
-  - component: {fileID: 2808144040832072046}
   m_Layer: 0
   m_Name: batteryBox_cover
   m_TagString: Untagged
@@ -5240,18 +5237,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2808144040832072046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5767872678452898198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a5b86588ea04b478e027d43c3d6eaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5847836833993390541
 GameObject:
   m_ObjectHideFlags: 0

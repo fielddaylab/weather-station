@@ -13,18 +13,18 @@ using UnityEngine.XR;
 namespace WeatherStation {
     public class SnowSensorPuzzle : Puzzle {
         #region Inspector
-        public List<PuzzleButton> PuzzleButtons = new List<PuzzleButton>();
+        //public List<PuzzleButton> PuzzleButtons = new List<PuzzleButton>();
    
         public List<Material> SensorMaterials = new List<Material>();
 
 		public List<Material> PairedMaterials = new List<Material>();
 
-        [Serializable]
+        /*[Serializable]
         public class PuzzleSlot {
             public List<Texture2D> SlotTextures = new List<Texture2D>();
         }
         
-        public List<PuzzleSlot> PuzzleSlots = new List<PuzzleSlot>();
+        public List<PuzzleSlot> PuzzleSlots = new List<PuzzleSlot>();*/
         public List<Texture2D> Solution = new List<Texture2D>(); 
         public List<Texture2D> SolutionTextures = new List<Texture2D>(); 
 
@@ -33,21 +33,26 @@ namespace WeatherStation {
 
         #endregion // Inspector
 
-        private int[] ButtonIndices;
+        //private int[] ButtonIndices;
 
-		private List<Color> PriorColors = new List<Color>();
+		//private List<Color> PriorColors = new List<Color>();
+		
+		const int TOTAL_BUTTONS = 4;
 
 		public override bool CheckComplete() {
-            for(int i = 0; i < PuzzleButtons.Count; ++i) {
+            for(int i = 0; i < TOTAL_BUTTONS; ++i) {
                 if(SensorMaterials[i].mainTexture != SolutionTextures[i]) {
-					PairedMaterials[PairedMaterials.Count-1].color = PriorColors[PairedMaterials.Count-1];
+					//PairedMaterials[PairedMaterials.Count-1].color = PriorColors[PairedMaterials.Count-1];
 					return false;
                 } 
             }
 
-			PairedMaterials[PairedMaterials.Count-1].color = GlowColor;
-
-            State = PuzzleState.Complete;
+			//PairedMaterials[PairedMaterials.Count-1].color = GlowColor;
+			if(State != PuzzleState.Complete)
+			{
+				Debug.Log("Completed Temperature Sensor Puzzle!");
+				State = PuzzleState.Complete;
+			}
 
             return true;
 		}
@@ -60,22 +65,21 @@ namespace WeatherStation {
 		
         private void Awake() {
             
-            if(PuzzleButtons.Count > 0) {
-                for(int i = 0; i < PuzzleButtons.Count; ++i) {
-                    PuzzleButtons[i].OnPressed.Register(SensorButtonPressed);
-                    SensorMaterials[i].mainTexture = PuzzleSlots[i].SlotTextures[0];
-					PriorColors.Add(PairedMaterials[i].color);
-                }
+			for(int i = 0; i < TOTAL_BUTTONS; ++i) {
+				//PuzzleButtons[i].OnPressed.Register(SensorButtonPressed);
+				//SensorMaterials[i].mainTexture = PuzzleSlots[i].SlotTextures[0];
+				//PriorColors.Add(PairedMaterials[i].color);
+			}
 
-                ButtonIndices = new int[PuzzleButtons.Count];
+			//ButtonIndices = new int[TOTAL_BUTTONS];
 
-                for(int i = 0; i < PuzzleButtons.Count; ++i) {
-                    ButtonIndices[i] = 0;
-                }
-            }
+			//for(int i = 0; i < TOTAL_BUTTONS; ++i) {
+			//	ButtonIndices[i] = 0;
+			//}
+		
         }
 
-        private void SensorButtonPressed(PuzzleButton button) {
+        /*private void SensorButtonPressed(PuzzleButton button) {
             //switch between textures...
             int buttonIndex = (int)char.GetNumericValue(button.gameObject.name[button.gameObject.name.Length-1])-1;
             ButtonIndices[buttonIndex]++;
@@ -123,9 +127,7 @@ namespace WeatherStation {
 					}
 				}
 			}
-            
-
-        }
+        }*/
     }
 
 }

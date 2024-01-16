@@ -47,6 +47,19 @@ namespace WeatherStation.Scripting {
 			return false;
 		}
 		
+		[LeafMember("IsGrabbed"), Preserve]
+		static public bool IsGrabbed(StringHash32 id) {
+			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
+				ScriptGrabbable sg = ((ScriptObject)act).gameObject.GetComponent<ScriptGrabbable>();
+				if(sg != null) {
+					return sg.IsGrabbed();
+				}
+			}
+			
+			return false;
+		}
+		
+		
 		[LeafMember("NotWasGrabbed"), Preserve]
 		static public bool NotWasGrabbed(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {

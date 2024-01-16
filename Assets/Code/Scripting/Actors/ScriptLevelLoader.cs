@@ -38,6 +38,23 @@ namespace WeatherStation.Scripting {
 			ScriptUtility.Trigger("LevelOneFinished");
 		}
 		
+		[LeafMember("LoadSouth"), Preserve]
+		public void LoadSouth() {
+			m_Loader.SwitchScenes();
+			ScriptUtility.Trigger("LevelTwoFinished");
+		}
+		
+		[LeafMember("LoadEast"), Preserve]
+		public void LoadEast() {
+			m_Loader.SwitchScenes();
+			ScriptUtility.Trigger("LevelThreeFinished");
+		}
+		
+		[LeafMember("LoadSouthEast"), Preserve]
+		public void LoadSouthEast() {
+			m_Loader.SwitchScenes();
+			ScriptUtility.Trigger("LevelFourFinished");
+		}
         #endregion // Leaf
 		
     }

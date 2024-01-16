@@ -242,21 +242,21 @@ $call batteryBase->SetGrabbable(false);
 
 {@Argo} OK, we need to craft a new battery, check your inventory for a baseplate. $[ok_we_need]
 
-$while NotIsGrabbed(batteryOne), NotIsGrabbed(batteryTwo), NotIsGrabbed(batteryThree)
+$while NotWasGrabbed(batteryOne), NotWasGrabbed(batteryTwo), NotWasGrabbed(batteryThree)
 $call Wait(1)
 $endwhile
 
-$if IsGrabbed(batteryOne)
+$if NotWasGrabbed(batteryOne)
 $call batteryOne->StopFX()
 $call batteryOne->StopHighlight()
 $endif
 
-$if IsGrabbed(batteryTwo)
+$if NotWasGrabbed(batteryTwo)
 $call batteryTwo->StopFX()
 $call batteryTwo->StopHighlight()
 $endif
 
-$if IsGrabbed(batteryThree)
+$if NotWasGrabbed(batteryThree)
 $call batteryThree->StopFX()
 $call batteryThree->StopHighlight()
 $endif
@@ -269,17 +269,17 @@ $endwhile
 
 $while IsNotMatched(batterySocket)
 
-$if IsGrabbed(batteryOne)
+$if WasGrabbed(batteryOne)
 $call batteryOne->StopFX()
 $call batteryOne->StopHighlight()
 $endif
 
-$if IsGrabbed(batteryTwo)
+$if WasGrabbed(batteryTwo)
 $call batteryTwo->StopFX()
 $call batteryTwo->StopHighlight()
 $endif
 
-$if IsGrabbed(batteryThree)
+$if WasGrabbed(batteryThree)
 $call batteryThree->StopFX()
 $call batteryThree->StopHighlight()
 $endif
@@ -324,22 +324,22 @@ $call cellFour->PlayFX()
 
 $while PuzzleIsNotComplete(batteryPuzzle)
 
-$if IsGrabbed(cellOne)
+$if WasGrabbed(cellOne)
 $call cellOne->StopHighlight()
 $call cellOne->StopFX()
 $endif
 
-$if IsGrabbed(cellTwo)
+$if WasGrabbed(cellTwo)
 $call cellTwo->StopHighlight()
 $call cellTwo->StopFX()
 $endif
 
-$if IsGrabbed(cellThree)
+$if WasGrabbed(cellThree)
 $call cellThree->StopHighlight()
 $call cellThree->StopFX()
 $endif
 
-$if IsGrabbed(cellFour)
+$if WasGrabbed(cellFour)
 $call cellFour->StopHighlight()
 $call cellFour->StopFX()
 $endif
@@ -355,6 +355,9 @@ $call cellOne->StopFX()
 $call cellTwo->StopFX()
 $call cellThree->StopFX()
 $call cellFour->StopFX()
+
+$call batteryBaySocket->CloseCover();
+$call batteryBaySocket->SetLocked(false);
 
 $call batteryBase->SetGrabbable(true);
 

@@ -70,6 +70,18 @@ namespace WeatherStation.Scripting {
 			
 			return false;
 		}
+		
+		[LeafMember("IsMatched"), Preserve]
+		static public bool IsMatched(StringHash32 id) {
+			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
+				ScriptPuzzleSocket ss = ((ScriptObject)act).gameObject.GetComponent<ScriptPuzzleSocket>();
+				if(ss != null) {
+					return ss.IsSocketedAndMatched();
+				}
+			}
+			
+			return false;
+		}
         #endregion // Leaf
 		
     }

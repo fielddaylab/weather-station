@@ -27,6 +27,11 @@ namespace WeatherStation.Scripting {
             m_Puzzle = GetComponent<Puzzle>();
         }
 		
+		[LeafMember("SetTestSuccess"), Preserve]
+		void SetTestSuccess(bool success) {
+			m_Puzzle.SetTestSuccess(success);
+		}
+		
 		public bool IsComplete() { return m_Puzzle.IsComplete(); }
 
         [LeafMember("PuzzleIsNotComplete"), Preserve]
