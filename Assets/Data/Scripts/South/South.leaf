@@ -91,7 +91,9 @@ $call loggerPieceSix->StopHighlight()
 
 {@Argo} Let's get to work, and fast. There's no way I'm spending all night stranded here with that little chatterbox. $[lets_get_to]
 
-
+$while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket), NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
 
 {@MC} Otter Three, storm is moving in faster than expected. You've only got about an hour left. $[otter_three_storm]
 
