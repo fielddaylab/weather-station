@@ -1,6 +1,6 @@
 #basePath   East
 
-:: EastStart
+:: East
 @trigger    LevelThreeFinished
 @evalPriority   100
 @once
@@ -12,3 +12,7 @@
 {@Rae} How long do you need? There is a weather system on its way in and we only have 3 hours till I'll need to take off. $[how_long_do]
 {@Alex} Matt,  we're going to have to leave this site without a tower. We won't be back till next year. I mean I won't be back till next year. $[matt_were_going]
 {@Rae} Come on, let's move out. Tomorrow we'll check out the last station or what ever is left of it. $[come_on_lets]
+
+$call fader->FadeOut(10.0)
+$call Wait(4)
+$call levelLoader->LoadSouthEast()

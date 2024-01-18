@@ -13,7 +13,7 @@ using UnityEngine.Scripting;
 
 namespace WeatherStation.Scripting {
 
-    public class ScriptButton : ScriptComponent {
+    public class ScriptHelpButton : ScriptComponent {
 		
         #region Inspector
 		[SerializeField, Required] private PuzzleButton m_Button = null;
@@ -54,18 +54,7 @@ namespace WeatherStation.Scripting {
 			
 			return false;
 		}
-		
-		[LeafMember("ButtonPressed"), Preserve]
-		static bool ButtonPressed(StringHash32 id) {
-			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
-				ScriptButton sb = ((ScriptObject)act).gameObject.GetComponent<ScriptButton>();
-				if(sb != null) {
-					return sb.WasButtonPressed();
-				}
-			}
-			
-			return false;
-		}
+
         #endregion // Leaf
 		
     }

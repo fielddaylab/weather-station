@@ -1,0 +1,113 @@
+#basePath   WindSensorSouth
+
+:: Argo
+@trigger    StartWindSensorSouth
+@evalPriority   100
+@once
+
+$call trashChute->SetGrabbable(true)
+
+$call windSensor->ShowHighlight()
+$call windSensor->PlaySound()
+$call windSensor->PlayFX()
+$call windSensorBay->PlayFX()
+$call windSensorBay->PlaySound()
+$call windSensorBay->ShowHighlight()
+
+$if IsSocketed(windSensorSled)
+$while IsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$call windSensor->StopHighlight()
+$call windSensor->StopSound()
+$call windSensor->StopFX()
+
+$if NotIsSocketed(windSensorBaySocket)
+$while NotIsSocketed(windSensorBaySocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$call windSensorBay->StopFX()
+$call windSensorBay->StopSound()
+$call windSensorBay->StopHighlight()
+
+$call windSensor->SetGrabbable(false)
+
+$while PuzzleIsNotComplete(windSensorPuzzle)
+
+$call argoHelpButton->SetCurrentClip(29)
+
+$call brokenBlade->PlayFX()
+$call brokenBlade->PlaySound()
+$call brokenBlade->ShowHighlight()
+
+$call propM->PlayFX()
+$call propM->ShowHighlight()
+$call propM->SetGrabbable(true)
+$call propM->PlaySound()
+$call propS->PlayFX()
+$call propS->ShowHighlight()
+$call propS->PlaySound()
+$call propS->SetGrabbable(true)
+$call propL->PlayFX()
+$call propL->ShowHighlight()
+$call propL->SetGrabbable(true)
+$call propL->PlaySound()
+
+$call windSensorBladeSocket->SetLocked(false)
+
+$if WasGrabbed(brokenBlade)
+$call brokenBlade->StopFX()
+$call brokenBlade->StopSound()
+$call brokenBlade->StopHighlight()
+$endif
+
+$if IsPuzzleSocketed(windSensorBladeSocket)
+$call windSensorButton->ShowHighlight()
+$call windSensorButton->PlayFX()
+$else
+$call windSensorButton->StopHighlight()
+$call windSensorButton->StopFX()
+$endif
+
+$if IsMatched(windSensorBladeSocket)
+
+$if ButtonPressed(windSensorButton)
+$call windSensorPuzzle->SetTestSuccess(true)
+$call argoHelpButton->SetCurrentClip(30)
+$endif
+
+$else
+
+$if WasGrabbed(propM)
+$call propM->StopFX()
+$call propM->StopHighlight()
+$call propM->StopSound()
+$call propS->StopSound()
+$call propL->StopSound()
+$endif
+
+$if WasGrabbed(propS)
+$call propS->StopFX()
+$call propS->StopHighlight()
+$call propS->StopSound()
+$call propM->StopSound()
+$call propL->StopSound()
+$endif
+
+$if WasGrabbed(propL)
+$call propL->StopFX()
+$call propL->StopHighlight()
+$call propL->StopSound()
+$call propM->StopSound()
+$call propS->StopSound()
+$endif
+
+$call argoHelpButton->SetCurrentClip(31)
+
+$endif
+
+$endwhile

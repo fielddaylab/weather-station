@@ -28,12 +28,23 @@ namespace WeatherStation {
 		const int TOTAL_BUTTONS = 4;
 
 		public override bool CheckComplete() {
+			int totalComplete = 0;
             for(int i = 0; i < TOTAL_BUTTONS; ++i) {
-                if(SensorMaterials[i].mainTexture != SolutionTextures[i]) {
+                if(SensorMaterials[i].mainTexture == SolutionTextures[i]) {
 					//PairedMaterials[PairedMaterials.Count-1].color = PriorColors[PairedMaterials.Count-1];
-					return false;
+					totalComplete++;
                 } 
             }
+			
+			if(totalComplete != 4)
+			{
+				if(totalComplete >= 2)
+				{
+					State = PuzzleState.AlmostComplete;
+				}
+
+				return false;
+			}
 
 			//PairedMaterials[PairedMaterials.Count-1].color = GlowColor;
 			if(State != PuzzleState.Complete)

@@ -1,20 +1,20 @@
 #basePath   South
 
-:: SouthStart
+:: South
 @trigger    LevelTwoFinished
 @evalPriority   100
 @once
 
-{@Alex} Those clouds don't look so good.$[those_clouds_dont]
-{@MC} Status update Otter Three. Otter Three, we're tracking a storm system. $[weve_got_our]
+{@Alex} Those clouds don't look so good. $[those_clouds_dont]
+{@Mission Control} Status update Otter Three. Otter Three, we're tracking a storm system. $[weve_got_our]
 {@Alex} Yeah, we noticed that too. $[yeah_we_noticed]
 {@Argo} Status Report: We have a dead battery and a damaged wind sensor, data logger, and snow sensor. $[status_report_we]
 {@Rae} You guys better work fast. I can't take off in white-out conditions. If you're not back on the plane in time, I'll have to leave without you. $[you_guys_better]
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 
-$call argo->SetCurrentClip(20)
-$call argo->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(20)
+$call argoHelpButton->SetButtonLocked(false)
 
 $if NotIsGrabbed(dataLoggerDoor)
 $call dataLoggerDoor->ShowHighlight()
@@ -52,12 +52,12 @@ $if WasGrabbed(loggerPieceSix)
 $call loggerPieceSix->StopHighlight()
 $endif
 $endwhile
-$call argo->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
 
 $endif
 
-$call argo->SetCurrentClip(22)
-$call argo->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(22)
+$call argoHelpButton->SetButtonLocked(false)
 
 $call snowWindSocket->SetLocked(false)
 $call snowSensor->ShowHighlight()
@@ -95,16 +95,149 @@ $while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket), NotIsSoc
 $call Wait(1)
 $endwhile
 
-{@MC} Otter Three, storm is moving in faster than expected. You've only got about an hour left. $[otter_three_storm]
+$if IsSocketed(snowSledSocket)
+
+$call snowSledSocket->StopFX()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSensor->StopSound()
+$while NotIsSocketed(batterySledSocket), NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(batterySledSocket)
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$call batteryBase->StopSound()
+$while NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(windSensorSled)
+$call windSensorSled->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$call windSensor->StopSound()
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$if IsSocketed(batterySledSocket)
+
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$call batteryBase->StopSound()
+$while NotIsSocketed(snowSledSocket), NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(snowSledSocket)
+$call snowSledSocket->StopFX()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSensor->StopSound()
+$while NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(windSensorSled)
+$call windSensorSled->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$call windSensor->StopSound()
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$if IsSocketed(windSensorSled)
+
+$call windSensorSled->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$call windSensor->StopSound()
+$while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(snowSledSocket)
+$call snowSledSocket->StopFX()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSensor->StopSound()
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(batterySledSocket)
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$call batteryBase->StopSound()
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+//end of putting things in the sled...
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSledSocket->StopFX()
+$call snowSensor->StopSound()
+
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$call batteryBase->StopSound()
+
+$call windSensorSled->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$call windSensor->StopSound()
+
+$call argoSled->PlayFX()
+$call argoSled->PlaySound()
+
+$if NotIsSocketed(argoSled)
+$call argoHelpButton->SetCurrentClip(23)
+$call argoHelpButton->SetButtonLocked(false)
+$while NotIsSocketed(argoSled)
+$call Wait(1)
+$endwhile
+$call argoHelpButton->SetButtonLocked(true)
+$endif
+
+$call snowSledSocket->StopFX()
+$call batterySledSocket->StopFX()
+$call windSensorSled->StopFX()
+$call argo->StopFX()
+$call argoSled->StopSound()
+$call argoSled->StopFX()
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+
+$call Wait(3)
+
+{@Mission Control} Otter Three, storm is moving in faster than expected. You've only got about an hour left. $[otter_three_storm]
 
 {@Alex} We're working as fast as we can. $[were_working_as]
 
-{@Rae} Okay, dream team, I'm prepping the plane for take-off. How's it going out there? $[okay_dream_time]
-
-{@Alex} Just need to get everything back on the tower... give us a minute. $[just_need_to]
-
-{@Alex} Phew. We can finally test the uplink. $[phew_we_can]
-
-{@Rae} Hey, you all still alive out there? Conditions are getting worse. I'm taking off in T-minus five minutes. $[hey_you_all]
-
-{@Alex} Load up the stuff. We're on our way! $[load_up_the]
+$call levelLoader->LoadSouthTempPuzzle()
+$call levelLoader->LoadSouthWindPuzzle()
+$call levelLoader->LoadSouthBatteryPuzzle()

@@ -20,6 +20,7 @@ public class ArgoFun : SharedStateComponent {
 	[SerializeField] private SubtitleDisplay m_SubTitles;
 	
 	private int m_CurrentClip = -1;
+	private int m_EndCurrentClip = -1;
 	
 	private AudioSource ArgoAudio = null;
 	
@@ -29,6 +30,7 @@ public class ArgoFun : SharedStateComponent {
     }
 	
 	public void SetCurrentClip(int clip) { m_CurrentClip = clip; }
+	public void SetEndingClip(int endClip) { m_EndCurrentClip = endClip; }
 	
     // Update is called once per frame
     public void UpdateStates() {

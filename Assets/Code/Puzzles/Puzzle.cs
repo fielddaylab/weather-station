@@ -8,8 +8,8 @@ using UnityEngine;
 namespace WeatherStation {
     public class Puzzle : BatchedComponent {
         #region Inspector
-		public int Level = 0;  //difficulty level
-		
+		public int PuzzleLevel = 0;  //difficulty level
+		public int GameLevel = 0;
         #endregion // Inspector
 		 
 		protected bool TestSuccess = false;
@@ -19,6 +19,7 @@ namespace WeatherStation {
         public ActionEvent OnCompleted = new ActionEvent();
         
 		public bool IsComplete() { return (State == PuzzleState.Complete); }
+		public bool IsAlmostComplete() { return (State == PuzzleState.Complete); }
 		
 		public void SetTestSuccess(bool success) {
 			TestSuccess = success;
@@ -36,6 +37,7 @@ namespace WeatherStation {
     public enum PuzzleState {
 		Inactive,
         Active,
+		AlmostComplete,
         Complete
     }
 }

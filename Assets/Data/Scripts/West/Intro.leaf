@@ -6,7 +6,7 @@
 @once
 
 $call fader->FadeIn(20.0, 15.0)
-$call argo->SetButtonLocked(false)
+$call argoHelpButton->SetButtonLocked(false)
 {@Rae} Mission Control, this is Otter three, We just touched down at Mount Rea Station. Sky’s clear as a bell, temperature clocking in at -15 degrees Fahrenheit. Perfect daytime conditions. $[rae_mission_control]
 {@Alex} Sure, perfect. If you’re a penguin. $[alex_sure_perfect]
 {@Alex} Station's a little beat up. Not too bad, considering how long we've been away.  But it looks like there's no power. $[alex_stations_a]
@@ -18,4 +18,4 @@ $call Wait(1)
 //{@Alex} Press Argo's red button to boot him up. $[alex_matt_press]
 //$endif
 $endwhile
-$call argo->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)

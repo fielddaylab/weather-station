@@ -11,7 +11,7 @@ $call fader->FadeIn(10.0, 5.0)
 {@Argo} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
 {@Rae} Morning, ARGO. $[morning_argo]
 {@Alex} Um… hi. I’m here, too. $[um_hi_im]
-{@MC} Otter Three, We can give you a four-hour window, Wind gusts up to 20 knots are expected later today. $[otter_three_we]
+{@Mission Control} Otter Three, We can give you a four-hour window, Wind gusts up to 20 knots are expected later today. $[otter_three_we]
 {@Rae} Ha. 20 knots? Easy peasy. I could fly through that with my eyes closed. $[ha_twenty_knots]
 {@Alex} Um… eyes open would be better, if you don’t mind. Argo, what’s the status of the station?  $[um_eyes_open]
 {@Argo} Scanning… scanning…  The damage is not too bad!  Just a broken, battery, data logger, and sensor! $[scanning_scanning_the]
@@ -19,8 +19,8 @@ $call fader->FadeIn(10.0, 5.0)
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 
-$call argo->SetCurrentClip(16)
-$call argo->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(16)
+$call argoHelpButton->SetButtonLocked(false)
 {@Argo} Bad is a matter of perspective. We just need to repair the data connections in the logger. Seems easy enough, see if you can figure it out Matt. $[bad_is_a]
 
 $if NotIsGrabbed(dataLoggerDoor)
@@ -59,7 +59,7 @@ $if IsGrabbed(loggerPieceSix)
 $call loggerPieceSix->StopHighlight()
 $endif
 $endwhile
-$call argo->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
 
 $endif
 
@@ -86,8 +86,8 @@ $call batteryBase->SetGrabbable(true)
 
 {@Argo} Great! We’ll have to fix the battery and sensor in the repair unit, place them both in the sled! $[great_well_have]
 
-$call argo->SetCurrentClip(17)
-$call argo->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(17)
+$call argoHelpButton->SetButtonLocked(false)
 
 $while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket)
 $call Wait(1)
@@ -111,9 +111,9 @@ $call batteryBase->StopSound()
 $while NotIsSocketed(snowSledSocket)
 $call Wait(1)
 $endwhile
-
-$call argo->SetButtonLocked(true)
 $endif
+
+$call argoHelpButton->SetButtonLocked(true)
 
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
@@ -133,12 +133,12 @@ $call argoSled->PlaySound()
 
 $if NotIsSocketed(argoSled)
 {@Argo} Nice Job, now put me in and let’s get fixin! $[nice_job_now]
-$call argo->SetCurrentClip(18)
-$call argo->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(18)
+$call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
 $endwhile
-$call argo->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
 $endif
 
 $call snowSledSocket->StopFX()
@@ -162,11 +162,11 @@ $call snowSensor->PlayFX()
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
 
-$while NotIsGrabbed(snowSensor), NotIsGrabbed(batteryBase)
+$while NotWasGrabbed(snowSensor), NotWasGrabbed(batteryBase)
 $call Wait(1)
 $endwhile
 
-$if IsGrabbed(snowSensor)
+$if WasGrabbed(snowSensor)
 
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
@@ -183,13 +183,13 @@ $call snowSensorBay->StopFX()
 $call snowSensor->StopFX()
 $endif
 
-$while NotIsGrabbed(batteryBase)
+$while NotWasGrabbed(batteryBase)
 $call Wait(1)
 $endwhile
 
 $endif
 
-$if IsGrabbed(batteryBase)
+$if WasGrabbed(batteryBase)
 
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
@@ -207,8 +207,8 @@ $endif
 
 $if NotIsSocketed(snowBaySocket)
 
-$if NotIsGrabbed(snowSensor)
-$while NotIsGrabbed(snowSensor)
+$if NotWasGrabbed(snowSensor)
+$while NotWasGrabbed(snowSensor)
 $call Wait(1)
 $endwhile
 {@Argo} Place the sensor in the calibration dock on the right side of the bench. $[place_the_sensor_two]
@@ -246,17 +246,17 @@ $while NotWasGrabbed(batteryOne), NotWasGrabbed(batteryTwo), NotWasGrabbed(batte
 $call Wait(1)
 $endwhile
 
-$if NotWasGrabbed(batteryOne)
+$if WasGrabbed(batteryOne)
 $call batteryOne->StopFX()
 $call batteryOne->StopHighlight()
 $endif
 
-$if NotWasGrabbed(batteryTwo)
+$if WasGrabbed(batteryTwo)
 $call batteryTwo->StopFX()
 $call batteryTwo->StopHighlight()
 $endif
 
-$if NotWasGrabbed(batteryThree)
+$if WasGrabbed(batteryThree)
 $call batteryThree->StopFX()
 $call batteryThree->StopHighlight()
 $endif
@@ -377,14 +377,14 @@ $call batterySledSocket->StopFX()
 
 {@Argo} Ok, all we have left is the temperature sensor. See if you can recalibrate it by completing the signal sequence $[ok_all_we]
 
-$call argo->SetCurrentClip(19)
-$call argo->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(19)
+$call argoHelpButton->SetButtonLocked(false)
 
 $while PuzzleIsNotComplete(snowPuzzle)
 $call Wait(1)
 $endwhile
 
-$call argo->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
 
 {@Argo} Nice! $[nice_nice_nice]
 
@@ -405,15 +405,15 @@ $call argo->PlayFX()
 $call argo->ShowHighlight()
 $call argoSled->PlayFX()
 {@Argo} Ok, put it and me in the sled and let’s get out on the ice. $[ok_put_it]
-$call argo->SetCurrentClip(3)
-$call argo->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(3)
+$call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
 $endwhile
 $call argo->StopFX()
 $call argo->StopHighlight()
 $call argoSled->StopFX()
-$call argo->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
 $endif
 
 $call fader->FadeOut(3.0)
@@ -431,7 +431,7 @@ $call batteryBase->PlayFX()
 
 {@Argo} Now we just need to put the battery and the sensor back on the tower. $[now_we_just]
 
-{@MC} Be advised, Otter Three, wind gusts are now predicted to reach thirty knots $[be_advised_otter]
+{@Mission Control} Be advised, Otter Three, wind gusts are now predicted to reach thirty knots $[be_advised_otter]
 {@Rae} Acknowledged $[acknowledged_acknowledged_acknowledged]
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
@@ -472,7 +472,7 @@ $call snowTowerSocket->StopHighlight()
 $call snowTowerSocket->StopFX()
 
 {@Argo} Nice work partner! $[nice_work_partner]
-{@MC} Come in, Otter Three. Wind speeds are starting to pick up at your coordinates. Better pick up the pace. $[come_in_otter]
+{@Mission Control} Come in, Otter Three. Wind speeds are starting to pick up at your coordinates. Better pick up the pace. $[come_in_otter]
 
 $call argoSled->PlayFX()
 $call argoSled->PlaySound()
@@ -480,12 +480,12 @@ $call argo->PlayFX()
 
 $if NotIsSocketed(argoSled)
 {@Argo} Ok, put me in the sled, let’s test our uplink. $[ok_put_me]
-$call argo->SetCurrentClip(18)
-$call argo->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(18)
+$call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
 $endwhile
-$call argo->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
 $endif
 
 $call argo->StopFX()
@@ -501,12 +501,12 @@ $call fader->FadeIn(2.0, 1.0)
 $call uplinkButton->ShowHighlight()
 $call uplinkButton->PlayFX()
 
-$call argo->SetButtonLocked(false)
-$call argo->SetCurrentClip(15)
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(15)
 $while ButtonNotPressed(uplinkButton)
 $call Wait(1)
 $endwhile
-$call argo->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
 
 $call uplinkButton->StopHighlight()
 $call uplinkButton->StopFX()
@@ -524,3 +524,4 @@ $call map->NextTexture()
 
 $call fader->FadeOut(10.0)
 $call Wait(4)
+$call levelLoader->LoadSouth()

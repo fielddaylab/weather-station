@@ -1,6 +1,6 @@
 #basePath   Southeast
 
-:: SouthStart
+:: Southeast
 @trigger    LevelFourFinished
 @evalPriority   100
 @once
@@ -12,3 +12,71 @@
 {@Argo} This tower has a faulty battery, wind sensor, and snow sensor, as well as a misaligned solar panel. $[this_tower_has]
 {@Alex} Alright Matt, let's make your last repair of the season a good one!
 
+$if PuzzleIsNotComplete(dataLoggerPuzzle)
+
+$call argoHelpButton->SetCurrentClip(20)
+$call argoHelpButton->SetButtonLocked(false)
+
+$if NotIsGrabbed(dataLoggerDoor)
+$call dataLoggerDoor->ShowHighlight()
+$while DoorWasNotGrabbed(dataLoggerDoor)
+$call Wait(1)
+$endwhile
+$call dataLoggerDoor->StopHighlight()
+$endif
+
+$call loggerPieceOne->ShowHighlight()
+$call loggerPieceTwo->ShowHighlight()
+$call loggerPieceThree->ShowHighlight()
+$call loggerPieceFour->ShowHighlight()
+$call loggerPieceFive->ShowHighlight()
+$call loggerPieceSix->ShowHighlight()
+
+$while PuzzleIsNotComplete(dataLoggerPuzzle)
+$call Wait(1)
+$if WasGrabbed(loggerPieceOne)
+$call loggerPieceOne->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceTwo)
+$call loggerPieceTwo->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceThree)
+$call loggerPieceThree->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceFour)
+$call loggerPieceFour->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceFive)
+$call loggerPieceFive->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceSix)
+$call loggerPieceSix->StopHighlight()
+$endif
+$endwhile
+$call argoHelpButton->SetButtonLocked(true)
+
+$endif
+
+
+$if PuzzleIsNotComplete(solarPanel)
+
+$call rightPanelHandle->PlayFX()
+$call rightPanelHandle->ShowHighlight()
+$call rightPanelHandle->SetGrabbable(true)
+$call rightPanelHandle->PlaySound()
+$call leftPanelHandle->PlayFX()
+$call leftPanelHandle->SetGrabbable(true)
+$call leftPanelHandle->PlaySound()
+
+$while PuzzleIsNotComplete(solarPanel)
+$call Wait(1)
+$endwhile
+
+$call leftPanelHandle->StopFX()
+$call leftPanelHandle->SetGrabbable(false)
+$call leftPanelHandle->StopSound()
+$call rightPanelHandle->StopFX()
+$call rightPanelHandle->StopHighlight()
+$call rightPanelHandle->StopSound()
+
+$endif

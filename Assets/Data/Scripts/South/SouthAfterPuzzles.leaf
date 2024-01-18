@@ -1,0 +1,132 @@
+#basePath   SouthAfterPuzzles
+
+:: SouthAfterPuzzles
+@trigger    LevelThreePuzzlesFinished
+@evalPriority   100
+@once
+
+$call argoHelpButton->SetCurrentClip(34);
+
+$call argo->SetGrabbable(true)
+$call argo->PlayFX()
+$call argoTowerSocket->SetLocked(false)
+$call argoSled->PlayFX()
+$call argoSled->PlaySound()
+
+$if NotIsSocketed(argoSled)
+$while NotIsSocketed(argoSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$call argo->StopFX()
+$call argoSled->StopSound()
+$call argoSled->StopFX()
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+
+{@Rae} Okay, dream team, I'm prepping the plane for take-off. How's it going out there? $[okay_dream_time]
+
+{@Alex} Just need to get everything back on the tower... give us a minute. $[just_need_to]
+
+$call argoHelpButton->SetCurrentClip(35);
+
+{@Argo} Or we could camp out here for the night! There would be ample time for sharing fun facts around a campfire. And it would give me a chance to show you the effectiveness of my weatherproof screen! Doesn’t that sound exciting? $[or_we_could]
+
+{@Alex} Maybe for you. We don’t have weatherproof screens. $[maybe_for_you]
+
+{@Argo} Hmm. You poor humans… so easily damaged. It’s a good thing you have me to look out for you! $[hmm_you_poor]
+
+
+$while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+
+$if NotIsSocketed(batterySnowSocket)
+$call snowTowerSocket->StopHighlight()
+$call snowTowerSocket->StopFX()
+$call snowSensor->StopFX()
+
+$while NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$endif
+
+$if NotIsSocketed(snowTowerSocket)
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$while NotIsSocketed(snowTowerSocket)
+$call Wait(1)
+$endwhile
+$call snowTowerSocket->StopHighlight()
+$call snowTowerSocket->StopFX()
+$call snowSensor->StopFX()
+$endif
+
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSensor->StopHighlight()
+$call snowTowerSocket->StopHighlight()
+$call snowTowerSocket->StopFX()
+
+{@Alex} Phew. We can finally test the uplink. $[phew_we_can]
+
+{@Rae} Hey, you all still alive out there? Conditions are getting worse. I'm taking off in T-minus five minutes. $[hey_you_all]
+
+{@Alex} Load up the stuff. We're on our way! $[load_up_the]
+
+$call argoHelpButton->SetCurrentClip(36);
+
+$call argo->SetGrabbable(true)
+$call argo->PlayFX()
+$call argoTowerSocket->SetLocked(false)
+$call argoSled->PlayFX()
+$call argoSled->PlaySound()
+
+$if NotIsSocketed(argoSled)
+$while NotIsSocketed(argoSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$call argo->StopFX()
+$call argoSled->StopSound()
+$call argoSled->StopFX()
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+
+{@Rae} Those repairs had better work. $[those_repairs_had]
+{@Alex} Tell me about it. $[tell_me_about]
+
+$call argoHelpButton->SetCurrentClip(37);
+
+$call uplinkButton->ShowHighlight()
+$call uplinkButton->PlayFX()
+
+$while ButtonNotPressed(uplinkButton)
+$call Wait(1)
+$endwhile
+
+$call uplinkButton->StopHighlight()
+$call uplinkButton->StopFX()
+
+{@Argo} It works! $[it_works_works]
+{@Rae} Yes, hold onto your butts! $[yes_hold_onto]
+
+$call fader->FadeOut(10.0)
+$call Wait(4)
+$call levelLoader->LoadEast()

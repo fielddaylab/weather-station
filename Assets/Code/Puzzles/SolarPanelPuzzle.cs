@@ -96,14 +96,14 @@ namespace WeatherStation {
 			VRInputState data = Game.SharedState.Get<VRInputState>();
 			
 			Vector3 vSun = DirectionalLight.forward;
-			if(Level == 0)
+			if(PuzzleLevel == 0)
 			{
 				vSun.y = 0f;
 			}
 			vSun = Vector3.Normalize(vSun);
 			
 			Vector3 vMeter = PowerMeter.transform.forward;
-			if(Level == 0)
+			if(PuzzleLevel == 0)
 			{
 				vMeter.y = 0f;
 			}

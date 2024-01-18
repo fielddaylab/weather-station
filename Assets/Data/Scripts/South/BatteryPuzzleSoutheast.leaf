@@ -1,0 +1,188 @@
+#basePath   BatteryPuzzleSoutheast
+
+:: BatteryPuzzleSoutheast
+@trigger    StartBatteryPuzzleSoutheast
+@evalPriority   100
+@once
+
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+
+$while NotWasGrabbed(batteryBase)
+$call Wait(1)
+$endwhile
+
+$if WasGrabbed(batteryBase)
+
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+
+$if NotIsSocketed(batteryBaySocket)
+
+$call batteryBay->ShowHighlight()
+$call batteryBay->PlayFX()
+
+$while NotIsSocketed(batteryBaySocket)
+$call Wait(1)
+$endwhile
+
+$call batteryBay->StopHighlight()
+$call batteryBay->StopFX()
+
+$endif
+
+$endif
+
+$call argoHelpButton->SetCurrentClip(25)
+
+$call batteryOne->PlayFX()
+$call batteryOne->ShowHighlight()
+$call batteryTwo->PlayFX()
+$call batteryTwo->ShowHighlight()
+$call batteryThree->PlayFX()
+$call batteryThree->ShowHighlight()
+
+$call batteryOneThree->PlayFX()
+$call batteryOneThree->ShowHighlight()
+$call batteryTwoThree->PlayFX()
+$call batteryTwoThree->ShowHighlight()
+$call batteryThreeThree->PlayFX()
+$call batteryThreeThree->ShowHighlight()
+
+$call batteryOneThreeStag->PlayFX()
+$call batteryOneThreeStag->ShowHighlight()
+$call batteryTwoThreeStag->PlayFX()
+$call batteryTwoThreeStag->ShowHighlight()
+$call batteryThreeThreeStag->PlayFX()
+$call batteryThreeThreeStag->ShowHighlight()
+
+$call batteryBase->SetGrabbable(false);
+
+$while PuzzleIsNotComplete(batteryPuzzle)
+
+$if WasGrabbed(batteryOne)
+$call batteryOne->StopFX()
+$call batteryOne->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryTwo)
+$call batteryTwo->StopFX()
+$call batteryTwo->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryThree)
+$call batteryThree->StopFX()
+$call batteryThree->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryOneThree)
+$call batteryOneThree->StopFX()
+$call batteryOneThree->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryTwoThree)
+$call batteryTwoThree->StopFX()
+$call batteryTwoThree->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryThreeThree)
+$call batteryThreeThree->StopFX()
+$call batteryThreeThree->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryOneThreeStag)
+$call batteryOneThreeStag->StopFX()
+$call batteryOneThreeStag->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryTwoThreeStag)
+$call batteryTwoThreeStag->StopFX()
+$call batteryTwoThreeStag->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryThreeThreeStag)
+$call batteryThreeThreeStag->StopFX()
+$call batteryThreeThreeStag->StopHighlight()
+$endif
+
+$if IsPuzzleSocketed(batterySocket)
+
+$if IsNotMatched(batterySocket)
+
+$call argoHelpButton->SetCurrentClip(26)
+
+$else
+
+$call argoHelpButton->SetCurrentClip(27)
+
+$call batteryOne->StopFX()
+$call batteryOne->StopHighlight()
+
+$call batteryTwo->StopFX()
+$call batteryTwo->StopHighlight()
+
+$call batteryThree->StopFX()
+$call batteryThree->StopHighlight()
+
+$call batteryOneThree->StopFX()
+$call batteryOneThree->StopHighlight()
+
+$call batteryTwoThree->StopFX()
+$call batteryTwoThree->StopHighlight()
+
+$call batteryThreeThree->StopFX()
+$call batteryThreeThree->StopHighlight()
+
+$call batteryOneThreeStag->StopFX()
+$call batteryOneThreeStag->StopHighlight()
+
+$call batteryTwoThreeStag->StopFX()
+$call batteryTwoThreeStag->StopHighlight()
+
+$call batteryThreeThreeStag->StopFX()
+$call batteryThreeThreeStag->StopHighlight()
+
+$call cellOne->ShowHighlight()
+$call cellTwo->ShowHighlight()
+$call cellThree->ShowHighlight()
+$call cellFour->ShowHighlight()
+$call cellOne->PlayFX()
+$call cellTwo->PlayFX()
+$call cellThree->PlayFX()
+$call cellFour->PlayFX()
+
+$if WasGrabbed(cellOne)
+$call cellOne->StopHighlight()
+$call cellOne->StopFX()
+$endif
+
+$if WasGrabbed(cellTwo)
+$call cellTwo->StopHighlight()
+$call cellTwo->StopFX()
+$endif
+
+$if WasGrabbed(cellThree)
+$call cellThree->StopHighlight()
+$call cellThree->StopFX()
+$endif
+
+$if WasGrabbed(cellFour)
+$call cellFour->StopHighlight()
+$call cellFour->StopFX()
+$endif
+
+$endif
+
+$endif 
+
+$call Wait(1)
+
+//set argo help based on if something is grabbed...
+
+$endwhile
+
+$call argoHelpButton->SetCurrentClip(28)
+
+{@Rae} You two might need to throw the towel in on this one. $[you_two_might]
+{@Alex} Negative, we won't get another chance to come back out here all year. $[negative_we_wont]
+{@Rae} Fine. But remember, I'm not waiting for you.

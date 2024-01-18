@@ -630,7 +630,7 @@ PrefabInstance:
     - target: {fileID: 1655670942125028285, guid: 5a93cb8311cb187439ee7d22358cee37,
         type: 3}
       propertyPath: VOCharacters.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1655670942125028285, guid: 5a93cb8311cb187439ee7d22358cee37,
         type: 3}
@@ -647,6 +647,11 @@ PrefabInstance:
       propertyPath: VOCharacters.Array.data[2]
       value: 
       objectReference: {fileID: 132408248}
+    - target: {fileID: 1655670942125028285, guid: 5a93cb8311cb187439ee7d22358cee37,
+        type: 3}
+      propertyPath: VOCharacters.Array.data[3]
+      value: 
+      objectReference: {fileID: 1661358509}
     - target: {fileID: 4454787473430366232, guid: 5a93cb8311cb187439ee7d22358cee37,
         type: 3}
       propertyPath: m_RootOrder
@@ -6005,6 +6010,7 @@ Transform:
   m_Children:
   - {fileID: 585278634}
   - {fileID: 132408249}
+  - {fileID: 1661358510}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534515781
@@ -6290,6 +6296,148 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1999679449}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1661358509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1661358510}
+  - component: {fileID: 1661358511}
+  - component: {fileID: 1661358512}
+  m_Layer: 0
+  m_Name: Mission Control
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1661358510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661358509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1524102365}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1661358511
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661358509}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1661358512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661358509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d87c1fa774713475591ebc7d5f7a370b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VOLineCode: 0
 --- !u!1 &1672920831
 GameObject:
   m_ObjectHideFlags: 0
@@ -6952,6 +7100,8 @@ MonoBehaviour:
   - {fileID: -1942890987711236906, guid: 8609e2de6dd79ae419a72ed1c5593f76, type: 3}
   - {fileID: -1942890987711236906, guid: cd0a96936b3a7c040897cd601de4f5cf, type: 3}
   - {fileID: -1942890987711236906, guid: 6c526df930d94a54eb6fe9f14609a9df, type: 3}
+  - {fileID: -1942890987711236906, guid: fde8ebbb3d92475458b0907c0d15fb6e, type: 3}
+  - {fileID: -1942890987711236906, guid: d7a9c9178396a574d9265af771c9f012, type: 3}
   - {fileID: -1942890987711236906, guid: 94b1c9c98985ae148998ed8dc1cce572, type: 3}
   - {fileID: -1942890987711236906, guid: 0f86d4d535a263742b89fad1da8773d8, type: 3}
 --- !u!1 &1999679448
@@ -7575,7 +7725,6 @@ GameObject:
   - component: {fileID: 919132148871580474}
   - component: {fileID: 919132148871580475}
   - component: {fileID: 919132148871580476}
-  - component: {fileID: 919132148871580477}
   - component: {fileID: 919132148871580478}
   - component: {fileID: 919132148871580480}
   - component: {fileID: 919132148871580479}
@@ -7693,19 +7842,6 @@ MonoBehaviour:
     m_Source: argo
     m_HashValue: 2433389656
   m_DisableOnStart: 0
---- !u!114 &919132148871580477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148871580471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ee338a9d94544368ed52ca2ed63def, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Button: {fileID: 7362691586429858552}
 --- !u!114 &919132148871580478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7749,12 +7885,26 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
   - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
   - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
-  - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
+  - {fileID: 8300000, guid: d1e195ef8857042b6b113471643138c4, type: 3}
   - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
   - {fileID: 8300000, guid: 632fd50e179754029944ccda6f10890a, type: 3}
   - {fileID: 8300000, guid: 122ffb20052224164a89a192d1ca616e, type: 3}
   - {fileID: 8300000, guid: fa956a3c1f74147ab87821f381a91141, type: 3}
   - {fileID: 8300000, guid: ecf7b0c1ff503481cb5b2af2108bf6d4, type: 3}
+  - {fileID: 8300000, guid: bed1260a00f0b4ade82fa0e52b4d9c64, type: 3}
+  - {fileID: 8300000, guid: 3a71bc824d1d34ad28a7beac8b5e6bd9, type: 3}
+  - {fileID: 8300000, guid: b19ade28b8f034a5eaee561f1f80152c, type: 3}
+  - {fileID: 8300000, guid: 37ebf2e82cc2846c490420dcd8d642d4, type: 3}
+  - {fileID: 8300000, guid: 1ac65ee06565343d9967db24fdfc6508, type: 3}
+  - {fileID: 8300000, guid: cb1f15b0f40ae4d8a804904b6b5cf416, type: 3}
+  - {fileID: 8300000, guid: 80cdaa193a3794e39ac53a9803f3c19c, type: 3}
+  - {fileID: 8300000, guid: de92810f331be40e18affd08202ef43a, type: 3}
+  - {fileID: 8300000, guid: eff39efd93e554925ae8dd2f2a774971, type: 3}
+  - {fileID: 8300000, guid: 6af73276bd87a4893858116e89171b5a, type: 3}
+  - {fileID: 8300000, guid: d1e195ef8857042b6b113471643138c4, type: 3}
+  - {fileID: 8300000, guid: 4e84e219ab1bc4d5aa2b129327378f40, type: 3}
+  - {fileID: 8300000, guid: 21ed08e3520604fd1919746aacf943fa, type: 3}
+  - {fileID: 8300000, guid: e9b595b1043314ef78950d69ce376f7f, type: 3}
   m_ArgoHelpSubtitles:
   - Grab the panel with your hands and rotate it until the solar bar fills up
   - Grab the wind sensor and yank it off the tower!
@@ -7788,6 +7938,22 @@ MonoBehaviour:
   - All of this broken stuff needs to come inside, Put the battery box, wind sensor,
     and snow sensor in the sled
   - Now put me in the sled!
+  - "That equipment won\u2019t fix itself just sitting in the sled, You\u2019ve got
+    to take it out onto your workbench."
+  - We need to craft a new battery, check your inventory for a baseplate.
+  - It looks like this would supply the wrong amount of power, try a different one
+  - "We need to add cells, that\u2019s in your inventory as well."
+  - The battery is fixed! Pop it in the sled.
+  - Get rid of the bad propeller and replace it with a good one from your inventory
+  - The wind sensor is done, pop it in the sled
+  - "Hmm, that\u2019s the wrong size prop, try a different one."
+  - Press the buttons on the dock to calibrate the temperature sensor
+  - The temperature sensor is almost calibrated! You just need to complete the sequence
+  - Put me in the sled.
+  - Place all the fixed equipment back on the tower.
+  - "Put me in the sled, let\u2019s test the connection!"
+  - "Press the uplink button, the suspense is killing me!... Well, not really, I\u2019m
+    not alive. "
   m_Button: {fileID: 7362691586429858552}
   m_SubTitles: {fileID: 1686819858}
 --- !u!82 &919132148871580480
@@ -8018,6 +8184,8 @@ GameObject:
   - component: {fileID: 4659562556539735054}
   - component: {fileID: 4659562556539735056}
   - component: {fileID: 4659562556539735057}
+  - component: {fileID: 4659562556539735059}
+  - component: {fileID: 4659562556539735058}
   m_Layer: 8
   m_Name: ArgoRightButton
   m_TagString: Untagged
@@ -8364,6 +8532,35 @@ MonoBehaviour:
   m_TaggedTriggerExit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4659562556539735058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420921963091657139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 996963a4781827849af9c21bb0bc8310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Button: {fileID: 4659562556539735055}
+--- !u!114 &4659562556539735059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420921963091657139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f69addabb33eb048b0c60bd1469cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id:
+    m_Source: argoFunButton
+    m_HashValue: 2916587517
+  m_DisableOnStart: 0
 --- !u!4 &4919345394967579250
 Transform:
   m_ObjectHideFlags: 0
@@ -8428,6 +8625,8 @@ GameObject:
   - component: {fileID: 7362691586429858551}
   - component: {fileID: 7362691586429858554}
   - component: {fileID: 7362691586429858553}
+  - component: {fileID: 7362691586429858556}
+  - component: {fileID: 7362691586429858557}
   m_Layer: 8
   m_Name: ArgoFaceButton
   m_TagString: Untagged
@@ -8627,6 +8826,35 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02481256, y: 0.063373685, z: 0.17364913}
   m_Center: {x: 0.0000000055879354, y: 0.00000023841858, z: 0}
+--- !u!114 &7362691586429858556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7362691586429858550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f69addabb33eb048b0c60bd1469cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id:
+    m_Source: argoHelpButton
+    m_HashValue: 4045231763
+  m_DisableOnStart: 0
+--- !u!114 &7362691586429858557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7362691586429858550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8250f0bfe29f0b34d9d780667134f227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Button: {fileID: 7362691586429858552}
 --- !u!23 &7508138581293323719
 MeshRenderer:
   m_ObjectHideFlags: 0

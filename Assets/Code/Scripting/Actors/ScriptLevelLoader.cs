@@ -55,6 +55,22 @@ namespace WeatherStation.Scripting {
 			m_Loader.SwitchScenes();
 			ScriptUtility.Trigger("LevelFourFinished");
 		}
+		
+		[LeafMember("LoadSouthTempPuzzle"), Preserve]
+		public void LoadSouthTempPuzzle() {
+			ScriptUtility.Trigger("StartTempSensorSouth");
+		}
+		
+		[LeafMember("LoadSouthWindPuzzle"), Preserve]
+		public void LoadSouthWindPuzzle() {
+			ScriptUtility.Trigger("StartWindSensorSouth");
+		}
+		
+		[LeafMember("LoadSouthBatteryPuzzle"), Preserve]
+		public void LoadSouthBatteryPuzzle() {
+			ScriptUtility.Trigger("StartBatteryPuzzleSouth");
+		}
+		
         #endregion // Leaf
 		
     }
