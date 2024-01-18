@@ -13,7 +13,7 @@
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 
-$call argo->SetCurrentClip(16)
+$call argo->SetCurrentClip(20)
 $call argo->SetButtonLocked(false)
 
 $if NotIsGrabbed(dataLoggerDoor)
@@ -33,28 +33,52 @@ $call loggerPieceSix->ShowHighlight()
 
 $while PuzzleIsNotComplete(dataLoggerPuzzle)
 $call Wait(1)
-$if IsGrabbed(loggerPieceOne)
+$if WasGrabbed(loggerPieceOne)
 $call loggerPieceOne->StopHighlight()
 $endif
-$if IsGrabbed(loggerPieceTwo)
+$if WasGrabbed(loggerPieceTwo)
 $call loggerPieceTwo->StopHighlight()
 $endif
-$if IsGrabbed(loggerPieceThree)
+$if WasGrabbed(loggerPieceThree)
 $call loggerPieceThree->StopHighlight()
 $endif
-$if IsGrabbed(loggerPieceFour)
+$if WasGrabbed(loggerPieceFour)
 $call loggerPieceFour->StopHighlight()
 $endif
-$if IsGrabbed(loggerPieceFive)
+$if WasGrabbed(loggerPieceFive)
 $call loggerPieceFive->StopHighlight()
 $endif
-$if IsGrabbed(loggerPieceSix)
+$if WasGrabbed(loggerPieceSix)
 $call loggerPieceSix->StopHighlight()
 $endif
 $endwhile
 $call argo->SetButtonLocked(true)
 
 $endif
+
+$call argo->SetCurrentClip(22)
+$call argo->SetButtonLocked(false)
+
+$call snowWindSocket->SetLocked(false)
+$call snowSensor->ShowHighlight()
+$call snowSensor->PlayFX()
+$call snowSensor->PlaySound()
+$call snowSensor->SetGrabbable(true)
+$call snowSledSocket->PlayFX()
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->PlayFX()
+$call batterySledSocket->SetLocked(false)
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+$call batteryBase->PlaySound()
+$call batteryBase->SetGrabbable(true)
+$call windSensorSocket->SetLocked(false)
+$call windSensor->SetGrabbable(true)
+$call windSensor->ShowHighlight()
+$call windSensor->PlaySound()
+$call windSensor->PlayFX()
+$call windSensorSled->PlayFX()
+$call windSensorSled->PlaySound()
 
 {@Argo} Ooh. It's been years since we've had a campout! Remember, partner? That time out on Thurston Island? $[ooh_its_been]
 
@@ -66,6 +90,8 @@ $call loggerPieceFive->StopHighlight()
 $call loggerPieceSix->StopHighlight() 
 
 {@Argo} Let's get to work, and fast. There's no way I'm spending all night stranded here with that little chatterbox. $[lets_get_to]
+
+
 
 {@MC} Otter Three, storm is moving in faster than expected. You've only got about an hour left. $[otter_three_storm]
 

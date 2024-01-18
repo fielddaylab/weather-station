@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.60224396, g: 0.75875443, b: 0.90731, a: 1}
+  m_IndirectSpecularColor: {r: 0.600373, g: 0.7582139, b: 0.9035631, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -641,7 +641,7 @@ PrefabInstance:
         type: 3}
       propertyPath: VOCharacters.Array.data[1]
       value: 
-      objectReference: {fileID: 1707303533}
+      objectReference: {fileID: 585278635}
     - target: {fileID: 1655670942125028285, guid: 5a93cb8311cb187439ee7d22358cee37,
         type: 3}
       propertyPath: VOCharacters.Array.data[2]
@@ -6005,7 +6005,6 @@ Transform:
   m_Children:
   - {fileID: 585278634}
   - {fileID: 132408249}
-  - {fileID: 1707303532}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534515781
@@ -6372,213 +6371,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterLabel: {fileID: 740795472}
   Text: {fileID: 1389268835}
---- !u!1001 &1707303531
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1524102365}
-    m_Modifications:
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 14.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0059998035
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.31541395
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -3.879315e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.94895416
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 7.742022e-17
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 143.228
-      objectReference: {fileID: 0}
-    - target: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2142476416135544440, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_Name
-      value: Alex
-      objectReference: {fileID: 0}
-    - target: {fileID: 2142476416135544440, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2142476416135544440, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2142476416135544440, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1707303534}
-    - targetCorrespondingSourceObject: {fileID: 2142476416135544440, guid: b83c45089faeb69439047bb89a76a996,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1707303535}
-  m_SourcePrefab: {fileID: 100100000, guid: b83c45089faeb69439047bb89a76a996, type: 3}
---- !u!4 &1707303532 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1652902832473990338, guid: b83c45089faeb69439047bb89a76a996,
-    type: 3}
-  m_PrefabInstance: {fileID: 1707303531}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1707303533 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2142476416135544440, guid: b83c45089faeb69439047bb89a76a996,
-    type: 3}
-  m_PrefabInstance: {fileID: 1707303531}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &1707303534
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1707303533}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 1
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 50
-  Pan2D: 0
-  rolloffMode: 1
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &1707303535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1707303533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d87c1fa774713475591ebc7d5f7a370b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VOLineCode: 0
 --- !u!1 &1790684996
 GameObject:
   m_ObjectHideFlags: 0
@@ -7790,6 +7582,7 @@ GameObject:
   - component: {fileID: 919132148871580481}
   - component: {fileID: 919132148871580482}
   - component: {fileID: 919132148871580483}
+  - component: {fileID: 919132148871580484}
   m_Layer: 7
   m_Name: Argo
   m_TagString: Untagged
@@ -7954,6 +7747,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 36439c0a7d1b4d549aee2e5077fb5a65, type: 3}
   - {fileID: 8300000, guid: 35b25e99d056fed459cfc488e521045c, type: 3}
   - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
+  - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
+  - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
+  - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
+  - {fileID: 8300000, guid: bce360237ec9fae4b913e2a4d952f4a9, type: 3}
+  - {fileID: 8300000, guid: 632fd50e179754029944ccda6f10890a, type: 3}
+  - {fileID: 8300000, guid: 122ffb20052224164a89a192d1ca616e, type: 3}
+  - {fileID: 8300000, guid: fa956a3c1f74147ab87821f381a91141, type: 3}
+  - {fileID: 8300000, guid: ecf7b0c1ff503481cb5b2af2108bf6d4, type: 3}
   m_ArgoHelpSubtitles:
   - Grab the panel with your hands and rotate it until the solar bar fills up
   - Grab the wind sensor and yank it off the tower!
@@ -7981,6 +7782,12 @@ MonoBehaviour:
   - Put me in the sled
   - Use the yellow buttons to cycle through the sequence in order to match up the
     correct symbols
+  - "Let\u2019s fix the data logger, complete the data sequence on the right using
+    the correct circuits."
+  - "Let\u2019s start by aligning the solar panel to face the sun."
+  - All of this broken stuff needs to come inside, Put the battery box, wind sensor,
+    and snow sensor in the sled
+  - Now put me in the sled!
   m_Button: {fileID: 7362691586429858552}
   m_SubTitles: {fileID: 1686819858}
 --- !u!82 &919132148871580480
@@ -8119,6 +7926,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaterialIndex: 0
   m_MR: {fileID: 7508138581293323719}
+--- !u!114 &919132148871580484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148871580471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e5005ee3e5af54cbb52658d728a292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ArgoFunAudio:
+  - {fileID: 8300000, guid: 85be4f0b97e2b374083418f126df40a5, type: 3}
+  - {fileID: 8300000, guid: fb97902ca8e451f4abde4e86321685d2, type: 3}
+  - {fileID: 8300000, guid: a2bf9d9c026d71545b7ec7f0518d3378, type: 3}
+  - {fileID: 8300000, guid: 6a642d4b21d0a8444a90335a400b5062, type: 3}
+  - {fileID: 8300000, guid: 0f7d52ccd3756bb4ba390b63b2e2bb82, type: 3}
+  - {fileID: 8300000, guid: 573265878e4b15f4fa1e9f8feb0f905d, type: 3}
+  - {fileID: 8300000, guid: f46068f526eca9041a3982eab302bfeb, type: 3}
+  m_ArgoFunSubtitles:
+  - Did you know that those are the peaks of Allan Hills in the distance?
+  - "We\u2019re busy here, ARGO. Do you mind?"
+  - "Not at all! Allan Hills was the site of a famous discovery in 1984: a Martian
+    meteorite! Martian means \u201Coriginating from Mars,\u201D and meteorite means
+    \u201Ca small body of matter from outer space that passes through the Earth\u2019s
+    atmosphere and strikes the ground.\u201D\_"
+  - Yeah, ARGO, we know.
+  - "At first, the Allan Hills meteorite was believed to contain evidence of extraterrestrial
+    life, but those claims have been largely debunked.\_ "
+  - Your face has been largely debunked.
+  - "I\u2026 don\u2019t understand. Is there something malfunctioning on my display
+    screen?"
+  m_Button: {fileID: 4659562556539735055}
+  m_SubTitles: {fileID: 1686819858}
 --- !u!23 &1008220945334578230
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8172,7 +8014,11 @@ GameObject:
   - component: {fileID: 2531648375579452225}
   - component: {fileID: 3815806542545442625}
   - component: {fileID: 4659562556539735053}
-  m_Layer: 0
+  - component: {fileID: 4659562556539735055}
+  - component: {fileID: 4659562556539735054}
+  - component: {fileID: 4659562556539735056}
+  - component: {fileID: 4659562556539735057}
+  m_Layer: 8
   m_Name: ArgoRightButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8275,7 +8121,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &3815806542545442625
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8326,6 +8172,198 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!82 &4659562556539735054
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420921963091657139}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5b5a7a9d097534de38edd665af00c429, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 1
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 5
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &4659562556539735055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420921963091657139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 719e428cfdd784b89a929c931dc88ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Locked: 1
+  Toggleable: 0
+  YShift: -0.02
+  XShift: 0
+  ButtonColor: {r: 0, g: 0, b: 0, a: 0}
+  SoundEffect: {fileID: 4659562556539735054}
+--- !u!65 &4659562556539735056
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420921963091657139}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.055161316, y: 0.057965554, z: 0.06540611}
+  m_Center: {x: -0.0000000018234179, y: 0.0038832575, z: -0.0000000596085}
+--- !u!114 &4659562556539735057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420921963091657139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb387d5604852e24d9c47006aeb957ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id: 0
+  m_Collider: {fileID: 4659562556539735056}
+  m_TrackOccupants: 1
+  m_FilterEventMask: 1
+  m_LayerMaskFilter:
+    serializedVersion: 2
+    m_Bits: 512
+  m_CompareTagFilters: []
+  m_NameFilter: 
+  m_OnTriggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 919132148871580484}
+        m_TargetAssemblyTypeName: WeatherStation.ArgoFun, Assembly-CSharp
+        m_MethodName: ArgoFunPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4659562556539735055}
+        m_TargetAssemblyTypeName: WeatherStation.PuzzleButton, Assembly-CSharp
+        m_MethodName: ButtonTrigger
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_TaggedTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TaggedTriggerExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &4919345394967579250
 Transform:
   m_ObjectHideFlags: 0
@@ -8418,9 +8456,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 5
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -8453,7 +8491,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -8704,7 +8742,7 @@ PrefabInstance:
     - target: {fileID: 7292223922517554457, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7292223922517554457, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
