@@ -27,7 +27,10 @@ namespace WeatherStation {
 				if(State != PuzzleState.Complete) {
 					//ScriptPlugin.ForceKill = true;
 					//StartCoroutine(WindSensorComplete(1f));
-					ScriptUtility.Trigger("WindSensorComplete");
+					if(GameLevel == 1)
+					{
+						ScriptUtility.Trigger("WindSensorComplete");
+					}
 				}
 				State = PuzzleState.Complete;
 				return true;

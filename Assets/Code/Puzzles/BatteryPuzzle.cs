@@ -71,7 +71,7 @@ namespace WeatherStation {
 				BlinkTime = t;
 			}
 		
-			if(PuzzleSockets[0].IsMatched()) {
+			/*if(PuzzleSockets[0].IsMatched()) {
 				if(!PuzzleSockets[1].IsMatched()) {
 					PuzzleSockets[1].BlinkIncoming();
 					PuzzleSockets[2].BlinkIncoming();
@@ -79,7 +79,7 @@ namespace WeatherStation {
 					PuzzleSockets[1].UnsetPulse();
 					PuzzleSockets[2].UnsetPulse();
 				}
-			} 			
+			}*/ 			
         }
 		
         private void Awake() {

@@ -110,4 +110,15 @@ $call argoHelpButton->SetCurrentClip(31)
 
 $endif
 
+$call Wait(1)
+
 $endwhile
+
+$call windSensorButton->StopHighlight()
+$call windSensorButton->StopFX()
+$call windSensorSled->PlayFX()
+$call windSensorSled->PlaySound()
+$call windSensor->SetGrabbable(true)
+$call windSensor->ShowHighlight()
+$call windSensor->PlaySound()
+$call windSensor->PlayFX()

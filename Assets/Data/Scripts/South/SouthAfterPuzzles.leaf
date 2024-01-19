@@ -5,6 +5,7 @@
 @evalPriority   100
 @once
 
+$call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(34);
 
 $call argo->SetGrabbable(true)
@@ -41,6 +42,16 @@ $call argoHelpButton->SetCurrentClip(35);
 
 {@Argo} Hmm. You poor humans… so easily damaged. It’s a good thing you have me to look out for you! $[hmm_you_poor]
 
+$call batterySledSocket->StopFX()
+
+$call snowTowerSocket->StartHighlight()
+$call snowTowerSocket->StartFX()
+
+$call batterySnowSocket->StartHighlight()
+$call batterySnowSocket->StartFX()
+
+$call windSensorSocket->StartHighlight()
+$call windSensorSocket->StartFX()
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
 $call Wait(1)

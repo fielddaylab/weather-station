@@ -15,8 +15,6 @@ namespace WeatherStation {
 		
 		private int CurrentGameLevel = 1;
 		
-		private bool AllLevelThreePuzzlesDone = false;
-		private bool AllLevelFivePuzzlesDone = false;
 		private bool TriggeredLevelThreePuzzlesDone = false;
 		private bool TriggeredLevelFivePuzzlesDone = false;
 		
@@ -27,47 +25,52 @@ namespace WeatherStation {
 			if(CurrentGameLevel != component.GameLevel) {
 				CurrentGameLevel = component.GameLevel;
 			}
-			
-			if(CurrentGameLevel == 3) {
-				if(component.State != PuzzleState.Complete) {
-					AllLevelThreePuzzlesDone = false;
-				}
-			}
-			
-			if(CurrentGameLevel == 5) {
-				if(component.State != PuzzleState.Complete) {
-					AllLevelFivePuzzlesDone = false;
-				}
-			}
-			
+
             //Log.Msg("Processing work for: " + component.gameObject.name);
 			if(/*component.State != PuzzleState.Complete &&*/ component.CheckComplete()) {
 				//do something cool, advance game, etc.
                 component.State = PuzzleState.Complete;
                 //component.OnCompleted.Invoke();
-			}
-			
-			if(AllLevelThreePuzzlesDone) {
-				if(!TriggeredLevelThreePuzzlesDone) {
-					LevelThreeDone();
-				}
-			}
-			
-			if(AllLevelFivePuzzlesDone) {
-				if(!TriggeredLevelFivePuzzlesDone) {
-					LevelFiveDone();
+				if(CurrentGameLevel == 3 && !TriggeredLevelThreePuzzlesDone) {
+					CheckLevelThreeDone();
+				} else if(CurrentGameLevel == 5 && !TriggeredLevelFivePuzzlesDone) {
+					CheckLevelFiveDone();
 				}
 			}
         }
 		
-		private void LevelThreeDone() {
-			ScriptUtility.Trigger("LevelThreePuzzlesFinished");
-			TriggeredLevelThreePuzzlesDone = true;
+		private void CheckLevelThreeDone() {
+			
+			bool Done = true;
+			
+			for (int i = 0, count = m_Components.Count; i < count; i++) {
+                if(m_Components[i].GameLevel == 3 && m_Components[i].State != PuzzleState.Complete)
+				{
+					Done = false;
+				}
+            }
+			
+			if(Done && !TriggeredLevelThreePuzzlesDone) {
+				ScriptUtility.Trigger("LevelThreePuzzlesFinished");
+				TriggeredLevelThreePuzzlesDone = true;
+			}
 		}
 		
-		private void LevelFiveDone() {
-			ScriptUtility.Trigger("LevelFivePuzzlesFinished");
-			TriggeredLevelFivePuzzlesDone = true;
+		private void CheckLevelFiveDone() {
+			
+			bool Done = true;
+			
+			for (int i = 0, count = m_Components.Count; i < count; i++) {
+                if(m_Components[i].GameLevel == 5 && m_Components[i].State != PuzzleState.Complete)
+				{
+					Done = false;
+				}
+            }
+			
+			if(Done && !TriggeredLevelFivePuzzlesDone) {
+				ScriptUtility.Trigger("LevelFivePuzzlesFinished");
+				TriggeredLevelFivePuzzlesDone = true;
+			}
 		}
     }
 }

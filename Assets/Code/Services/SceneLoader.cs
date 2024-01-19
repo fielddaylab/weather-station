@@ -147,6 +147,64 @@ namespace WeatherStation {
 						}
 					}
 				}
+				
+				if(sceneArgs.Scene.path.Contains("Southeast"))
+				{
+					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					
+					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
+					{
+						rd.TemperatureSensorButtons1[i].SetActive(false);
+					}
+									
+					for(int i = 0; i < rd.TemperatureSensorButtons2.Count; ++i)
+					{
+						rd.TemperatureSensorButtons2[i].SetActive(false);
+					}
+					
+					for(int i = 0; i < rd.TemperatureSensorButtons3.Count; ++i)
+					{
+						rd.TemperatureSensorButtons3[i].SetActive(true);
+					}
+				}
+				else if(sceneArgs.Scene.path.Contains("Northwest"))
+				{
+					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					
+					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
+					{
+						rd.TemperatureSensorButtons1[i].SetActive(true);
+					}
+									
+					for(int i = 0; i < rd.TemperatureSensorButtons2.Count; ++i)
+					{
+						rd.TemperatureSensorButtons2[i].SetActive(false);
+					}
+					
+					for(int i = 0; i < rd.TemperatureSensorButtons3.Count; ++i)
+					{
+						rd.TemperatureSensorButtons3[i].SetActive(false);
+					}
+				}
+				else if(sceneArgs.Scene.path.Contains("South"))
+				{
+					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					
+					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
+					{
+						rd.TemperatureSensorButtons1[i].SetActive(false);
+					}
+									
+					for(int i = 0; i < rd.TemperatureSensorButtons2.Count; ++i)
+					{
+						rd.TemperatureSensorButtons2[i].SetActive(true);
+					}
+					
+					for(int i = 0; i < rd.TemperatureSensorButtons3.Count; ++i)
+					{
+						rd.TemperatureSensorButtons3[i].SetActive(false);
+					}
+				}
 			}
 		}
     }
