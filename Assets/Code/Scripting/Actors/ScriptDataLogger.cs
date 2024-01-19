@@ -43,6 +43,18 @@ namespace WeatherStation.Scripting {
 			return false;
 		}
 		
+		[LeafMember("DoorWasGrabbed"), Preserve]
+		static bool DoorWasGrabbed(StringHash32 id) {
+			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
+				ScriptDataLogger sb = ((ScriptObject)act).gameObject.GetComponent<ScriptDataLogger>();
+				if(sb != null) {
+					return sb.WasGrabbed();
+				}
+			}
+			
+			return false;
+		}
+		
         #endregion // Leaf
 		
     }

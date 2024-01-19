@@ -36,6 +36,19 @@ namespace WeatherStation.Scripting {
 		
 		public bool IsAlmostComplete() { return m_Puzzle.IsAlmostComplete(); }
 
+
+        [LeafMember("PuzzleIsComplete"), Preserve]
+        static bool PuzzleIsComplete(StringHash32 id) {
+			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
+				ScriptPuzzle sp = ((ScriptObject)act).gameObject.GetComponent<ScriptPuzzle>();
+				if(sp != null) {
+					return sp.IsComplete();
+				}
+			}
+			
+			return false;
+		}
+		
         [LeafMember("PuzzleIsNotComplete"), Preserve]
         static bool PuzzleIsNotComplete(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {

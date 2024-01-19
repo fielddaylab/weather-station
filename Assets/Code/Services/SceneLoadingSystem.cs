@@ -34,7 +34,9 @@ namespace WeatherStation {
 
 			//temp
 			if(data.LeftHand.Released(VRControllerButtons.Secondary) || Input.GetKeyDown(KeyCode.S)) {
+				
 				m_State.SwitchScenes();
+				
 				if(CurrentSceneIndex == 0)
 				{
 					ScriptUtility.Trigger("LevelOneFinished");
@@ -54,12 +56,18 @@ namespace WeatherStation {
 				{
 					ScriptUtility.Trigger("LevelFourFinished");
 					CurrentSceneIndex++;
+				}
+				else if(CurrentSceneIndex == 4)
+				{
+					ScriptUtility.Trigger("EpilogueReady");
+					CurrentSceneIndex++;
 					
-					if(CurrentSceneIndex == 4)
+					if(CurrentSceneIndex == 5)
 					{
 						CurrentSceneIndex = 0;
 					}
 				}
+				
 				data.LeftHand.PrevButtons = 0;
 			}
 
