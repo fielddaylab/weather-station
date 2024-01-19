@@ -12,7 +12,7 @@ $call argoHelpButton->SetButtonLocked(false)
 {@Alex} Station's a little beat up. Not too bad, considering how long we've been away.  But it looks like there's no power. $[alex_stations_a]
 {@Rae} We don't have time to mess around.  We've only got two hours of clear weather before I need to take off. You guys better boot up Argo. $[rae_we_dont]
 {@Alex} Do you see Argo on the tower? Press the red button to boot him up. $[alex_alright_matt]
-$while ButtonNotPressed(argo)
+$while HelpButtonNotPressed(argo)
 $call Wait(1)
 //$if ButtonNotPressed(argo)
 //{@Alex} Press Argo's red button to boot him up. $[alex_matt_press]

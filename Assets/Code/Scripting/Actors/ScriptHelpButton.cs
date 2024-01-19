@@ -43,8 +43,8 @@ namespace WeatherStation.Scripting {
 			}
 		}
 
-		[LeafMember("ButtonNotPressed"), Preserve]
-		static bool ButtonNotPressed(StringHash32 id) {
+		[LeafMember("HelpButtonNotPressed"), Preserve]
+		static bool HelpButtonNotPressed(StringHash32 id) {
 			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
 				ScriptButton sb = ((ScriptObject)act).gameObject.GetComponent<ScriptButton>();
 				if(sb != null) {
