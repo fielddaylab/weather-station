@@ -806,15 +806,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3417769279104438650, guid: 313483ea2997c416eb803ec0bcdbca05,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1476842457}
-    - targetCorrespondingSourceObject: {fileID: 3417769279104438650, guid: 313483ea2997c416eb803ec0bcdbca05,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1476842456}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 313483ea2997c416eb803ec0bcdbca05, type: 3}
 --- !u!4 &243166756 stripped
 Transform:
@@ -2263,52 +2255,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc837bd0b57681642a00d30230f9643a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1476842455 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3417769279104438650, guid: 313483ea2997c416eb803ec0bcdbca05,
+--- !u!114 &1476842456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7581095198873666962, guid: 313483ea2997c416eb803ec0bcdbca05,
     type: 3}
   m_PrefabInstance: {fileID: 243166755}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1476842456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476842455}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc837bd0b57681642a00d30230f9643a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SocketType: 256
---- !u!54 &1476842457
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476842455}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!23 &1620156977 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 1204003753985572852, guid: ac258cd2bb0e1464fb1321702c3e7190,
@@ -3509,11 +3467,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226012368727774595, guid: 4a7dad240dec4e84ba06601d3adbddb6,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.361
       objectReference: {fileID: 0}
     - target: {fileID: 7226012368727774595, guid: 4a7dad240dec4e84ba06601d3adbddb6,
         type: 3}

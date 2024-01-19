@@ -22,7 +22,6 @@ $call rightPanelHandle->PlayFX()
 $call rightPanelHandle->ShowHighlight()
 $call rightPanelHandle->SetGrabbable(true)
 $call rightPanelHandle->PlaySound()
-$call leftPanelHandle->PlayFX()
 $call leftPanelHandle->SetGrabbable(true)
 $call leftPanelHandle->PlaySound()
 $call argoHelpButton->SetCurrentClip(21)
@@ -78,8 +77,6 @@ $while PuzzleIsNotComplete(solarPanel)
 $call Wait(1)
 $endwhile
 
-$call leftPanelHandle->StopFX()
-$call leftPanelHandle->SetGrabbable(false)
 $call leftPanelHandle->StopSound()
 $call rightPanelHandle->StopFX()
 $call rightPanelHandle->StopHighlight()
@@ -102,8 +99,6 @@ $call loggerPieceFour->StopHighlight()
 $call loggerPieceFive->StopHighlight()
 $call loggerPieceSix->StopHighlight()
 
-$call leftPanelHandle->StopFX()
-$call leftPanelHandle->SetGrabbable(false)
 $call leftPanelHandle->StopSound()
 $call rightPanelHandle->StopFX()
 $call rightPanelHandle->StopHighlight()
@@ -148,7 +143,7 @@ $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
 $call batteryBase->StopSound()
 
-$while NotIsSocketed(windSensorSled)
+$while NotIsSocketed(snowSledSocket)
 $call Wait(1)
 $endwhile
 
@@ -172,7 +167,7 @@ $call snowSledSocket->StopFX()
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
 $call snowSensor->StopSound()
-$while NotIsSocketed(windSensorSled)
+$while NotIsSocketed(batterySledSocket)
 $call Wait(1)
 $endwhile
 $endif
