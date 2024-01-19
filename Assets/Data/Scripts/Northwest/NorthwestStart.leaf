@@ -11,7 +11,7 @@ $call fader->FadeIn(10.0, 5.0)
 {@Argo} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
 {@Rae} Morning, ARGO. $[morning_argo]
 {@Alex} Um… hi. I’m here, too. $[um_hi_im]
-{@Mission Control} Otter Three, We can give you a four-hour window, Wind gusts up to 20 knots are expected later today. $[otter_three_we]
+{@MissionControl} Otter Three, We can give you a four-hour window, Wind gusts up to 20 knots are expected later today. $[otter_three_we]
 {@Rae} Ha. 20 knots? Easy peasy. I could fly through that with my eyes closed. $[ha_twenty_knots]
 {@Alex} Um… eyes open would be better, if you don’t mind. Argo, what’s the status of the station?  $[um_eyes_open]
 {@Argo} Scanning… scanning…  The damage is not too bad!  Just a broken, battery, data logger, and sensor! $[scanning_scanning_the]
@@ -431,7 +431,7 @@ $call batteryBase->PlayFX()
 
 {@Argo} Now we just need to put the battery and the sensor back on the tower. $[now_we_just]
 
-{@Mission Control} Be advised, Otter Three, wind gusts are now predicted to reach thirty knots $[be_advised_otter]
+{@MissionControl} Be advised, Otter Three, wind gusts are now predicted to reach thirty knots $[be_advised_otter]
 {@Rae} Acknowledged $[acknowledged_acknowledged_acknowledged]
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
@@ -472,7 +472,7 @@ $call snowTowerSocket->StopHighlight()
 $call snowTowerSocket->StopFX()
 
 {@Argo} Nice work partner! $[nice_work_partner]
-{@Mission Control} Come in, Otter Three. Wind speeds are starting to pick up at your coordinates. Better pick up the pace. $[come_in_otter]
+{@MissionControl} Come in, Otter Three. Wind speeds are starting to pick up at your coordinates. Better pick up the pace. $[come_in_otter]
 
 $call argoSled->PlayFX()
 $call argoSled->PlaySound()
