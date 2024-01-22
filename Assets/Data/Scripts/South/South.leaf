@@ -243,6 +243,23 @@ $call fader->FadeIn(3.0, 1.0)
 
 $call Wait(3)
 
+$call snowSensor->ShowHighlight()
+$call snowSensor->PlayFX()
+
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+
+$call windSensor->ShowHighlight()
+$call windSensor->PlayFX()
+
+$call batteryBay->ShowHighlight()
+$call batteryBay->PlayFX()
+
+$call windSensorBay->PlayFX()
+$call windSensorBay->ShowHighlight()
+
+$call snowSensorBay->PlayFX()
+
 {@MissionControl} Otter Three, storm is moving in faster than expected. You've only got about an hour left. $[storm_is_moving]
 
 {@Alex} We're working as fast as we can. $[were_working_as]

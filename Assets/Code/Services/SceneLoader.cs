@@ -148,7 +148,7 @@ namespace WeatherStation {
 					}
 				}
 				
-				if(sceneArgs.Scene.path.Contains("Southeast"))
+				if(sceneArgs.Scene.path.Contains("SouthEast"))
 				{
 					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
 					

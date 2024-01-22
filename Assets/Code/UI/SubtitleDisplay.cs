@@ -42,6 +42,8 @@ namespace WeatherStation {
 				CharacterLabel.SetText(charId.ToDebugString() + ":");
 			}
 			
+			//Debug.Log(Text.text);
+			
 			if(ForceExit) {
 				ForceExit = false;
 				yield return null;
@@ -76,7 +78,7 @@ namespace WeatherStation {
 			if(ClipDisplayLength == 0f) {
 				yield return inText.Length * 0.095f;
 			} else {
-				yield return ClipDisplayLength;
+				yield return Routine.Inline(TruncateLine(ClipDisplayLength / (float)Text.text.Length));//ClipDisplayLength;
 			}
         }
     }

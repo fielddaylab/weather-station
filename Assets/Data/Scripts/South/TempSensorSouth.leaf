@@ -5,17 +5,13 @@
 @evalPriority   100
 @once
 
-$call snowSensor->ShowHighlight()
-$call snowSensor->PlayFX()
-$call snowBaySocket->PlayFX()
-
 $while NotIsSocketed(snowBaySocket)
 $call Wait(1)
 $endwhile
 
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
-$call snowBaySocket->StopFX()
+$call snowSensorBay->StopFX()
 
 $call argoHelpButton->SetCurrentClip(32)
 
@@ -25,3 +21,6 @@ $if PuzzleIsAlmostComplete(snowPuzzle)
 $call argoHelpButton->SetCurrentClip(33)
 $endif
 $endwhile
+
+$call snowSensor->ShowHighlight()
+$call snowSensor->PlayFX()

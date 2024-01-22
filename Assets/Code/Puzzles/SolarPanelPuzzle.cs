@@ -74,7 +74,15 @@ namespace WeatherStation {
 					
 					if(!LockRoll) {
 						if(euler.x < 70f || euler.x > 290f) {
-							SolarPanel.transform.RotateAround(solarPanelPos, toRight, euler.x - LastEuler.x);
+							float fDiff = Mathf.Abs(euler.x - LastEuler.x);
+							if(fDiff > 0.2f)
+							{
+								SolarPanel.transform.RotateAround(solarPanelPos, toRight, euler.x - LastEuler.x);
+							}
+							else
+							{
+								SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
+							}
 						}
 					} else {
 						SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
@@ -123,9 +131,10 @@ namespace WeatherStation {
 				if(numToHighlight == cc-1) {
 					//Log.Msg("[SolarPanelPuzzle] completed solar panel puzzle.");
 					if(State != PuzzleState.Complete) {
-						ScriptPlugin.ForceKill = true;
-						StartCoroutine(SolarPanelComplete(1f));
-						
+						if(GameLevel == 1) {
+							ScriptPlugin.ForceKill = true;
+							StartCoroutine(SolarPanelComplete(1f));
+						}
 					}
 					State = PuzzleState.Complete;
 					return true;

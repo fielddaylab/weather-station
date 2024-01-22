@@ -83,7 +83,10 @@ namespace WeatherStation {
 						if(AfterButton.SensorMaterial.mainTexture == AfterButton.Solution)
 						{
 							AfterButton.SensorMaterial.mainTexture = AfterButton.SolutionTexture;
-							PrevButton.BayMaterial.color = GlowColor;
+							if(PrevButton != null)
+							{
+								PrevButton.BayMaterial.color = GlowColor;
+							}
 							AfterButton = AfterButton.NextButton;
 						}
 						else

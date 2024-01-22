@@ -5,10 +5,7 @@
 @evalPriority   100
 @once
 
-$call batteryBase->ShowHighlight()
-$call batteryBase->PlayFX()
-
-$while NotWasGrabbed(batteryBase)
+$while NotIsGrabbed(batteryBase)
 $call Wait(1)
 $endwhile
 
@@ -18,9 +15,6 @@ $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
 
 $if NotIsSocketed(batteryBaySocket)
-
-$call batteryBay->ShowHighlight()
-$call batteryBay->PlayFX()
 
 $while NotIsSocketed(batteryBaySocket)
 $call Wait(1)

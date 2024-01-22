@@ -5,6 +5,15 @@
 @evalPriority   100
 @once
 
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+
+
 $call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(34);
 
@@ -30,6 +39,21 @@ $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
+$call batterySledSocket->StopFX()
+$call windSledSocket->StopFX()
+
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+
+$call snowTowerSocket->ShowHighlight()
+$call snowTowerSocket->StartFX()
+
+$call batterySnowSocket->ShowHighlight()
+$call batterySnowSocket->StartFX()
+
+$call windSensorSocket->ShowHighlight()
+$call windSensorSocket->StartFX()
+
 {@Rae} Okay, dream team, I'm prepping the plane for take-off. How's it going out there? $[okay_dream_time]
 
 {@Alex} Just need to get everything back on the tower... give us a minute. $[just_need_to]
@@ -42,16 +66,6 @@ $call argoHelpButton->SetCurrentClip(35);
 
 {@Argo} Hmm. You poor humans… so easily damaged. It’s a good thing you have me to look out for you! $[hmm_you_poor]
 
-$call batterySledSocket->StopFX()
-
-$call snowTowerSocket->StartHighlight()
-$call snowTowerSocket->StartFX()
-
-$call batterySnowSocket->StartHighlight()
-$call batterySnowSocket->StartFX()
-
-$call windSensorSocket->StartHighlight()
-$call windSensorSocket->StartFX()
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
 $call Wait(1)

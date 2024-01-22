@@ -5,6 +5,24 @@
 @evalPriority   100
 @once
 
+
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$call batterySledSocket->StopFX()
+
+$call snowSledSocket->StopFX()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSensor->StopSound()
+
 {@MissionControl} Otter Three, we’ve got a situation. The storm is now heading your way. Abort mission. $[otter_three_weve]
 {@Rae} Ha! Called it! Alright, pack it up, we’re out of here. $[ha_called_it]
 {@Alex} Wait! This is our last repair of the season.  And this station is essential for our research... Mission Control, how risky would it be for us to stay here and keep working? $[wait_this_is]
@@ -12,6 +30,7 @@
 {@Alex} Okay. Rae, you should go.  We’re staying. Matt, put Captain chatterbox in the sled and let’s fix the tower, I’ll get shelter set up. $[okay_rae_you]
 {@Rae} Affirmative. I’ll try to come back for you tomorrow. $[affirmative_ill_try]
 
+$call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(34);
 
 $call argo->SetGrabbable(true)
@@ -37,6 +56,18 @@ $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
 {@Rae} Stay safe, I’ll be back tomorrow...I hope. $[stay_safe_ill]
+
+$call snowSensor->PlayFX()
+$call snowSensor->ShowHighlight()
+
+$call batteryBase->PlayFX()
+$call batteryBase->ShowHighlight()
+
+$call snowTowerSocket->ShowHighlight()
+$call snowTowerSocket->StartFX()
+
+$call batterySnowSocket->ShowHighlight()
+$call batterySnowSocket->StartFX()
 
 {@Alex} Wait, how are we going to test the connection without the repair unit here? $[wait_how_are]
 {@Argo} I can test the connection all on my own. $[i_can_test]

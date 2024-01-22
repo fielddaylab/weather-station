@@ -7,13 +7,6 @@
 
 $call trashChute->SetGrabbable(true)
 
-$call windSensor->ShowHighlight()
-$call windSensor->PlaySound()
-$call windSensor->PlayFX()
-$call windSensorBay->PlayFX()
-$call windSensorBay->PlaySound()
-$call windSensorBay->ShowHighlight()
-
 $if IsSocketed(windSensorSled)
 $while IsSocketed(windSensorSled)
 $call Wait(1)
