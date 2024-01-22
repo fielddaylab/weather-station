@@ -42,6 +42,14 @@ namespace WeatherStation.Scripting {
 				argo.SetCurrentClip(clipIndex);
 			}
 		}
+		
+		[LeafMember("SetEndClip"), Preserve]
+		public void SetEndClip(int clipIndex) {
+			ArgoFun argo = Game.SharedState.Get<ArgoFun>();
+			if(argo != null) {
+				argo.SetEndClip(clipIndex);
+			}
+		}
 
         #endregion // Leaf
 		

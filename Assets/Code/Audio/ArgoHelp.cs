@@ -44,6 +44,7 @@ public class ArgoHelp : SharedStateComponent {
 				ArgoAudio.Play();
 				//AudioSource.PlayClipAtPoint(m_ArgoHelpAudio[m_CurrentClip], transform.position);
 				if(m_SubTitles != null) {
+					m_SubTitles.ClipDisplayLength = m_ArgoHelpAudio[m_CurrentClip].length;
 					StartCoroutine(m_SubTitles.TypeLineString("Argo", m_ArgoHelpSubtitles[m_CurrentClip]));
 				}
 			}

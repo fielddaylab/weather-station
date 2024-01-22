@@ -17,6 +17,9 @@ $call fader->FadeIn(10.0, 5.0)
 {@Alex} Alright Matt, let's make your last repair of the season a good one! $[alright_matt_lets]
 
 $call argoHelpButton->SetButtonLocked(false)
+$call argoFunButton->SetButtonLocked(false)
+$call argoFunButton->SetCurrentClip(10)
+$call argoFunButton->SetCurrentClip(12)
 
 $call rightPanelHandle->PlayFX()
 $call rightPanelHandle->ShowHighlight()
@@ -224,3 +227,7 @@ $call levelLoader->LoadSoutheastBatteryPuzzle()
 
 {@Alex} Whatever happened to it never snows here? $[whatever_happened_to]
 {@Argo} Technically, I said snow here is exceedingly rare. $[technically_i_said]
+
+$call argoFunButton->SetButtonLocked(false)
+$call argoFunButton->SetCurrentClip(13)
+$call argoFunButton->SetCurrentClip(18)

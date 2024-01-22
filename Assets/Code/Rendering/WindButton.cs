@@ -14,7 +14,7 @@ namespace WeatherStation {
 		bool IsTesting = false;
 		
 		private PuzzleSocket BladeSocket = null;
-		private GameObject BrokenProp;
+		private Socketable BrokenProp;
 		
 		// Start is called before the first frame update
 		void Awake() {
@@ -36,7 +36,7 @@ namespace WeatherStation {
 				BladeSocket = transform.parent.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<PuzzleSocket>();
 				if(BladeSocket != null)
 				{
-					BrokenProp = BladeSocket.gameObject.transform.GetChild(0).GetChild(0).gameObject;
+					BrokenProp = BladeSocket.Current;
 				}
 			}
 		}

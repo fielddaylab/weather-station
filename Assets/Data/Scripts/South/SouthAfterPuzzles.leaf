@@ -9,10 +9,23 @@ $while NotIsSocketed(batterySledSocket)
 $call Wait(1)
 $endwhile
 
+$call batterySledSocket->StopFX()
+
 $while NotIsSocketed(snowSledSocket)
 $call Wait(1)
 $endwhile
 
+$call snowSledSocket->StopFX()
+
+$if NotIsSocketed(windSensorSled)
+$while NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$call windSensorSled->StopFX()
 
 $call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(34);
@@ -39,7 +52,7 @@ $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
-$call batterySledSocket->StopFX()
+
 $call windSledSocket->StopFX()
 
 $call batteryBase->ShowHighlight()

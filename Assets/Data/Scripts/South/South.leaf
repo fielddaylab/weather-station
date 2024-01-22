@@ -16,6 +16,10 @@ $call fader->FadeIn(10.0, 5.0)
 {@Argo} Status Report: We have a dead battery and a damaged wind sensor, data logger, and snow sensor. $[status_report_we]
 {@Rae} You guys better work fast. I can't take off in white-out conditions. If you're not back on the plane in time, I'll have to leave without you. $[you_guys_better]
 
+$call argoFunButton->SetButtonLocked(false)
+$call argoFunButton->SetCurrentClip(0)
+$call argoFunButton->SetEndClip(7)
+
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 
 $call argoHelpButton->SetCurrentClip(20)
@@ -263,6 +267,10 @@ $call snowSensorBay->PlayFX()
 {@MissionControl} Otter Three, storm is moving in faster than expected. You've only got about an hour left. $[storm_is_moving]
 
 {@Alex} We're working as fast as we can. $[were_working_as]
+
+$call argoFunButton->SetButtonLocked(false)
+$call argoFunButton->SetCurrentClip(7)
+$call argoFunButton->SetEndClip(9)
 
 $call levelLoader->LoadSouthTempPuzzle()
 $call levelLoader->LoadSouthWindPuzzle()
