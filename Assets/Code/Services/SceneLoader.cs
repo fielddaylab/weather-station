@@ -12,8 +12,6 @@ namespace WeatherStation {
 
     public class SceneLoader : SharedStateComponent {
         #region Inspector
-        public GameObject Root;
-        public string InteriorScene = "";
 
 		public Material MapMaterial;
 		

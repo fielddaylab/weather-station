@@ -6,6 +6,7 @@ using FieldDay.Scripting;
 using Leaf.Runtime;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.Scripting;
 
@@ -15,6 +16,8 @@ public class ArgoHelp : SharedStateComponent {
 
 	public List<AudioClip> m_ArgoHelpAudio = new List<AudioClip>(64);
 	public List<string> m_ArgoHelpSubtitles = new List<string> (64);
+	
+	[NonSerialized] public bool HelpIsPlaying = false;
 	
 	[SerializeField] private PuzzleButton m_Button;
 	[SerializeField] private SubtitleDisplay m_SubTitles;
@@ -32,7 +35,10 @@ public class ArgoHelp : SharedStateComponent {
 	
     // Update is called once per frame
     public void UpdateStates() {
-		
+		if(!ArgoAudio.isPlaying)
+		{
+			HelpIsPlaying = false;
+		}
 	}
 	
 	public void ArgoHelpPressed() {
@@ -42,6 +48,7 @@ public class ArgoHelp : SharedStateComponent {
 				ArgoAudio.Stop();
 				ArgoAudio.clip = m_ArgoHelpAudio[m_CurrentClip];
 				ArgoAudio.Play();
+				HelpIsPlaying = true;
 				//AudioSource.PlayClipAtPoint(m_ArgoHelpAudio[m_CurrentClip], transform.position);
 				if(m_SubTitles != null) {
 					m_SubTitles.ClipDisplayLength = m_ArgoHelpAudio[m_CurrentClip].length;

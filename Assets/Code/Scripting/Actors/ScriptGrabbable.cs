@@ -30,10 +30,32 @@ namespace WeatherStation.Scripting {
 		public bool WasGrabbed() { return m_Grabbable.WasGrabbed; }
 		public bool IsGrabbed() { return m_Grabbable.CurrentGrabberCount > 0; }
         
+		public bool IsSocketed() {
+			Socketable s = m_Grabbable.gameObject.GetComponent<Socketable>();
+			if(s != null) {
+				return (s.CurrentSocket != null);
+			}
+			
+			return false;
+		}
+		
 		[LeafMember("SetGrabbable"), Preserve]
         public void SetGrabbable(bool grabParam) {
 			m_Grabbable.GrabEnabled = grabParam;
         }
+		 
+		
+		[LeafMember("IsGrabbableSocketed"), Preserve]
+		static public bool IsGrabbableSocketed(StringHash32 id) {
+			if (!id.IsEmpty && ScriptUtility.Runtime.NamedActors.TryGetValue(id, out ILeafActor act)) {
+				ScriptGrabbable sg = ((ScriptObject)act).gameObject.GetComponent<ScriptGrabbable>();
+				if(sg != null) {
+					return sg.IsSocketed();
+				}
+			}
+			
+			return false;
+		}
 		
 		[LeafMember("NotIsGrabbed"), Preserve]
 		static public bool NotIsGrabbed(StringHash32 id) {

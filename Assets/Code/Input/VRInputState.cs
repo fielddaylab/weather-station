@@ -52,6 +52,14 @@ namespace WeatherStation {
         public bool Holding(VRControllerButtons buttons) {
             return (Buttons & buttons) != 0;
         }
+		
+		public bool AxisTiltedLeft() {
+			return Axis.Stick.x < -0.2f;
+		}
+		
+		public bool AxisTiltedRight() {
+			return Axis.Stick.x > 0.2f;
+		}
     }
 
     [Flags]

@@ -17,6 +17,7 @@ namespace WeatherStation {
 		public List<string> m_ArgoFunSubtitles = new List<string> (64);
 		public List<string> m_ArgoSpeaker = new List<string> (64);
 		
+		[SerializeField] private ArgoHelp m_ArgoHelp;
 		[SerializeField] private PuzzleButton m_Button;
 		[SerializeField] private SubtitleDisplay m_SubTitles;
 		
@@ -40,7 +41,7 @@ namespace WeatherStation {
 		
 		public void ArgoFunPressed() {
 			
-			if(!m_Button.Locked && m_Button.WasPressed) {
+			if(!m_Button.Locked && m_Button.WasPressed && !m_ArgoHelp.HelpIsPlaying) {
 				
 				if(m_CurrentClip != -1 && m_EndCurrentClip != -1) {
 					//Debug.Log("Fun pressed");

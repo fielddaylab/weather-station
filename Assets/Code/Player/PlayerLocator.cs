@@ -39,13 +39,14 @@ namespace WeatherStation {
 		#endregion //
 		
 		private Camera MainCamera = null;	//temp hack for playing music...
+		private GameObject HeadRoot = null;
 		private bool IsInside = false;
 		private bool IsTeleporting = false;
 
 		private void Awake() {
 
 			MainCamera = Camera.main;
-			
+			HeadRoot = transform.GetChild(0).gameObject;
 			StartCoroutine("InitialAlignment");
 		}
 		
@@ -58,6 +59,12 @@ namespace WeatherStation {
 		public void SocketArgoOutside()
 		{
 			SocketUtility.TryAddToSocket(ArgoOutsideSocket, Argo, false);
+		}
+		
+		public void RotatePlayer(bool left)
+		{
+			//rotate the player from their current y-orientation left or right 30 degrees...
+			transform.RotateAround(HeadRoot.transform.position, Vector3.up, left ? -30f : 30f);
 		}
 		
 		public void StartTeleportCountdown(Socketable s) {
@@ -160,7 +167,7 @@ namespace WeatherStation {
 				headPos.y = 0f;
 				
 				transform.position = OutsideLocation.position - headPos;
-				transform.rotation = qInv;
+				//transform.rotation = qInv;
 				
 				Sled.transform.position = SledOutsideLocation.transform.position;
 				Sled.transform.rotation = SledOutsideLocation.transform.rotation;
@@ -214,7 +221,7 @@ namespace WeatherStation {
 				headPos.y = 0f;
 				
 				transform.position = InsideLocation.position - headPos;
-				transform.rotation = qInv;
+				//transform.rotation = qInv;
 				
 				Sled.transform.position = SledInsideLocation.transform.position;
 				Sled.transform.rotation = SledInsideLocation.transform.rotation;
