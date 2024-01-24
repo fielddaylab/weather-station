@@ -31,7 +31,7 @@ namespace WeatherStation {
 			
         void Start() {
 			Game.Scenes.OnSceneReady.Register(SceneIsReady);
-            Game.Scenes.LoadAuxScene(SceneList[0], "Additional");
+            Game.Scenes.LoadAuxScene(SceneList[0], "Additional", null, SceneImportFlags.ImportLightingSettings);
         }
 
         public void UpdateStates() {
@@ -86,7 +86,7 @@ namespace WeatherStation {
 				int nextIndex = CurrentSceneIndex+1;
 				nextIndex = nextIndex % SceneList.Count;
                 Game.Scenes.UnloadScene(SceneList[CurrentSceneIndex]);
-                Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional");
+                Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional", null, SceneImportFlags.ImportLightingSettings);
                 CurrentSceneIndex = nextIndex;
 				if(MapMaterial != null) {
 					MapMaterial.mainTexture = MapTextures[nextIndex];

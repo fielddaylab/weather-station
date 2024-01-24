@@ -198,6 +198,10 @@ namespace FieldDay.Scenes {
 
         #region Aux Load
 
+        public void LoadAuxScene(string scenePath, StringHash32 tag, Matrix4x4? transformBy = null, SceneImportFlags flags=0) {
+            QueueSceneLoadInternal(scenePath, tag, SceneType.Aux, flags, null, SceneLoadPriority.Default);
+        }
+
         public void LoadAuxScene(string scenePath, StringHash32 tag, Matrix4x4? transformBy = null) {
             QueueSceneLoadInternal(scenePath, tag, SceneType.Aux, 0, transformBy, SceneLoadPriority.Default);
         }
@@ -205,6 +209,7 @@ namespace FieldDay.Scenes {
         public void LoadAuxScene(SceneReference scene, StringHash32 tag, Matrix4x4? transformBy = null) {
             QueueSceneLoadInternal(scene.Path, tag, SceneType.Aux, 0, transformBy, SceneLoadPriority.Default);
         }
+
 
         #endregion // Aux Load
 
