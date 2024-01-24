@@ -39,7 +39,9 @@ namespace WeatherStation {
         [NonSerialized] public Quaternion OriginalRotation;
         [NonSerialized] public Transform OriginalParent;
         [NonSerialized] public ItemSocket OriginalSocket;
-
+		
+		[NonSerialized] public Vector3 LastPosition = Vector3.zero;
+		
         public readonly CastableEvent<Grabber> OnGrabbed = new CastableEvent<Grabber>();
         public readonly CastableEvent<Grabber> OnReleased = new CastableEvent<Grabber>();
 
@@ -275,8 +277,8 @@ namespace WeatherStation {
                         anchor = connected.transform.TransformPoint(anchor);
                         Vector3 velocity = grabber.CachedRB.velocity;
 
-                        connected.AddForceAtPosition(Vector3.up * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
-                    }
+                        connected.AddForceAtPosition((grabbable.gameObject.transform.position - grabbable.LastPosition) * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
+                    } 
                 }
 			} else {
 				GrabPoseOn(otherGrabPose, grabbable);

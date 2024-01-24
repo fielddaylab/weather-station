@@ -5,7 +5,6 @@
 @evalPriority   100
 @once
 
-
 $while NotIsSocketed(batterySledSocket)
 $call Wait(1)
 $endwhile
@@ -22,6 +21,9 @@ $call snowSledSocket->StopFX()
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
 $call snowSensor->StopSound()
+
+$call argoFunButton->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
 
 {@MissionControl} Otter Three, we’ve got a situation. The storm is now heading your way. Abort mission. $[otter_three_weve]
 {@Rae} Ha! Called it! Alright, pack it up, we’re out of here. $[ha_called_it]
@@ -55,7 +57,12 @@ $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
+$call argoHelpButton->SetButtonLocked(true)
+
 {@Rae} Stay safe, I’ll be back tomorrow...I hope. $[stay_safe_ill]
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(35);
 
 $call snowSensor->PlayFX()
 $call snowSensor->ShowHighlight()
@@ -74,7 +81,7 @@ $call batterySnowSocket->StartFX()
 {@Alex} Wow really? I never thought I’d say this Argo.. I’m... impressed. $[wow_really_i]
 {@Argo} Well, I am very impressive. $[well_i_am]
 
-$call argoHelpButton->SetCurrentClip(35);
+
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
 $call Wait(1)
@@ -112,6 +119,9 @@ $call snowSensor->StopFX()
 $call snowSensor->StopHighlight()
 $call snowTowerSocket->StopHighlight()
 $call snowTowerSocket->StopFX()
+
+$call argoHelpButton->SetButtonLocked(true)
+$call argoFunButton->SetButtonLocked(true)
 
 {@Alex} Okay. Moment of truth. ARGO, how did we do? $[okay_moment_of]
 {@Argo} The station is transmitting! All sensors are back online. $[the_station_is]

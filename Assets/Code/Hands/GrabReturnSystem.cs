@@ -24,6 +24,8 @@ namespace WeatherStation {
             } else if(component.transform.position.y < -30f) {
 				StartCoroutine(WaitToReturn(component, 0f));
 			}
+			
+			component.LastPosition = component.transform.position;
         }
 
         public void CollisionHitFloor(Collision c) {

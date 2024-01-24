@@ -9,6 +9,9 @@ $call Wait(1)
 
 $call fader->FadeIn(10.0, 5.0)
 
+$call argoFunButton->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
+
 {@Alex} Those clouds don't look so good. $[those_clouds_dont]
 {@MissionControl} Be advised Otter Three, We've got our eye on a storm front heading your way. $[weve_got_our]
 
@@ -263,6 +266,9 @@ $call windSensorBay->PlayFX()
 $call windSensorBay->ShowHighlight()
 
 $call snowSensorBay->PlayFX()
+
+$call argoHelpButton->SetButtonLocked(true)
+$call argoFunButton->SetButtonLocked(true)
 
 {@MissionControl} Otter Three, storm is moving in faster than expected. You've only got about an hour left. $[storm_is_moving]
 

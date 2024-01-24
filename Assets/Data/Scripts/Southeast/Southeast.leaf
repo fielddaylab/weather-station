@@ -9,6 +9,9 @@ $call Wait(1)
 
 $call fader->FadeIn(10.0, 5.0)
 
+$call argoFunButton->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
+
 {@Rae} Wow the weather doesn't look great here either... $[wow_the_weather]
 {@Argo} Not to worry, Rae. The McMurdo Dry Valley is one of the most extreme deserts in the world. Snow here is exceedingly rare. $[not_to_worry]
 {@MissionControl} Status update, Otter Three $[status_update_otter]
@@ -17,6 +20,7 @@ $call fader->FadeIn(10.0, 5.0)
 {@Alex} Alright Matt, let's make your last repair of the season a good one! $[alright_matt_lets]
 
 $call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(21)
 $call argoFunButton->SetButtonLocked(false)
 $call argoFunButton->SetCurrentClip(10)
 $call argoFunButton->SetCurrentClip(12)
@@ -27,8 +31,6 @@ $call rightPanelHandle->SetGrabbable(true)
 $call rightPanelHandle->PlaySound()
 $call leftPanelHandle->SetGrabbable(true)
 $call leftPanelHandle->PlaySound()
-$call argoHelpButton->SetCurrentClip(21)
-
 
 $if DoorWasNotGrabbed(dataLoggerDoor)
 $call dataLoggerDoor->ShowHighlight()
@@ -37,6 +39,7 @@ $endif
 $while PuzzleIsNotComplete(dataLoggerPuzzle), PuzzleIsNotComplete(solarPanel)
 
 $if DoorWasGrabbed(dataLoggerDoor)
+
 $call argoHelpButton->SetCurrentClip(20)
 $call dataLoggerDoor->StopHighlight()
 $call loggerPieceOne->ShowHighlight()
@@ -88,7 +91,7 @@ $call rightPanelHandle->StopSound()
 $endif
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
-
+$call argoHelpButton->SetCurrentClip(20)
 $while PuzzleIsNotComplete(dataLoggerPuzzle)
 $call Wait(1)
 $endwhile
@@ -217,10 +220,14 @@ $call fader->FadeIn(3.0, 1.0)
 
 $call Wait(3)
 
-$call argoHelpButton->SetCurrentClip(24)
+$call argoFunButton->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
 
 {@MissionControl} Otter Three, we’re tracking a storm system.  Stand by for updates. $[otter_three_were]
 {@Rae} Guys, be ready to leave fast.  I've got a bad feeling about this one.  $[guys_be_ready]
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(24)
 
 $call levelLoader->LoadSoutheastTempPuzzle()
 $call levelLoader->LoadSoutheastBatteryPuzzle()
