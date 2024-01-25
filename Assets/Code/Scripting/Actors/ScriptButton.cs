@@ -35,6 +35,11 @@ namespace WeatherStation.Scripting {
 			m_Button.Locked = lockParam;
         }
 		
+		[LeafMember("SetButtonPressed"), Preserve]
+        public void SetButtonPressed(bool pressed) {
+			m_Button.WasPressed = pressed;
+        }
+		
 		[LeafMember("SetCurrentClip"), Preserve]
 		public void SetCurrentClip(int clipIndex) {
 			ArgoHelp argo = Game.SharedState.Get<ArgoHelp>();
@@ -66,6 +71,7 @@ namespace WeatherStation.Scripting {
 			
 			return false;
 		}
+		
         #endregion // Leaf
 		
     }

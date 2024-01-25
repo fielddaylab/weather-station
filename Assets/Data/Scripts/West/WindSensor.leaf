@@ -218,17 +218,18 @@ $endwhile
 $call argoHelpButton->SetButtonLocked(true)
 $endif
 
-$call windSensorButton->StopHighlight()
-$call windSensorButton->StopFX()
-
 $call Wait(1)
 
 $if IsNotMatched(windSensorBladeSocket)
 {@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
 $call argoHelpButton->SetCurrentClip(11)
-$endif
-
-$if IsMatched(windSensorBladeSocket)
+$call windSensorButton->SetButtonPressed(false)
+$else
+$while ButtonNotPressed(windSensorButton)
+$call Wait(1)
+$endwhile
+$call windSensorButton->StopHighlight()
+$call windSensorButton->StopFX()
 $call windSensorPuzzle->SetTestSuccess(true)
 $endif
 

@@ -71,7 +71,7 @@ namespace WeatherStation {
 						if(!IsTesting) {
 							//Debug.Log("Testing broken");
 							IsTesting = true;
-							BladeSocket.Locked = true;
+							//BladeSocket.Locked = true;
 							//rotate a bit, then have it detach and fall..
 							StartCoroutine(RotateAndFall(BladeSocket, BladeSocket.Current, 5f));
 						}
@@ -83,7 +83,7 @@ namespace WeatherStation {
 						if(!IsTesting) {
 							//Debug.Log("Testing wrong");
 							IsTesting = true;
-							BladeSocket.Locked = true;
+							//BladeSocket.Locked = true;
 							//rotate a bit, then have it detach and fall..
 							StartCoroutine(RotateAndFail(BladeSocket, BladeSocket.Current, 10f));
 						}
@@ -113,7 +113,7 @@ namespace WeatherStation {
                 t += Time.deltaTime;
             }
 
-			Socket.Locked = false;
+			//Socket.Locked = false;
 			
             //unsocket and have it fall to the ground...
 			SocketUtility.TryReleaseFromCurrentSocket(socket.Current, true);
@@ -141,11 +141,11 @@ namespace WeatherStation {
 			Socket.Locked = false;
 			
             //unsocket and have it fall to the ground...
-			SocketUtility.TryReleaseFromCurrentSocket(Socket.Current, true);
+			SocketUtility.TryReleaseFromCurrentSocket(socket.Current, true);
 			
 			TestButton.Untoggle();
 			
-			Socket.Locked = false;
+			//Socket.Locked = false;
 			IsTesting = false;
 			IsStopped = false;
         }
@@ -168,6 +168,8 @@ namespace WeatherStation {
             }
 			
 			TestButton.Untoggle();
+			
+			Socket.Locked = false;
 			
 			IsTesting = false;
 			IsStopped = false;

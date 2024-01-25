@@ -167,7 +167,7 @@ namespace WeatherStation {
 				headPos.y = 0f;
 				
 				transform.position = OutsideLocation.position - headPos;
-				//transform.rotation = qInv;
+				transform.rotation = qInv;
 				
 				Sled.transform.position = SledOutsideLocation.transform.position;
 				Sled.transform.rotation = SledOutsideLocation.transform.rotation;
@@ -205,9 +205,9 @@ namespace WeatherStation {
 				Quaternion localHead = transform.GetChild(0).transform.localRotation;
 				headPos.y = 0f;
 				
-				transform.position = InsideLocation.position - (InsideLocation.rotation * Quaternion.Inverse(localHead)) * headPos;
+				//transform.position = InsideLocation.position - (InsideLocation.rotation * Quaternion.Inverse(localHead)) * headPos;
 				
-				transform.rotation = InsideLocation.rotation * Quaternion.Inverse(localHead);
+				//transform.rotation = InsideLocation.rotation * Quaternion.Inverse(localHead);
 				
 				//zero out the x and z rotation in case user had head tilted at point of transport
 				Quaternion qInv = (InsideLocation.rotation * Quaternion.Inverse(localHead));
@@ -221,7 +221,7 @@ namespace WeatherStation {
 				headPos.y = 0f;
 				
 				transform.position = InsideLocation.position - headPos;
-				//transform.rotation = qInv;
+				transform.rotation = qInv;
 				
 				Sled.transform.position = SledInsideLocation.transform.position;
 				Sled.transform.rotation = SledInsideLocation.transform.rotation;

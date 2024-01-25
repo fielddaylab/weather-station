@@ -374,6 +374,8 @@ $endwhile
 $call batteryTwo->StopHighlight()
 $call batteryTwo->StopFX()
 $call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
 
 {@Argo} Ok, all we have left is the temperature sensor. See if you can recalibrate it by completing the signal sequence $[ok_all_we]
 
@@ -510,6 +512,7 @@ $call argoHelpButton->SetButtonLocked(true)
 
 $call uplinkButton->StopHighlight()
 $call uplinkButton->StopFX()
+$call uplinkButton->SetButtonPressed(false)
 
 $call map->NextTexture()
 
@@ -523,5 +526,7 @@ $call map->NextTexture()
 {@Rae} Ok Mission Control, the Tower is transmitting, we’re outta here! $[ok_mission_control]
 
 $call fader->FadeOut(10.0)
-$call Wait(4)
+$call Wait(10)
+$call playerLocation->Teleport()
+$call Wait(2)
 $call levelLoader->LoadSouth()

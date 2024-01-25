@@ -49,7 +49,7 @@ namespace WeatherStation {
 			//PairedMaterials[PairedMaterials.Count-1].color = GlowColor;
 			if(State != PuzzleState.Complete)
 			{
-				Debug.Log("Completed Temperature Sensor Puzzle!");
+				//Debug.Log("Completed Temperature Sensor Puzzle!");
 				State = PuzzleState.Complete;
 			}
 
