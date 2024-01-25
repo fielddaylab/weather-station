@@ -156,7 +156,10 @@ namespace FieldDay.Scripting {
                 eventHandler = overrideHandler;
             }
 
+			
+			
             if (!voiceoverLineCode.IsEmpty) {
+				
                 AudioClip clip = null;
                 while (!VoiceoverUtility.TryGetClip(voiceoverLineCode, out clip)) {
                     yield return null;
@@ -174,7 +177,10 @@ namespace FieldDay.Scripting {
                     } else {
 					    AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
                     }
-					((SubtitleDisplay)m_TextDisplayer).ClipDisplayLength = clip.length;
+					
+					if(((SubtitleDisplay)m_TextDisplayer).SubtitlesOn) {
+						((SubtitleDisplay)m_TextDisplayer).ClipDisplayLength = clip.length;
+					}
 				}
             }
 
@@ -198,10 +204,17 @@ namespace FieldDay.Scripting {
                     //    yield return Routine.Inline(m_TextDisplayer.TypeLine(eventString, node.Text));
                     //    break;
                     case TagNodeType.Text: {
-						List<IEnumerator> routineList = new List<IEnumerator>();
-						routineList.Add(m_TextDisplayer.TypeLine(eventString, node.Text));
-						routineList.Add(Routine.WaitCondition(ForceVOSkip));
-						yield return Routine.Race(routineList);
+						if(((SubtitleDisplay)m_TextDisplayer).SubtitlesOn) {
+							List<IEnumerator> routineList = new List<IEnumerator>(2);
+							routineList.Add(m_TextDisplayer.TypeLine(eventString, node.Text));
+							routineList.Add(Routine.WaitCondition(ForceVOSkip));
+							yield return Routine.Race(routineList);
+						} else {
+							List<IEnumerator> routineList = new List<IEnumerator>(2);
+							routineList.Add(RoutineShortcuts.WaitToComplete(voiceCharacter.GetComponent<AudioSource>()));
+							routineList.Add(Routine.WaitCondition(ForceVOSkip));
+							yield return Routine.Race(routineList);
+						}
 						
 						//if should skip vo fails passes here, turn off audio...
 						if(ForceVOSkipSet || ForceKill) {
@@ -215,10 +228,12 @@ namespace FieldDay.Scripting {
 					}
                 }
             }
-
-            if (eventString.RichText.Length > 0) {
-                yield return m_TextDisplayer.CompleteLine();
-            }
+			
+			if(((SubtitleDisplay)m_TextDisplayer).SubtitlesOn) {
+				if (eventString.RichText.Length > 0) {
+					yield return m_TextDisplayer.CompleteLine();
+				}
+			}
 
             yield return Routine.Command.BreakAndResume;
         }

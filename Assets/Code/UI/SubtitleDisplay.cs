@@ -11,11 +11,11 @@ using UnityEngine;
 
 namespace WeatherStation {
     public class SubtitleDisplay : MonoBehaviour, ITextDisplayer {
-        public TMP_Text CharacterLabel;
+        public bool SubtitlesOn = true;
+		public TMP_Text CharacterLabel;
         public TMP_Text Text;
 		
 		[NonSerialized] public bool ForceExit = false;
-		
 		[NonSerialized] public float ClipDisplayLength = 0f;
 		
         private void Start() {
@@ -28,6 +28,12 @@ namespace WeatherStation {
             gameObject.SetActive(false);
 			CharacterLabel.gameObject.SetActive(false);
         }
+		
+		public void SetOn(bool on) {
+			SubtitlesOn = on;
+			gameObject.SetActive(SubtitlesOn);
+			CharacterLabel.gameObject.SetActive(SubtitlesOn);
+		}
 
         public TagStringEventHandler PrepareLine(TagString inString, TagStringEventHandler inBaseHandler) {
             Text.SetText(inString.RichText);

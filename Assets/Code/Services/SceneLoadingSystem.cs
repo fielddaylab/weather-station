@@ -30,6 +30,17 @@ namespace WeatherStation {
 				//m_State.SwitchScenes();
 				FieldDay.Scripting.ScriptPlugin.ForceVOSkipSet = true;
 				data.RightHand.PrevButtons = 0;
+			} else if(data.RightHand.Released(VRControllerButtons.Primary)) {
+				PlayerLocator player = Game.SharedState.Get<PlayerLocator>();
+				
+				SubtitleDisplay sd = player.gameObject.transform.GetChild(0).GetChild(5).GetComponent<SubtitleDisplay>();
+				if(sd != null) {
+					bool sdOn = sd.SubtitlesOn;
+					sdOn = !sdOn;
+					sd.SetOn(sdOn);
+				}
+				
+				data.RightHand.PrevButtons = 0;
 			}
 
 			//temp
