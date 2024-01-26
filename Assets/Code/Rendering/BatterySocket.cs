@@ -7,9 +7,16 @@ namespace WeatherStation {
 	{
 		[SerializeField] ItemSocket Socket;
 		
-		private GameObject BatteryCover;
+		[SerializeField] private GameObject BatteryCover;
 		// Start is called before the first frame update
 		void Awake() {
+			if(Socket != null) {
+				Socket.OnAdded.Register(LockBase);
+			}
+		}
+		
+		void OnEnable()
+		{
 			if(Socket != null) {
 				Socket.OnAdded.Register(LockBase);
 			}
@@ -39,7 +46,7 @@ namespace WeatherStation {
 		
 		private void LockBase(Socketable s) {
 			if(Socket) {
-				Socket.Locked = true;
+				Socket.Locked = true;	
 				BatteryCover = transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
 				if(BatteryCover != null) {
 					Animator CoverAnim = BatteryCover.GetComponent<Animator>();

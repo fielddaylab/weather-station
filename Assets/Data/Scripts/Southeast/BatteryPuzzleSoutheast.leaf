@@ -5,6 +5,22 @@
 @evalPriority   100
 @once
 
+$call batteryBase->SetWasGrabbed(false)
+$call batteryOne->SetWasGrabbed(false)
+$call batteryTwo->SetWasGrabbed(false)
+$call batteryThree->SetWasGrabbed(false)
+$call batteryOneThree->SetWasGrabbed(false)
+$call batteryTwoThree->SetWasGrabbed(false)
+$call batteryThreeThree->SetWasGrabbed(false)
+$call batteryOneThreeStag->SetWasGrabbed(false)
+$call batteryTwoThreeStag->SetWasGrabbed(false)
+$call batteryThreeThreeStag->SetWasGrabbed(false)
+
+$call cellOne->SetWasGrabbed(false)
+$call cellTwo->SetWasGrabbed(false)
+$call cellThree->SetWasGrabbed(false)
+$call cellFour->SetWasGrabbed(false)
+
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
 
@@ -180,6 +196,15 @@ $call Wait(1)
 //set argo help based on if something is grabbed...
 
 $endwhile
+
+$call cellOne->StopHighlight()
+$call cellOne->StopFX()
+$call cellTwo->StopHighlight()
+$call cellTwo->StopFX()
+$call cellThree->StopHighlight()
+$call cellThree->StopFX()
+$call cellFour->StopHighlight()
+$call cellFour->StopFX()
 
 $call batteryBaySocket->CloseCover();
 $call batteryBaySocket->SetLocked(false);

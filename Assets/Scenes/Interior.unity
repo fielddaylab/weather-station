@@ -863,12 +863,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 713909521}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &825764885 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1088575577647223158, guid: 3730f7b992114b645abd51f2fc7db4dc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1176573669}
-  m_PrefabAsset: {fileID: 0}
 --- !u!65 &981422192 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 4429311384263890368, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
@@ -911,7 +905,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1830525473}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 466051516320187418, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
@@ -946,17 +940,17 @@ PrefabInstance:
     - target: {fileID: 1088575577647223158, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.69
+      value: 34.163
       objectReference: {fileID: 0}
     - target: {fileID: 1088575577647223158, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.236
+      value: 1.234
       objectReference: {fileID: 0}
     - target: {fileID: 1088575577647223158, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.618
+      value: -0.37836468
       objectReference: {fileID: 0}
     - target: {fileID: 1088575577647223158, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
@@ -1003,6 +997,11 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 2514743866596854667, guid: 3730f7b992114b645abd51f2fc7db4dc,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2525822090845014720, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
       propertyPath: Locked
@@ -1047,6 +1046,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932958956534197132, guid: 3730f7b992114b645abd51f2fc7db4dc,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4019207622519256066, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
@@ -1132,6 +1136,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329462602038119063, guid: 3730f7b992114b645abd51f2fc7db4dc,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7661712836472769875, guid: 3730f7b992114b645abd51f2fc7db4dc,
         type: 3}
@@ -2105,7 +2114,6 @@ Transform:
   m_Children:
   - {fileID: 713909522}
   - {fileID: 2931970203654311181}
-  - {fileID: 825764885}
   - {fileID: 541382338}
   - {fileID: 3049902736785982107}
   - {fileID: 1889776807}
@@ -4336,4 +4344,5 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 199772054}
+  - {fileID: 1176573669}
   - {fileID: 1830525473}

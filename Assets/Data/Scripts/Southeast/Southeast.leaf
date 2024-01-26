@@ -9,6 +9,8 @@ $call Wait(1)
 
 $call fader->FadeIn(10.0, 5.0)
 
+$call argoTowerSocket->SetLocked(true)
+
 $call argoFunButton->SetButtonLocked(true)
 $call argoHelpButton->SetButtonLocked(true)
 

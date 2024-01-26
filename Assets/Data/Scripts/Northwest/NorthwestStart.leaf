@@ -7,6 +7,8 @@
 
 $call Wait(1)
 
+$call argoTowerSocket->SetLocked(true)
+
 $call fader->FadeIn(10.0, 5.0)
 {@Argo} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
 {@Rae} Morning, ARGO. $[morning_argo]
@@ -156,6 +158,9 @@ $call fader->FadeIn(3.0, 1.0)
 $call Wait(3)
 
 {@Argo} So, first things first, let’s get the battery box and sensor onto our workbench. $[so_first_things]
+
+$call snowSensor->SetWasGrabbed(false)
+$call batteryBase->SetWasGrabbed(false)
 
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()

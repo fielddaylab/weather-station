@@ -55,7 +55,8 @@ $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
-
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
 $call windSledSocket->StopFX()
 
 $call batteryBase->ShowHighlight()

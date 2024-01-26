@@ -6,6 +6,9 @@
 @once
 
 $call trashChute->SetGrabbable(true)
+$call propS->SetWasGrabbed(false)
+$call propM->SetWasGrabbed(false)
+$call propL->SetWasGrabbed(false)
 
 $if IsSocketed(windSensorSled)
 $while IsSocketed(windSensorSled)
