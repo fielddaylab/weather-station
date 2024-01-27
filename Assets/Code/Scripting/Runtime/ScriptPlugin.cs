@@ -22,8 +22,11 @@ namespace FieldDay.Scripting {
 		
 		static public bool ForceVOSkipSet = false;
 		static public bool ForceKill = false;
+		static public bool CompleteForceKill = false;
 		
-		public Func<bool> ForceVOSkip = new Func<bool>(() => (ForceVOSkipSet || ForceKill));
+		static public AudioSource LastAudioSource = null;
+		
+		public Func<bool> ForceVOSkip = new Func<bool>(() => (ForceVOSkipSet || ForceKill || CompleteForceKill));
 		
         public ScriptPlugin(ScriptRuntimeState inHost, CustomVariantResolver inResolver, IMethodCache inCache = null, LeafRuntimeConfiguration inConfiguration = null)
             : base(inHost, inResolver, inCache, inConfiguration) {
@@ -119,7 +122,15 @@ namespace FieldDay.Scripting {
         }
 		
         public override IEnumerator RunLine(LeafThreadState<ScriptNode> inThreadState, LeafLineInfo inLine) {
-            if (inLine.IsEmptyOrWhitespace)
+            
+			LeafThreadHandle handle = inThreadState.GetHandle();
+			
+			if(CompleteForceKill) {
+				CompleteForceKill = false;
+				handle.Kill();
+			}
+			
+			if (inLine.IsEmptyOrWhitespace)
                 yield break;
 			
 			if(ForceKill) {
@@ -130,7 +141,6 @@ namespace FieldDay.Scripting {
 				yield break;
 			}
 			
-			LeafThreadHandle handle = inThreadState.GetHandle();
             TagString eventString = inThreadState.TagString;
             TagStringEventHandler eventHandler = m_TagHandler;
 
@@ -155,8 +165,6 @@ namespace FieldDay.Scripting {
                 overrideHandler.Base = eventHandler;
                 eventHandler = overrideHandler;
             }
-
-			
 			
             if (!voiceoverLineCode.IsEmpty) {
 				
@@ -171,6 +179,7 @@ namespace FieldDay.Scripting {
                     if(voiceCharacter != null) {
                         AudioSource a = voiceCharacter.GetComponent<AudioSource>();
                         if(a != null) {
+							LastAudioSource = a;
                             a.clip = clip;
                             a.Play();
                         }

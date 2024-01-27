@@ -19,7 +19,7 @@ namespace WeatherStation {
 		
 		public float XShift = 0.0f;
 
-        public Color ButtonColor;
+        //public Color ButtonColor;
         
 		public AudioSource SoundEffect;
         #endregion // Inspector
@@ -27,8 +27,8 @@ namespace WeatherStation {
 		[NonSerialized] public bool WasPressed = false;
 
         private bool On;
-        private Color PriorColor;
-        private MeshRenderer CachedMeshRenderer;
+        //private Color PriorColor;
+        //private MeshRenderer CachedMeshRenderer;
 
         public readonly CastableEvent<PuzzleButton> OnPressed = new CastableEvent<PuzzleButton>();
 		
@@ -37,7 +37,7 @@ namespace WeatherStation {
 			Vector3 vPos = transform.position;
 			vPos.y += YShift;
 			transform.position = vPos;
-			CachedMeshRenderer.material.color = PriorColor;
+			//CachedMeshRenderer.material.color = PriorColor;
 		}
 		
 		public void ButtonTrigger(Collider c) {
@@ -62,13 +62,13 @@ namespace WeatherStation {
 						vPos.y += YShift;
 						vPos.x += XShift;
 						transform.position = vPos;
-						CachedMeshRenderer.material.color = PriorColor;
+						//CachedMeshRenderer.material.color = PriorColor;
 					} else {
 						Vector3 vPos = transform.position;
 						vPos.y -= YShift;
 						vPos.x -= XShift;
 						transform.position = vPos;
-						CachedMeshRenderer.material.color = ButtonColor;
+						//CachedMeshRenderer.material.color = ButtonColor;
 					}
 					
 					StartCoroutine(TurnBackOn(c));
@@ -128,9 +128,9 @@ namespace WeatherStation {
 				rb.detectCollisions = true;
 			}
 			
-			if(Toggleable) {
+			/*if(Toggleable) {
 				CachedMeshRenderer.material.color = PriorColor;
-			}
+			}*/
 		}
 		
 		IEnumerator TurnBackOn(Collider c) {
@@ -144,8 +144,8 @@ namespace WeatherStation {
 		
         private void Awake() {
             if(Toggleable) {
-                CachedMeshRenderer = GetComponent<MeshRenderer>();
-                PriorColor = CachedMeshRenderer.material.color;
+                //CachedMeshRenderer = GetComponent<MeshRenderer>();
+                //PriorColor = CachedMeshRenderer.material.color;
             }
         }
 		

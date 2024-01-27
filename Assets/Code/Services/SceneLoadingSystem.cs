@@ -13,6 +13,7 @@ namespace WeatherStation {
     public class SceneLoadingSystem : SharedStateSystemBehaviour<SceneLoader> {
 		
 		private int CurrentSceneIndex = 0;
+		private bool WaitingForSceneSwitch = false;
 		
 		public override void ProcessWork(float deltaTime) {
 
@@ -46,44 +47,64 @@ namespace WeatherStation {
 			//temp
 			if(data.LeftHand.Released(VRControllerButtons.Secondary) || Input.GetKeyDown(KeyCode.S)) {
 				
-				m_State.SwitchScenes();
-				
-				if(CurrentSceneIndex == 0)
+				if(!WaitingForSceneSwitch)
 				{
-					ScriptUtility.Trigger("LevelOneFinished");
-					CurrentSceneIndex++;
-				}
-				else if(CurrentSceneIndex == 1)
-				{
-					ScriptUtility.Trigger("LevelTwoFinished");
-					CurrentSceneIndex++;
-				}
-				else if(CurrentSceneIndex == 2)
-				{
-					ScriptUtility.Trigger("LevelThreeFinished");
-					CurrentSceneIndex++;
-				}
-				else if(CurrentSceneIndex == 3)
-				{
-					ScriptUtility.Trigger("LevelFourFinished");
-					CurrentSceneIndex++;
-				}
-				else if(CurrentSceneIndex == 4)
-				{
-					ScriptUtility.Trigger("EpilogueReady");
-					CurrentSceneIndex++;
+					ScriptPlugin.LastAudioSource.Stop();
+					ScriptPlugin.CompleteForceKill = true;
+					WaitingForSceneSwitch = true;
 					
-					if(CurrentSceneIndex == 5)
-					{
-						CurrentSceneIndex = 0;
-					}
+					StartCoroutine("WaitForKill");
 				}
-				
+
 				data.LeftHand.PrevButtons = 0;
 			}
 
 			m_State.UpdateStates();
 
+		}
+		
+		IEnumerator WaitForKill()
+		{
+			
+			while(ScriptPlugin.CompleteForceKill) {
+				yield return 0;
+			}
+			
+			Debug.Log("Switching scenes...");
+			m_State.SwitchScenes();
+			
+			if(CurrentSceneIndex == 0)
+			{
+				ScriptUtility.Trigger("LevelOneFinished");
+				CurrentSceneIndex++;
+			}
+			else if(CurrentSceneIndex == 1)
+			{
+				ScriptUtility.Trigger("LevelTwoFinished");
+				CurrentSceneIndex++;
+			}
+			else if(CurrentSceneIndex == 2)
+			{
+				ScriptUtility.Trigger("LevelThreeFinished");
+				CurrentSceneIndex++;
+			}
+			else if(CurrentSceneIndex == 3)
+			{
+				ScriptUtility.Trigger("LevelFourFinished");
+				CurrentSceneIndex++;
+			}
+			else if(CurrentSceneIndex == 4)
+			{
+				ScriptUtility.Trigger("GameReady");
+				CurrentSceneIndex++;
+				
+				if(CurrentSceneIndex == 5)
+				{
+					CurrentSceneIndex = 0;
+				}
+			}
+			
+			WaitingForSceneSwitch = false;
 		}
     }
 }

@@ -141,9 +141,9 @@ $if TrashWasNotGrabbed(trashChute)
 {@Argo} Great, this is trash now, so we need to pack it out. There is a garbage bin under your desk. $[argo_great_this]
 $call argoHelpButton->SetCurrentClip(7)
 $call argoHelpButton->SetButtonLocked(false)
-$while TrashWasNotGrabbed(trashChute)
-$call Wait(1)
-$endwhile
+//$while TrashWasNotGrabbed(trashChute)
+//$call Wait(1)
+//$endwhile
 $call argoHelpButton->SetButtonLocked(true)
 $endif
 
@@ -205,8 +205,11 @@ $endif
 
 $call windSensorButton->ShowHighlight()
 $call windSensorButton->PlayFX()
+$call windSensorButton->SetButtonPressed(false)
 
 $while PuzzleIsNotComplete(windSensorPuzzle)
+
+$call Wait(1)
 
 $if ButtonNotPressed(windSensorButton)
 {@Argo} Now let's test it, press the test button. $[argo_now_lets]
@@ -218,23 +221,21 @@ $endwhile
 $call argoHelpButton->SetButtonLocked(true)
 $endif
 
-$call Wait(1)
 
 $if IsNotMatched(windSensorBladeSocket)
+
 {@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
 $call argoHelpButton->SetCurrentClip(11)
 $call windSensorButton->SetButtonPressed(false)
+
 $else
-$while ButtonNotPressed(windSensorButton)
-$call Wait(1)
-$endwhile
-$call windSensorButton->StopHighlight()
-$call windSensorButton->StopFX()
 $call windSensorPuzzle->SetTestSuccess(true)
 $endif
 
-$call argoHelpButton->SetButtonLocked(false)
 $endwhile
+
+$call windSensorButton->StopHighlight()
+$call windSensorButton->StopFX()
 
 $call propS->StopFX()
 $call propS->StopHighlight()

@@ -86,19 +86,20 @@ namespace WeatherStation {
 				int nextIndex = CurrentSceneIndex+1;
 				nextIndex = nextIndex % SceneList.Count;
                 Game.Scenes.UnloadScene(SceneList[CurrentSceneIndex]);
-                Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional", null, SceneImportFlags.ImportLightingSettings);
-                CurrentSceneIndex = nextIndex;
-				if(MapMaterial != null) {
-					MapMaterial.mainTexture = MapTextures[nextIndex];
-				}
-				RenderSettings.skybox = SkyboxMaterials[CurrentSceneIndex];
-				StartCoroutine(PostLoad(3f));
+
+				StartCoroutine(PostLoad(2f, nextIndex));
 			}
 		}
 
-		IEnumerator PostLoad(float waitTime) {
+		IEnumerator PostLoad(float waitTime, int nextIndex) {
 			yield return new WaitForSeconds(waitTime);
+			Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional", null, SceneImportFlags.ImportLightingSettings);
+			if(MapMaterial != null) {
+				MapMaterial.mainTexture = MapTextures[nextIndex];
+			}
+			RenderSettings.skybox = SkyboxMaterials[nextIndex];
 			GrabReturnSystem.ForceSkip = false;
+			CurrentSceneIndex = nextIndex;
 			SwitchingScenes = false;
 		}
 		

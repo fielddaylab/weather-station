@@ -7,7 +7,7 @@
 
 $call Wait(1)
 
-$call argoTowerSocket->SetLocked(true)
+//$call argoTowerSocket->SetLocked(true)
 
 $call fader->FadeIn(10.0, 5.0)
 {@Argo} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
@@ -129,7 +129,7 @@ $call batteryBase->StopSound()
 
 $call argo->SetGrabbable(true)
 $call argo->PlayFX()
-$call argoTowerSocket->SetLocked(false)
+//$call argoTowerSocket->SetLocked(false)
 $call argoSled->PlayFX()
 $call argoSled->PlaySound()
 

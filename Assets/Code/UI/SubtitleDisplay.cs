@@ -8,6 +8,7 @@ using Leaf;
 using Leaf.Defaults;
 using TMPro;
 using UnityEngine;
+using FieldDay.Scripting;
 
 namespace WeatherStation {
     public class SubtitleDisplay : MonoBehaviour, ITextDisplayer {

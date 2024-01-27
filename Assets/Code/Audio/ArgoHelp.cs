@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Scripting;
+using BeauRoutine;
 
 namespace WeatherStation {
 	[RequireComponent(typeof(AudioSource))]
@@ -51,8 +52,13 @@ public class ArgoHelp : SharedStateComponent {
 				HelpIsPlaying = true;
 				//AudioSource.PlayClipAtPoint(m_ArgoHelpAudio[m_CurrentClip], transform.position);
 				if(m_SubTitles != null) {
+					
 					m_SubTitles.ClipDisplayLength = m_ArgoHelpAudio[m_CurrentClip].length;
-					StartCoroutine(m_SubTitles.TypeLineString("Argo", m_ArgoHelpSubtitles[m_CurrentClip]));
+					if(m_SubTitles.SubtitlesOn) {
+						StartCoroutine(m_SubTitles.TypeLineString("Argo", m_ArgoHelpSubtitles[m_CurrentClip]));
+					} else {
+						RoutineShortcuts.WaitToComplete(ArgoAudio);
+					}
 				}
 			}
 		}

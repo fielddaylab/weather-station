@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting;
+using BeauRoutine;
 
 namespace WeatherStation {
 	[RequireComponent(typeof(AudioSource))]
@@ -61,7 +62,11 @@ namespace WeatherStation {
 				ArgoAudio.Play();
 
 				if(m_SubTitles != null) {
-					yield return StartCoroutine(m_SubTitles.TypeLineString(m_ArgoSpeaker[m_CurrentClip], m_ArgoFunSubtitles[m_CurrentClip]));
+					if(m_SubTitles.SubtitlesOn) {
+						yield return StartCoroutine(m_SubTitles.TypeLineString(m_ArgoSpeaker[m_CurrentClip], m_ArgoFunSubtitles[m_CurrentClip]));
+					} else {
+						RoutineShortcuts.WaitToComplete(ArgoAudio);
+					}
 				}
 				m_CurrentClip++;
 			}
