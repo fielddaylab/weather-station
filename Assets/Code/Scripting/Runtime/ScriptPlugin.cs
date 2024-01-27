@@ -123,13 +123,6 @@ namespace FieldDay.Scripting {
 		
         public override IEnumerator RunLine(LeafThreadState<ScriptNode> inThreadState, LeafLineInfo inLine) {
             
-			LeafThreadHandle handle = inThreadState.GetHandle();
-			
-			if(CompleteForceKill) {
-				CompleteForceKill = false;
-				handle.Kill();
-			}
-			
 			if (inLine.IsEmptyOrWhitespace)
                 yield break;
 			
@@ -139,6 +132,13 @@ namespace FieldDay.Scripting {
 			
 			if(ForceVOSkipSet) {
 				yield break;
+			}
+			
+			LeafThreadHandle handle = inThreadState.GetHandle();
+			
+			if(CompleteForceKill) {
+				CompleteForceKill = false;
+				handle.Kill();
 			}
 			
             TagString eventString = inThreadState.TagString;

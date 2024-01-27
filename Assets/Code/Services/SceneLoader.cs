@@ -86,20 +86,20 @@ namespace WeatherStation {
 				int nextIndex = CurrentSceneIndex+1;
 				nextIndex = nextIndex % SceneList.Count;
                 Game.Scenes.UnloadScene(SceneList[CurrentSceneIndex]);
-
-				StartCoroutine(PostLoad(2f, nextIndex));
+				Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional", null, SceneImportFlags.ImportLightingSettings);
+				if(MapMaterial != null) {
+					MapMaterial.mainTexture = MapTextures[nextIndex];
+				}
+				RenderSettings.skybox = SkyboxMaterials[nextIndex];
+				CurrentSceneIndex = nextIndex;
+				StartCoroutine(PostLoad(3f));
 			}
 		}
 
-		IEnumerator PostLoad(float waitTime, int nextIndex) {
+		IEnumerator PostLoad(float waitTime) {
 			yield return new WaitForSeconds(waitTime);
-			Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional", null, SceneImportFlags.ImportLightingSettings);
-			if(MapMaterial != null) {
-				MapMaterial.mainTexture = MapTextures[nextIndex];
-			}
-			RenderSettings.skybox = SkyboxMaterials[nextIndex];
+
 			GrabReturnSystem.ForceSkip = false;
-			CurrentSceneIndex = nextIndex;
 			SwitchingScenes = false;
 		}
 		
@@ -166,7 +166,7 @@ namespace WeatherStation {
 						rd.TemperatureSensorButtons3[i].SetActive(true);
 					}
 				}
-				else if(sceneArgs.Scene.path.Contains("Northwest"))
+				else if(sceneArgs.Scene.path.Contains("NorthWest"))
 				{
 					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
 					

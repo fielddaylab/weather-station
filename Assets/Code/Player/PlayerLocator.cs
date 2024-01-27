@@ -40,7 +40,7 @@ namespace WeatherStation {
 		
 		private Camera MainCamera = null;	//temp hack for playing music...
 		private GameObject HeadRoot = null;
-		private bool IsInside = false;
+		public bool IsInside = false;
 		private bool IsTeleporting = false;
 
 		private void Awake() {

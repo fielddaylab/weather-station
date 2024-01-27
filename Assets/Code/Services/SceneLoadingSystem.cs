@@ -65,13 +65,18 @@ namespace WeatherStation {
 		
 		IEnumerator WaitForKill()
 		{
+			yield return new WaitForSeconds(1f);
 			
-			while(ScriptPlugin.CompleteForceKill) {
-				yield return 0;
-			}
+			ScriptPlugin.CompleteForceKill = false;
 			
-			Debug.Log("Switching scenes...");
+			//Debug.Log("Switching scenes...");
 			m_State.SwitchScenes();
+			
+			PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				
+			if(playerLocator.IsInside) {
+				playerLocator.Teleport();
+			}
 			
 			if(CurrentSceneIndex == 0)
 			{
@@ -95,13 +100,13 @@ namespace WeatherStation {
 			}
 			else if(CurrentSceneIndex == 4)
 			{
-				ScriptUtility.Trigger("GameReady");
+				//ScriptUtility.Trigger("GameReady");
 				CurrentSceneIndex++;
 				
-				if(CurrentSceneIndex == 5)
+				/*if(CurrentSceneIndex == 5)
 				{
 					CurrentSceneIndex = 0;
-				}
+				}*/
 			}
 			
 			WaitingForSceneSwitch = false;
