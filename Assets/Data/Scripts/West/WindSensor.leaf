@@ -79,6 +79,7 @@ $call windSensor->PlayFX()
 $call windSensorBay->PlayFX()
 $call windSensorBay->PlaySound()
 $call windSensorBay->ShowHighlight()
+$call trashChute->SetGrabbable(true)
 
 $if IsSocketed(windSensorSled)
 {@Argo} You need to take the wind sensor out of the sled, and place it in the wind sensor repair dock. $[argo_you_need]
@@ -132,7 +133,7 @@ $call brokenBlade->StopFX()
 $call brokenBlade->StopSound()
 $call brokenBlade->StopHighlight()
 
-$call trashChute->SetGrabbable(true)
+
 $call trashChute->PlayFX()
 $call trashChute->PlaySound()
 $call trashChute->ShowHighlight()

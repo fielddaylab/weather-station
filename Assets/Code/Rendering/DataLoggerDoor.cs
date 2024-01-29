@@ -13,7 +13,10 @@ using UnityEngine.XR;
 namespace WeatherStation {
     public class DataLoggerDoor : MonoBehaviour {
         #region Inspector
-
+		[SerializeField] float RotateMin = 0f;
+		[SerializeField] float RotateMax = 65f;
+		[SerializeField] float RotateMin2 = 273f;
+		[SerializeField] float RotateMax2 = 360f;
 		
         #endregion // Inspector
 		
@@ -49,9 +52,30 @@ namespace WeatherStation {
 					dir = 1f;
 				}
 				
-				if((euler.y + 10f > 275f && euler.y <= 360f) || (euler.y >= 0f && euler.y + 10f < 65f)) {
-					transform.RotateAround(transform.position, Vector3.up * dir, Vector3.Distance(LastPos, currPos)*100f);
+				if((euler.y >= RotateMin2 && euler.y <= RotateMax2) || (euler.y >= RotateMin && euler.y <= RotateMax)) {
+					transform.RotateAround(transform.position, Vector3.up * dir, Vector3.Distance(LastPos, currPos)*150f);
 				}
+				
+				Vector3 angles = transform.rotation.eulerAngles;
+				
+				if(angles.y < RotateMin2 && angles.y > RotateMax) {
+					if(Mathf.Abs(angles.y - RotateMax) < Mathf.Abs(angles.y - RotateMin2)) {
+						angles.y = RotateMax-1f;
+					} else {
+						angles.y = RotateMin2+1f;
+					}
+					transform.rotation = Quaternion.Euler(angles);
+				} else if(angles.y > RotateMax2) {
+					angles.y = RotateMax2-1f;
+					transform.rotation = Quaternion.Euler(angles);
+				} else if(angles.y < RotateMin) {
+					angles.y = RotateMin+1f;
+					transform.rotation = Quaternion.Euler(angles);
+				} else if(angles.y > RotateMax && angles.y < RotateMin2) {
+					angles.y = RotateMax-1f;
+					transform.rotation = Quaternion.Euler(angles);
+				}
+				
 				LastPos = currPos;
 			} 
 			

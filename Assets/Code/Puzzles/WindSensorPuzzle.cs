@@ -18,9 +18,10 @@ namespace WeatherStation {
     public class WindSensorPuzzle : Puzzle {
         #region Inspector
         public PuzzleSocket Socket;
-
+		public ItemSocket TowerSocket;
         #endregion // Inspector
 		
+		private bool FanRotating = false;
 		public override bool CheckComplete() {
 
 			if(Socket.IsMatched() && TestSuccess) {
@@ -40,26 +41,32 @@ namespace WeatherStation {
 		}
 
         private void Awake() {
-
+			if(TowerSocket != null) {
+				TowerSocket.OnAdded.Register(OnWindSensorAdded);
+				TowerSocket.OnRemoved.Register(OnWindSensorRemoved);
+			}
         }
 		
-		/*private void OnSensorRemoved() {
-			if(FanBlade != null) {
-				IsStopped = true;
+		private void OnWindSensorAdded() {
+			if(State == PuzzleState.Complete) {
+				FanRotating = true;
+				StartCoroutine("RotateBlade");
 			}
-			
-			bool allMatched = true;
-			for(int i = 0; i < PuzzleSockets.Count; ++i) {
-				if(!PuzzleSockets[i].IsMatched() && PuzzleSockets[i].Current != null) {
-					allMatched = false;
-					break;
-				}
-			}
-			
-			TestButton.Untoggle();
-			IsTesting = false;
-		}*/
+		}
 		
+		private void OnWindSensorRemoved() {
+			if(State == PuzzleState.Complete) {
+				FanRotating = false;
+			}
+		}
+		
+		IEnumerator RotateBlade() {
+			//todo - blade rotating sound...
+            while(FanRotating) {
+				SocketUtility.RotateSocketed(Socket, Socket.Current, 10f);
+                yield return new WaitForEndOfFrame();
+            }
+        }
 		
 		IEnumerator WindSensorComplete(float waitTime) {
 			yield return new WaitForSeconds(waitTime);

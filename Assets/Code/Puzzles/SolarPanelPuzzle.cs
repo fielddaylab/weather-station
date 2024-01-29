@@ -33,6 +33,9 @@ namespace WeatherStation {
 		
 		private Vector3 LastEuler = Vector3.zero;
 		
+		[SerializeField] private float RotateMin;
+		[SerializeField] private float RotateMax;
+		
 		public override bool CheckComplete() {
 			if(!PowerMeter || !SolarPanel || !DirectionalLight) {
 				Log.Msg("[SolarPanelPuzzle] Required references not set.");
@@ -49,6 +52,10 @@ namespace WeatherStation {
 			//Ross:  todo - optimize below...
 			if(LeftGrabbed || RightGrabbed) {
 				
+				float yaw = SolarPanel.transform.rotation.eulerAngles.y;
+				
+				//Debug.Log("1:" + yaw);
+				
 				Vector3 solarPanelPos = SolarPanel.transform.position;
 				Vector3 trackedLeft = handRig.LeftHand.Visual.position;
 				Vector3 trackedRight = handRig.RightHand.Visual.position;
@@ -57,14 +64,20 @@ namespace WeatherStation {
 					Vector3 toLeft = Vector3.Normalize(GrabPointLeft - solarPanelPos);
 					trackedLeft.y = solarPanelPos.y;
 					Vector3 newLeft = Vector3.Normalize(trackedLeft - solarPanelPos);
-					SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toLeft, newLeft, Vector3.up));
+					if(yaw >= RotateMin && yaw <= RotateMax) {
+						SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toLeft, newLeft, Vector3.up));
+					}
 					GrabPointLeft = trackedLeft;
 					
 				} else if(!LeftGrabbed && RightGrabbed) {
 					Vector3 toRight = Vector3.Normalize(GrabPointRight - solarPanelPos);
 					trackedRight.y = solarPanelPos.y;
 					Vector3 newRight = Vector3.Normalize(trackedRight - solarPanelPos);
-					SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up));
+					
+					if(yaw >= RotateMin && yaw <= RotateMax) {
+						SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up));
+					}
+					
 					GrabPointRight = trackedRight;
 				} else if(LeftGrabbed && RightGrabbed) {
 					Vector3 toRight = Vector3.Normalize(GrabPointRight - GrabPointLeft);
@@ -81,18 +94,36 @@ namespace WeatherStation {
 							}
 							else
 							{
-								SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
+								if(yaw >= RotateMin && yaw <= RotateMax) {
+									SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
+								}
 							}
 						}
 					} else {
-						SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
+						if(yaw >= RotateMin && yaw <= RotateMax) {
+							SolarPanel.transform.RotateAround(solarPanelPos, Vector3.up, Vector3.SignedAngle(toRight, newRight, Vector3.up) * 1.5f);
+						}
 					}
 					
 					//Debug.Log(euler.x);
 					
 					GrabPointRight = trackedRight;
 					GrabPointLeft = trackedLeft;
+					
 				}
+				
+				Vector3 angles = SolarPanel.transform.rotation.eulerAngles;
+				
+				if(angles.y < RotateMin) {
+					angles.y = RotateMin+1f;
+					SolarPanel.transform.rotation = Quaternion.Euler(angles);
+				} else if(angles.y > RotateMax) {
+					angles.y = RotateMax-1f;
+					SolarPanel.transform.rotation = Quaternion.Euler(angles);
+				}
+				
+				//Debug.Log("2:" + SolarPanel.transform.rotation.eulerAngles.y);
+				
 			}
 			
 			if(!LockRoll) {

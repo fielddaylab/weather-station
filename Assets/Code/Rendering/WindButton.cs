@@ -116,7 +116,9 @@ namespace WeatherStation {
 			//Socket.Locked = false;
 			
             //unsocket and have it fall to the ground...
-			SocketUtility.TryReleaseFromCurrentSocket(socket.Current, true);
+			if(socket.Current != null) {
+				SocketUtility.TryReleaseFromCurrentSocket(socket.Current, true);
+			}
 			
 			TestButton.Untoggle();
 			
@@ -141,7 +143,9 @@ namespace WeatherStation {
 			Socket.Locked = false;
 			
             //unsocket and have it fall to the ground...
-			SocketUtility.TryReleaseFromCurrentSocket(socket.Current, true);
+			if(socket.Current != null) {
+				SocketUtility.TryReleaseFromCurrentSocket(socket.Current, true);
+			}
 			
 			TestButton.Untoggle();
 			
