@@ -38,6 +38,14 @@ namespace WeatherStation.Scripting {
 				m_MR.materials[m_MaterialIndex].mainTexture = Textures[m_CurrentTexture];
 			}
         }
+		
+		[LeafMember("SetTexture"), Preserve]
+		public void SetTexture(int textureID) {
+			m_CurrentTexture = textureID;
+			if(m_CurrentTexture < Textures.Count) {
+				m_MR.materials[m_MaterialIndex].mainTexture = Textures[m_CurrentTexture];
+			}			
+		}
 
         #endregion // Leaf
 

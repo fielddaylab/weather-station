@@ -177,6 +177,18 @@ $call uplinkButton->StopHighlight()
 $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
 
+$call map->SetTexture(0)
+
+$call Wait(1)
+
+$call map->NextTexture()
+
+$call Wait(2)
+$call map->NextTexture()
+
+$call Wait(2)
+$call map->NextTexture()
+
 $call argoHelpButton->SetButtonLocked(true)
 
 {@Argo} It works! $[it_works_works]
