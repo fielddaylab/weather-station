@@ -1063,6 +1063,7 @@ GameObject:
   - component: {fileID: 8161022178189727624}
   - component: {fileID: 3959575650254097636}
   - component: {fileID: 8841928027035849464}
+  - component: {fileID: 2682056442695169797}
   m_Layer: 7
   m_Name: dataLogger_Door
   m_TagString: Untagged
@@ -1296,6 +1297,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed022ac173ea23648927ba01b19b158e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotateMin: 0
+  RotateMax: 65
+  RotateMin2: 274
+  RotateMax2: 360
+--- !u!114 &2682056442695169797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291453168379159012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c150b7eb1c711843a24edb59bc04986, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PS: {fileID: 0}
 --- !u!1 &1331988345837152668
 GameObject:
   m_ObjectHideFlags: 0

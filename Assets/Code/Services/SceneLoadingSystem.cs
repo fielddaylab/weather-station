@@ -65,7 +65,7 @@ namespace WeatherStation {
 		
 		IEnumerator WaitForKill()
 		{
-			yield return new WaitForSeconds(1f);
+			yield return new WaitForSeconds(3f);
 			
 			ScriptPlugin.CompleteForceKill = false;
 			
