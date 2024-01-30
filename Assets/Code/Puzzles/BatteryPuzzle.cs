@@ -21,12 +21,12 @@ namespace WeatherStation {
 		
         public Color BlinkColor;
 		public Color FinalColor;
+		public Color BlinkOldColor;
+		
         public float BlinkTiming = 1f;
 		
         #endregion // Inspector
 
-		private Color BlinkOldColor;
-		
         private float BlinkTime = 0;
 
         private bool BlinkOn = false;
@@ -46,46 +46,46 @@ namespace WeatherStation {
 			
 			return true;
 		}
-
+		
         public override void UpdatePuzzle() {
 
 			float t = Time.time;
 			if(t - BlinkTime > BlinkTiming) {
+				int matchCount = 0;
 				for(int i = 0; i < PuzzleSockets.Count; ++i) {
-					if(!PuzzleSockets[i].IsMatched()) {
-						if(BlinkOn) {
-							PowerMeter[i*2].color = BlinkColor;
-							PowerMeter[i*2+1].color = BlinkColor;
-						} else {
-							PowerMeter[i*2].color = BlinkOldColor;
-							PowerMeter[i*2+1].color = BlinkOldColor;  
-						}
+					if(PuzzleSockets[i].IsMatched()) {
+						matchCount++;
 					}
-					else
-					{
-						PowerMeter[i*2].color = FinalColor;
-						PowerMeter[i*2+1].color = FinalColor;
+				}
+				
+				for(int i = 0; i < matchCount; ++i) {
+					PowerMeter[i*2].color = FinalColor;
+					PowerMeter[i*2+1].color = FinalColor;
+				}
+				
+				for(int i = matchCount; i < PuzzleSockets.Count; ++i) {
+					if(BlinkOn) {
+						PowerMeter[i*2].color = BlinkColor;
+						PowerMeter[i*2+1].color = BlinkColor;
+					} else {
+						PowerMeter[i*2].color = BlinkOldColor;
+						PowerMeter[i*2+1].color = BlinkOldColor;  
 					}
 				} 
+				
 				BlinkOn = !BlinkOn;
 				BlinkTime = t;
-			}
-		
-			/*if(PuzzleSockets[0].IsMatched()) {
-				if(!PuzzleSockets[1].IsMatched()) {
-					PuzzleSockets[1].BlinkIncoming();
-					PuzzleSockets[2].BlinkIncoming();
-				} else {
-					PuzzleSockets[1].UnsetPulse();
-					PuzzleSockets[2].UnsetPulse();
-				}
-			}*/ 			
+			}			
         }
 		
+		public void OnDisable() {
+			for(int i = 0; i < PowerMeter.Count; ++i) {
+				PowerMeter[i].color = BlinkOldColor;
+			}
+		}
+		
         private void Awake() {
-            if(PowerMeter != null) {
-				BlinkOldColor = Color.white;
-            }            
+			
         }
     }
 }

@@ -41,6 +41,13 @@ namespace WeatherStation {
 			ButtonIndex = 0;
         }
 
+		public void OnDisable()
+		{
+			if(BayMaterial != null) {
+				BayMaterial.color = Color.white;
+			}
+		}
+		
         private void SensorButtonPressed(PuzzleButton button) {
             //switch between textures...
             //int buttonIndex = (int)char.GetNumericValue(button.gameObject.name[button.gameObject.name.Length-1])-1;
@@ -73,6 +80,9 @@ namespace WeatherStation {
 				
 				if(allSetBefore) {
 					SensorMaterial.mainTexture = SolutionTexture;
+					if(PrevButton != null) {
+						PrevButton.BayMaterial.color = GlowColor;
+					}
 					//if(buttonIndex > 0) {
 					//	PairedMaterials[buttonIndex-1].color = GlowColor;
 					//}
@@ -83,9 +93,9 @@ namespace WeatherStation {
 						if(AfterButton.SensorMaterial.mainTexture == AfterButton.Solution)
 						{
 							AfterButton.SensorMaterial.mainTexture = AfterButton.SolutionTexture;
-							if(PrevButton != null)
+							if(AfterButton.PrevButton != null)
 							{
-								PrevButton.BayMaterial.color = GlowColor;
+								AfterButton.PrevButton.BayMaterial.color = GlowColor;
 							}
 							AfterButton = AfterButton.NextButton;
 						}
