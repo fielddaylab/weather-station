@@ -588,6 +588,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed34653c121dfa64eb47cda109c65cb4, type: 3}
+--- !u!4 &601096301 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4209541188553157533, guid: ed34653c121dfa64eb47cda109c65cb4,
+    type: 3}
+  m_PrefabInstance: {fileID: 601096300}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &638081281 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1666795964852156815, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
@@ -809,6 +815,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1478779598688118845, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0047
+      objectReference: {fileID: 0}
+    - target: {fileID: 1478779598688118845, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.006
+      objectReference: {fileID: 0}
     - target: {fileID: 1589417594377979876, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -934,6 +950,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6c88f53864c23464f93499ea92d9c155, type: 2}
+    - target: {fileID: 3118423212244931398, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0051
+      objectReference: {fileID: 0}
+    - target: {fileID: 3118423212244931398, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.0061
+      objectReference: {fileID: 0}
     - target: {fileID: 3178755929128518545, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: XShift
@@ -2720,7 +2746,7 @@ PrefabInstance:
         type: 3}
       propertyPath: DirectionalLight
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 601096301}
     - target: {fileID: 2271128311874759987, guid: 2a51a16c5f07cc644ac83787a6cb4456,
         type: 3}
       propertyPath: m_IsActive

@@ -35,9 +35,9 @@ $call windSensor->SetGrabbable(false)
 $while PuzzleIsNotComplete(windSensorPuzzle)
 
 
-$call brokenBlade->PlayFX()
-$call brokenBlade->PlaySound()
-$call brokenBlade->ShowHighlight()
+$call brokenBladeSmall->PlayFX()
+$call brokenBladeSmall->PlaySound()
+$call brokenBladeSmall->ShowHighlight()
 
 $call propM->PlayFX()
 $call propM->ShowHighlight()
@@ -54,12 +54,12 @@ $call propL->PlaySound()
 
 $call windSensorBladeSocket->SetLocked(false)
 
-$if WasGrabbed(brokenBlade)
-$call brokenBlade->StopFX()
-$call brokenBlade->StopSound()
-$call brokenBlade->StopHighlight()
+$if WasGrabbed(brokenBladeSmall)
+$call brokenBladeSmall->StopFX()
+$call brokenBladeSmall->StopSound()
+$call brokenBladeSmall->StopHighlight()
 $else
-$if IsGrabbableSocketed(brokenBlade)
+$if IsGrabbableSocketed(brokenBladeSmall)
 $call argoHelpButton->SetCurrentClip(29)
 $endif
 $endif
@@ -119,3 +119,13 @@ $call windSensorSled->PlayFX()
 $call windSensor->SetGrabbable(true)
 $call windSensor->ShowHighlight()
 $call windSensor->PlayFX()
+
+$call propL->StopFX()
+$call propL->StopHighlight()
+$call propM->StopFX()
+$call propM->StopHighlight()
+$call propS->StopFX()
+$call propS->StopHighlight()
+$call propS->StopSound()
+$call propM->StopSound()
+$call propL->StopSound()

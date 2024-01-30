@@ -123,7 +123,7 @@ $if NotWasGrabbed(brokenBlade)
 {@Argo} Wonderful, ok, it looks like the propeller unit is bad, take it off the wind sensor. $[argo_wonderful_ok]
 $call argoHelpButton->SetCurrentClip(6)
 $call argoHelpButton->SetButtonLocked(false)
-$while NotIsGrabbed(brokenBlade)
+$while NotWasGrabbed(brokenBlade)
 $call Wait(2)
 $endwhile
 $call argoHelpButton->SetButtonLocked(true)
@@ -208,27 +208,26 @@ $call windSensorButton->ShowHighlight()
 $call windSensorButton->PlayFX()
 $call windSensorButton->SetButtonPressed(false)
 
+$if ButtonNotPressed(windSensorButton)
+{@Argo} Now let's test it, press the test button. $[argo_now_lets]
+$endif
+
 $while PuzzleIsNotComplete(windSensorPuzzle)
 
 $call Wait(1)
 
-$if ButtonNotPressed(windSensorButton)
-{@Argo} Now let's test it, press the test button. $[argo_now_lets]
 $call argoHelpButton->SetCurrentClip(10)
 $call argoHelpButton->SetButtonLocked(false)
 $while ButtonNotPressed(windSensorButton)
 $call Wait(1)
 $endwhile
 $call argoHelpButton->SetButtonLocked(true)
-$endif
 
 
 $if IsNotMatched(windSensorBladeSocket)
-
 {@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
 $call argoHelpButton->SetCurrentClip(11)
 $call windSensorButton->SetButtonPressed(false)
-
 $else
 $call windSensorPuzzle->SetTestSuccess(true)
 $endif

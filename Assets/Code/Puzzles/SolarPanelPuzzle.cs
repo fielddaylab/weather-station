@@ -159,7 +159,7 @@ namespace WeatherStation {
 					PowerMeter.transform.GetChild(i).gameObject.SetActive(false);
 				}
 				
-				if(numToHighlight == cc-1) {
+				if(numToHighlight == cc) {
 					//Log.Msg("[SolarPanelPuzzle] completed solar panel puzzle.");
 					if(State != PuzzleState.Complete) {
 						if(GameLevel == 1) {

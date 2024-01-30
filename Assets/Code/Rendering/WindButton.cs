@@ -15,6 +15,7 @@ namespace WeatherStation {
 		
 		private PuzzleSocket BladeSocket = null;
 		private Socketable BrokenProp;
+		private WindSocket SocketRotation = null;
 		
 		// Start is called before the first frame update
 		void Awake() {
@@ -65,7 +66,7 @@ namespace WeatherStation {
 						} else {
 							IsTesting = true;
 							BladeSocket.Locked = true;
-							StartCoroutine(RotateAndFinish(BladeSocket, BladeSocket.Current, 120f));
+							StartCoroutine(RotateBlade(120f, 30f, true));
 						}
 					} else if(BladeSocket.Current == BrokenProp) {
 						if(!IsTesting) {
@@ -73,7 +74,7 @@ namespace WeatherStation {
 							IsTesting = true;
 							//BladeSocket.Locked = true;
 							//rotate a bit, then have it detach and fall..
-							StartCoroutine(RotateAndFall(BladeSocket, BladeSocket.Current, 5f));
+							StartCoroutine(RotateBlade(5f, 5f, false));
 						}
 						else
 						{
@@ -85,7 +86,7 @@ namespace WeatherStation {
 							IsTesting = true;
 							//BladeSocket.Locked = true;
 							//rotate a bit, then have it detach and fall..
-							StartCoroutine(RotateAndFail(BladeSocket, BladeSocket.Current, 10f));
+							StartCoroutine(RotateBlade(10f, 10f, false));
 						}
 						else
 						{
@@ -100,83 +101,45 @@ namespace WeatherStation {
 			}
         }
 
-        private IEnumerator RotateAndFall(ItemSocket socket, Socketable socketable, float duration) {
-            float t = 0f;
-            while(t < duration && !IsStopped) {
-				//Debug.Log("Rotating");
-				if(Socket.Current)
-				{
-					SocketUtility.RotateSocketed(socket, socket.Current, 1.5f);
-					FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, 1.5f);
-				}
-                yield return new WaitForEndOfFrame();
-                t += Time.deltaTime;
-            }
-
-			//Socket.Locked = false;
+		private IEnumerator RotateBlade(float duration, float angle, bool complete) {
 			
-            //unsocket and have it fall to the ground...
-			if(socket.Current != null) {
-				SocketUtility.TryReleaseFromCurrentSocket(socket.Current, true);
+			if(complete) {
+				AudioSource audioSource = GetComponent<AudioSource>();
+				if(audioSource != null && audioSource.clip != null) {
+					audioSource.Play();
+				}
 			}
 			
-			TestButton.Untoggle();
+			if(SocketRotation == null) {
+				SocketRotation = BladeSocket.gameObject.transform.GetChild(1).gameObject.GetComponent<WindSocket>();
+			}
 			
+			Socket.Locked = !complete;
 			
-			IsTesting = false;
-			IsStopped = false;
-        }
-		
-		private IEnumerator RotateAndFail(ItemSocket socket, Socketable socketable, float duration) {
             float t = 0f;
             while(t < duration && !IsStopped) {
 				//Debug.Log("Rotating");
 				if(BladeSocket.Current)
 				{
-					SocketUtility.RotateSocketed(socket, socket.Current, 2.5f);
-					FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, 2.5f);
+					BladeSocket.Current.gameObject.transform.RotateAround(SocketRotation.gameObject.transform.position, BladeSocket.gameObject.transform.right, angle);
+					FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, angle);
 				}
                 yield return new WaitForEndOfFrame();
                 t += Time.deltaTime;
             }
 			
-			Socket.Locked = false;
-			
             //unsocket and have it fall to the ground...
-			if(socket.Current != null) {
-				SocketUtility.TryReleaseFromCurrentSocket(socket.Current, true);
+			if(!complete) {
+				if(BladeSocket.Current != null) {
+					SocketUtility.TryReleaseFromCurrentSocket(BladeSocket.Current, true);
+				}
 			}
 			
 			TestButton.Untoggle();
 			
-			//Socket.Locked = false;
 			IsTesting = false;
 			IsStopped = false;
         }
-
-
-        private IEnumerator RotateAndFinish(ItemSocket socket, Socketable socketable, float duration) {
-            
-			AudioSource audioSource = GetComponent<AudioSource>();
-			if(audioSource != null && audioSource.clip != null) {
-				audioSource.Play();
-			}
-			
-			float t = 0f;
-            while(t < duration && !IsStopped) {
-                //Debug.Log("Rotating");
-				SocketUtility.RotateSocketed(socket, socket.Current, 10f);
-				FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, 20f);
-                yield return new WaitForEndOfFrame();
-                t += Time.deltaTime;
-            }
-			
-			TestButton.Untoggle();
-			
-			Socket.Locked = false;
-			
-			IsTesting = false;
-			IsStopped = false;
-        }
+		
 	}
 }

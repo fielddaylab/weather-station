@@ -60,19 +60,19 @@ namespace WeatherStation {
 				
 				if(angles.y < RotateMin2 && angles.y > RotateMax) {
 					if(Mathf.Abs(angles.y - RotateMax) < Mathf.Abs(angles.y - RotateMin2)) {
-						angles.y = RotateMax-1f;
+						angles.y = RotateMax;
 					} else {
-						angles.y = RotateMin2+1f;
+						angles.y = RotateMin2;
 					}
 					transform.rotation = Quaternion.Euler(angles);
 				} else if(angles.y > RotateMax2) {
-					angles.y = RotateMax2-1f;
+					angles.y = RotateMax2;
 					transform.rotation = Quaternion.Euler(angles);
 				} else if(angles.y < RotateMin) {
-					angles.y = RotateMin+1f;
+					angles.y = RotateMin;
 					transform.rotation = Quaternion.Euler(angles);
 				} else if(angles.y > RotateMax && angles.y < RotateMin2) {
-					angles.y = RotateMax-1f;
+					angles.y = RotateMax;
 					transform.rotation = Quaternion.Euler(angles);
 				}
 				

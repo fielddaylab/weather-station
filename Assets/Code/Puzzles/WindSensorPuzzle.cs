@@ -45,6 +45,9 @@ namespace WeatherStation {
 				TowerSocket.OnAdded.Register(OnWindSensorAdded);
 				TowerSocket.OnRemoved.Register(OnWindSensorRemoved);
 			}
+			
+			//FanRotating = true;
+			//StartCoroutine("RotateBlade");
         }
 		
 		private void OnWindSensorAdded() {
@@ -62,8 +65,9 @@ namespace WeatherStation {
 		
 		IEnumerator RotateBlade() {
 			//todo - blade rotating sound...
+			WindSocket SocketRotation = Socket.gameObject.transform.GetChild(1).gameObject.GetComponent<WindSocket>();
             while(FanRotating) {
-				SocketUtility.RotateSocketed(Socket, Socket.Current, 10f);
+				Socket.Current.gameObject.transform.RotateAround(SocketRotation.gameObject.transform.position, Socket.gameObject.transform.right, 30f);
                 yield return new WaitForEndOfFrame();
             }
         }

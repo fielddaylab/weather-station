@@ -5,6 +5,8 @@
 @evalPriority   100
 @once
 
+$call batteryBase->SetGrabbable(true);
+
 $call batteryBase->SetWasGrabbed(false)
 $call batteryOne->SetWasGrabbed(false)
 $call batteryTwo->SetWasGrabbed(false)
