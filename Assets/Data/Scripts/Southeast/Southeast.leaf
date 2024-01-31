@@ -25,7 +25,7 @@ $call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(21)
 $call argoFunButton->SetButtonLocked(false)
 $call argoFunButton->SetCurrentClip(10)
-$call argoFunButton->SetCurrentClip(12)
+$call argoFunButton->SetEndClip(12)
 
 $call rightPanelHandle->PlayFX()
 $call rightPanelHandle->ShowHighlight()
@@ -89,8 +89,11 @@ $call leftPanelHandle->StopSound()
 $call rightPanelHandle->StopFX()
 $call rightPanelHandle->StopHighlight()
 $call rightPanelHandle->StopSound()
+$call leftPanelHandle->SetGrabbable(false)
+$call rightPanelHandle->SetGrabbable(false)
 
 $endif
+
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 $call argoHelpButton->SetCurrentClip(20)
@@ -113,6 +116,8 @@ $call leftPanelHandle->StopSound()
 $call rightPanelHandle->StopFX()
 $call rightPanelHandle->StopHighlight()
 $call rightPanelHandle->StopSound()
+$call leftPanelHandle->SetGrabbable(false)
+$call rightPanelHandle->SetGrabbable(false)
 
 $call argoHelpButton->SetCurrentClip(22)
 
@@ -241,4 +246,4 @@ $call levelLoader->LoadSoutheastBatteryPuzzle()
 
 $call argoFunButton->SetButtonLocked(false)
 $call argoFunButton->SetCurrentClip(13)
-$call argoFunButton->SetCurrentClip(18)
+$call argoFunButton->SetEndClip(18)
