@@ -44,7 +44,7 @@ namespace WeatherStation {
 		public void OnDisable()
 		{
 			if(BayMaterial != null) {
-				BayMaterial.color = Color.white;
+				BayMaterial.SetColor("_BaseColor", Color.white);
 			}
 		}
 		
@@ -81,11 +81,9 @@ namespace WeatherStation {
 				if(allSetBefore) {
 					SensorMaterial.mainTexture = SolutionTexture;
 					if(PrevButton != null) {
-						PrevButton.BayMaterial.color = GlowColor;
+						PrevButton.BayMaterial.SetColor("_BaseColor", GlowColor);
 					}
-					//if(buttonIndex > 0) {
-					//	PairedMaterials[buttonIndex-1].color = GlowColor;
-					//}
+
 					//if this happens, then also walk ahead and see if we can switch any that are on a solution to final..
 					TempSensorButton AfterButton = NextButton;
 					while(AfterButton != null)
@@ -95,7 +93,7 @@ namespace WeatherStation {
 							AfterButton.SensorMaterial.mainTexture = AfterButton.SolutionTexture;
 							if(AfterButton.PrevButton != null)
 							{
-								AfterButton.PrevButton.BayMaterial.color = GlowColor;
+								AfterButton.PrevButton.BayMaterial.SetColor("_BaseColor", GlowColor);
 							}
 							AfterButton = AfterButton.NextButton;
 						}

@@ -81,7 +81,7 @@ namespace WeatherStation {
 				
 				GrabUtility.ReturnToOriginalSpawnPoint(playerLocator.Argo.gameObject.GetComponent<Grabbable>());
 				
-				GrabReturnSystem.ForceSkip = true;
+				//GrabReturnSystem.ForceSkip = true;
 				
 				int nextIndex = CurrentSceneIndex+1;
 				nextIndex = nextIndex % SceneList.Count;
@@ -99,7 +99,7 @@ namespace WeatherStation {
 		IEnumerator PostLoad(float waitTime) {
 			yield return new WaitForSeconds(waitTime);
 
-			GrabReturnSystem.ForceSkip = false;
+			//GrabReturnSystem.ForceSkip = false;
 			SwitchingScenes = false;
 		}
 		

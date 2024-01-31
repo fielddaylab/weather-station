@@ -58,7 +58,7 @@ namespace WeatherStation {
 		
 		public void SensorPlaced() {
 			if(SensorMaterial != null) {
-				SensorMaterial.color = GlowColor;
+				SensorMaterial.SetColor("_BaseColor", GlowColor);
 			}
 		}
 		

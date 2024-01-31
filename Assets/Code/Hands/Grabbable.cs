@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using BeauUtil;
 using BeauUtil.Debugger;
+using BeauRoutine;
 using FieldDay;
 using FieldDay.Components;
 using TMPro;
@@ -44,7 +45,9 @@ namespace WeatherStation {
 		
         public readonly CastableEvent<Grabber> OnGrabbed = new CastableEvent<Grabber>();
         public readonly CastableEvent<Grabber> OnReleased = new CastableEvent<Grabber>();
-
+		
+		private Routine ReturnProcess;
+		
         private void Awake() {
             this.CacheComponent(ref Rigidbody);
             
@@ -53,9 +56,31 @@ namespace WeatherStation {
             OriginalRotation = transform.rotation;
             OriginalParent = transform.parent;
 			
-            CurrentGrabbers = new Grabber[MaxGrabbers];
-			
+            CurrentGrabbers = new Grabber[MaxGrabbers];	
         }
+		
+		public void OnCollisionEnter(Collision c) {
+			if(c.gameObject.layer == 12 && !gameObject.GetComponent<Rigidbody>().isKinematic) {
+				if(!ReturnProcess.Exists()) {
+					ReturnProcess = Routine.Start(ReturnToStart());
+				}
+			}
+		}
+		
+		private IEnumerator ReturnToStart() {
+			yield return 1;
+			if(OriginalSocket) {
+				if(TryGetComponent(out Socketable s)) {
+					if(OriginalSocket.Current == null) {
+						SocketUtility.TryAddToSocket(OriginalSocket, s, true);
+					} else {
+						GrabUtility.ReturnToOriginalSpawnPoint(this);
+					}
+				}
+			} else {
+				GrabUtility.ReturnToOriginalSpawnPoint(this);
+			}
+		}
     }
 
     static public class GrabUtility {
@@ -276,8 +301,11 @@ namespace WeatherStation {
                         Vector3 anchor = grabber.Joint.connectedAnchor;
                         anchor = connected.transform.TransformPoint(anchor);
                         Vector3 velocity = grabber.CachedRB.velocity;
-
-                        connected.AddForceAtPosition((grabbable.gameObject.transform.position - grabbable.LastPosition) * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
+						Vector3 forceVec = (grabbable.gameObject.transform.position - grabbable.LastPosition);
+						forceVec.x *= velocity.x;
+						forceVec.y *= velocity.y;
+						forceVec.z *= velocity.z;
+                        connected.AddForceAtPosition(forceVec * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
                     } 
                 }
 			} else {

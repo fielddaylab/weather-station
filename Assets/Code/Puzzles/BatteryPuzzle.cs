@@ -59,17 +59,17 @@ namespace WeatherStation {
 				}
 				
 				for(int i = 0; i < matchCount; ++i) {
-					PowerMeter[i*2].color = FinalColor;
-					PowerMeter[i*2+1].color = FinalColor;
+					PowerMeter[i*2].SetColor("_BaseColor", FinalColor);
+					PowerMeter[i*2+1].SetColor("_BaseColor", FinalColor);
 				}
 				
 				for(int i = matchCount; i < PuzzleSockets.Count; ++i) {
 					if(BlinkOn) {
-						PowerMeter[i*2].color = BlinkColor;
-						PowerMeter[i*2+1].color = BlinkColor;
+						PowerMeter[i*2].SetColor("_BaseColor", BlinkColor);
+						PowerMeter[i*2+1].SetColor("_BaseColor", BlinkColor);
 					} else {
-						PowerMeter[i*2].color = BlinkOldColor;
-						PowerMeter[i*2+1].color = BlinkOldColor;  
+						PowerMeter[i*2].SetColor("_BaseColor", BlinkOldColor);
+						PowerMeter[i*2+1].SetColor("_BaseColor", BlinkOldColor);  
 					}
 				} 
 				
@@ -80,7 +80,7 @@ namespace WeatherStation {
 		
 		public void OnDisable() {
 			for(int i = 0; i < PowerMeter.Count; ++i) {
-				PowerMeter[i].color = BlinkOldColor;
+				PowerMeter[i].SetColor("_BaseColor", BlinkOldColor);
 			}
 		}
 		
