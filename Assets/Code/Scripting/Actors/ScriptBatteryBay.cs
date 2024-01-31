@@ -36,6 +36,11 @@ namespace WeatherStation.Scripting {
 		public void CloseCover() {
 			m_Socket.CloseCover();	
 		}
+		
+		[LeafMember("LockBase"), Preserve]
+		public void LockBase(bool lockBase) {
+			m_Socket.LockBase(lockBase);
+		}
 
         #endregion // Leaf
 		

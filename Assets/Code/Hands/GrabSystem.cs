@@ -40,17 +40,33 @@ namespace WeatherStation {
 							
 							if(handRig.LeftHandGrab.GrabbableBy == component && handRig.LeftHandGrab.IsGrabPosed) {
 								
-								int closestSpot = -1;
-								float dist = 9999f;
-								for(int i = 0; i < component.Holding.GrabSpots.Count; ++i) {
-									float currDist = Vector3.Distance(handRig.LeftHandGrab.GrabberVisual.transform.position, component.Holding.GrabSpots[i].position);
-									if(currDist < dist) {
-										dist = currDist;
-										closestSpot = i;
+								if(component.Holding.UsePerHandGrabPose) {
+									int closestSpot = -1;
+									float dist = 9999f;
+									for(int i = 0; i < component.Holding.GrabSpotsLeft.Count; ++i) {
+										float currDist = Vector3.Distance(handRig.LeftHandGrab.GrabberVisual.transform.position, component.Holding.GrabSpotsLeft[i].position);
+										if(currDist < dist) {
+											dist = currDist;
+											closestSpot = i;
+										}
 									}
+									
+									handRig.LeftHandGrab.ConstrainedGripPosition = component.Holding.GrabSpotsLeft[closestSpot].position;
+									
 								}
-								
-								handRig.LeftHandGrab.ConstrainedGripPosition = component.Holding.GrabSpots[closestSpot].position;
+								else {
+									int closestSpot = -1;
+									float dist = 9999f;
+									for(int i = 0; i < component.Holding.GrabSpots.Count; ++i) {
+										float currDist = Vector3.Distance(handRig.LeftHandGrab.GrabberVisual.transform.position, component.Holding.GrabSpots[i].position);
+										if(currDist < dist) {
+											dist = currDist;
+											closestSpot = i;
+										}
+									}
+									
+									handRig.LeftHandGrab.ConstrainedGripPosition = component.Holding.GrabSpots[closestSpot].position;
+								}
 								
 							} else if(handRig.RightHandGrab.GrabbableBy == component && handRig.RightHandGrab.IsGrabPosed) {
 								

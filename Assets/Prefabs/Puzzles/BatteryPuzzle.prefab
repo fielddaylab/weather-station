@@ -2842,12 +2842,14 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.2
   GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 2013084922650400469}
+  GrabSpotsLeft: []
 --- !u!65 &6762436121617539784
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5038,6 +5040,7 @@ GameObject:
   - component: {fileID: 479026218770194325}
   - component: {fileID: 2110511162547139542}
   - component: {fileID: 8054060642623301849}
+  - component: {fileID: 7623626758794349489}
   m_Layer: 0
   m_Name: batteryBox_cover
   m_TagString: Untagged
@@ -5132,6 +5135,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!64 &7623626758794349489
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5767872678452898198}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2878061689923502735, guid: 4bcc5b00bdcda7b408572265ab43ae9b, type: 3}
 --- !u!1 &5847836833993390541
 GameObject:
   m_ObjectHideFlags: 0
@@ -6527,7 +6552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0270a952bd6bf247924c1b0977a04e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Locked: 0
+  Locked: 1
   Current: {fileID: 2369846376538294236}
   AllowedSockets: 4
   Mode: 1
@@ -8847,12 +8872,14 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.05
   GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 4831359412892857187}
+  GrabSpotsLeft: []
 --- !u!114 &2711397213722452158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9222,12 +9249,14 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.05
   GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 6556109918523911870}
+  GrabSpotsLeft: []
 --- !u!114 &7697168068245586776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9489,12 +9518,14 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.05
   GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 1037278853809432702}
+  GrabSpotsLeft: []
 --- !u!114 &3878873578123246677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10881,6 +10912,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.1
   GripPoseIndex: -1
@@ -10888,6 +10920,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 7845547372670129801}
   - {fileID: 1274809884958388407}
+  GrabSpotsLeft: []
 --- !u!65 &3301927271282023063
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11060,6 +11093,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.1
   GripPoseIndex: -1
@@ -11067,6 +11101,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 5244594934436635109}
   - {fileID: 4561046514480672294}
+  GrabSpotsLeft: []
 --- !u!114 &2862057143268704483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11203,6 +11238,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.05
   GripPoseIndex: -1
@@ -11210,6 +11246,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 3789003272626118499}
   - {fileID: 1195054086704590122}
+  GrabSpotsLeft: []
 --- !u!65 &3506209071960219011
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11397,6 +11434,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.05
   GripPoseIndex: -1
@@ -11404,6 +11442,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 3666912826108309253}
   - {fileID: 4373190769412868865}
+  GrabSpotsLeft: []
 --- !u!114 &7727623734890981298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11528,6 +11567,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.05
   GripPoseIndex: -1
@@ -11535,6 +11575,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 7303572128603039199}
   - {fileID: 7027881938744959376}
+  GrabSpotsLeft: []
 --- !u!65 &6305009750508131193
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11692,6 +11733,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.1
   GripPoseIndex: -1
@@ -11699,6 +11741,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 3265108701219724504}
   - {fileID: 2210094991749534078}
+  GrabSpotsLeft: []
 --- !u!65 &6173158249622136390
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11844,6 +11887,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.1
   GripPoseIndex: -1
@@ -11851,6 +11895,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 325447446397379749}
   - {fileID: 3409845638724667913}
+  GrabSpotsLeft: []
 --- !u!65 &770644887937828587
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11990,6 +12035,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.05
   GripPoseIndex: -1
@@ -11997,6 +12043,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 4292922770330297155}
   - {fileID: 9175892889035130469}
+  GrabSpotsLeft: []
 --- !u!65 &3428831835401545327
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12142,6 +12189,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.05
   GripPoseIndex: -1
@@ -12149,6 +12197,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 5682408482708350769}
   - {fileID: 6826947242567107153}
+  GrabSpotsLeft: []
 --- !u!65 &4481862569570409277
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12432,12 +12481,14 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.05
   GripPoseIndex: -1
   ConstrainGripPosition: 0
   GrabSpots:
   - {fileID: 5662261257420036143}
+  GrabSpotsLeft: []
 --- !u!114 &3848315131994847713
 MonoBehaviour:
   m_ObjectHideFlags: 0

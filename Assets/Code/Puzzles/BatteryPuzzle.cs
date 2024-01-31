@@ -78,7 +78,8 @@ namespace WeatherStation {
 			}			
         }
 		
-		public void OnDisable() {
+		void OnDestroy() {
+			//Debug.Log("Disabling battery puzzle");
 			for(int i = 0; i < PowerMeter.Count; ++i) {
 				PowerMeter[i].SetColor("_BaseColor", BlinkOldColor);
 			}

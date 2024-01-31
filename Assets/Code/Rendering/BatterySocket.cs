@@ -7,22 +7,19 @@ namespace WeatherStation {
 	{
 		[SerializeField] ItemSocket Socket;
 		
-		[SerializeField] private GameObject BatteryCover;
+		private GameObject BatteryCover;
 		// Start is called before the first frame update
 		void Awake() {
-			if(Socket != null) {
-				Socket.OnAdded.Register(LockBase);
-			}
+
 		}
-		
-		void OnEnable()
-		{
-			if(Socket != null) {
-				Socket.OnAdded.Register(LockBase);
-			}
-		}
+	
 
 		public void OpenCover()	 {
+			
+			if(BatteryCover == null) {
+				BatteryCover = transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
+			}
+			
 			if(BatteryCover != null)
 			{
 				Animator CoverAnim = BatteryCover.GetComponent<Animator>();
@@ -34,6 +31,11 @@ namespace WeatherStation {
 		}
 		
 		public void CloseCover() {
+			
+			if(BatteryCover == null) {
+				BatteryCover = transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
+			}
+			
 			if(BatteryCover != null)
 			{
 				Animator CoverAnim = BatteryCover.GetComponent<Animator>();
@@ -44,17 +46,9 @@ namespace WeatherStation {
 			}
 		}
 		
-		private void LockBase(Socketable s) {
-			if(Socket) {
-				Socket.Locked = true;	
-				BatteryCover = transform.GetChild(0).GetChild(0).GetChild(1).gameObject;
-				if(BatteryCover != null) {
-					Animator CoverAnim = BatteryCover.GetComponent<Animator>();
-					if(CoverAnim != null)
-					{
-						CoverAnim.SetBool("Open", true);
-					}
-				}
+		public void LockBase(bool lockBase) {
+			if(Socket != null) {
+				Socket.Locked = lockBase;
 			}
 		}
 	}

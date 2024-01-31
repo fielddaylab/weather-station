@@ -20,18 +20,21 @@ namespace WeatherStation {
         public bool IsHeavy = false;
 		public bool StayKinematic = false;
 		public bool UseGrabPoses = false;
+		public bool UsePerHandGrabPose = false;
         public bool ReturnOnGroundHit = true;
 		
 		public float GripAmount = 0.0f;
 		public int GripPoseIndex = -1;
 		public bool ConstrainGripPosition = false;
+		
 		public List<Transform> GrabSpots = new List<Transform>(8);
+		public List<Transform> GrabSpotsLeft = new List<Transform>(8);
 		
         [NonSerialized] public Rigidbody Rigidbody;
         [NonSerialized] public Grabber[] CurrentGrabbers;
         [NonSerialized] public int CurrentGrabberCount;
 
-        [NonSerialized] public bool HitGround = false;
+        
 
         [NonSerialized] public bool WasGrabbed = false;
 
@@ -61,7 +64,7 @@ namespace WeatherStation {
 		
 		public void OnCollisionEnter(Collision c) {
 			if(c.gameObject.layer == 12 && !gameObject.GetComponent<Rigidbody>().isKinematic) {
-				if(!ReturnProcess.Exists()) {
+				if(ReturnOnGroundHit && !ReturnProcess.Exists()) {
 					ReturnProcess = Routine.Start(ReturnToStart());
 				}
 			}
@@ -127,14 +130,15 @@ namespace WeatherStation {
 			
 			if(grabbable.UseGrabPoses) {
 				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
-
+				VRInputState data = Game.SharedState.Get<VRInputState>();
 				if(handRig.LeftHandGrab.GrabbableBy == grabber) {
-					GrabUtility.GrabPoseOn(handRig.LeftHandGrab, grabbable);
+					data.LeftHand.HapticImpulse = 0.1f;
+					GrabUtility.GrabPoseOn(handRig.LeftHandGrab, grabbable, true);
 				}
 
-				
 				if(handRig.RightHandGrab.GrabbableBy == grabber) {
-					GrabUtility.GrabPoseOn(handRig.RightHandGrab, grabbable);
+					data.RightHand.HapticImpulse = 0.1f;
+					GrabUtility.GrabPoseOn(handRig.RightHandGrab, grabbable, false);
 				}
 			}
 			
@@ -220,7 +224,7 @@ namespace WeatherStation {
             return false;
         }
 		
-		static public void GrabPoseOn(GrabPose gp, Grabbable grabbable) {
+		static public void GrabPoseOn(GrabPose gp, Grabbable grabbable, bool isLeft=false) {
 			gp.GrabberVisual.SetActive(false);
 			gp.gameObject.SetActive(true);
 			gp.IsGrabPosed = true;
@@ -237,30 +241,55 @@ namespace WeatherStation {
 				}
 			}
 			
-			int closestSpot = -1;
-			float dist = 9999f;
-			for(int i = 0; i < grabbable.GrabSpots.Count; ++i) {
-				float currDist = Vector3.Distance(gp.GrabberVisual.transform.position, grabbable.GrabSpots[i].position);
-				if(currDist < dist) {
-					dist = currDist;
-					closestSpot = i;
+			if(isLeft && grabbable.UsePerHandGrabPose) {
+				int closestSpot = -1;
+				float dist = 9999f;
+				for(int i = 0; i < grabbable.GrabSpotsLeft.Count; ++i) {
+					float currDist = Vector3.Distance(gp.GrabberVisual.transform.position, grabbable.GrabSpotsLeft[i].position);
+					if(currDist < dist) {
+						dist = currDist;
+						closestSpot = i;
+					}
+				}	
+				
+				if(closestSpot != -1) {
+					//for position, instead walk through list of possible grab points... attach to closest...
+					gp.gameObject.transform.position = grabbable.GrabSpotsLeft[closestSpot].transform.position;
+					if(grabbable.ConstrainGripPosition) {
+						gp.ConstrainGripPosition = true;
+						gp.ConstrainedGripTransform = grabbable.GrabSpotsLeft[closestSpot].transform;
+						//gp.ConstrainedGripPosition = gp.gameObject.transform.position;
+					} else {
+						gp.ConstrainGripPosition = false;
+						gp.ConstrainedGripPosition = Vector3.zero;
+					}
+				}
+			}
+			else {
+				int closestSpot = -1;
+				float dist = 9999f;
+				for(int i = 0; i < grabbable.GrabSpots.Count; ++i) {
+					float currDist = Vector3.Distance(gp.GrabberVisual.transform.position, grabbable.GrabSpots[i].position);
+					if(currDist < dist) {
+						dist = currDist;
+						closestSpot = i;
+					}
+				}
+				
+				if(closestSpot != -1) {
+					//for position, instead walk through list of possible grab points... attach to closest...
+					gp.gameObject.transform.position = grabbable.GrabSpots[closestSpot].transform.position;
+					if(grabbable.ConstrainGripPosition) {
+						gp.ConstrainGripPosition = true;
+						gp.ConstrainedGripTransform = grabbable.GrabSpots[closestSpot].transform;
+						//gp.ConstrainedGripPosition = gp.gameObject.transform.position;
+					} else {
+						gp.ConstrainGripPosition = false;
+						gp.ConstrainedGripPosition = Vector3.zero;
+					}
 				}
 			}
 			
-			if(closestSpot != -1) {
-				//for position, instead walk through list of possible grab points... attach to closest...
-				gp.gameObject.transform.position = grabbable.GrabSpots[closestSpot].transform.position;
-				if(grabbable.ConstrainGripPosition) {
-					gp.ConstrainGripPosition = true;
-					gp.ConstrainedGripTransform = grabbable.GrabSpots[closestSpot].transform;
-					//gp.ConstrainedGripPosition = gp.gameObject.transform.position;
-				} else {
-					gp.ConstrainGripPosition = false;
-					gp.ConstrainedGripPosition = Vector3.zero;
-				}
-			}
-			
-		
 			//we want to temporarily set the parent of the grab pose component to the thing we grabbed, but also set the thing we grabbed'd parent to the grabber visual
 			gp.gameObject.transform.SetParent(grabbable.transform);
 			

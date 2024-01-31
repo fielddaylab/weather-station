@@ -65,7 +65,7 @@ namespace WeatherStation {
 		
 		IEnumerator WaitForKill()
 		{
-			yield return new WaitForSeconds(3f);
+			yield return new WaitForSeconds(2f);
 			
 			ScriptPlugin.CompleteForceKill = false;
 			
@@ -100,7 +100,7 @@ namespace WeatherStation {
 			}
 			else if(CurrentSceneIndex == 4)
 			{
-				//ScriptUtility.Trigger("GameReady");
+				ScriptUtility.Trigger("EpilogueReady");
 				CurrentSceneIndex++;
 				
 				/*if(CurrentSceneIndex == 5)

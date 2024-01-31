@@ -10,7 +10,7 @@ namespace WeatherStation {
     [SysUpdate(GameLoopPhase.LateFixedUpdate, 500)]
     public class GrabReturnSystem : ComponentSystemBehaviour<Grabbable> {
 		
-		public AudioSource GroundHitSound = null;	//temp - eventually different per object.
+		/*public AudioSource GroundHitSound = null;	//temp - eventually different per object.
 		
 		static public bool ForceSkip = false;
 		
@@ -57,6 +57,6 @@ namespace WeatherStation {
 			}
 			
 			//ForceSkip = false;
-        }
+        }*/
     }
 }

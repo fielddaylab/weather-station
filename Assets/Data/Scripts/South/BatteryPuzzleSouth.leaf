@@ -6,6 +6,7 @@
 @once
 
 $call batteryBase->SetGrabbable(true);
+$call batterySnowSocket->SetLocked(false)
 
 $call batteryBase->SetWasGrabbed(false)
 $call batteryOne->SetWasGrabbed(false)
@@ -38,8 +39,10 @@ $call batteryBay->StopHighlight()
 $call batteryBay->StopFX()
 
 $endif
-
 $endif
+
+$call batteryBaySocket->LockBase(true)
+$call batteryBaySocket->OpenCover()
 
 $call argoHelpButton->SetCurrentClip(25)
 

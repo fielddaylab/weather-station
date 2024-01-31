@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.XR;
 
 namespace WeatherStation {
-    public class TempSensorButton : BatchedComponent {
+    public class TempSensorButton : MonoBehaviour {
         #region Inspector
         
         [SerializeField] private List<Texture2D> SlotTextures = new List<Texture2D>();

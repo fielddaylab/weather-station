@@ -100,6 +100,8 @@ $endwhile
 
 $endif
 
+$call batterySnowSocket->SetLocked(false)
+
 $call loggerPieceOne->StopHighlight()
 $call loggerPieceTwo->StopHighlight()
 $call loggerPieceThree->StopHighlight()

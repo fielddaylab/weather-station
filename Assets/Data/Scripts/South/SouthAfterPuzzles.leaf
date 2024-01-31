@@ -55,21 +55,19 @@ $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
-$call windSensor->StopHighlight()
-$call windSensor->StopFX()
-$call windSledSocket->StopFX()
+$call windSensor->ShowHighlight()
+$call windSensor->PlayFX()
 
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
 
 $call snowTowerSocket->ShowHighlight()
-$call snowTowerSocket->StartFX()
+$call snowTowerSocket->PlayFX()
 
-$call batterySnowSocket->ShowHighlight()
-$call batterySnowSocket->StartFX()
+$call batterySnowSocket->PlayFX()
 
 $call windSensorSocket->ShowHighlight()
-$call windSensorSocket->StartFX()
+$call windSensorSocket->PlayFX()
 
 $call argoHelpButton->SetButtonLocked(true)
 

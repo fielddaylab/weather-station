@@ -1,6 +1,6 @@
-#basePath   NorthwestStart
+#basePath   Northwest
 
-:: NorthwestStart
+:: Northwest
 @trigger    LevelOneFinished
 @evalPriority   100
 @once
@@ -65,6 +65,8 @@ $endwhile
 $call argoHelpButton->SetButtonLocked(true)
 
 $endif
+
+$call batterySnowSocket->SetLocked(false)
 
 $call loggerPieceOne->StopHighlight()
 $call loggerPieceTwo->StopHighlight()
@@ -210,6 +212,9 @@ $endwhile
 $call batteryBay->StopHighlight()
 $call batteryBay->StopFX()
 $endif
+
+$call batteryBaySocket->LockBase(true)
+$call batteryBaySocket->OpenCover()
 
 $if NotIsSocketed(snowBaySocket)
 

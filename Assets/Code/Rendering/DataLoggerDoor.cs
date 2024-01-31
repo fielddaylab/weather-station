@@ -15,8 +15,8 @@ namespace WeatherStation {
         #region Inspector
 		[SerializeField] float RotateMin = 0f;
 		[SerializeField] float RotateMax = 65f;
-		[SerializeField] float RotateMin2 = 273f;
-		[SerializeField] float RotateMax2 = 360f;
+		//[SerializeField] float RotateMin2 = 273f;
+		//[SerializeField] float RotateMax2 = 360f;
 		
         #endregion // Inspector
 		
@@ -46,32 +46,22 @@ namespace WeatherStation {
 					currPos = handRig.RightHand.Visual.position;
 				}
 				
-				float dotProd = Vector3.Dot(transform.forward, Vector3.Normalize(LastPos - currPos));
+				float dotProd = Vector3.Dot(-transform.forward, Vector3.Normalize(LastPos - currPos));
 				float dir = -1f;
 				if(dotProd > 0f) {
 					dir = 1f;
 				}
 				
-				if((euler.y >= RotateMin2 && euler.y <= RotateMax2) || (euler.y >= RotateMin && euler.y <= RotateMax)) {
+				if((euler.y >= RotateMin && euler.y <= RotateMax)) {
 					transform.RotateAround(transform.position, Vector3.up * dir, Vector3.Distance(LastPos, currPos)*150f);
 				}
 				
 				Vector3 angles = transform.rotation.eulerAngles;
 				
-				if(angles.y < RotateMin2 && angles.y > RotateMax) {
-					if(Mathf.Abs(angles.y - RotateMax) < Mathf.Abs(angles.y - RotateMin2)) {
-						angles.y = RotateMax-0.5f;
-					} else {
-						angles.y = RotateMin2+0.5f;
-					}
-					transform.rotation = Quaternion.Euler(angles);
-				} else if(angles.y > RotateMax2) {
-					angles.y = RotateMax2-0.5f;
-					transform.rotation = Quaternion.Euler(angles);
-				} else if(angles.y < RotateMin) {
+				if(angles.y < RotateMin) {
 					angles.y = RotateMin+0.5f;
 					transform.rotation = Quaternion.Euler(angles);
-				} else if(angles.y > RotateMax && angles.y < RotateMin2) {
+				} else if(angles.y > RotateMax) {
 					angles.y = RotateMax-0.5f;
 					transform.rotation = Quaternion.Euler(angles);
 				}

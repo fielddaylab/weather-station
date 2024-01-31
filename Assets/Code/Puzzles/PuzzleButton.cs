@@ -18,8 +18,6 @@ namespace WeatherStation {
         public float YShift = 0.012f;
 		
 		public float XShift = 0.0f;
-
-        //public Color ButtonColor;
         
 		public AudioSource SoundEffect;
         #endregion // Inspector
