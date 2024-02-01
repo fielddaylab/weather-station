@@ -74,7 +74,7 @@ $call batteryTwoThreeStag->ShowHighlight()
 $call batteryThreeThreeStag->PlayFX()
 $call batteryThreeThreeStag->ShowHighlight()
 
-$call batteryBase->SetGrabbable(false);
+$call batteryBase->SetGrabbable(false)
 
 $while PuzzleIsNotComplete(batteryPuzzle)
 
@@ -208,11 +208,19 @@ $call cellThree->StopFX()
 $call cellFour->StopHighlight()
 $call cellFour->StopFX()
 
-$call batteryBaySocket->CloseCover();
-$call batteryBaySocket->SetLocked(false);
+$call batteryBaySocket->CloseCover()
+$call batteryBaySocket->SetLocked(false)
 $call argoHelpButton->SetCurrentClip(28)
-$call batteryBase->SetGrabbable(true);
+$call batteryBase->SetGrabbable(true)
 
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
 $call batterySledSocket->PlayFX()
+
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$call batterySledSocket->StopFX()

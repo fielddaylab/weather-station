@@ -5,33 +5,22 @@
 @evalPriority   100
 @once
 
-
-$while NotIsSocketed(batterySledSocket)
+$while NotIsSocketed(windSensorSled)
 $call Wait(1)
 $endwhile
-
-$call batterySledSocket->StopFX()
 
 $while NotIsSocketed(snowSledSocket)
 $call Wait(1)
 $endwhile
 
-$call snowSledSocket->StopFX()
-
-$if NotIsSocketed(windSensorSled)
-$while NotIsSocketed(windSensorSled)
+$while NotIsSocketed(batterySledSocket)
 $call Wait(1)
 $endwhile
-$endif
-
-$call windSensor->StopHighlight()
-$call windSensor->StopFX()
-$call windSensorSled->StopFX()
 
 $call argoFunButton->SetButtonLocked(true)
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(34);
+$call argoHelpButton->SetCurrentClip(34)
 
 $call argo->SetGrabbable(true)
 $call argo->PlayFX()
@@ -55,17 +44,18 @@ $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
-$call windSensor->ShowHighlight()
-$call windSensor->PlayFX()
 
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
+$call batterySnowSocket->PlayFX()
 
 $call snowTowerSocket->ShowHighlight()
 $call snowTowerSocket->PlayFX()
+$call snowSensor->PlayFX()
+$call snowSensor->ShowHighlight()
 
-$call batterySnowSocket->PlayFX()
-
+$call windSensor->ShowHighlight()
+$call windSensor->PlayFX()
 $call windSensorSocket->ShowHighlight()
 $call windSensorSocket->PlayFX()
 
@@ -77,7 +67,7 @@ $call argoHelpButton->SetButtonLocked(true)
 {@Alex} Just need to get everything back on the tower... give us a minute. $[just_need_to]
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(35);
+$call argoHelpButton->SetCurrentClip(35)
 
 {@Argo} Or we could camp out here for the night! There would be ample time for sharing fun facts around a campfire. And it would give me a chance to show you the effectiveness of my weatherproof screen! Doesn’t that sound exciting? $[or_we_could]
 
@@ -86,33 +76,103 @@ $call argoHelpButton->SetCurrentClip(35);
 {@Argo} Hmm. You poor humans… so easily damaged. It’s a good thing you have me to look out for you! $[hmm_you_poor]
 
 
-$while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
+$while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket), NotIsSocketed(windSensorSocket)
 $call Wait(1)
 $endwhile
 
-$if NotIsSocketed(batterySnowSocket)
-$call snowTowerSocket->StopHighlight()
-$call snowTowerSocket->StopFX()
-$call snowSensor->StopFX()
+$if IsSocketed(batterySnowSocket)
 
-$while NotIsSocketed(batterySnowSocket)
-$call Wait(1)
-$endwhile
 $call batterySnowSocket->StopFX()
 $call batteryBase->StopFX()
 $call batteryBase->StopHighlight()
+
+$while NotIsSocketed(snowTowerSocket), NotIsSocketed(windSensorSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(snowTowerSocket)
+$call snowTowerSocket->StopFX()
+$call snowTowerSocket->StopHighlight()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$while NotIsSocketed(windSensorSocket)
+$call Wait(1)
+$endwhile
 $endif
 
-$if NotIsSocketed(snowTowerSocket)
+$if IsSocketed(windSensorSocket)
+$call windSensorSocket->StopFX()
+$call windSensorSocket->StopHighlight()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$while NotIsSocketed(snowTowerSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$if IsSocketed(snowTowerSocket)
+
+$call snowTowerSocket->StopFX()
+$call snowTowerSocket->StopHighlight()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+
+$while NotIsSocketed(batterySnowSocket), NotIsSocketed(windSensorSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(batterySnowSocket)
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$while NotIsSocketed(windSensorSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(windSensorSocket)
+$call windSensorSocket->StopFX()
+$call windSensorSocket->StopHighlight()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$while NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$if IsSocketed(windSensorSocket)
+
+$call windSensorSocket->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+
+$while NotIsSocketed(batterySnowSocket), NotIsSocketed(snowTowerSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(batterySnowSocket)
 $call batterySnowSocket->StopFX()
 $call batteryBase->StopFX()
 $call batteryBase->StopHighlight()
 $while NotIsSocketed(snowTowerSocket)
 $call Wait(1)
 $endwhile
-$call snowTowerSocket->StopHighlight()
+$endif
+
+$if IsSocketed(snowTowerSocket)
 $call snowTowerSocket->StopFX()
+$call snowTowerSocket->StopHighlight()
+$call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
+$while NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+$endif
+
 $endif
 
 $call batterySnowSocket->StopFX()
@@ -122,6 +182,10 @@ $call snowSensor->StopFX()
 $call snowSensor->StopHighlight()
 $call snowTowerSocket->StopHighlight()
 $call snowTowerSocket->StopFX()
+$call windSensorSocket->StopHighlight()
+$call windSensorSocket->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
 
 $call argoHelpButton->SetButtonLocked(true)
 
@@ -132,7 +196,7 @@ $call argoHelpButton->SetButtonLocked(true)
 {@Alex} Load up the stuff. We're on our way! $[load_up_the]
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(36);
+$call argoHelpButton->SetCurrentClip(36)
 
 $call argo->SetGrabbable(true)
 $call argo->PlayFX()
@@ -162,7 +226,7 @@ $call argoHelpButton->SetButtonLocked(true)
 {@Alex} Tell me about it. $[tell_me_about]
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(37);
+$call argoHelpButton->SetCurrentClip(37)
 
 $call uplinkButton->ShowHighlight()
 $call uplinkButton->PlayFX()

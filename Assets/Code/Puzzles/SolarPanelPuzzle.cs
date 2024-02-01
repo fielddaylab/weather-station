@@ -193,6 +193,7 @@ namespace WeatherStation {
 			RightHandle.OnReleased.Register(OnReleasePanel);
 			LeftHandle.OnGrabbed.Register(OnGrabPanel);
 			LeftHandle.OnReleased.Register(OnReleasePanel);
+			State = PuzzleState.Inactive;
         }
 		
 		private void OnGrabPanel(Grabber grabber) {

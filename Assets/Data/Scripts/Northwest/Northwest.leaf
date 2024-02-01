@@ -249,7 +249,7 @@ $call batteryTwo->ShowHighlight()
 $call batteryThree->PlayFX()
 $call batteryThree->ShowHighlight()
 
-$call batteryBase->SetGrabbable(false);
+$call batteryBase->SetGrabbable(false)
 
 {@Argo} OK, we need to craft a new battery, check your inventory for a baseplate. $[ok_we_need]
 
@@ -367,10 +367,10 @@ $call cellTwo->StopFX()
 $call cellThree->StopFX()
 $call cellFour->StopFX()
 
-$call batteryBaySocket->CloseCover();
-$call batteryBaySocket->SetLocked(false);
+$call batteryBaySocket->CloseCover()
+$call batteryBaySocket->SetLocked(false)
 
-$call batteryBase->SetGrabbable(true);
+$call batteryBase->SetGrabbable(true)
 
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()

@@ -5,22 +5,13 @@
 @evalPriority   100
 @once
 
-$while NotIsSocketed(batterySledSocket)
-$call Wait(1)
-$endwhile
-
 $while NotIsSocketed(snowSledSocket)
 $call Wait(1)
 $endwhile
 
-$call batteryBase->StopHighlight()
-$call batteryBase->StopFX()
-$call batterySledSocket->StopFX()
-
-$call snowSledSocket->StopFX()
-$call snowSensor->StopHighlight()
-$call snowSensor->StopFX()
-$call snowSensor->StopSound()
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
 
 $call argoFunButton->SetButtonLocked(true)
 $call argoHelpButton->SetButtonLocked(true)
@@ -33,7 +24,7 @@ $call argoHelpButton->SetButtonLocked(true)
 {@Rae} Affirmative. I’ll try to come back for you tomorrow. $[affirmative_ill_try]
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(34);
+$call argoHelpButton->SetCurrentClip(34)
 
 $call argo->SetGrabbable(true)
 $call argo->PlayFX()
@@ -62,7 +53,7 @@ $call argoHelpButton->SetButtonLocked(true)
 {@Rae} Stay safe, I’ll be back tomorrow...I hope. $[stay_safe_ill]
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(35);
+$call argoHelpButton->SetCurrentClip(35)
 
 $call snowSensor->PlayFX()
 $call snowSensor->ShowHighlight()
@@ -79,7 +70,6 @@ $call batterySnowSocket->PlayFX()
 {@Argo} I can test the connection all on my own. $[i_can_test]
 {@Alex} Wow really? I never thought I’d say this Argo.. I’m... impressed. $[wow_really_i]
 {@Argo} Well, I am very impressive. $[well_i_am]
-
 
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)

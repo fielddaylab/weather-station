@@ -5,8 +5,14 @@
 @evalPriority   100
 @once
 
-$call batteryBase->SetGrabbable(true);
+$call batteryBase->SetGrabbable(true)
 $call batterySnowSocket->SetLocked(false)
+
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+
+$call batteryBay->ShowHighlight()
+$call batteryBay->PlayFX()
 
 $call batteryBase->SetWasGrabbed(false)
 $call batteryOne->SetWasGrabbed(false)
@@ -60,7 +66,7 @@ $call batteryTwoThree->ShowHighlight()
 $call batteryThreeThree->PlayFX()
 $call batteryThreeThree->ShowHighlight()
 
-$call batteryBase->SetGrabbable(false);
+$call batteryBase->SetGrabbable(false)
 
 $while PuzzleIsNotComplete(batteryPuzzle)
 
@@ -167,10 +173,10 @@ $call cellThree->StopFX()
 $call cellFour->StopHighlight()
 $call cellFour->StopFX()
 
-$call batteryBaySocket->CloseCover();
-$call batteryBaySocket->SetLocked(false);
+$call batteryBaySocket->CloseCover()
+$call batteryBaySocket->SetLocked(false)
 
-$call batteryBase->SetGrabbable(true);
+$call batteryBase->SetGrabbable(true)
 
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
@@ -181,3 +187,11 @@ $call argoHelpButton->SetCurrentClip(28)
 {@Rae} You two might need to throw the towel in on this one. $[you_two_might]
 {@Alex} Negative, we won't get another chance to come back out here all year. $[negative_we_wont]
 {@Rae} Fine. But remember, I'm not waiting for you. $[fine_but_remember]
+
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()

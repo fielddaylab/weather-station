@@ -74,7 +74,7 @@ $call argoHelpButton->SetCurrentClip(22)
 $call argoHelpButton->SetButtonLocked(false)
 
 $call batterySnowSocket->SetLocked(false)
-$call snowWindSocket->SetLocked(false)
+$call snowTowerSocket->SetLocked(false)
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call snowSensor->PlaySound()
@@ -253,22 +253,6 @@ $call fader->FadeIn(3.0, 1.0)
 
 $call Wait(3)
 
-$call snowSensor->ShowHighlight()
-$call snowSensor->PlayFX()
-
-$call batteryBase->ShowHighlight()
-$call batteryBase->PlayFX()
-
-$call windSensor->ShowHighlight()
-$call windSensor->PlayFX()
-
-$call batteryBay->ShowHighlight()
-$call batteryBay->PlayFX()
-
-$call windSensorBay->PlayFX()
-$call windSensorBay->ShowHighlight()
-
-$call snowSensorBay->PlayFX()
 
 $call argoHelpButton->SetButtonLocked(true)
 $call argoFunButton->SetButtonLocked(true)

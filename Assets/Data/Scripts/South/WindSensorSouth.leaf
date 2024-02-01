@@ -5,6 +5,12 @@
 @evalPriority   100
 @once
 
+
+$call windSensor->PlayHighlight()
+$call windSensor->PlayFX()
+$call windSensorBay->PlayFX()
+$call windSensorBay->ShowHighlight()
+
 $call trashChute->SetGrabbable(true)
 $call propS->SetWasGrabbed(false)
 $call propM->SetWasGrabbed(false)
@@ -17,7 +23,6 @@ $endwhile
 $endif
 
 $call windSensor->StopHighlight()
-$call windSensor->StopSound()
 $call windSensor->StopFX()
 
 $if NotIsSocketed(windSensorBaySocket)
@@ -27,7 +32,6 @@ $endwhile
 $endif
 
 $call windSensorBay->StopFX()
-$call windSensorBay->StopSound()
 $call windSensorBay->StopHighlight()
 
 $call windSensor->SetGrabbable(false)
@@ -36,27 +40,22 @@ $while PuzzleIsNotComplete(windSensorPuzzle)
 
 
 $call brokenBladeSmall->PlayFX()
-$call brokenBladeSmall->PlaySound()
 $call brokenBladeSmall->ShowHighlight()
 
 $call propM->PlayFX()
 $call propM->ShowHighlight()
 $call propM->SetGrabbable(true)
-$call propM->PlaySound()
 $call propS->PlayFX()
 $call propS->ShowHighlight()
-$call propS->PlaySound()
 $call propS->SetGrabbable(true)
 $call propL->PlayFX()
 $call propL->ShowHighlight()
 $call propL->SetGrabbable(true)
-$call propL->PlaySound()
 
 $call windSensorBladeSocket->SetLocked(false)
 
 $if WasGrabbed(brokenBladeSmall)
 $call brokenBladeSmall->StopFX()
-$call brokenBladeSmall->StopSound()
 $call brokenBladeSmall->StopHighlight()
 $else
 $if IsGrabbableSocketed(brokenBladeSmall)
@@ -84,25 +83,16 @@ $else
 $if WasGrabbed(propM)
 $call propM->StopFX()
 $call propM->StopHighlight()
-$call propM->StopSound()
-$call propS->StopSound()
-$call propL->StopSound()
 $endif
 
 $if WasGrabbed(propS)
 $call propS->StopFX()
 $call propS->StopHighlight()
-$call propS->StopSound()
-$call propM->StopSound()
-$call propL->StopSound()
 $endif
 
 $if WasGrabbed(propL)
 $call propL->StopFX()
 $call propL->StopHighlight()
-$call propL->StopSound()
-$call propM->StopSound()
-$call propS->StopSound()
 $endif
 
 $call argoHelpButton->SetCurrentClip(31)
@@ -126,6 +116,14 @@ $call propM->StopFX()
 $call propM->StopHighlight()
 $call propS->StopFX()
 $call propS->StopHighlight()
-$call propS->StopSound()
-$call propM->StopSound()
-$call propL->StopSound()
+
+
+$if NotIsSocketed(windSensorSled)
+$while NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$call windSensorSled->StopFX()

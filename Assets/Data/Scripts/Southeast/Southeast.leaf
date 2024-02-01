@@ -30,15 +30,13 @@ $call argoFunButton->SetEndClip(12)
 $call rightPanelHandle->PlayFX()
 $call rightPanelHandle->ShowHighlight()
 $call rightPanelHandle->SetGrabbable(true)
-$call rightPanelHandle->PlaySound()
 $call leftPanelHandle->SetGrabbable(true)
-$call leftPanelHandle->PlaySound()
 
 $if DoorWasNotGrabbed(dataLoggerDoor)
 $call dataLoggerDoor->ShowHighlight()
 $endif
 
-$while PuzzleIsNotComplete(dataLoggerPuzzle), PuzzleIsNotComplete(solarPanel)
+$while PuzzleIsNotComplete(dataLoggerPuzzle), PuzzleIsNotComplete(solarPanel2)
 
 $if DoorWasGrabbed(dataLoggerDoor)
 
@@ -75,20 +73,20 @@ $endif
 
 $endif
 
+$call Wait(1)
+
 $endwhile
 
-$if PuzzleIsNotComplete(solarPanel)
+$if PuzzleIsNotComplete(solarPanel2)
 
 $call argoHelpButton->SetCurrentClip(21)
 
-$while PuzzleIsNotComplete(solarPanel)
+$while PuzzleIsNotComplete(solarPanel2)
 $call Wait(1)
 $endwhile
 
-$call leftPanelHandle->StopSound()
 $call rightPanelHandle->StopFX()
 $call rightPanelHandle->StopHighlight()
-$call rightPanelHandle->StopSound()
 $call leftPanelHandle->SetGrabbable(false)
 $call rightPanelHandle->SetGrabbable(false)
 

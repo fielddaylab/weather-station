@@ -30,3 +30,12 @@ $endwhile
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call snowSledSocket->PlayFX()
+
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+
+$call snowSledSocket->StopFX()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSensor->StopSound()
