@@ -14,9 +14,6 @@ $call windSensor->SetGrabbable(true)
 $call windSensor->ShowHighlight()
 $call windSensor->PlaySound()
 $call windSensor->PlayFX()
-$call argoSled->PlayFX()
-$call argoSled->PlaySound()
-$call argo->PlayFX()
 
 $if NotIsSocketed(windSensorSled)
 {@Argo} Great, now place it in the sled. $[argo_great_now]
@@ -26,6 +23,10 @@ $call Wait(1)
 $endwhile
 $call argoHelpButton->SetButtonLocked(true)
 $endif
+
+$call argoSled->PlayFX()
+$call argoSled->PlaySound()
+$call argo->PlayFX()
 
 $call windSensorSled->StopFX()
 $call windSensorSled->StopSound()
@@ -120,31 +121,37 @@ $call uplinkButton->SetButtonPressed(false)
 
 $call uplink->SetTexture(0)
 
-$call map->NextTexture()
+$call map->SetTexture(0)
+$call Wait(1)
 
+$call map->NextTexture()
 {@Argo} Ugh, I always get so nervous at this part... progress bars are so anxiety inducing. $[argo_ugh_i]
 $call Wait(1)
-$call uplink->NextTexture()
-$call Wait(1)
-$call uplink->NextTexture()
-$call Wait(1)
-$call uplink->NextTexture()
-$call Wait(1)
-$call uplink->NextTexture()
-$call Wait(1)
-$call uplink->NextTexture()
-$call Wait(1)
-$call uplink->NextTexture()
-$call Wait(1)
-$call uplink->NextTexture()
-$call Wait(1)
-$call uplink->NextTexture()
-$call Wait(1)
-$call uplink->SetTexture(0)
-$call map->NextTexture()
 
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(1)
+
+$call uplink->SetTexture(0)
+
+$call map->NextTexture()
 {@Argo} Hooray! See there was nothing to be concerned about. $[argo_hooray_see]
-$call Wait(2)
+
+$call Wait(1)
 $call map->NextTexture()
 
 {@Argo} The repair is complete! Mount Rea station is transmitting data again. Excellent work! $[argo_the_repair]
