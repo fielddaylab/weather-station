@@ -118,12 +118,31 @@ $call uplinkButton->StopHighlight()
 $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
 
+$call uplink->SetTexture(0)
+
 $call map->NextTexture()
 
 {@Argo} Ugh, I always get so nervous at this part... progress bars are so anxiety inducing. $[argo_ugh_i]
-
-$call Wait(2)
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->SetTexture(0)
 $call map->NextTexture()
+
 {@Argo} Hooray! See there was nothing to be concerned about. $[argo_hooray_see]
 $call Wait(2)
 $call map->NextTexture()

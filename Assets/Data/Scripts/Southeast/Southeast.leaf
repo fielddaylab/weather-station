@@ -85,13 +85,12 @@ $while PuzzleIsNotComplete(solarPanel2)
 $call Wait(1)
 $endwhile
 
+$endif
+
 $call rightPanelHandle->StopFX()
 $call rightPanelHandle->StopHighlight()
 $call leftPanelHandle->SetGrabbable(false)
 $call rightPanelHandle->SetGrabbable(false)
-
-$endif
-
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 $call argoHelpButton->SetCurrentClip(20)

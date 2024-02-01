@@ -3742,7 +3742,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Socket: {fileID: 7446192118926065467}
-  BatteryCover: {fileID: 0}
 --- !u!114 &1836904768076602653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8308,12 +8307,14 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 1
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 0
   GripAmount: 0.1
   GripPoseIndex: -1
   ConstrainGripPosition: 1
   GrabSpots:
   - {fileID: 3393547075480165564}
+  GrabSpotsLeft: []
 --- !u!65 &3064358800799048774
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8347,6 +8348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd7b1d09ff4d7f24ea2eed6506c38661, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RotateMin: 310
+  RotateMax: 359
 --- !u!114 &3403145420029345039
 MonoBehaviour:
   m_ObjectHideFlags: 0

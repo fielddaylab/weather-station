@@ -24,9 +24,6 @@ namespace WeatherStation {
 		private int AnimParamIndexFlex = -1;
 		private int AnimParamIndexPose = -1;
 		
-		private float LeftPB = 0f;
-		private float RightPB = 0f;
-		
 		private void Awake() {
 			if(LeftHandAnimator != null) {
 				AnimLayerIndexPointLeft = LeftHandAnimator.GetLayerIndex("Point Layer");

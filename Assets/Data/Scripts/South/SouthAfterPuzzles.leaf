@@ -238,22 +238,37 @@ $endwhile
 $call uplinkButton->StopHighlight()
 $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
+$call argoHelpButton->SetButtonLocked(true)
 
 $call map->SetTexture(0)
+$call uplink->SetTexture(0)
 
 $call Wait(1)
 
 $call map->NextTexture()
-
-$call Wait(2)
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->NextTexture()
+$call Wait(1)
+$call uplink->SetTexture(0)
 $call map->NextTexture()
-
-$call Wait(2)
-$call map->NextTexture()
-
-$call argoHelpButton->SetButtonLocked(true)
-
 {@Argo} It works! $[it_works_works]
+$call Wait(1)
+$call map->NextTexture()
+
 {@Rae} Yes, hold onto your butts! $[yes_hold_onto]
 
 $call fader->FadeOut(10.0)

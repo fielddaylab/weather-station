@@ -74,9 +74,13 @@ namespace WeatherStation {
 				} else {
 					
 					if(!WasPressed) {
+						//this should only happen if we're on the first level...
 						if(gameObject.name == "ArgoFaceButton") {
-							ScriptPlugin.ForceKill = true;
-							StartCoroutine(ArgoWasPressed(1f));
+							SceneLoader sceneInfo = Game.SharedState.Get<SceneLoader>();
+							if(sceneInfo.GetCurrentSceneIndex() == 0) {
+								ScriptPlugin.ForceKill = true;
+								StartCoroutine(ArgoWasPressed(1f));
+							}
 						}
 						/*using (var table = TempVarTable.Alloc()) {
 							table.Set("someRandomValue", RNG.Instance.Next(60));
@@ -106,9 +110,9 @@ namespace WeatherStation {
 				//todo - optimize
 				VRInputState data = Game.SharedState.Get<VRInputState>();
 				if(c.gameObject.name.StartsWith("Left")) {
-					data.LeftHand.HapticImpulse = 0.1f;
+					data.LeftHand.HapticImpulse = 0.25f;
 				} else if(c.gameObject.name.StartsWith("Right")) {
-					data.RightHand.HapticImpulse = 0.1f;
+					data.RightHand.HapticImpulse = 0.25f;
 				}
 
 				OnPressed.Invoke(this);

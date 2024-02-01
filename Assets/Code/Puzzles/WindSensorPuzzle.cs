@@ -71,14 +71,5 @@ namespace WeatherStation {
                 yield return new WaitForEndOfFrame();
             }
         }
-		
-		IEnumerator WindSensorComplete(float waitTime) {
-			yield return new WaitForSeconds(waitTime);
-			//while(ScriptPlugin.ForceKill) {
-			//	yield return null;
-			//}
-			//Debug.Log("TRIGGERING NEXT SCRIPT");
-			ScriptUtility.Trigger("WindSensorComplete");
-		}
     }
 }

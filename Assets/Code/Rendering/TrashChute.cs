@@ -22,6 +22,9 @@ namespace WeatherStation {
 		private bool RightGrabbed = false;
 		private bool LeftGrabbed = false;
 		
+		[SerializeField] float RotateMin = 310f;
+		[SerializeField] float RotateMax = 359f;
+		
 		[NonSerialized] public bool WasGrabbed = false;
 		
 		private Vector3 LastPos = Vector3.zero;
@@ -43,17 +46,25 @@ namespace WeatherStation {
 					currPos = handRig.RightHand.Visual.position;
 				}
 				
-				
 				float dotProd = Vector3.Dot(transform.right, Vector3.Normalize(LastPos - currPos));
 				float dir = -1f;
 				if(dotProd > 0f) {
 					dir = 1f;
 				}
 				
-				if((euler.z + 10f > 300 && euler.z - 10f < 360f) || (euler.z - 10f <= 0f && euler.z + 10f > -60f)) {
-					transform.RotateAround(transform.position, transform.forward * dir, Vector3.Distance(LastPos, currPos)*100f);
+				if((euler.z >= RotateMin && euler.z <= RotateMax)) {
+					transform.RotateAround(transform.position, transform.forward * dir, Vector3.Distance(LastPos, currPos)*150f);
 				}
-			
+				
+				Vector3 angles = transform.rotation.eulerAngles;
+				
+				if(angles.z < RotateMin) {
+					angles.z = RotateMin+0.5f;
+					transform.rotation = Quaternion.Euler(angles);
+				} else if(angles.z > RotateMax) {
+					angles.z = RotateMax-0.5f;
+					transform.rotation = Quaternion.Euler(angles);
+				}
 				//
 				LastPos = currPos;
 			} 

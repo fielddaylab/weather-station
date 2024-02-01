@@ -38,6 +38,8 @@ namespace WeatherStation {
 
         }
 		
+		public int GetCurrentSceneIndex() { return CurrentSceneIndex; }
+		
 		public void SwitchScenes() {
 			
 			if(!SwitchingScenes) {
