@@ -165,7 +165,6 @@ $if NotWasGrabbed(propM), NotWasGrabbed(propS)
 
 {@Argo} Let's replace the bad propeller with a good one!  Behind you is your inventory.  Grab a new propeller and we'll see if it's a good match. $[argo_lets_replace]
 
-$call argoHelpButton->SetCurrentClip(8)
 $call argoHelpButton->SetButtonLocked(false)
 
 $while NotWasGrabbed(propM), NotWasGrabbed(propS)
@@ -194,8 +193,7 @@ $call argoHelpButton->SetButtonLocked(true)
 
 $if NotIsPuzzleSocketed(windSensorBladeSocket)
 {@Argo} Now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
-
-$call argoHelpButton->SetCurrentClip(9)
+$call argoHelpButton->SetCurrentClip(8)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsPuzzleSocketed(windSensorBladeSocket)
 $call Wait(1)
@@ -216,7 +214,7 @@ $while PuzzleIsNotComplete(windSensorPuzzle)
 
 $call Wait(1)
 
-$call argoHelpButton->SetCurrentClip(10)
+$call argoHelpButton->SetCurrentClip(9)
 $call argoHelpButton->SetButtonLocked(false)
 $while ButtonNotPressed(windSensorButton)
 $call Wait(1)
@@ -226,7 +224,7 @@ $call argoHelpButton->SetButtonLocked(true)
 
 $if IsNotMatched(windSensorBladeSocket)
 {@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
-$call argoHelpButton->SetCurrentClip(11)
+$call argoHelpButton->SetCurrentClip(10)
 $call windSensorButton->SetButtonPressed(false)
 $else
 $call windSensorPuzzle->SetTestSuccess(true)

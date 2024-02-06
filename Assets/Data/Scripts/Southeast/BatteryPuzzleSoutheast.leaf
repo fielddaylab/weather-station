@@ -51,7 +51,7 @@ $endif
 $call batteryBaySocket->LockBase(true)
 $call batteryBaySocket->OpenCover()
 
-$call argoHelpButton->SetCurrentClip(25)
+$call argoHelpButton->SetCurrentClip(24)
 
 $call batteryOne->PlayFX()
 $call batteryOne->ShowHighlight()
@@ -127,11 +127,11 @@ $if IsPuzzleSocketed(batterySocket)
 
 $if IsNotMatched(batterySocket)
 
-$call argoHelpButton->SetCurrentClip(26)
+$call argoHelpButton->SetCurrentClip(25)
 
 $else
 
-$call argoHelpButton->SetCurrentClip(27)
+$call argoHelpButton->SetCurrentClip(26)
 
 $call batteryOne->StopFX()
 $call batteryOne->StopHighlight()
@@ -210,7 +210,7 @@ $call cellFour->StopFX()
 
 $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
-$call argoHelpButton->SetCurrentClip(28)
+$call argoHelpButton->SetCurrentClip(27)
 $call batteryBase->SetGrabbable(true)
 
 $call batteryBase->ShowHighlight()
