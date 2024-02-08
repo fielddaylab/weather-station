@@ -22,7 +22,7 @@ $call argoHelpButton->SetButtonLocked(true)
 {@Alex} Alright Matt, let's make your last repair of the season a good one! $[alright_matt_lets]
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(21)
+$call argoHelpButton->SetCurrentClip(20)
 $call argoFunButton->SetButtonLocked(false)
 $call argoFunButton->SetCurrentClip(10)
 $call argoFunButton->SetEndClip(12)
@@ -40,7 +40,7 @@ $while PuzzleIsNotComplete(dataLoggerPuzzle), PuzzleIsNotComplete(solarPanel2)
 
 $if DoorWasGrabbed(dataLoggerDoor)
 
-$call argoHelpButton->SetCurrentClip(20)
+$call argoHelpButton->SetCurrentClip(19)
 $call dataLoggerDoor->StopHighlight()
 $call loggerPieceOne->ShowHighlight()
 $call loggerPieceTwo->ShowHighlight()
@@ -79,7 +79,7 @@ $endwhile
 
 $if PuzzleIsNotComplete(solarPanel2)
 
-$call argoHelpButton->SetCurrentClip(21)
+$call argoHelpButton->SetCurrentClip(20)
 
 $while PuzzleIsNotComplete(solarPanel2)
 $call Wait(1)
@@ -93,7 +93,7 @@ $call leftPanelHandle->SetGrabbable(false)
 $call rightPanelHandle->SetGrabbable(false)
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
-$call argoHelpButton->SetCurrentClip(20)
+$call argoHelpButton->SetCurrentClip(19)
 $while PuzzleIsNotComplete(dataLoggerPuzzle)
 $call Wait(1)
 $endwhile
@@ -116,7 +116,7 @@ $call rightPanelHandle->StopSound()
 $call leftPanelHandle->SetGrabbable(false)
 $call rightPanelHandle->SetGrabbable(false)
 
-$call argoHelpButton->SetCurrentClip(22)
+$call argoHelpButton->SetCurrentClip(21)
 
 $call snowWindSocket->SetLocked(false)
 $call snowSensor->ShowHighlight()
@@ -204,7 +204,7 @@ $call argo->PlayFX()
 $call argo->ShowHighlight()
 
 $if NotIsSocketed(argoSled)
-$call argoHelpButton->SetCurrentClip(23)
+$call argoHelpButton->SetCurrentClip(22)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
 $endwhile
@@ -233,7 +233,7 @@ $call argoHelpButton->SetButtonLocked(true)
 {@Rae} Guys, be ready to leave fast.  I've got a bad feeling about this one.  $[guys_be_ready]
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(24)
+$call argoHelpButton->SetCurrentClip(23)
 
 $call levelLoader->LoadSoutheastTempPuzzle()
 $call levelLoader->LoadSoutheastBatteryPuzzle()

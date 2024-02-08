@@ -237,6 +237,7 @@ namespace WeatherStation {
 				if(grabbable.GripPoseIndex != -1) {
 					a.SetInteger(Animator.StringToHash("Pose"), grabbable.GripPoseIndex);
 				} else {
+					a.SetInteger(Animator.StringToHash("Pose"), 0);
 					a.SetFloat(Animator.StringToHash("Flex"), grabbable.GripAmount);
 				}
 			}
@@ -314,7 +315,15 @@ namespace WeatherStation {
 			
 			//Debug.Log(grabbable.CurrentGrabberCount);
 			if(grabbable.CurrentGrabberCount == 0) {
-				
+
+				if(grabbable.GripPoseIndex != -1) {
+					Animator a = gp.gameObject.GetComponent<Animator>();
+					if(a)
+					{
+						a.SetInteger(Animator.StringToHash("Pose"), 0);
+					}
+				} 
+
 				if(!grabbable.ConstrainGripPosition) {
 					grabbable.gameObject.transform.SetParent(grabbable.OriginalParent);
 				}

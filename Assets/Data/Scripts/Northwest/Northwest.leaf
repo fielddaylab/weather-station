@@ -22,7 +22,7 @@ $call fader->FadeIn(10.0, 5.0)
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 
-$call argoHelpButton->SetCurrentClip(16)
+$call argoHelpButton->SetCurrentClip(15)
 $call argoHelpButton->SetButtonLocked(false)
 {@Argo} Bad is a matter of perspective. We just need to repair the data connections in the logger. Seems easy enough, see if you can figure it out Matt. $[bad_is_a]
 
@@ -91,7 +91,7 @@ $call batteryBase->SetGrabbable(true)
 
 {@Argo} Great! We’ll have to fix the battery and sensor in the repair unit, place them both in the sled! $[great_well_have]
 
-$call argoHelpButton->SetCurrentClip(17)
+$call argoHelpButton->SetCurrentClip(16)
 $call argoHelpButton->SetButtonLocked(false)
 
 $while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket)
@@ -138,7 +138,7 @@ $call argoSled->PlaySound()
 
 $if NotIsSocketed(argoSled)
 {@Argo} Nice Job, now put me in and let’s get fixin! $[nice_job_now]
-$call argoHelpButton->SetCurrentClip(18)
+$call argoHelpButton->SetCurrentClip(17)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
@@ -390,7 +390,7 @@ $call batteryBase->StopFX()
 
 {@Argo} Ok, all we have left is the temperature sensor. See if you can recalibrate it by completing the signal sequence $[ok_all_we]
 
-$call argoHelpButton->SetCurrentClip(19)
+$call argoHelpButton->SetCurrentClip(18)
 $call argoHelpButton->SetButtonLocked(false)
 
 $while PuzzleIsNotComplete(snowPuzzle)
@@ -493,7 +493,7 @@ $call argo->PlayFX()
 
 $if NotIsSocketed(argoSled)
 {@Argo} Ok, put me in the sled, let’s test our uplink. $[ok_put_me]
-$call argoHelpButton->SetCurrentClip(18)
+$call argoHelpButton->SetCurrentClip(17)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
@@ -515,7 +515,7 @@ $call uplinkButton->ShowHighlight()
 $call uplinkButton->PlayFX()
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(15)
+$call argoHelpButton->SetCurrentClip(14)
 $while ButtonNotPressed(uplinkButton)
 $call Wait(1)
 $endwhile

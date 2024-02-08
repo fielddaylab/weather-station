@@ -17,7 +17,7 @@ $call windSensor->PlayFX()
 
 $if NotIsSocketed(windSensorSled)
 {@Argo} Great, now place it in the sled. $[argo_great_now]
-$call argoHelpButton->SetCurrentClip(12)
+$call argoHelpButton->SetCurrentClip(11)
 $while NotIsSocketed(windSensorSled)
 $call Wait(1)
 $endwhile
@@ -37,7 +37,7 @@ $call windSensor->StopFX()
 
 $if NotIsSocketed(argoSled)
 {@Argo} Perfect, now you know the drill, toss me in the sled as well. $[perfect_no_you]
-$call argoHelpButton->SetCurrentClip(13)
+$call argoHelpButton->SetCurrentClip(12)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
@@ -64,7 +64,7 @@ $call windSensor->PlayFX()
 
 $if NotIsSocketed(windSensorSocket)
 {@Argo} Ok ok, put the wind sensor back on the tower and we should be good to go! $[argo_ok_ok]
-$call argoHelpButton->SetCurrentClip(14)
+$call argoHelpButton->SetCurrentClip(13)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(windSensorSocket)
 $call Wait(1)
@@ -109,7 +109,7 @@ $call uplinkButton->PlayFX()
 
 {@Argo} Ok, let's take a look at the map. See that button below? We need to press that to test the tower’s data uplink. Press it to run the test. $[argo_ok_lets]
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(15)
+$call argoHelpButton->SetCurrentClip(14)
 $while ButtonNotPressed(uplinkButton)
 $call Wait(1)
 $endwhile

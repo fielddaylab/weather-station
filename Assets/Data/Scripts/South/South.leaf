@@ -27,7 +27,7 @@ $call argoFunButton->SetEndClip(7)
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 
-$call argoHelpButton->SetCurrentClip(20)
+$call argoHelpButton->SetCurrentClip(19)
 $call argoHelpButton->SetButtonLocked(false)
 
 $if NotIsGrabbed(dataLoggerDoor)
@@ -70,7 +70,7 @@ $call argoHelpButton->SetButtonLocked(true)
 
 $endif
 
-$call argoHelpButton->SetCurrentClip(22)
+$call argoHelpButton->SetCurrentClip(21)
 $call argoHelpButton->SetButtonLocked(false)
 
 $call batterySnowSocket->SetLocked(false)
@@ -229,7 +229,7 @@ $call argo->PlayFX()
 $call argo->ShowHighlight()
 
 $if NotIsSocketed(argoSled)
-$call argoHelpButton->SetCurrentClip(23)
+$call argoHelpButton->SetCurrentClip(22)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
@@ -262,7 +262,7 @@ $call argoFunButton->SetButtonLocked(true)
 {@Alex} We're working as fast as we can. $[were_working_as]
 
 $call argoHelpButton->SetButtonLocked(false)
-$call argoHelpButton->SetCurrentClip(24)	
+$call argoHelpButton->SetCurrentClip(23)	
 
 $call argoFunButton->SetButtonLocked(false)
 $call argoFunButton->SetCurrentClip(7)

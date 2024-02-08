@@ -50,7 +50,7 @@ $endif
 $call batteryBaySocket->LockBase(true)
 $call batteryBaySocket->OpenCover()
 
-$call argoHelpButton->SetCurrentClip(25)
+$call argoHelpButton->SetCurrentClip(24)
 
 $call batteryOne->PlayFX()
 $call batteryOne->ShowHighlight()
@@ -104,11 +104,11 @@ $if IsPuzzleSocketed(batterySocket)
 
 $if IsNotMatched(batterySocket)
 
-$call argoHelpButton->SetCurrentClip(26)
+$call argoHelpButton->SetCurrentClip(25)
 
 $else
 
-$call argoHelpButton->SetCurrentClip(27)
+$call argoHelpButton->SetCurrentClip(26)
 
 $call batteryOne->StopFX()
 $call batteryOne->StopHighlight()
@@ -182,7 +182,7 @@ $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
 $call batterySledSocket->PlayFX()
 
-$call argoHelpButton->SetCurrentClip(28)
+$call argoHelpButton->SetCurrentClip(27)
 
 {@Rae} You two might need to throw the towel in on this one. $[you_two_might]
 {@Alex} Negative, we won't get another chance to come back out here all year. $[negative_we_wont]
