@@ -42,7 +42,7 @@ namespace WeatherStation {
 			VRInputState data = Game.SharedState.Get<VRInputState>();
 			
 			LeftHandAnimator.SetInteger(AnimParamIndexPose, 0);
-			RightHandAnimator.SetInteger(AnimParamIndexPose, 0);
+			RightHandAnimator.SetInteger(AnimParamIndexPose, -1);
 			
 			float LeftGrip = data.LeftHand.Axis.Grip;
 			float RightGrip = data.RightHand.Axis.Grip;
