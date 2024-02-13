@@ -199,6 +199,9 @@ namespace WeatherStation {
 					MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic;
 					MainCamera.gameObject.GetComponent<AudioSource>().Play();
 				}
+				
+				RenderSettings.fog = true;
+				
 			} else {
 				
 				Vector3 headPos = transform.GetChild(0).transform.localPosition;
@@ -252,6 +255,8 @@ namespace WeatherStation {
 					MainCamera.gameObject.GetComponent<AudioSource>().clip = InsideMusic;
 					MainCamera.gameObject.GetComponent<AudioSource>().Play();
 				}
+				
+				RenderSettings.fog = false;
 			}
 			
 			IsInside = !IsInside;

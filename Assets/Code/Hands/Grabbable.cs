@@ -391,7 +391,8 @@ namespace WeatherStation {
                     } 
                 }
 			} else {
-				GrabPoseOn(otherGrabPose, grabbable);
+				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+				GrabPoseOn(otherGrabPose, grabbable, (handRig.LeftHandGrab == otherGrabPose));
 			}
 		}
 		

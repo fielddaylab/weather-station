@@ -40,7 +40,13 @@ namespace WeatherStation {
 		
 		public void ButtonTrigger(Collider c) {
 			if(!Locked) {
-				if(Toggleable) {
+				if(Toggleable) {					
+				
+					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
+					if(rb != null) {
+						rb.detectCollisions = false;
+					}
+					
 					if(!WasPressed) {
 						WasPressed = true;
 					}
@@ -50,10 +56,7 @@ namespace WeatherStation {
 						SoundEffect.Play();
 					}
 					
-					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
-					if(rb != null) {
-						rb.detectCollisions = false;
-					}
+
 					
 					if(!On) {
 						Vector3 vPos = transform.position;
@@ -73,6 +76,11 @@ namespace WeatherStation {
 					
 				} else {
 					
+					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
+					if(rb != null) {
+						rb.detectCollisions = false;
+					}
+					
 					if(!WasPressed) {
 						//this should only happen if we're on the first level...
 						if(gameObject.name == "ArgoFaceButton") {
@@ -82,10 +90,7 @@ namespace WeatherStation {
 								StartCoroutine(ArgoWasPressed(1f));
 							}
 						}
-						/*using (var table = TempVarTable.Alloc()) {
-							table.Set("someRandomValue", RNG.Instance.Next(60));
-							
-						}*/
+
 						WasPressed = true;
 					}
 					
@@ -99,10 +104,7 @@ namespace WeatherStation {
 					vPos.x -= XShift;
 					transform.position = vPos;
 					
-					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
-					if(rb != null) {
-						rb.detectCollisions = false;
-					}
+
 					StartCoroutine(ShiftBack(c));
 				}
 				

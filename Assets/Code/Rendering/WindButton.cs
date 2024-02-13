@@ -66,7 +66,7 @@ namespace WeatherStation {
 						} else {
 							IsTesting = true;
 							BladeSocket.Locked = true;
-							StartCoroutine(RotateBlade(120f, 30f, true));
+							StartCoroutine(RotateBlade(120f, 20f, true));
 						}
 					} else if(BladeSocket.Current == BrokenProp) {
 						if(!IsTesting) {
