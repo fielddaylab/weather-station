@@ -37,9 +37,9 @@ Transform:
   m_GameObject: {fileID: 71420607483453327}
   serializedVersion: 2
   m_LocalRotation: {x: -0.056889057, y: 0.6956327, z: -0.7139936, w: -0.05542609}
-  m_LocalPosition: {x: 5.806, y: 0.715, z: -0.096}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 34.2849, y: 1.1266, z: 0.0285}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6262834933653690745}
   - {fileID: 7459531536465431023}
@@ -140,6 +140,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.1
   GripPoseIndex: -1
@@ -150,6 +151,7 @@ MonoBehaviour:
   - {fileID: 1020345096340579269}
   - {fileID: 1930359874570134403}
   - {fileID: 947225147450582492}
+  GrabSpotsLeft: []
 --- !u!114 &4562757211047811573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,9 +890,9 @@ Transform:
   m_GameObject: {fileID: 3692785329605362396}
   serializedVersion: 2
   m_LocalRotation: {x: -6.116071e-17, y: -0.001169145, z: -6.1303884e-17, w: -0.99999934}
-  m_LocalPosition: {x: 0.0006, y: 0.0136, z: -0.2291}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0.0136, z: -0.2291}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2210632494516585280}
   m_Father: {fileID: 8645573542572102969}
@@ -1012,6 +1014,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 0
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 0
   GripAmount: 0
   GripPoseIndex: -1
@@ -1022,6 +1025,7 @@ MonoBehaviour:
   - {fileID: 104666669038425531}
   - {fileID: 7296215726388558485}
   - {fileID: 6654839838942814751}
+  GrabSpotsLeft: []
 --- !u!114 &7596906818420507280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1332,15 +1336,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5234170971501140051}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5043717, y: 0.49558976, z: -0.5043717, w: -0.49558976}
-  m_LocalPosition: {x: 5.829, y: 0.71699995, z: -0.361}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.5919719, y: 0.38674188, z: -0.39707917, w: -0.58508813}
+  m_LocalPosition: {x: 34.2737, y: 1.1359, z: -0.3370034}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7141352847739150553}
   - {fileID: 7252625520262766945}
   m_Father: {fileID: 7623293822128967410}
-  m_LocalEulerAnglesHint: {x: 91.00598, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 91.00598, y: -90, z: -22.679993}
 --- !u!33 &5348337885695851500
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1436,6 +1440,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.1
   GripPoseIndex: -1
@@ -1446,6 +1451,7 @@ MonoBehaviour:
   - {fileID: 701691639569720661}
   - {fileID: 3962555980460988588}
   - {fileID: 2096880481773013447}
+  GrabSpotsLeft: []
 --- !u!114 &5553602864421427092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2027,9 +2033,9 @@ Transform:
   m_GameObject: {fileID: 6140872024379665686}
   serializedVersion: 2
   m_LocalRotation: {x: -0.47711724, y: 0.5218804, z: -0.47711724, w: -0.52188045}
-  m_LocalPosition: {x: 5.832, y: 0.728, z: -0.649}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 34.404335, y: 0.728, z: -0.649}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5588165800643137761}
   - {fileID: 1857332921221496018}
@@ -2130,6 +2136,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.1
   GripPoseIndex: -1
@@ -2140,6 +2147,7 @@ MonoBehaviour:
   - {fileID: 7739494623524996117}
   - {fileID: 932174725303083549}
   - {fileID: 6126503279105654706}
+  GrabSpotsLeft: []
 --- !u!114 &9203071185673121955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2546,6 +2554,7 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 1
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.3
   GripPoseIndex: -1
@@ -2553,6 +2562,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 2918363606841016763}
   - {fileID: 8632656104104990515}
+  GrabSpotsLeft: []
 --- !u!114 &7239299651492805322
 MonoBehaviour:
   m_ObjectHideFlags: 0
