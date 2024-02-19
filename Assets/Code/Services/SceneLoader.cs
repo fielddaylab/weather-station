@@ -124,7 +124,10 @@ namespace WeatherStation {
 					{
 						playerLocator.InteriorLight = root;
 					}
-
+					else if(root.name == "Directional Light_IntObjs")
+					{
+						playerLocator.InteriorLight2 = root;
+					}
 				}			
 			}
 			else

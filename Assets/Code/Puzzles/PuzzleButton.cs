@@ -24,9 +24,9 @@ namespace WeatherStation {
 		
 		[NonSerialized] public bool WasPressed = false;
 
-        private bool On;
-        //private Color PriorColor;
-        //private MeshRenderer CachedMeshRenderer;
+        private bool On = false;
+		
+		public bool IsOn() { return On; }
 
         public readonly CastableEvent<PuzzleButton> OnPressed = new CastableEvent<PuzzleButton>();
 		
@@ -34,6 +34,7 @@ namespace WeatherStation {
 			On = false;
 			Vector3 vPos = transform.position;
 			vPos.y += YShift;
+			//Debug.Log("Untoggle: " + vPos.ToString("F4"));
 			transform.position = vPos;
 			//CachedMeshRenderer.material.color = PriorColor;
 		}
@@ -56,19 +57,19 @@ namespace WeatherStation {
 						SoundEffect.Play();
 					}
 					
-
-					
 					if(!On) {
 						Vector3 vPos = transform.position;
 						vPos.y += YShift;
 						vPos.x += XShift;
 						transform.position = vPos;
+						//Debug.Log("PuzzleButtonToggle Off: " + vPos.ToString("F4"));
 						//CachedMeshRenderer.material.color = PriorColor;
 					} else {
 						Vector3 vPos = transform.position;
 						vPos.y -= YShift;
 						vPos.x -= XShift;
 						transform.position = vPos;
+						//Debug.Log("PuzzleButtonToggle On: " + vPos.ToString("F4"));
 						//CachedMeshRenderer.material.color = ButtonColor;
 					}
 					
@@ -126,6 +127,7 @@ namespace WeatherStation {
 			Vector3 vPos = transform.position;
 			vPos.y += YShift;
 			vPos.x += XShift;
+			//Debug.Log("Shifted back : " + vPos.ToString("F4"));
 			transform.position = vPos;
 			Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
 			if(rb != null) {

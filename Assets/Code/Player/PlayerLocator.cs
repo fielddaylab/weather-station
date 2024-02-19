@@ -21,6 +21,7 @@ namespace WeatherStation {
 		public GameObject PlaneInterior;
 		public GameObject ExteriorLight;
 		public GameObject InteriorLight;
+		public GameObject InteriorLight2;
 		public OVRScreenFade Fader;
 
 		public ItemSocket ArgoInsideSocket;
@@ -189,7 +190,11 @@ namespace WeatherStation {
 				if(InteriorLight != null) {
 					InteriorLight.SetActive(false);
 				}
-
+				
+				if(InteriorLight2 != null) {
+					InteriorLight2.SetActive(false);
+				}
+				
 				if(OutsideDropEffect != null) {
 					GetComponent<AudioSource>().clip = OutsideDropEffect;
 				}
@@ -244,6 +249,10 @@ namespace WeatherStation {
 				
 				if(InteriorLight != null) {
 					InteriorLight.SetActive(true);
+				}
+				
+				if(InteriorLight2 != null) {
+					InteriorLight2.SetActive(true);
 				}
 				
 				if(InsideDropEffect != null) {

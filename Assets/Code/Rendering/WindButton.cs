@@ -47,7 +47,7 @@ namespace WeatherStation {
 				IsStopped = true;
 			}
 			
-			TestButton.Untoggle();
+			//TestButton.Untoggle();
 			IsTesting = false;
 		}
 		
@@ -99,6 +99,10 @@ namespace WeatherStation {
 					TestButton.Untoggle();
 				}
 			}
+			else
+			{
+				TestButton.Untoggle();
+			}
         }
 
 		private IEnumerator RotateBlade(float duration, float angle, bool complete) {
@@ -135,7 +139,10 @@ namespace WeatherStation {
 				}
 			}
 			
-			TestButton.Untoggle();
+			if(TestButton.IsOn())
+			{
+				TestButton.Untoggle();
+			}
 			
 			IsTesting = false;
 			IsStopped = false;
