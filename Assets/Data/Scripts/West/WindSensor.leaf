@@ -6,7 +6,7 @@
 @once
 
 {@Argo} The panel is generating electricity! Excellent work, partner! $[argo_the_panel]
-{@Alex} Argo, is the station all fixed up? $[rae_okay_thats]
+{@Alex} Argo, is the station all fixed up? $[alex_argo_is]
 $call windSensorSocket->SetLocked(false)
 $call windSensor->SetGrabbable(true)
 $call windSensor->ShowHighlight()

@@ -630,7 +630,7 @@ PrefabInstance:
     - target: {fileID: 1655670942125028285, guid: 5a93cb8311cb187439ee7d22358cee37,
         type: 3}
       propertyPath: VOCharacters.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1655670942125028285, guid: 5a93cb8311cb187439ee7d22358cee37,
         type: 3}
@@ -641,12 +641,12 @@ PrefabInstance:
         type: 3}
       propertyPath: VOCharacters.Array.data[1]
       value: 
-      objectReference: {fileID: 132408248}
+      objectReference: {fileID: 1706408816}
     - target: {fileID: 1655670942125028285, guid: 5a93cb8311cb187439ee7d22358cee37,
         type: 3}
       propertyPath: VOCharacters.Array.data[2]
       value: 
-      objectReference: {fileID: 1661358509}
+      objectReference: {fileID: 132408248}
     - target: {fileID: 1655670942125028285, guid: 5a93cb8311cb187439ee7d22358cee37,
         type: 3}
       propertyPath: VOCharacters.Array.data[3]
@@ -6757,7 +6757,7 @@ PrefabInstance:
     - target: {fileID: 1516152605448431992, guid: bd3a494463300c84e90dd5871623d070,
         type: 3}
       propertyPath: m_Name
-      value: Alex01
+      value: Alex
       objectReference: {fileID: 0}
     - target: {fileID: 2180204493884961730, guid: bd3a494463300c84e90dd5871623d070,
         type: 3}
@@ -6870,6 +6870,12 @@ MonoBehaviour:
   SubtitlesOn: 0
   CharacterLabel: {fileID: 740795472}
   Text: {fileID: 1389268835}
+--- !u!1 &1706408816 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1516152605448431992, guid: bd3a494463300c84e90dd5871623d070,
+    type: 3}
+  m_PrefabInstance: {fileID: 1677199308}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1714514821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6396856724440782432, guid: e8072e13bad1ee14e95dc18d2cfeccb0,
@@ -7257,7 +7263,7 @@ MonoBehaviour:
   Sled: {fileID: 205233655}
   PlaneExterior: {fileID: 597909109}
   PlaneInterior: {fileID: 0}
-  ExteriorLight: {fileID: 0}
+  ExteriorLight: {fileID: 709459520}
   InteriorLight: {fileID: 0}
   Fader: {fileID: 1312827216}
   ArgoInsideSocket: {fileID: 1345201399}
