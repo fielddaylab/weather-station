@@ -148,6 +148,27 @@ $endwhile
 $call argoHelpButton->SetButtonLocked(true)
 $endif
 
+$set global:northwest-all-initial-socketed = false
+$while global:northwest-all-initial-socketed != true
+    $set global:northwest-all-initial-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:northwest-all-initial-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:northwest-all-initial-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:northwest-all-initial-socketed = false
+    $endif
+    $if global:northwest-all-initial-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+    $endif
+$endwhile
+
 $call snowSledSocket->StopFX()
 $call batterySledSocket->StopFX()
 $call argo->StopFX()
@@ -161,6 +182,10 @@ $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
 $call Wait(3)
+
+$call argoSled->SetLocked(false)
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
 
 {@Argo} So, first things first, let’s get the battery box and sensor onto our workbench. $[so_first_things]
 
