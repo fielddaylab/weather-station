@@ -148,19 +148,19 @@ $endwhile
 $call argoHelpButton->SetButtonLocked(true)
 $endif
 
-$set global:northwest-all-initial-socketed = false
-$while global:northwest-all-initial-socketed != true
-    $set global:northwest-all-initial-socketed = true
+$set global:northwest-all-socketed = false
+$while global:northwest-all-socketed != true
+    $set global:northwest-all-socketed = true
     $if NotIsSocketed(argoSled)
-        $set global:northwest-all-initial-socketed = false
+        $set global:northwest-all-socketed = false
     $endif
     $if NotIsSocketed(snowSledSocket)
-        $set global:northwest-all-initial-socketed = false
+        $set global:northwest-all-socketed = false
     $endif
     $if NotIsSocketed(batterySledSocket)
-        $set global:northwest-all-initial-socketed = false
+        $set global:northwest-all-socketed = false
     $endif
-    $if global:northwest-all-initial-socketed != true
+    $if global:northwest-all-socketed != true
         $call Wait(1)
     $else
         $call argoSled->SetLocked(true)
@@ -397,6 +397,10 @@ $call cellFour->StopFX()
 $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
 
+// prevent player from grabbing battery internals
+$call batterySocket->SetLocked(true)
+$call batteryTwo->SetSocketsLocked(true)
+
 $call batteryBase->SetGrabbable(true)
 
 $call batteryBase->ShowHighlight()
@@ -456,6 +460,27 @@ $call argoSled->StopFX()
 $call argoHelpButton->SetButtonLocked(true)
 $endif
 
+$set global:northwest-all-socketed = false
+$while global:northwest-all-socketed != true
+    $set global:northwest-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if global:northwest-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+    $endif
+$endwhile
+
 $call fader->FadeOut(3.0)
 $call Wait(4)
 $call playerLocation->Teleport()
@@ -468,6 +493,10 @@ $call snowTowerSocket->PlayFX()
 $call batterySnowSocket->PlayFX()
 $call snowSensor->PlayFX()
 $call batteryBase->PlayFX()
+
+$call argoSled->SetLocked(false)
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
 
 {@Argo} Now we just need to put the battery and the sensor back on the tower. $[now_we_just]
 
@@ -528,6 +557,27 @@ $endwhile
 $call argoHelpButton->SetButtonLocked(true)
 $endif
 
+$set global:northwest-all-socketed = false
+$while global:northwest-all-socketed != true
+    $set global:northwest-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySnowSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowTowerSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if global:northwest-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call batterySnowSocket->SetLocked(true)
+        $call snowTowerSocket->SetLocked(true)
+    $endif
+$endwhile
+
 $call argo->StopFX()
 $call argoSled->StopFX()
 $call argoSled->StopSound()
@@ -537,6 +587,10 @@ $call Wait(4)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(2.0, 1.0)
+
+$call argoSled->SetLocked(false)
+$call batterySnowSocket->SetLocked(false)
+$call snowTowerSocket->SetLocked(false)
 
 $call uplinkButton->ShowHighlight()
 $call uplinkButton->PlayFX()
@@ -587,5 +641,7 @@ $call map->NextTexture()
 $call fader->FadeOut(10.0)
 $call Wait(10)
 $call playerLocation->Teleport()
+$call batterySocket->SetLocked(false)
+$call batteryTwo->SetSocketsLocked(false)
 $call Wait(2)
 $call levelLoader->LoadSouth()
