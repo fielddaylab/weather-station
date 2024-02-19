@@ -124,6 +124,7 @@ namespace WeatherStation {
 					{
 						playerLocator.InteriorLight = root;
 					}
+
 				}			
 			}
 			else
@@ -150,6 +151,10 @@ namespace WeatherStation {
 							playerLocator.ArgoOutsideSocket = am.ArgoOutsideMount;
 							playerLocator.SocketArgoOutside();
 						}
+					}
+					else if(root.name == "PlaneExterior00")
+					{
+						playerLocator.PlaneExterior = root;
 					}
 				}
 				

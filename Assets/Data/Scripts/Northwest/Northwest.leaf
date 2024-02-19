@@ -10,6 +10,8 @@ $call Wait(1)
 $call argoTowerSocket->SetLocked(true)
 $call argoHelpButton->SetButtonLocked(true)
 
+$call map->SetTexture(0)
+
 $call fader->FadeIn(10.0, 5.0)
 {@Argo} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
 {@Rae} Morning, ARGO. $[morning_argo]
@@ -525,7 +527,6 @@ $call uplinkButton->StopHighlight()
 $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
 
-$call map->SetTexture(0)
 $call uplink->SetTexture(0)
 
 $call Wait(1)
