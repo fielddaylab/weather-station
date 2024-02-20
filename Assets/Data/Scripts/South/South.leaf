@@ -237,6 +237,31 @@ $endwhile
 $call argoHelpButton->SetButtonLocked(true)
 $endif
 
+$set global:south-all-socketed = false
+$while global:south-all-socketed != true
+    $set global:south-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(windSensorSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if global:south-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+        $call windSensorSled->SetLocked(true)
+    $endif
+$endwhile
+
 $call snowSledSocket->StopFX()
 $call batterySledSocket->StopFX()
 $call windSensorSled->StopFX()
@@ -247,11 +272,16 @@ $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
 $call Wait(3)
+
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
+$call windSensorSled->SetLocked(false)
 
 $call trashChute->SetGrabbable(true)
 $call argoHelpButton->SetButtonLocked(true)
