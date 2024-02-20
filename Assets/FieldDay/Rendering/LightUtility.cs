@@ -41,7 +41,7 @@ namespace FieldDay.Rendering {
                 ambientLight = RenderSettings.ambientLight;
                 lightmaps = ArrayUtils.CreateFrom(LightmapSettings.lightmaps);
                 lightmapsMode = LightmapSettings.lightmapsMode;
-                //lightProbes = LightmapSettings.lightProbes;
+                lightProbes = LightmapSettings.lightProbes;
             }
 
             public void Write() {
@@ -56,7 +56,7 @@ namespace FieldDay.Rendering {
                 RenderSettings.ambientLight = ambientLight;
                 LightmapSettings.lightmaps = lightmaps;
                 LightmapSettings.lightmapsMode = lightmapsMode;
-                LightmapSettings.lightProbes = lightProbes;
+                //LightmapSettings.lightProbes = lightProbes;
             }
         }
 
