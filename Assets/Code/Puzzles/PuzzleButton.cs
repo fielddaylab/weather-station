@@ -18,6 +18,8 @@ namespace WeatherStation {
         public float YShift = 0.012f;
 		
 		public float XShift = 0.0f;
+		
+		public bool UseLocalSpace = false;
         
 		public AudioSource SoundEffect;
         #endregion // Inspector
@@ -100,10 +102,20 @@ namespace WeatherStation {
 						SoundEffect.Play();
 					}
 					
-					Vector3 vPos = transform.position;
-					vPos.y -= YShift;
-					vPos.x -= XShift;
-					transform.position = vPos;
+					if(UseLocalSpace)
+					{
+						Vector3 vPos = transform.localPosition;
+						vPos.y += YShift;
+						vPos.x += XShift;
+						transform.localPosition = vPos;
+					}
+					else
+					{
+						Vector3 vPos = transform.position;
+						vPos.y -= YShift;
+						vPos.x -= XShift;
+						transform.position = vPos;
+					}
 					
 
 					StartCoroutine(ShiftBack(c));
@@ -124,16 +136,24 @@ namespace WeatherStation {
 		
 		IEnumerator ShiftBack(Collider c) {
 			yield return new WaitForSeconds(0.5f);
-			Vector3 vPos = transform.position;
-			vPos.y += YShift;
-			vPos.x += XShift;
-			//Debug.Log("Shifted back : " + vPos.ToString("F4"));
-			transform.position = vPos;
-			Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
-			if(rb != null) {
-				rb.detectCollisions = true;
+			if(UseLocalSpace)
+			{
+				Vector3 vPos = transform.localPosition;
+				vPos.y -= YShift;
+				vPos.x -= XShift;
+				//Debug.Log("Shifted back : " + vPos.ToString("F4"));
+				transform.localPosition = vPos;
+			}
+			else
+			{
+				Vector3 vPos = transform.position;
+				vPos.y += YShift;
+				vPos.x += XShift;
+				//Debug.Log("Shifted back : " + vPos.ToString("F4"));
+				transform.position = vPos;
 			}
 			
+			StartCoroutine(TurnBackOn(c));
 			/*if(Toggleable) {
 				CachedMeshRenderer.material.color = PriorColor;
 			}*/
