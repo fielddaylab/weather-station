@@ -30,6 +30,24 @@ public class AlexAnimation : MonoBehaviour
         
     }
 	
+	public void Walk(Transform location, float duration)
+	{
+		StartCoroutine(WalkToSpot(location, duration));
+	}
+	
+	public IEnumerator WalkToSpot(Transform location, float duration)
+	{
+		float t = 0f;
+		Vector3 startPos = transform.position;
+		while(t < duration)
+		{
+			Vector3 newPos = Vector3.Lerp(startPos, location.position, t);
+			transform.position = newPos;
+			t += UnityEngine.Time.unscaledDeltaTime;
+			yield return null;
+		}
+	}
+	
 	public void SetStartingLocation(int index)
 	{
 		if(index < _startLocations.Count)
