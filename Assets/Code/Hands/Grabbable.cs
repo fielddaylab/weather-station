@@ -203,19 +203,24 @@ namespace WeatherStation {
                 }
 
                 if (applyReleaseForce && grabber.ReleaseThrowForce > 0) {
-                    Rigidbody connected = grabber.Joint.connectedBody;
-                    if (connected) {
-                        Vector3 anchor = grabber.Joint.connectedAnchor;
-                        anchor = connected.transform.TransformPoint(anchor);
-                        Vector3 velocity = grabber.CachedRB.velocity;
+					if(grabber.Joint != null) {
+						Rigidbody connected = grabber.Joint.connectedBody;
+						if (connected) {
+							Vector3 anchor = grabber.Joint.connectedAnchor;
+							anchor = connected.transform.TransformPoint(anchor);
+							Vector3 velocity = grabber.CachedRB.velocity;
 
-                        connected.AddForceAtPosition(velocity * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
-                    }
+							connected.AddForceAtPosition(velocity * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
+						}
+					}
                 }
                 
-                grabber.Joint.connectedBody = null;
-                Joint.Destroy(grabber.Joint);
-                grabber.Joint = null;
+				if(grabber.Joint != null)
+				{
+					grabber.Joint.connectedBody = null;
+					Joint.Destroy(grabber.Joint);
+					grabber.Joint = null;
+				}
 
                 grabber.HoldStartTime = -1;
                 grabber.State = GrabberState.Empty;
@@ -348,6 +353,15 @@ namespace WeatherStation {
 			gp.SetToOriginalParent();
 			gp.gameObject.SetActive(false);
 			gp.IsGrabPosed = false;
+			
+			if(gp.GrabbableBy != null) {
+				if(gp.GrabbableBy.Joint != null) {
+					gp.GrabbableBy.Joint.connectedBody = null;
+					Joint.Destroy(gp.GrabbableBy.Joint);
+					gp.GrabbableBy.Joint = null;
+				}
+			}
+			
 		}
 		
 		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable, Grabber grabber, bool applyReleaseForce, GrabPose otherGrabPose) 
@@ -357,7 +371,6 @@ namespace WeatherStation {
 			gp.gameObject.SetActive(false);
 			gp.IsGrabPosed = false;
 			
-			//Debug.Log(grabbable.CurrentGrabberCount);
 			if(grabbable.CurrentGrabberCount == 0) {
 
 				if(grabbable.GripPoseIndex != -1) {
@@ -380,14 +393,20 @@ namespace WeatherStation {
                 if (applyReleaseForce && grabber.ReleaseThrowForce > 0) {
                     Rigidbody connected = grabbable.Rigidbody;
                     if (connected) {
-                        Vector3 anchor = grabber.Joint.connectedAnchor;
-                        anchor = connected.transform.TransformPoint(anchor);
-                        Vector3 velocity = grabber.CachedRB.velocity;
-						Vector3 forceVec = (grabbable.gameObject.transform.position - grabbable.LastPosition);
-						forceVec.x *= velocity.x;
-						forceVec.y *= velocity.y;
-						forceVec.z *= velocity.z;
-                        connected.AddForceAtPosition(forceVec * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
+						if(grabber.Joint != null) {
+							Vector3 anchor = grabber.Joint.connectedAnchor;
+							anchor = connected.transform.TransformPoint(anchor);
+							Vector3 velocity = grabber.CachedRB.velocity;
+							Vector3 forceVec = (grabbable.gameObject.transform.position - grabbable.LastPosition);
+							forceVec.x *= velocity.x;
+							forceVec.y *= velocity.y;
+							forceVec.z *= velocity.z;
+							connected.AddForceAtPosition(forceVec * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
+							
+							//grabber.Joint.connectedBody = null;
+							//Joint.Destroy(grabber.Joint);
+							//grabber.Joint = null;
+						}
                     } 
                 }
 			} else {

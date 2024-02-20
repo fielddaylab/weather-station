@@ -76,12 +76,16 @@ namespace WeatherStation {
 				Grabbable h = handRig.LeftHand.Physics.Holding;
 				Socketable s2 = h.gameObject.GetComponent<Socketable>();
 				if(s2 != s) {
-					if(h != null)
-					{
-						if(h.OriginalSocket.Current == null) {
-							SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
-						} else {
-							GrabUtility.ReturnToOriginalSpawnPoint(h);
+					if(s2 == null) {
+						GrabUtility.DropCurrent(handRig.LeftHand.Physics, false);
+					}
+					else {
+						if(h != null) {
+							if(h.OriginalSocket != null && h.OriginalSocket.Current == null) {
+								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+							} else {
+								GrabUtility.ReturnToOriginalSpawnPoint(h);
+							}
 						}
 					}
 				}
@@ -91,12 +95,16 @@ namespace WeatherStation {
 				Grabbable h = handRig.RightHand.Physics.Holding;
 				Socketable s2 = h.gameObject.GetComponent<Socketable>();
 				if(s2 != s) {
-					if(h != null)
-					{
-						if(h.OriginalSocket.Current == null) {
-							SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
-						} else {
-							GrabUtility.ReturnToOriginalSpawnPoint(h);
+					if(s2 == null) {
+						GrabUtility.DropCurrent(handRig.RightHand.Physics, false);
+					}
+					else {
+						if(h != null) {
+							if(h.OriginalSocket.Current == null) {
+								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+							} else {
+								GrabUtility.ReturnToOriginalSpawnPoint(h);
+							}
 						}
 					}
 				}
