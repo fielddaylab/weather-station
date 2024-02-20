@@ -72,16 +72,18 @@ namespace WeatherStation {
 		
 		private IEnumerator ReturnToStart() {
 			yield return 1;
-			if(OriginalSocket) {
-				if(TryGetComponent(out Socketable s)) {
-					if(OriginalSocket.Current == null) {
-						SocketUtility.TryAddToSocket(OriginalSocket, s, true);
-					} else {
-						GrabUtility.ReturnToOriginalSpawnPoint(this);
+			if(CurrentGrabberCount == 0) {
+				if(OriginalSocket) {
+					if(TryGetComponent(out Socketable s)) {
+						if(OriginalSocket.Current == null) {
+							SocketUtility.TryAddToSocket(OriginalSocket, s, true);
+						} else {
+							GrabUtility.ReturnToOriginalSpawnPoint(this);
+						}
 					}
+				} else {
+					GrabUtility.ReturnToOriginalSpawnPoint(this);
 				}
-			} else {
-				GrabUtility.ReturnToOriginalSpawnPoint(this);
 			}
 		}
     }

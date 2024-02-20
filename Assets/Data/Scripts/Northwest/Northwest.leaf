@@ -610,9 +610,10 @@ $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
 
 $call uplink->SetTexture(0)
-
 $call Wait(1)
 
+$call map->NextTexture()
+$call Wait(1)
 $call map->NextTexture()
 $call Wait(1)
 $call uplink->NextTexture()
