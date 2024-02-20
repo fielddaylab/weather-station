@@ -26,7 +26,7 @@ namespace FieldDay.Scripting {
 		
 		static public AudioSource LastAudioSource = null;
 		
-		public Func<bool> ForceVOSkip = new Func<bool>(() => (ForceVOSkipSet || ForceKill || CompleteForceKill));
+		public readonly Func<bool> ForceVOSkip = new Func<bool>(() => (ForceVOSkipSet || ForceKill || CompleteForceKill));
 		
         public ScriptPlugin(ScriptRuntimeState inHost, CustomVariantResolver inResolver, IMethodCache inCache = null, LeafRuntimeConfiguration inConfiguration = null)
             : base(inHost, inResolver, inCache, inConfiguration) {
@@ -85,7 +85,7 @@ namespace FieldDay.Scripting {
         }
 
         public override void OnNodeEnter(ScriptNode inNode, LeafThreadState<ScriptNode> inThreadState) {
-            ScriptPersistence persistence = Game.SharedState.Get<ScriptPersistence>();
+            ScriptPersistence persistence = Lookup.State<ScriptPersistence>();
 	
             StringHash32 nodeId = inNode.Id();
             persistence.RecentViewedNodeIds.PushFront(nodeId);
@@ -149,6 +149,7 @@ namespace FieldDay.Scripting {
             // TODO: Play VO?
             StringHash32 voiceoverLineCode = default;
             GameObject voiceCharacter = null;
+            StringHash32 pose = default;
 
             // TODO: Voiceover
             if (eventString.TryFindEvent(LeafUtils.Events.Character, out TagEventData charData)) {
@@ -158,6 +159,9 @@ namespace FieldDay.Scripting {
                 // TODO: Find the character in the scene that maps to the character id
                 // Play the VO from there
                 voiceCharacter = VoiceoverUtility.GetCharacterForLineCode(charId);
+                pose = charData.Argument1.AsStringHash();
+            } else if (eventString.TryFindEvent(LeafUtils.Events.Pose, out TagEventData poseData)) {
+                pose = poseData.GetStringHash();
             }
 
             TagStringEventHandler overrideHandler = m_TextDisplayer.PrepareLine(eventString, eventHandler);
@@ -183,6 +187,11 @@ namespace FieldDay.Scripting {
                             a.clip = clip;
                             a.Play();
                         }
+
+                        if (voiceCharacter.TryGetComponent(out ArgoAnimator argo)) {
+                            argo.HandlePose(pose);
+                        }
+
                     } else {
 					    AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
                     }

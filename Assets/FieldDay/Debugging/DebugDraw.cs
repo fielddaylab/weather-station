@@ -2,6 +2,10 @@
 #define DEVELOPMENT
 #endif // (UNITY_EDITOR && !IGNORE_UNITY_EDITOR) || DEVELOPMENT_BUILD
 
+#if USING_VR && !UNITY_EDITOR
+#define SKIP_ONGUI
+#endif // USING_VR && !UNITY_EDITOR
+
 using System;
 using BeauUtil;
 using UnityEngine;
@@ -185,6 +189,8 @@ namespace FieldDay.Debugging {
             }
         }
 
+#if !SKIP_ONGUI
+
         private void OnGUI() {
             if (Event.current.type != EventType.Repaint) {
                 return;
@@ -200,6 +206,8 @@ namespace FieldDay.Debugging {
                 RenderText(deltaTime, mainCam, s_CategoryMask);
             }
         }
+
+#endif // !SKIP_ONGUI
 
 #if UNITY_EDITOR
 
@@ -218,7 +226,7 @@ namespace FieldDay.Debugging {
 
 #endif // UNITY_EDITOR
 
-        #endregion // Unity Events
+#endregion // Unity Events
 
         #region Resources
 
@@ -414,7 +422,7 @@ namespace FieldDay.Debugging {
 
         #endregion // Rendering
 
-        #endif // DEVELOPMENT
+#endif // DEVELOPMENT
 
         #region Static API
 
@@ -423,7 +431,7 @@ namespace FieldDay.Debugging {
         /// </summary>
         [Conditional("DEVELOPMENT"), Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
         static public void AddWorldText(Vector3 point, string text, Color color, float duration = 0, TextAnchor alignment = TextAnchor.MiddleCenter, DebugTextStyle style = DebugTextStyle.Default, int category = -1) {
-#if DEVELOPMENT
+#if DEVELOPMENT && !SKIP_ONGUI
             TextRenderState renderState = new TextRenderState();
             renderState.Params.Color = color;
             renderState.Params.DepthTest = false;
@@ -435,7 +443,7 @@ namespace FieldDay.Debugging {
             renderState.Alignment = alignment;
             renderState.Style = style;
             s_ActiveTexts.PushBack(renderState);
-#endif // DEVELOPMENT
+#endif // DEVELOPMENT && !SKIP_ONGUI
         }
 
         /// <summary>
@@ -443,7 +451,7 @@ namespace FieldDay.Debugging {
         /// </summary>
         [Conditional("DEVELOPMENT"), Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
         static public void AddWorldText(Vector3 point, Vector2 offset, string text, Color color, float duration = 0, TextAnchor alignment = TextAnchor.MiddleCenter, DebugTextStyle style = DebugTextStyle.Default, int category = -1) {
-#if DEVELOPMENT
+#if DEVELOPMENT && !SKIP_ONGUI
             TextRenderState renderState = new TextRenderState();
             renderState.Params.Color = color;
             renderState.Params.DepthTest = false;
@@ -456,7 +464,7 @@ namespace FieldDay.Debugging {
             renderState.Alignment = alignment;
             renderState.Style = style;
             s_ActiveTexts.PushBack(renderState);
-#endif // DEVELOPMENT
+#endif // DEVELOPMENT && !SKIP_ONGUI
         }
 
         /// <summary>
@@ -464,7 +472,7 @@ namespace FieldDay.Debugging {
         /// </summary>
         [Conditional("DEVELOPMENT"), Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
         static public void AddViewportText(Vector2 viewport, string text, Color color, float duration = 0, TextAnchor alignment = TextAnchor.MiddleCenter, DebugTextStyle style = DebugTextStyle.Default, int category = -1) {
-#if DEVELOPMENT
+#if DEVELOPMENT && !SKIP_ONGUI
             TextRenderState renderState = new TextRenderState();
             renderState.Params.Color = color;
             renderState.Params.DepthTest = false;
@@ -476,7 +484,7 @@ namespace FieldDay.Debugging {
             renderState.Alignment = alignment;
             renderState.Style = style;
             s_ActiveTexts.PushBack(renderState);
-#endif // DEVELOPMENT
+#endif // DEVELOPMENT && !SKIP_ONGUI
         }
 
         /// <summary>
@@ -484,7 +492,7 @@ namespace FieldDay.Debugging {
         /// </summary>
         [Conditional("DEVELOPMENT"), Conditional("UNITY_EDITOR"), Conditional("DEVELOPMENT_BUILD")]
         static public void AddViewportText(Vector2 viewport, Vector2 offset, string text, Color color, float duration = 0, TextAnchor alignment = TextAnchor.MiddleCenter, DebugTextStyle style = DebugTextStyle.Default, int category = -1) {
-#if DEVELOPMENT
+#if DEVELOPMENT && !SKIP_ONGUI
             TextRenderState renderState = new TextRenderState();
             renderState.Params.Color = color;
             renderState.Params.DepthTest = false;
@@ -497,7 +505,7 @@ namespace FieldDay.Debugging {
             renderState.Alignment = alignment;
             renderState.Style = style;
             s_ActiveTexts.PushBack(renderState);
-#endif // DEVELOPMENT
+#endif // DEVELOPMENT && !SKIP_ONGUI
         }
 
         /// <summary>

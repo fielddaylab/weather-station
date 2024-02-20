@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Reflection;
 using BeauUtil;
 using System.Runtime.CompilerServices;
 using BeauUtil.Debugger;
@@ -41,8 +40,10 @@ namespace FieldDay.Assets {
             if (!ReferenceEquals(asset, null)) {
                 Assert.True(IsPersistent(asset), "Asset is not persistent");
                 Debug.LogWarningFormat("[AssetUtility] Manually destroying asset '{0}'!", asset.name);
-#if UNITY_EDITOR
+#if !UNITY_EDITOR
                 UnityEngine.Object.DestroyImmediate(asset, true);
+#else
+                Resources.UnloadAsset(asset);
 #endif // UNITY_EDITOR
             }
         }
@@ -69,4 +70,9 @@ namespace FieldDay.Assets {
             return UnityHelper.IsPersistent(obj);
         }
     }
+
+    /// <summary>
+    /// Delegate for looking up an asset's id from itself.
+    /// </summary>
+    public delegate StringHash32 AssetKeyFunction<T>(in T asset);
 }

@@ -15,7 +15,7 @@ namespace WeatherStation {
         [SerializeField] private float m_PositionScale = 1;
 
         public override void ProcessWork(float deltaTime) {
-            VRInputState data = Game.SharedState.Get<VRInputState>();
+            VRInputState data = Lookup.State<VRInputState>();
 
             foreach(var obj in m_Components) {
                 if (obj.RenderOnly && !GameLoop.IsPhase(GameLoopPhase.ApplicationPreRender)) {

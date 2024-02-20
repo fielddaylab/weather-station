@@ -42,7 +42,7 @@ namespace WeatherStation {
 				return false;
 			}
 			
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 			
 			Vector3 euler = handRig.RightHand.Visual.rotation.eulerAngles;
 			
@@ -132,7 +132,7 @@ namespace WeatherStation {
 				}
 			}
 			
-			VRInputState data = Game.SharedState.Get<VRInputState>();
+			VRInputState data = Lookup.State<VRInputState>();
 			
 			Vector3 vSun = DirectionalLight.forward;
 			if(PuzzleLevel == 0)
@@ -198,7 +198,7 @@ namespace WeatherStation {
 		
 		private void OnGrabPanel(Grabber grabber) {
 			
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = true;
@@ -214,7 +214,7 @@ namespace WeatherStation {
 		}
 		
 		private void OnReleasePanel(Grabber grabber) {
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = false;

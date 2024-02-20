@@ -55,6 +55,17 @@ namespace FieldDay {
             Index = (ushort) ((Index + 1) % MaxIndex);
         }
 
+        /// <summary>
+        /// Returns the age of the given index.
+        /// </summary>
+        static public ushort Age(ushort index) {
+            if (index == InvalidIndex) {
+                return InvalidIndex;
+            }
+            int age = index - Index;
+            return (ushort) ((age + MaxIndex) % MaxIndex);
+        }
+
         #endregion // Index
 
         #region Timestamp
@@ -246,6 +257,30 @@ namespace FieldDay {
             #endif // UNITY_EDITOR
 
             return true;
+        }
+
+        /// <summary>
+        /// Is the given GameObject in a loaded or loading scene.
+        /// </summary>
+        static public bool IsLoadingOrLoaded(Component component) {
+            if (ReferenceEquals(component, null) || !component) {
+                return false;
+            }
+
+            SceneHelper.LoadingState loadingState = component.gameObject.scene.GetLoadingState();
+            return loadingState == SceneHelper.LoadingState.Loading || loadingState == SceneHelper.LoadingState.Loaded;
+        }
+
+        /// <summary>
+        /// Is the given GameObject in a loaded or loading scene.
+        /// </summary>
+        static public bool IsLoadingOrLoaded(GameObject gameObject) {
+            if (ReferenceEquals(gameObject, null) || !gameObject) {
+                return false;
+            }
+
+            SceneHelper.LoadingState loadingState = gameObject.scene.GetLoadingState();
+            return loadingState == SceneHelper.LoadingState.Loading || loadingState == SceneHelper.LoadingState.Loaded;
         }
 
         #endregion // Active Checks

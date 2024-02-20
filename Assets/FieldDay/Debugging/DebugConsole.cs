@@ -15,6 +15,8 @@ using System.Reflection;
 using FieldDay.Data;
 using BeauUtil.UI;
 using UnityEngine.EventSystems;
+using FieldDay.HID;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -67,6 +69,7 @@ namespace FieldDay.Debugging {
         [NonSerialized] private bool m_Paused;
         [NonSerialized] private bool m_MinimalVisible;
         [NonSerialized] private bool m_VisibilityWhenDebugMenuOpened;
+        [NonSerialized] private bool m_CursorWhenDebugMenuOpened;
         [NonSerialized] private bool m_MenuOpen;
         [NonSerialized] private bool m_MenuUIInitialized;
 
@@ -276,6 +279,7 @@ namespace FieldDay.Debugging {
             m_MenuOpen = visible;
             if (visible) {
                 m_VisibilityWhenDebugMenuOpened = m_MinimalVisible;
+                m_CursorWhenDebugMenuOpened = CursorUtility.CursorIsShowing();
                 SetMinimalVisible(true);
                 m_DebugMenus.gameObject.SetActive(true);
                 m_DebugMenuInput.interactable = true;
@@ -284,8 +288,12 @@ namespace FieldDay.Debugging {
                     m_DebugMenus.GotoMenu(s_RootMenu);
                     m_MenuUIInitialized = true;
                 }
+                CursorUtility.ShowCursor();
                 SetPaused(true);
             } else {
+                if (!m_CursorWhenDebugMenuOpened) {
+                    CursorUtility.HideCursor();
+                }
                 m_DebugMenus.gameObject.SetActive(false);
                 m_DebugMenuInput.interactable = false;
                 m_MinimalGroup.interactable = false;
@@ -325,7 +333,7 @@ namespace FieldDay.Debugging {
 
         static internal DMInfo FindSubmenu(DMInfo menu, string label) {
             int index = menu.Elements.FindIndex((e, l) => {
-                return e.Type == DMElementType.Submenu && e.Label == label;
+                return e.Type == DMElementType.Submenu && e.Submenu.Submenu.Header.Label == label;
             }, label);
             if (index >= 0) {
                 return menu.Elements[index].Submenu.Submenu;
@@ -336,7 +344,7 @@ namespace FieldDay.Debugging {
 
         static internal DMInfo FindOrCreateSubmenu(DMInfo menu, string label) {
             int index = menu.Elements.FindIndex((e, l) => {
-                return e.Type == DMElementType.Submenu && e.Label == label;
+                return e.Type == DMElementType.Submenu && e.Submenu.Submenu.Header.Label == label;
             }, label);
             if (index >= 0) {
                 return menu.Elements[index].Submenu.Submenu;

@@ -25,6 +25,7 @@ namespace FieldDay.Rendering {
             public AmbientMode ambientMode;
             public float ambientIntensity;
             public Color ambientLight;
+            public Material skybox;
             public LightmapData[] lightmaps;
             public LightmapsMode lightmapsMode;
             public LightProbes lightProbes;
@@ -39,6 +40,7 @@ namespace FieldDay.Rendering {
                 ambientMode = RenderSettings.ambientMode;
                 ambientIntensity = RenderSettings.ambientIntensity;
                 ambientLight = RenderSettings.ambientLight;
+                skybox = RenderSettings.skybox;
                 lightmaps = ArrayUtils.CreateFrom(LightmapSettings.lightmaps);
                 lightmapsMode = LightmapSettings.lightmapsMode;
                 lightProbes = LightmapSettings.lightProbes;
@@ -54,6 +56,7 @@ namespace FieldDay.Rendering {
                 RenderSettings.ambientMode = ambientMode;
                 RenderSettings.ambientIntensity = ambientIntensity;
                 RenderSettings.ambientLight = ambientLight;
+                RenderSettings.skybox = skybox;
                 LightmapSettings.lightmaps = lightmaps;
                 LightmapSettings.lightmapsMode = lightmapsMode;
                 LightmapSettings.lightProbes = lightProbes;
@@ -70,7 +73,7 @@ namespace FieldDay.Rendering {
             settings.Write();
         }
 
-        static public void CopySettings(Scene src, Scene dest) {
+        static public void CopySettingsToScene(Scene src, Scene dest) {
             Scene currentActive = SceneManager.GetActiveScene();
             
             SceneManager.SetActiveScene(src);
