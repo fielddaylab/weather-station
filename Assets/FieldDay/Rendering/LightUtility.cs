@@ -59,7 +59,7 @@ namespace FieldDay.Rendering {
                 RenderSettings.skybox = skybox;
                 LightmapSettings.lightmaps = lightmaps;
                 LightmapSettings.lightmapsMode = lightmapsMode;
-                LightmapSettings.lightProbes = lightProbes;
+                //LightmapSettings.lightProbes = lightProbes;
             }
         }
 

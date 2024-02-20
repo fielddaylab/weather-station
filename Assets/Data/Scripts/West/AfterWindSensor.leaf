@@ -45,12 +45,32 @@ $endwhile
 $call argoHelpButton->SetButtonLocked(true)
 $endif
 
+// ensure all required components are in the sled
+$set global:west-all-socketed = false
+$while global:west-all-socketed != true
+    $set global:west-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:west-all-socketed = false
+    $endif
+    $if NotIsSocketed(windSensorSled)
+        $set global:west-all-socketed = false
+    $endif
+    $if global:west-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call windSensorSled->SetLocked(true)
+    $endif
+$endwhile
+
 $call argo->StopFX()
 $call argoSled->StopFX()
 $call argoSled->StopSound()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+// free argo to be placed in interior
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(2.0, 1.0)
@@ -61,6 +81,8 @@ $call windSensorSocket->PlaySound()
 $call windSensor->ShowHighlight()
 $call windSensor->PlaySound()
 $call windSensor->PlayFX()
+
+$call windSensorSled->SetLocked(false)
 
 $if NotIsSocketed(windSensorSocket)
 {@Argo} Ok ok, put the wind sensor back on the tower and we should be good to go! $[argo_ok_ok]

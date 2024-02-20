@@ -5,7 +5,6 @@
 @evalPriority   100
 @once
 
-
 $call windSensor->ShowHighlight()
 $call windSensor->PlayFX()
 $call windSensorBay->PlayFX()
@@ -17,18 +16,18 @@ $call propM->SetWasGrabbed(false)
 $call propL->SetWasGrabbed(false)
 
 $if IsSocketed(windSensorSled)
-$while IsSocketed(windSensorSled)
-$call Wait(1)
-$endwhile
+    $while IsSocketed(windSensorSled)
+        $call Wait(1)
+    $endwhile
 $endif
 
 $call windSensor->StopHighlight()
 $call windSensor->StopFX()
 
 $if NotIsSocketed(windSensorBaySocket)
-$while NotIsSocketed(windSensorBaySocket)
-$call Wait(1)
-$endwhile
+    $while NotIsSocketed(windSensorBaySocket)
+        $call Wait(1)
+    $endwhile
 $endif
 
 $call windSensorBay->StopFX()
@@ -38,68 +37,67 @@ $call windSensor->SetGrabbable(false)
 
 $while PuzzleIsNotComplete(windSensorPuzzle)
 
+    $call brokenBladeSmall->PlayFX()
+    $call brokenBladeSmall->ShowHighlight()
 
-$call brokenBladeSmall->PlayFX()
-$call brokenBladeSmall->ShowHighlight()
+    $call propM->PlayFX()
+    $call propM->ShowHighlight()
+    $call propM->SetGrabbable(true)
+    $call propS->PlayFX()
+    $call propS->ShowHighlight()
+    $call propS->SetGrabbable(true)
+    $call propL->PlayFX()
+    $call propL->ShowHighlight()
+    $call propL->SetGrabbable(true)
 
-$call propM->PlayFX()
-$call propM->ShowHighlight()
-$call propM->SetGrabbable(true)
-$call propS->PlayFX()
-$call propS->ShowHighlight()
-$call propS->SetGrabbable(true)
-$call propL->PlayFX()
-$call propL->ShowHighlight()
-$call propL->SetGrabbable(true)
+    $call windSensorBladeSocket->SetLocked(false)
 
-$call windSensorBladeSocket->SetLocked(false)
+    $if WasGrabbed(brokenBladeSmall)
+        $call brokenBladeSmall->StopFX()
+        $call brokenBladeSmall->StopHighlight()
+    $else
+        $if IsGrabbableSocketed(brokenBladeSmall)
+            $call argoHelpButton->SetCurrentClip(28)
+        $endif
+    $endif
 
-$if WasGrabbed(brokenBladeSmall)
-$call brokenBladeSmall->StopFX()
-$call brokenBladeSmall->StopHighlight()
-$else
-$if IsGrabbableSocketed(brokenBladeSmall)
-$call argoHelpButton->SetCurrentClip(28)
-$endif
-$endif
+    $if IsPuzzleSocketed(windSensorBladeSocket)
+        $call windSensorButton->ShowHighlight()
+        $call windSensorButton->PlayFX()
+    $else
+        $call windSensorButton->StopHighlight()
+        $call windSensorButton->StopFX()
+    $endif
 
-$if IsPuzzleSocketed(windSensorBladeSocket)
-$call windSensorButton->ShowHighlight()
-$call windSensorButton->PlayFX()
-$else
-$call windSensorButton->StopHighlight()
-$call windSensorButton->StopFX()
-$endif
+    $if IsMatched(windSensorBladeSocket)
 
-$if IsMatched(windSensorBladeSocket)
+        $if ButtonPressed(windSensorButton)
+            $call windSensorPuzzle->SetTestSuccess(true)
+            $call argoHelpButton->SetCurrentClip(29)
+        $endif
 
-$if ButtonPressed(windSensorButton)
-$call windSensorPuzzle->SetTestSuccess(true)
-$call argoHelpButton->SetCurrentClip(29)
-$endif
+    $else
 
-$else
+        $if WasGrabbed(propM)
+            $call propM->StopFX()
+            $call propM->StopHighlight()
+        $endif
 
-$if WasGrabbed(propM)
-$call propM->StopFX()
-$call propM->StopHighlight()
-$endif
+        $if WasGrabbed(propS)
+            $call propS->StopFX()
+            $call propS->StopHighlight()
+        $endif
 
-$if WasGrabbed(propS)
-$call propS->StopFX()
-$call propS->StopHighlight()
-$endif
+        $if WasGrabbed(propL)
+            $call propL->StopFX()
+            $call propL->StopHighlight()
+        $endif
 
-$if WasGrabbed(propL)
-$call propL->StopFX()
-$call propL->StopHighlight()
-$endif
+        $call argoHelpButton->SetCurrentClip(30)
 
-$call argoHelpButton->SetCurrentClip(30)
+    $endif
 
-$endif
-
-$call Wait(1)
+    $call Wait(1)
 
 $endwhile
 
@@ -119,9 +117,9 @@ $call propS->StopHighlight()
 
 
 $if NotIsSocketed(windSensorSled)
-$while NotIsSocketed(windSensorSled)
-$call Wait(1)
-$endwhile
+    $while NotIsSocketed(windSensorSled)
+        $call Wait(1)
+    $endwhile
 $endif
 
 $call windSensor->StopHighlight()

@@ -177,13 +177,16 @@ $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+// free argo to be placed in interior
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
 $call Wait(3)
 
-$call argoSled->SetLocked(false)
+$call trashChute->SetGrabbable(true)
+
 $call snowSledSocket->SetLocked(false)
 $call batterySledSocket->SetLocked(false)
 
@@ -445,19 +448,19 @@ $call snowSensor->StopFX()
 $call snowSledSocket->StopFX()
 
 $if NotIsSocketed(argoSled)
-$call argo->PlayFX()
-$call argo->ShowHighlight()
-$call argoSled->PlayFX()
-{@Argo} Ok, put it and me in the sled and let’s get out on the ice. $[ok_put_it]
-$call argoHelpButton->SetCurrentClip(3)
-$call argoHelpButton->SetButtonLocked(false)
-$while NotIsSocketed(argoSled)
-$call Wait(1)
-$endwhile
-$call argo->StopFX()
-$call argo->StopHighlight()
-$call argoSled->StopFX()
-$call argoHelpButton->SetButtonLocked(true)
+    $call argo->PlayFX()
+    $call argo->ShowHighlight()
+    $call argoSled->PlayFX()
+    {@Argo} Ok, put it and me in the sled and let’s get out on the ice. $[ok_put_it]
+    $call argoHelpButton->SetCurrentClip(3)
+    $call argoHelpButton->SetButtonLocked(false)
+    $while NotIsSocketed(argoSled)
+        $call Wait(1)
+    $endwhile
+    $call argo->StopFX()
+    $call argo->StopHighlight()
+    $call argoSled->StopFX()
+    $call argoHelpButton->SetButtonLocked(true)
 $endif
 
 $set global:northwest-all-socketed = false
@@ -607,9 +610,10 @@ $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
 
 $call uplink->SetTexture(0)
-
 $call Wait(1)
 
+$call map->NextTexture()
+$call Wait(1)
 $call map->NextTexture()
 $call Wait(1)
 $call uplink->NextTexture()

@@ -6,11 +6,11 @@
 @once
 
 $while NotIsSocketed(snowSledSocket)
-$call Wait(1)
+    $call Wait(1)
 $endwhile
 
 $while NotIsSocketed(batterySledSocket)
-$call Wait(1)
+    $call Wait(1)
 $endwhile
 
 $call argoFunButton->SetButtonLocked(true)
@@ -38,17 +38,42 @@ $call Wait(1)
 $endwhile
 $endif
 
+$set global:southeast-all-socketed = false
+$while global:southeast-all-socketed != true
+    $set global:southeast-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:southeast-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:southeast-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:southeast-all-socketed = false
+    $endif
+    $if global:southeast-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+    $endif
+$endwhile
+
 $call argo->StopFX()
 $call argoSled->StopSound()
 $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
 $call argoHelpButton->SetButtonLocked(true)
+
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
 
 {@Rae} Stay safe, I’ll be back tomorrow...I hope. $[stay_safe_ill]
 
@@ -73,32 +98,32 @@ $call batterySnowSocket->PlayFX()
 
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
-$call Wait(1)
+    $call Wait(1)
 $endwhile
 
 $if NotIsSocketed(batterySnowSocket)
-$call snowTowerSocket->StopHighlight()
-$call snowTowerSocket->StopFX()
-$call snowSensor->StopFX()
+    $call snowTowerSocket->StopHighlight()
+    $call snowTowerSocket->StopFX()
+    $call snowSensor->StopFX()
 
-$while NotIsSocketed(batterySnowSocket)
-$call Wait(1)
-$endwhile
-$call batterySnowSocket->StopFX()
-$call batteryBase->StopFX()
-$call batteryBase->StopHighlight()
+    $while NotIsSocketed(batterySnowSocket)
+        $call Wait(1)
+    $endwhile
+    $call batterySnowSocket->StopFX()
+    $call batteryBase->StopFX()
+    $call batteryBase->StopHighlight()
 $endif
 
 $if NotIsSocketed(snowTowerSocket)
-$call batterySnowSocket->StopFX()
-$call batteryBase->StopFX()
-$call batteryBase->StopHighlight()
-$while NotIsSocketed(snowTowerSocket)
-$call Wait(1)
-$endwhile
-$call snowTowerSocket->StopHighlight()
-$call snowTowerSocket->StopFX()
-$call snowSensor->StopFX()
+    $call batterySnowSocket->StopFX()
+    $call batteryBase->StopFX()
+    $call batteryBase->StopHighlight()
+    $while NotIsSocketed(snowTowerSocket)
+        $call Wait(1)
+    $endwhile
+    $call snowTowerSocket->StopHighlight()
+    $call snowTowerSocket->StopFX()
+    $call snowSensor->StopFX()
 $endif
 
 $call batterySnowSocket->StopFX()

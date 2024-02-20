@@ -20,6 +20,7 @@ namespace WeatherStation {
 		public GameObject PlaneExterior;
 		public GameObject PlaneInterior;
 		public GameObject ExteriorLight;
+		public GameObject ExteriorLightInside;
 		public GameObject InteriorLight;
 		public GameObject InteriorLight2;
 		public OVRScreenFade Fader;
@@ -76,12 +77,16 @@ namespace WeatherStation {
 				Grabbable h = handRig.LeftHand.Physics.Holding;
 				Socketable s2 = h.gameObject.GetComponent<Socketable>();
 				if(s2 != s) {
-					if(h != null)
-					{
-						if(h.OriginalSocket.Current == null) {
-							SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
-						} else {
-							GrabUtility.ReturnToOriginalSpawnPoint(h);
+					if(s2 == null) {
+						GrabUtility.DropCurrent(handRig.LeftHand.Physics, false);
+					}
+					else {
+						if(h != null) {
+							if(h.OriginalSocket != null && h.OriginalSocket.Current == null) {
+								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+							} else {
+								GrabUtility.ReturnToOriginalSpawnPoint(h);
+							}
 						}
 					}
 				}
@@ -91,12 +96,16 @@ namespace WeatherStation {
 				Grabbable h = handRig.RightHand.Physics.Holding;
 				Socketable s2 = h.gameObject.GetComponent<Socketable>();
 				if(s2 != s) {
-					if(h != null)
-					{
-						if(h.OriginalSocket.Current == null) {
-							SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
-						} else {
-							GrabUtility.ReturnToOriginalSpawnPoint(h);
+					if(s2 == null) {
+						GrabUtility.DropCurrent(handRig.RightHand.Physics, false);
+					}
+					else {
+						if(h != null) {
+							if(h.OriginalSocket.Current == null) {
+								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+							} else {
+								GrabUtility.ReturnToOriginalSpawnPoint(h);
+							}
 						}
 					}
 				}
@@ -195,6 +204,10 @@ namespace WeatherStation {
 					InteriorLight2.SetActive(false);
 				}
 				
+				if(ExteriorLightInside != null) {
+					ExteriorLightInside.SetActive(false);
+				}
+				
 				if(OutsideDropEffect != null) {
 					GetComponent<AudioSource>().clip = OutsideDropEffect;
 				}
@@ -253,6 +266,10 @@ namespace WeatherStation {
 				
 				if(InteriorLight2 != null) {
 					InteriorLight2.SetActive(true);
+				}
+				
+				if(ExteriorLightInside != null) {
+					ExteriorLightInside.SetActive(true);
 				}
 				
 				if(InsideDropEffect != null) {

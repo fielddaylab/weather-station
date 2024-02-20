@@ -146,7 +146,15 @@ namespace WeatherStation {
 					}
 					else if(root.name == "SunLight00")
 					{
-						playerLocator.ExteriorLight = root.transform.GetChild(0).gameObject;
+						if(root.transform.childCount > 0)
+						{
+							playerLocator.ExteriorLight = root.transform.GetChild(0).gameObject;
+						}
+						
+						if(root.transform.childCount > 1)
+						{
+							playerLocator.ExteriorLightInside = root.transform.GetChild(1).gameObject;
+						}
 					}
 					else if(root.name.Contains("AWS"))
 					{

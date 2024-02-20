@@ -210,6 +210,27 @@ $call Wait(1)
 $endwhile
 $endif
 
+$set global:southeast-all-socketed = false
+$while global:southeast-all-socketed != true
+    $set global:southeast-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:southeast-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:southeast-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:southeast-all-socketed = false
+    $endif
+    $if global:southeast-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+    $endif
+$endwhile
+
 $call snowSledSocket->StopFX()
 $call batterySledSocket->StopFX()
 
@@ -220,6 +241,7 @@ $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
@@ -228,6 +250,10 @@ $call Wait(3)
 
 $call argoFunButton->SetButtonLocked(true)
 $call argoHelpButton->SetButtonLocked(true)
+$call trashChute->SetGrabbable(true)
+
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
 
 {@MissionControl} Otter Three, we’re tracking a storm system.  Stand by for updates. $[otter_three_were]
 {@Rae} Guys, be ready to leave fast.  I've got a bad feeling about this one.  $[guys_be_ready]

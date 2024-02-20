@@ -35,6 +35,10 @@ namespace WeatherStation {
 		
 		[SerializeField] private float RotateMin;
 		[SerializeField] private float RotateMax;
+
+		private bool TimerInProgress; // whether the angles are in completion range
+		[SerializeField] private float CompletionTime; // how long player must have panel in correct position before marked as complete
+        private float CompletionTimer;
 		
 		public override bool CheckComplete() {
 			if(!PowerMeter || !SolarPanel || !DirectionalLight) {
@@ -160,16 +164,37 @@ namespace WeatherStation {
 				}
 				
 				if(numToHighlight == cc) {
-					//Log.Msg("[SolarPanelPuzzle] completed solar panel puzzle.");
-					if(State != PuzzleState.Complete) {
-						if(GameLevel == 1) {
-							ScriptPlugin.ForceKill = true;
-							StartCoroutine(SolarPanelComplete(1f));
-						}
+					// if countdown has not begun, begin countdown
+					if (!TimerInProgress) {
+						TimerInProgress = true;
+						CompletionTimer = CompletionTime;
 					}
-					State = PuzzleState.Complete;
-					return true;
+					// else continue countdown. If countdown is completed, return true
+					else {
+						CompletionTimer -= Time.deltaTime;
+						if (CompletionTimer <= 0)
+						{
+                            //Log.Msg("[SolarPanelPuzzle] completed solar panel puzzle.");
+                            if (State != PuzzleState.Complete)
+                            {
+                                if (GameLevel == 1)
+                                {
+                                    ScriptPlugin.ForceKill = true;
+                                    StartCoroutine(SolarPanelComplete(1f));
+                                }
+                            }
+                            State = PuzzleState.Complete;
+                            return true;
+                        }
+                    }
+
 				} else {
+					// if previous countdown was in progress, end it without completing
+					if (TimerInProgress)
+					{
+						TimerInProgress = false;
+					}
+
 					if(LeftGrabbed) {
 						data.LeftHand.HapticImpulse = (float)numToHighlight / (float)cc;
 					}

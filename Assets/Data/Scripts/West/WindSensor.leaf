@@ -63,14 +63,35 @@ $call argo->StopFX()
 $call argoSled->StopSound()
 $call argoSled->StopFX()
 
+// ensure all required components are in the sled
+$set global:west-all-socketed = false
+$while global:west-all-socketed != true
+    $set global:west-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:west-all-socketed = false
+    $endif
+    $if NotIsSocketed(windSensorSled)
+        $set global:west-all-socketed = false
+    $endif
+    $if global:west-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call windSensorSled->SetLocked(true)
+    $endif
+$endwhile
+
 {@Argo} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
 $call fader->FadeOut(3.0)
 $call Wait(4)
+// free argo to be placed in interior
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
 $call Wait(3)
+$call windSensorSled->SetLocked(false)
 
 {@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
 $call windSensor->ShowHighlight()

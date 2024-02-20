@@ -25,27 +25,27 @@ $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
 
 $while NotIsGrabbed(batteryBase)
-$call Wait(1)
+    $call Wait(1)
 $endwhile
 
 $if WasGrabbed(batteryBase)
 
-$call batteryBase->StopHighlight()
-$call batteryBase->StopFX()
+    $call batteryBase->StopHighlight()
+    $call batteryBase->StopFX()
 
-$if NotIsSocketed(batteryBaySocket)
+    $if NotIsSocketed(batteryBaySocket)
 
-$call batteryBay->ShowHighlight()
-$call batteryBay->PlayFX()
+        $call batteryBay->ShowHighlight()
+        $call batteryBay->PlayFX()
 
-$while NotIsSocketed(batteryBaySocket)
-$call Wait(1)
-$endwhile
+        $while NotIsSocketed(batteryBaySocket)
+            $call Wait(1)
+        $endwhile
 
-$call batteryBay->StopHighlight()
-$call batteryBay->StopFX()
+        $call batteryBay->StopHighlight()
+        $call batteryBay->StopFX()
 
-$endif
+    $endif
 $endif
 
 $call batteryBaySocket->LockBase(true)
@@ -78,124 +78,124 @@ $call batteryBase->SetGrabbable(false)
 
 $while PuzzleIsNotComplete(batteryPuzzle)
 
-$if WasGrabbed(batteryOne)
-$call batteryOne->StopFX()
-$call batteryOne->StopHighlight()
-$endif
+    $if WasGrabbed(batteryOne)
+        $call batteryOne->StopFX()
+        $call batteryOne->StopHighlight()
+    $endif
 
-$if WasGrabbed(batteryTwo)
-$call batteryTwo->StopFX()
-$call batteryTwo->StopHighlight()
-$endif
+    $if WasGrabbed(batteryTwo)
+        $call batteryTwo->StopFX()
+        $call batteryTwo->StopHighlight()
+    $endif
 
-$if WasGrabbed(batteryThree)
-$call batteryThree->StopFX()
-$call batteryThree->StopHighlight()
-$endif
+    $if WasGrabbed(batteryThree)
+        $call batteryThree->StopFX()
+        $call batteryThree->StopHighlight()
+    $endif
 
-$if WasGrabbed(batteryOneThree)
-$call batteryOneThree->StopFX()
-$call batteryOneThree->StopHighlight()
-$endif
+    $if WasGrabbed(batteryOneThree)
+        $call batteryOneThree->StopFX()
+        $call batteryOneThree->StopHighlight()
+    $endif
 
-$if WasGrabbed(batteryTwoThree)
-$call batteryTwoThree->StopFX()
-$call batteryTwoThree->StopHighlight()
-$endif
+    $if WasGrabbed(batteryTwoThree)
+        $call batteryTwoThree->StopFX()
+        $call batteryTwoThree->StopHighlight()
+    $endif
 
-$if WasGrabbed(batteryThreeThree)
-$call batteryThreeThree->StopFX()
-$call batteryThreeThree->StopHighlight()
-$endif
+    $if WasGrabbed(batteryThreeThree)
+        $call batteryThreeThree->StopFX()
+        $call batteryThreeThree->StopHighlight()
+    $endif
 
-$if WasGrabbed(batteryOneThreeStag)
-$call batteryOneThreeStag->StopFX()
-$call batteryOneThreeStag->StopHighlight()
-$endif
+    $if WasGrabbed(batteryOneThreeStag)
+        $call batteryOneThreeStag->StopFX()
+        $call batteryOneThreeStag->StopHighlight()
+    $endif
 
-$if WasGrabbed(batteryTwoThreeStag)
-$call batteryTwoThreeStag->StopFX()
-$call batteryTwoThreeStag->StopHighlight()
-$endif
+    $if WasGrabbed(batteryTwoThreeStag)
+        $call batteryTwoThreeStag->StopFX()
+        $call batteryTwoThreeStag->StopHighlight()
+    $endif
 
-$if WasGrabbed(batteryThreeThreeStag)
-$call batteryThreeThreeStag->StopFX()
-$call batteryThreeThreeStag->StopHighlight()
-$endif
+    $if WasGrabbed(batteryThreeThreeStag)
+        $call batteryThreeThreeStag->StopFX()
+        $call batteryThreeThreeStag->StopHighlight()
+    $endif
 
-$if IsPuzzleSocketed(batterySocket)
+    $if IsPuzzleSocketed(batterySocket)
 
-$if IsNotMatched(batterySocket)
+        $if IsNotMatched(batterySocket)
 
-$call argoHelpButton->SetCurrentClip(25)
+            $call argoHelpButton->SetCurrentClip(25)
 
-$else
+        $else
 
-$call argoHelpButton->SetCurrentClip(26)
+            $call argoHelpButton->SetCurrentClip(26)
 
-$call batteryOne->StopFX()
-$call batteryOne->StopHighlight()
+            $call batteryOne->StopFX()
+            $call batteryOne->StopHighlight()
 
-$call batteryTwo->StopFX()
-$call batteryTwo->StopHighlight()
+            $call batteryTwo->StopFX()
+            $call batteryTwo->StopHighlight()
 
-$call batteryThree->StopFX()
-$call batteryThree->StopHighlight()
+            $call batteryThree->StopFX()
+            $call batteryThree->StopHighlight()
 
-$call batteryOneThree->StopFX()
-$call batteryOneThree->StopHighlight()
+            $call batteryOneThree->StopFX()
+            $call batteryOneThree->StopHighlight()
 
-$call batteryTwoThree->StopFX()
-$call batteryTwoThree->StopHighlight()
+            $call batteryTwoThree->StopFX()
+            $call batteryTwoThree->StopHighlight()
 
-$call batteryThreeThree->StopFX()
-$call batteryThreeThree->StopHighlight()
+            $call batteryThreeThree->StopFX()
+            $call batteryThreeThree->StopHighlight()
 
-$call batteryOneThreeStag->StopFX()
-$call batteryOneThreeStag->StopHighlight()
+            $call batteryOneThreeStag->StopFX()
+            $call batteryOneThreeStag->StopHighlight()
 
-$call batteryTwoThreeStag->StopFX()
-$call batteryTwoThreeStag->StopHighlight()
+            $call batteryTwoThreeStag->StopFX()
+            $call batteryTwoThreeStag->StopHighlight()
 
-$call batteryThreeThreeStag->StopFX()
-$call batteryThreeThreeStag->StopHighlight()
+            $call batteryThreeThreeStag->StopFX()
+            $call batteryThreeThreeStag->StopHighlight()
 
-$call cellOne->ShowHighlight()
-$call cellTwo->ShowHighlight()
-$call cellThree->ShowHighlight()
-$call cellFour->ShowHighlight()
-$call cellOne->PlayFX()
-$call cellTwo->PlayFX()
-$call cellThree->PlayFX()
-$call cellFour->PlayFX()
+            $call cellOne->ShowHighlight()
+            $call cellTwo->ShowHighlight()
+            $call cellThree->ShowHighlight()
+            $call cellFour->ShowHighlight()
+            $call cellOne->PlayFX()
+            $call cellTwo->PlayFX()
+            $call cellThree->PlayFX()
+            $call cellFour->PlayFX()
 
-$if WasGrabbed(cellOne)
-$call cellOne->StopHighlight()
-$call cellOne->StopFX()
-$endif
+            $if WasGrabbed(cellOne)
+                $call cellOne->StopHighlight()
+                $call cellOne->StopFX()
+            $endif
 
-$if WasGrabbed(cellTwo)
-$call cellTwo->StopHighlight()
-$call cellTwo->StopFX()
-$endif
+            $if WasGrabbed(cellTwo)
+                $call cellTwo->StopHighlight()
+                $call cellTwo->StopFX()
+            $endif
 
-$if WasGrabbed(cellThree)
-$call cellThree->StopHighlight()
-$call cellThree->StopFX()
-$endif
+            $if WasGrabbed(cellThree)
+                $call cellThree->StopHighlight()
+                $call cellThree->StopFX()
+            $endif
 
-$if WasGrabbed(cellFour)
-$call cellFour->StopHighlight()
-$call cellFour->StopFX()
-$endif
+            $if WasGrabbed(cellFour)
+                $call cellFour->StopHighlight()
+                $call cellFour->StopFX()
+            $endif
 
-$endif
+        $endif
 
-$endif 
+    $endif 
 
-$call Wait(1)
+    $call Wait(1)
 
-//set argo help based on if something is grabbed...
+    //set argo help based on if something is grabbed...
 
 $endwhile
 
@@ -218,7 +218,7 @@ $call batteryBase->PlayFX()
 $call batterySledSocket->PlayFX()
 
 $while NotIsSocketed(batterySledSocket)
-$call Wait(1)
+    $call Wait(1)
 $endwhile
 
 $call batteryBase->StopHighlight()
