@@ -23,6 +23,9 @@ namespace WeatherStation {
 		
 		public List<Material> SkyboxMaterials = new List<Material>(8);
 		
+		[SerializeField]
+		GameObject Alex;
+		
 		#endregion // Inspector
 		
 		private int CurrentSceneIndex = 0;
@@ -179,6 +182,15 @@ namespace WeatherStation {
 					{
 						rd.TemperatureSensorButtons3[i].SetActive(true);
 					}
+					
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.SetStartingLocation(4);
+						}
+					}
 				}
 				else if(sceneArgs.Scene.path.Contains("NorthWest"))
 				{
@@ -198,6 +210,17 @@ namespace WeatherStation {
 					{
 						rd.TemperatureSensorButtons3[i].SetActive(false);
 					}
+					
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.StopAllAnimations();
+							aa.SetStartingLocation(1);
+							aa.StartKneeling();
+						}
+					}
 				}
 				else if(sceneArgs.Scene.path.Contains("South"))
 				{
@@ -216,6 +239,39 @@ namespace WeatherStation {
 					for(int i = 0; i < rd.TemperatureSensorButtons3.Count; ++i)
 					{
 						rd.TemperatureSensorButtons3[i].SetActive(false);
+					}
+					
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.SetStartingLocation(2);
+						}
+					}
+				}
+				else if(sceneArgs.Scene.path.Contains("West"))
+				{
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.StopAllAnimations();
+							aa.SetStartingLocation(0);
+							aa.StartWriting();
+						}
+					}
+				}
+				else if(sceneArgs.Scene.path.Contains("East"))
+				{
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.SetStartingLocation(3);
+						}
 					}
 				}
 			}
