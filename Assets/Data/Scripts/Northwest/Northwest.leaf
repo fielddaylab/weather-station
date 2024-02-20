@@ -185,6 +185,8 @@ $call fader->FadeIn(3.0, 1.0)
 
 $call Wait(3)
 
+$call trashChute->SetGrabbable(true)
+
 $call snowSledSocket->SetLocked(false)
 $call batterySledSocket->SetLocked(false)
 

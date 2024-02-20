@@ -1024,12 +1024,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6659844732998694439}
-  - component: {fileID: 7649150664032636423}
   - component: {fileID: 4315825473138817203}
   - component: {fileID: 2054072910040466956}
   - component: {fileID: 6731770421739796086}
-  - component: {fileID: 2961701501118244763}
   - component: {fileID: 7879522820942381081}
+  - component: {fileID: 3297133255148239268}
+  - component: {fileID: 8044882102246628205}
   m_Layer: 0
   m_Name: ArgoSocket
   m_TagString: Untagged
@@ -1054,38 +1054,6 @@ Transform:
   - {fileID: 3901056774003438656}
   m_Father: {fileID: 7182293748715105592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7649150664032636423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5777382445210300523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1391b34a19c04564861f980b5c2598c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Locked: 0
-  Current: {fileID: 0}
-  AllowedSockets: 1
-  Mode: 1
-  JointConfig:
-    BreakForce: Infinity
-    BreakTorque: Infinity
-    MassScale: 1
-    ConnectedMassScale: 1
-  Location: {fileID: 4283846083650163247}
-  Detector: {fileID: 5869470328486594497}
-  ReleaseLocation: {fileID: 0}
-  ReleaseForce: {x: 0, y: 0, z: 0}
-  SoundEffect: {fileID: 5907531191645522876}
-  MatchingSockets: []
-  InMaterials: []
-  OutMaterials: []
-  OutMaterialIndex: 
-  NewColor: {fileID: 0}
-  BlinkTiming: 1
 --- !u!82 &4315825473138817203
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1211,18 +1179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PS: {fileID: 3737676208559530612}
---- !u!114 &2961701501118244763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5777382445210300523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395d1dd30c02f4598a378d435b86ed9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7879522820942381081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1233,6 +1189,44 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 52e02a1ce57c1b04cb3e967c8c59288c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3297133255148239268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777382445210300523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0270a952bd6bf247924c1b0977a04e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Locked: 0
+  Current: {fileID: 0}
+  AllowedSockets: 1
+  Mode: 1
+  JointConfig:
+    BreakForce: Infinity
+    BreakTorque: Infinity
+    MassScale: 1
+    ConnectedMassScale: 1
+  Location: {fileID: 4283846083650163247}
+  Detector: {fileID: 5869470328486594497}
+  ReleaseLocation: {fileID: 0}
+  ReleaseForce: {x: 0, y: 0, z: 0}
+  SoundEffect: {fileID: 5907531191645522876}
+--- !u!114 &8044882102246628205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777382445210300523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395d1dd30c02f4598a378d435b86ed9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6941072170812031107
