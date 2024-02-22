@@ -78,7 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be8c9e33313d4773ad36776f9841f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Level: 0
+  PuzzleLevel: 0
+  GameLevel: 0
   SensorMaterials:
   - {fileID: 2100000, guid: f066399ce83d34f4c9c173642cc23d01, type: 2}
   - {fileID: 2100000, guid: 88bf882aeb1d744a59cbf321681a8a87, type: 2}
@@ -529,10 +530,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GrabEnabled: 1
-  MaxGrabbers: 2
+  MaxGrabbers: 1
   IsHeavy: 0
   StayKinematic: 0
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 1
   GripAmount: 0.01
   GripPoseIndex: -1
@@ -540,6 +542,7 @@ MonoBehaviour:
   GrabSpots:
   - {fileID: 5370286847247733463}
   - {fileID: 6583697955626597950}
+  GrabSpotsLeft: []
 --- !u!114 &5501915429961103461
 MonoBehaviour:
   m_ObjectHideFlags: 0

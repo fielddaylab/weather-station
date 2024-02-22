@@ -13,7 +13,12 @@ using UnityEngine.XR;
 namespace WeatherStation {
     public class CenterBracket : MonoBehaviour {
         #region Inspector
-
+		
+		[SerializeField]
+		float MinHeight;
+		
+		[SerializeField]
+		float MaxHeight;
 		
         #endregion // Inspector
 		
@@ -50,18 +55,13 @@ namespace WeatherStation {
 					dir = -1f;
 				}
 				
-				if(currPos.y > 0.25f && currPos.y < 1.5f) {
+				if(currPos.y > MinHeight && currPos.y < MaxHeight) {
 					transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
-					/*for(int i = 0; i < TowerObjects.Count; ++i)
-					{
-						TowerObjects[i].transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
-					}*/
 				}
 				
 				LastPos = currPos;
 			} 
 			
-			//Debug.Log(euler.z);
 		}
 		
         private void Awake() {
@@ -73,7 +73,7 @@ namespace WeatherStation {
         }
 		
 		private void Start() {
-			//TowerObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tower"));
+
 		}
 		
 		private void OnGrabPanel(Grabber grabber) {

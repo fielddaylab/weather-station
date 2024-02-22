@@ -25,7 +25,10 @@ namespace WeatherStation {
 		}
 		
 		public void SetToOriginalParent() {
-			transform.parent = OriginalParent;
+			if(OriginalParent != null)
+			{
+				transform.parent = OriginalParent;
+			}
 		}
 	}
 }
