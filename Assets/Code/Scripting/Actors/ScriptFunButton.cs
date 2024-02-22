@@ -37,7 +37,7 @@ namespace WeatherStation.Scripting {
 		
 		[LeafMember("SetCurrentClip"), Preserve]
 		public void SetCurrentClip(int clipIndex) {
-			ArgoFun argo = Game.SharedState.Get<ArgoFun>();
+			ArgoFun argo = Lookup.State<ArgoFun>();
 			if(argo != null) {
 				argo.SetCurrentClip(clipIndex);
 			}
@@ -45,7 +45,7 @@ namespace WeatherStation.Scripting {
 		
 		[LeafMember("SetEndClip"), Preserve]
 		public void SetEndClip(int clipIndex) {
-			ArgoFun argo = Game.SharedState.Get<ArgoFun>();
+			ArgoFun argo = Lookup.State<ArgoFun>();
 			if(argo != null) {
 				argo.SetEndClip(clipIndex);
 			}

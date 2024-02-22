@@ -36,7 +36,7 @@ namespace WeatherStation {
                     } else {
 						if(component.Holding.UseGrabPoses && component.Holding.ConstrainGripPosition) {
 							
-							PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+							PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 							
 							if(handRig.LeftHandGrab.GrabbableBy == component && handRig.LeftHandGrab.IsGrabPosed) {
 								

@@ -48,7 +48,7 @@ namespace WeatherStation {
 			if(!SwitchingScenes) {
 				SwitchingScenes = true;
 				//return anything in your hands when switching scenes.
-				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 				
 				//if(handRig.LeftHandGrab.IsGrabPosed) {
 					GrabUtility.ForceGrabPoseOff(handRig.LeftHandGrab);
@@ -82,7 +82,7 @@ namespace WeatherStation {
 					}
 				}
 				
-				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 				
 				GrabUtility.ReturnToOriginalSpawnPoint(playerLocator.Argo.gameObject.GetComponent<Grabbable>());
 				
@@ -115,7 +115,7 @@ namespace WeatherStation {
 			if(sceneArgs.Scene.path.Contains("Interior"))
 			{
 				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
-				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 	            foreach(var root in roots)
 				{
 					//Debug.Log(root);
@@ -136,7 +136,7 @@ namespace WeatherStation {
 			else
 			{
 				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
-				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 	            foreach(var root in roots)
 				{
 					
@@ -146,7 +146,15 @@ namespace WeatherStation {
 					}
 					else if(root.name == "SunLight00")
 					{
-						playerLocator.ExteriorLight = root.transform.GetChild(0).gameObject;
+						if(root.transform.childCount > 0)
+						{
+							playerLocator.ExteriorLight = root.transform.GetChild(0).gameObject;
+						}
+						
+						if(root.transform.childCount > 1)
+						{
+							playerLocator.ExteriorLightInside = root.transform.GetChild(1).gameObject;
+						}
 					}
 					else if(root.name.Contains("AWS"))
 					{
@@ -166,7 +174,7 @@ namespace WeatherStation {
 				
 				if(sceneArgs.Scene.path.Contains("SouthEast"))
 				{
-					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					RepairDesk rd = Lookup.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -188,13 +196,15 @@ namespace WeatherStation {
 						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
 						if(aa != null)
 						{
+							aa.StopAllAnimations();
 							aa.SetStartingLocation(4);
+							aa.StartKneeling();
 						}
 					}
 				}
 				else if(sceneArgs.Scene.path.Contains("NorthWest"))
 				{
-					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					RepairDesk rd = Lookup.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -218,13 +228,13 @@ namespace WeatherStation {
 						{
 							aa.StopAllAnimations();
 							aa.SetStartingLocation(1);
-							aa.StartKneeling();
+							aa.StartWalkLoopNW();
 						}
 					}
 				}
 				else if(sceneArgs.Scene.path.Contains("South"))
 				{
-					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					RepairDesk rd = Lookup.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -246,7 +256,9 @@ namespace WeatherStation {
 						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
 						if(aa != null)
 						{
+							aa.StopAllAnimations();
 							aa.SetStartingLocation(2);
+							aa.StartWalkLoopS();
 						}
 					}
 				}
@@ -270,7 +282,9 @@ namespace WeatherStation {
 						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
 						if(aa != null)
 						{
+							aa.StopAllAnimations();
 							aa.SetStartingLocation(3);
+							aa.StartTinkering();
 						}
 					}
 				}

@@ -5,8 +5,9 @@
 @evalPriority   100
 @once
 
-$call fader->FadeIn(20.0, 15.0)
+$call fader->FadeIn(10.0, 5.0)
 $call argoHelpButton->SetButtonLocked(false)
+$call argo->SetFacePose("sleeping")
 {@Rae} Mission Control, this is Otter three, We just touched down at Mount Rea Station. Sky’s clear as a bell, temperature clocking in at -15 degrees Fahrenheit. Perfect daytime conditions. $[rae_mission_control]
 {@Alex} Sure, perfect. If you’re a penguin. $[alex_sure_perfect]
 {@Alex} Station's a little beat up. Not too bad, considering how long we've been away.  But it looks like there's no power. $[alex_stations_a]

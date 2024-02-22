@@ -16,6 +16,8 @@ namespace WeatherStation {
 		private PuzzleSocket BladeSocket = null;
 		private Socketable BrokenProp;
 		private WindSocket SocketRotation = null;
+
+		private const float ROTATE_SPEED = 10f;
 		
 		// Start is called before the first frame update
 		void Awake() {
@@ -66,7 +68,7 @@ namespace WeatherStation {
 						} else {
 							IsTesting = true;
 							BladeSocket.Locked = true;
-							StartCoroutine(RotateBlade(120f, 20f, true));
+							StartCoroutine(RotateBlade(120f, ROTATE_SPEED, true));
 						}
 					} else if(BladeSocket.Current == BrokenProp) {
 						if(!IsTesting) {
@@ -74,7 +76,7 @@ namespace WeatherStation {
 							IsTesting = true;
 							//BladeSocket.Locked = true;
 							//rotate a bit, then have it detach and fall..
-							StartCoroutine(RotateBlade(5f, 5f, false));
+							StartCoroutine(RotateBlade(4f, ROTATE_SPEED, false));
 						}
 						else
 						{
@@ -86,7 +88,7 @@ namespace WeatherStation {
 							IsTesting = true;
 							//BladeSocket.Locked = true;
 							//rotate a bit, then have it detach and fall..
-							StartCoroutine(RotateBlade(10f, 10f, false));
+							StartCoroutine(RotateBlade(8f, ROTATE_SPEED, false));
 						}
 						else
 						{

@@ -20,6 +20,7 @@ namespace WeatherStation {
 		public GameObject PlaneExterior;
 		public GameObject PlaneInterior;
 		public GameObject ExteriorLight;
+		public GameObject ExteriorLightInside;
 		public GameObject InteriorLight;
 		public GameObject InteriorLight2;
 		public OVRScreenFade Fader;
@@ -71,7 +72,7 @@ namespace WeatherStation {
 		public void StartTeleportCountdown(Socketable s) {
 			
 			//we should return any item in your hand to their original location before teleporting...
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 			if(handRig.LeftHand.Physics.State == GrabberState.Holding) {
 				Grabbable h = handRig.LeftHand.Physics.Holding;
 				Socketable s2 = h.gameObject.GetComponent<Socketable>();
@@ -203,6 +204,10 @@ namespace WeatherStation {
 					InteriorLight2.SetActive(false);
 				}
 				
+				if(ExteriorLightInside != null) {
+					ExteriorLightInside.SetActive(false);
+				}
+				
 				if(OutsideDropEffect != null) {
 					GetComponent<AudioSource>().clip = OutsideDropEffect;
 				}
@@ -261,6 +266,10 @@ namespace WeatherStation {
 				
 				if(InteriorLight2 != null) {
 					InteriorLight2.SetActive(true);
+				}
+				
+				if(ExteriorLightInside != null) {
+					ExteriorLightInside.SetActive(true);
 				}
 				
 				if(InsideDropEffect != null) {

@@ -72,16 +72,18 @@ namespace WeatherStation {
 		
 		private IEnumerator ReturnToStart() {
 			yield return 1;
-			if(OriginalSocket) {
-				if(TryGetComponent(out Socketable s)) {
-					if(OriginalSocket.Current == null) {
-						SocketUtility.TryAddToSocket(OriginalSocket, s, true);
-					} else {
-						GrabUtility.ReturnToOriginalSpawnPoint(this);
+			if(CurrentGrabberCount == 0) {
+				if(OriginalSocket) {
+					if(TryGetComponent(out Socketable s)) {
+						if(OriginalSocket.Current == null) {
+							SocketUtility.TryAddToSocket(OriginalSocket, s, true);
+						} else {
+							GrabUtility.ReturnToOriginalSpawnPoint(this);
+						}
 					}
+				} else {
+					GrabUtility.ReturnToOriginalSpawnPoint(this);
 				}
-			} else {
-				GrabUtility.ReturnToOriginalSpawnPoint(this);
 			}
 		}
     }
@@ -129,8 +131,8 @@ namespace WeatherStation {
 			}
 			
 			if(grabbable.UseGrabPoses) {
-				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
-				VRInputState data = Game.SharedState.Get<VRInputState>();
+				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+				VRInputState data = Lookup.State<VRInputState>();
 				if(handRig.LeftHandGrab.GrabbableBy == grabber) {
 					data.LeftHand.HapticImpulse = 0.25f;
 					
@@ -185,7 +187,7 @@ namespace WeatherStation {
 					if(grabber.Holding != null) {
 
 						if(grabber.Holding.UseGrabPoses) {
-							PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+							PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 
 							if(handRig.LeftHandGrab.GrabbableBy == grabber && handRig.LeftHandGrab.IsGrabPosed) {
 								GrabUtility.GrabPoseOff(handRig.LeftHandGrab, grabber.Holding, grabber, applyReleaseForce, handRig.RightHandGrab);
@@ -410,7 +412,7 @@ namespace WeatherStation {
                     } 
                 }
 			} else {
-				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 				GrabPoseOn(otherGrabPose, grabbable, (handRig.LeftHandGrab == otherGrabPose));
 			}
 		}
