@@ -144,7 +144,7 @@ $call argoFunButton->SetButtonLocked(true)
 {@Argo} Are we positive that ARGO doesn’t have a mute button? $[are_we_positive]
 
 
-$call fader->FadeOut(10.0)
-$call Wait(10)
+$call fader->FadeOut(4.0)
+$call Wait(4)
 
 $call levelLoader->LoadEpilogue()

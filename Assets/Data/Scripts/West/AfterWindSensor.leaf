@@ -180,8 +180,8 @@ $call map->NextTexture()
 {@Argo} The repair is complete! Mount Rea station is transmitting data again. Excellent work! $[argo_the_repair]
 {@Alex} Great. Let's get out of here. It's cribbage night back at McMurdo. $[alex_great_lets]
 {@Rae} Every night is cribbage night back at McMurdo station. $[rae_every_night]
-$call fader->FadeOut(10.0)
-$call Wait(10)
+$call fader->FadeOut(4.0)
+$call Wait(4)
 $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(2)

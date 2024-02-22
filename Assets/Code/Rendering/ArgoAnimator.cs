@@ -29,6 +29,11 @@ public class ArgoAnimator : ScriptComponent {
     public ArgoFacePose ErrorPose;
     public NamedArgoFacePose[] NamedPoses;
 
+    [Header("Celebration")]
+    public AudioSource CelebrationPlayer;
+    public AudioClip CelebrationSfx;
+    public AudioClip BigCelebrationSfx;
+
     [NonSerialized] private long m_NextTalkCheckTimestamp;
     [NonSerialized] private double m_LastVolume;
     [NonSerialized] private bool m_IsVoicing;
@@ -154,9 +159,15 @@ public class ArgoAnimator : ScriptComponent {
         if ((pose.Flags & ArgoFacePoseFlags.BigCelebration) != 0) {
             Face.SetBackgroundState(ArgoFace.BackgroundState.Celebrate);
             Face.SetSparkleState(ArgoFace.SparkleState.All);
+            CelebrationPlayer.Stop();
+            CelebrationPlayer.clip = BigCelebrationSfx;
+            CelebrationPlayer.Play();
         } else if ((pose.Flags & ArgoFacePoseFlags.Celebration) != 0) {
             Face.SetBackgroundState(ArgoFace.BackgroundState.Pleased);
             Face.SetSparkleState(ArgoFace.SparkleState.Top);
+            CelebrationPlayer.Stop();
+            CelebrationPlayer.clip = CelebrationSfx;
+            CelebrationPlayer.Play();
         } else {
             Face.SetBackgroundState(ArgoFace.BackgroundState.Normal);
             Face.SetSparkleState(ArgoFace.SparkleState.Off);

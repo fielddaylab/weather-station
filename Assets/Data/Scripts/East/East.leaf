@@ -7,7 +7,7 @@
 
 $call Wait(1)
 
-$call fader->FadeIn(10.0, 5.0)
+$call fader->FadeIn(4.0, 2.0)
 
 {@Rae} Okay, I'm no expert but wasn't there supposed to be a weather station here? $[ok_im_no]
 {@Alex} The tower is completely buried in snow. $[the_tower_is]
@@ -17,6 +17,6 @@ $call fader->FadeIn(10.0, 5.0)
 {@Alex} Matt,  we're going to have to leave this site without a tower. We won't be back till next year. I mean I won't be back till next year. $[matt_were_going]
 {@Rae} Come on, let's move out. Tomorrow we'll check out the last station or what ever is left of it. $[come_on_lets]
 
-$call fader->FadeOut(10.0)
-$call Wait(10)
+$call fader->FadeOut(4.0)
+$call Wait(4)
 $call levelLoader->LoadSouthEast()

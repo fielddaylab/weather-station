@@ -326,8 +326,8 @@ $call map->NextTexture()
 
 {@Rae} Yes, hold onto your butts! $[yes_hold_onto]
 
-$call fader->FadeOut(10.0)
-$call Wait(10)
+$call fader->FadeOut(4.0)
+$call Wait(4)
 $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(2)

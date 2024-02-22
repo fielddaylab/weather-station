@@ -12,21 +12,21 @@ $call argoHelpButton->SetButtonLocked(true)
 
 $call map->SetTexture(0)
 
-$call fader->FadeIn(10.0, 5.0)
-{@Argo} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
+$call fader->FadeIn(4.0, 2.0)
+{@Argo #happy} {poses 3.0:} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
 {@Rae} Morning, ARGO. $[morning_argo]
 {@Alex} Um… hi. I’m here, too. $[um_hi_im]
 {@MissionControl} Otter Three, We can give you a four-hour window, Wind gusts up to 20 knots are expected later today. $[otter_three_we]
 {@Rae} Ha. 20 knots? Easy peasy. I could fly through that with my eyes closed. $[ha_twenty_knots]
 {@Alex} Um… eyes open would be better, if you don’t mind. Argo, what’s the status of the station?  $[um_eyes_open]
-{@Argo} Scanning… scanning…  The damage is not too bad!  Just a broken, battery, data logger, and sensor! $[scanning_scanning_the]
+{@Argo #focus} {poses 3.5:} Scanning… scanning…  The damage is not too bad!  Just a broken, battery, data logger, and sensor! $[scanning_scanning_the]
 {@Alex} What? You said it wasn’t too bad. $[what_you_said]
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 
 $call argoHelpButton->SetCurrentClip(15)
 $call argoHelpButton->SetButtonLocked(false)
-{@Argo} Bad is a matter of perspective. We just need to repair the data connections in the logger. Seems easy enough, see if you can figure it out Matt. $[bad_is_a]
+{@Argo #serious} {poses 2.9:} Bad is a matter of perspective. We just need to repair the data connections in the logger. Seems easy enough, see if you can figure it out Matt. $[bad_is_a]
 
 $if NotIsGrabbed(dataLoggerDoor)
 $call dataLoggerDoor->ShowHighlight()
@@ -91,7 +91,7 @@ $call batteryBase->PlayFX()
 $call batteryBase->PlaySound()
 $call batteryBase->SetGrabbable(true)
 
-{@Argo} Great! We’ll have to fix the battery and sensor in the repair unit, place them both in the sled! $[great_well_have]
+{@Argo #celebrate} {poses 1.1:} Great! We’ll have to fix the battery and sensor in the repair unit, place them both in the sled! $[great_well_have]
 
 $call argoHelpButton->SetCurrentClip(16)
 $call argoHelpButton->SetButtonLocked(false)
@@ -644,8 +644,8 @@ $call map->NextTexture()
 
 {@Rae} Ok Mission Control, the Tower is transmitting, we’re outta here! $[ok_mission_control]
 
-$call fader->FadeOut(10.0)
-$call Wait(10)
+$call fader->FadeOut(4.0)
+$call Wait(4)
 $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call batterySocket->SetLocked(false)

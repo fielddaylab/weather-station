@@ -7,7 +7,7 @@
 
 $call Wait(1)
 
-$call fader->FadeIn(10.0, 5.0)
+$call fader->FadeIn(4.0, 2.0)
 
 {@MissionControl} Come in, Otter Three. What’s your status? $[whats_your_status]
 {@Alex} Buenos días! We’re all okay here. Though I was tempted to take Argo’s battery out a few times. $[buenos_dias_were]
@@ -22,5 +22,5 @@ $call fader->FadeIn(10.0, 5.0)
 {@Alex} Sorry, ARGO. You might just have me around to annoy next year.  Someone has to stay back in Madison and train more people to come.  $[sorry_argo_you]
 {@Argo} Ah, yes. More humans to share fun facts with!  I suppose that would be acceptable as well. $[ah_yes_more]
 
-$call fader->FadeOut(10.0)
-$call Wait(10)
+$call fader->FadeOut(4.0)
+$call Wait(4)
