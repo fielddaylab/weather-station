@@ -204,6 +204,8 @@ namespace FieldDay.Debugging {
             Camera mainCam = s_MainCameraOverride ? s_MainCameraOverride : Camera.main;
             if (mainCam) {
                 RenderText(deltaTime, mainCam, s_CategoryMask);
+            } else {
+                RenderText(deltaTime); 
             }
         }
 
@@ -410,6 +412,19 @@ namespace FieldDay.Debugging {
                     GUI.contentColor = state.Params.Color;
                     GUI.Label(new Rect((int) targetPoint.x, (int) targetPoint.y, (int) size.x, (int) size.y), m_TextContent, style);
                 }
+
+                if (deltaTime > 0) {
+                    state.State.Duration -= deltaTime;
+                    if (state.State.Duration <= 0) {
+                        s_ActiveTexts.FastRemoveAt(i);
+                    }
+                }
+            }
+        }
+
+        private void RenderText(float deltaTime) {
+            for (int i = s_ActiveTexts.Count - 1; i >= 0; i--) {
+                ref TextRenderState state = ref s_ActiveTexts[i];
 
                 if (deltaTime > 0) {
                     state.State.Duration -= deltaTime;

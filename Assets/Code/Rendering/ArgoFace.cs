@@ -19,17 +19,24 @@ public class ArgoFace : MonoBehaviour, IBaked {
     public enum MouthState {
         Open,
         Closed,
-        Smirk
+        Smirk,
+        Frown,
+        Frown_Right,
+        Open_Smaller
     }
 
     public enum EyeState {
         Open,
         Half,
-        Wink
+        Wink,
+        Blink,
+        Error
     }
 
     public enum EyebrowState {
-        Hidden
+        Hidden,
+        Worried,
+        Intrigued
     }
 
     public enum BackgroundState {
@@ -54,9 +61,11 @@ public class ArgoFace : MonoBehaviour, IBaked {
     [SerializeField] private Sprite m_DefaultIris;
     [SerializeField] private Sprite m_NarrowedEye;
     [SerializeField] private Sprite m_WinkEye;
+    [SerializeField] private Sprite m_BlinkEye;
     [SerializeField] private Sprite m_OpenMouth;
     [SerializeField] private Sprite m_SmirkMouth;
     [SerializeField] private Sprite m_ClosedMouth;
+    [SerializeField] private Sprite m_OpenMouthSmall;
 
     [Header("Colors")]
     [SerializeField] private Color32 m_DefaultBackground;
@@ -95,6 +104,16 @@ public class ArgoFace : MonoBehaviour, IBaked {
         SpriteRenderer rend = m_Parts[(int) part];
         rend.flipX = x;
         rend.flipY = y;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void SetSpriteFlipX(PartId part, bool x) {
+        m_Parts[(int) part].flipX = x;
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private void SetSpriteFlipY(PartId part, bool y) {
+        m_Parts[(int) part].flipY = y;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -145,6 +164,16 @@ public class ArgoFace : MonoBehaviour, IBaked {
                 SetSprite(PartId.LEye, m_WinkEye);
                 break;
             }
+            case EyeState.Blink: {
+                SetSpriteEnabled(PartId.LEye_Pupil, false);
+                SetSprite(PartId.LEye, m_BlinkEye);
+                break;
+            }
+            case EyeState.Error: {
+                SetSpriteEnabled(PartId.LEye_Pupil, false);
+                SetSprite(PartId.LEye, m_DefaultIris);
+                break;
+            }
         }
     }
 
@@ -165,6 +194,16 @@ public class ArgoFace : MonoBehaviour, IBaked {
                 SetSprite(PartId.REye, m_WinkEye);
                 break;
             }
+            case EyeState.Blink: {
+                SetSpriteEnabled(PartId.REye_Pupil, false);
+                SetSprite(PartId.REye, m_BlinkEye);
+                break;
+            }
+            case EyeState.Error: {
+                SetSpriteEnabled(PartId.REye_Pupil, false);
+                SetSprite(PartId.REye, m_DefaultIris);
+                break;
+            }
         }
     }
 
@@ -173,16 +212,56 @@ public class ArgoFace : MonoBehaviour, IBaked {
             case MouthState.Open: {
                 SetSprite(PartId.Mouth, m_OpenMouth);
                 ResetSpriteOffset(PartId.Mouth);
+                SetSpriteFlip(PartId.Mouth, false, false);
                 break;
             }
             case MouthState.Closed: {
                 SetSprite(PartId.Mouth, m_ClosedMouth);
                 ResetSpriteOffset(PartId.Mouth);
+                SetSpriteFlip(PartId.Mouth, false, false);
                 break;
             }
             case MouthState.Smirk: {
                 SetSprite(PartId.Mouth, m_SmirkMouth);
                 SetSpriteOffset(PartId.Mouth, new Vector2(-2, 0));
+                SetSpriteFlip(PartId.Mouth, false, false);
+                break;
+            }
+            case MouthState.Frown: {
+                SetSprite(PartId.Mouth, m_SmirkMouth);
+                SetSpriteOffset(PartId.Mouth, new Vector2(-2, 0));
+                SetSpriteFlip(PartId.Mouth, false, true);
+                break;
+            }
+            case MouthState.Frown_Right: {
+                SetSprite(PartId.Mouth, m_SmirkMouth);
+                ResetSpriteOffset(PartId.Mouth);
+                SetSpriteFlip(PartId.Mouth, true, true);
+                break;
+            }
+            case MouthState.Open_Smaller: {
+                SetSprite(PartId.Mouth, m_OpenMouthSmall);
+                ResetSpriteOffset(PartId.Mouth);
+                SetSpriteFlip(PartId.Mouth, false, false);
+                break;
+            }
+        }
+    }
+
+    public void SetBrowState(PartId browIndex, EyebrowState browState) {
+        switch (browState) {
+            case EyebrowState.Hidden: {
+                SetSpriteEnabled(browIndex, false);
+                break;
+            }
+            case EyebrowState.Worried: {
+                SetSpriteEnabled(browIndex, true);
+                SetSpriteFlipY(browIndex, true);
+                break;
+            }
+            case EyebrowState.Intrigued: {
+                SetSpriteEnabled(browIndex, true);
+                SetSpriteFlipY(browIndex, false);
                 break;
             }
         }

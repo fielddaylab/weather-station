@@ -40,7 +40,10 @@ namespace FieldDay.Scripting {
             LeafUtils.ConfigureDefaultParsers(m_TagParseConfig, this, null);
             LeafUtils.ConfigureDefaultHandlers(m_TagHandler, this);
 
+            m_TagParseConfig.AddEvent("poses", "KeyFramePoses", ParsePoseData);
+
             m_TagHandler.Register(LeafUtils.Events.Character, () => { });
+            m_TagHandler.Register("KeyFramePoses", HandlePoseEvent);
 
             LateEndCutsceneDelegate = LateDecrementNestedPauseCount;
         }
@@ -120,7 +123,22 @@ namespace FieldDay.Scripting {
                 // TODO: End cutscene
             }
         }
-		
+
+        private void ParsePoseData(TagData inTag, object inContext, ref TagEventData ioData) {
+            ioData.StringArgument = inTag.Data;
+        }
+
+        private void HandlePoseEvent(TagEventData inEvent, object inContext) {
+            ArgoAnimator argo = LastAudioSource ? LastAudioSource.GetComponent<ArgoAnimator>() : null;
+            if (argo != null) {
+                var args = inEvent.ExtractStringArgs();
+                for(int i = 0; i < args.Count; i++) {
+                    TagData tag = TagData.Parse(args[i], Parsing.InlineEvent);
+                    argo.QueuePoseChange(StringParser.ParseFloat(tag.Id), tag.Data);
+                }
+            }
+        }
+
         public override IEnumerator RunLine(LeafThreadState<ScriptNode> inThreadState, LeafLineInfo inLine) {
             
 			if (inLine.IsEmptyOrWhitespace)
@@ -169,7 +187,9 @@ namespace FieldDay.Scripting {
                 overrideHandler.Base = eventHandler;
                 eventHandler = overrideHandler;
             }
-			
+
+            ArgoAnimator argo = null;
+
             if (!voiceoverLineCode.IsEmpty) {
 				
                 AudioClip clip = null;
@@ -188,12 +208,13 @@ namespace FieldDay.Scripting {
                             a.Play();
                         }
 
-                        if (voiceCharacter.TryGetComponent(out ArgoAnimator argo)) {
-                            argo.HandlePose(pose);
+                        if (voiceCharacter.TryGetComponent(out argo)) {
+                            argo.SetPoseById(pose);
                         }
 
                     } else {
 					    AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+                        LastAudioSource = null;
                     }
 					
 					if(((SubtitleDisplay)m_TextDisplayer).SubtitlesOn) {
