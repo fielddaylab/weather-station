@@ -196,7 +196,9 @@ namespace WeatherStation {
 						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
 						if(aa != null)
 						{
+							aa.StopAllAnimations();
 							aa.SetStartingLocation(4);
+							aa.StartKneeling();
 						}
 					}
 				}
@@ -226,7 +228,7 @@ namespace WeatherStation {
 						{
 							aa.StopAllAnimations();
 							aa.SetStartingLocation(1);
-							aa.StartKneeling();
+							aa.StartWalkLoopNW();
 						}
 					}
 				}
@@ -254,7 +256,9 @@ namespace WeatherStation {
 						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
 						if(aa != null)
 						{
+							aa.StopAllAnimations();
 							aa.SetStartingLocation(2);
+							aa.StartWalkLoopS();
 						}
 					}
 				}
@@ -278,7 +282,9 @@ namespace WeatherStation {
 						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
 						if(aa != null)
 						{
+							aa.StopAllAnimations();
 							aa.SetStartingLocation(3);
+							aa.StartTinkering();
 						}
 					}
 				}
