@@ -48,7 +48,7 @@ namespace WeatherStation {
 			if(!SwitchingScenes) {
 				SwitchingScenes = true;
 				//return anything in your hands when switching scenes.
-				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 				
 				//if(handRig.LeftHandGrab.IsGrabPosed) {
 					GrabUtility.ForceGrabPoseOff(handRig.LeftHandGrab);
@@ -82,7 +82,7 @@ namespace WeatherStation {
 					}
 				}
 				
-				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 				
 				GrabUtility.ReturnToOriginalSpawnPoint(playerLocator.Argo.gameObject.GetComponent<Grabbable>());
 				
@@ -115,7 +115,7 @@ namespace WeatherStation {
 			if(sceneArgs.Scene.path.Contains("Interior"))
 			{
 				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
-				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 	            foreach(var root in roots)
 				{
 					//Debug.Log(root);
@@ -136,7 +136,7 @@ namespace WeatherStation {
 			else
 			{
 				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
-				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 	            foreach(var root in roots)
 				{
 					
@@ -174,7 +174,7 @@ namespace WeatherStation {
 				
 				if(sceneArgs.Scene.path.Contains("SouthEast"))
 				{
-					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					RepairDesk rd = Lookup.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -204,7 +204,7 @@ namespace WeatherStation {
 				}
 				else if(sceneArgs.Scene.path.Contains("NorthWest"))
 				{
-					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					RepairDesk rd = Lookup.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -234,7 +234,7 @@ namespace WeatherStation {
 				}
 				else if(sceneArgs.Scene.path.Contains("South"))
 				{
-					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					RepairDesk rd = Lookup.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{

@@ -37,7 +37,7 @@ namespace WeatherStation.Scripting {
 		
 		[LeafMember("SetCurrentClip"), Preserve]
 		public void SetCurrentClip(int clipIndex) {
-			ArgoHelp argo = Game.SharedState.Get<ArgoHelp>();
+			ArgoHelp argo = Lookup.State<ArgoHelp>();
 			if(argo != null) {
 				argo.SetCurrentClip(clipIndex);
 			}
