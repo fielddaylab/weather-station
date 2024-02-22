@@ -15,7 +15,7 @@ namespace WeatherStation {
         public override void ProcessWork(float deltaTime) {
 			
             //m_State.UpdateStates();
-			VRInputState inputState = Game.SharedState.Get<VRInputState>();
+			VRInputState inputState = Lookup.State<VRInputState>();
 			if(inputState.LeftHand.AxisTiltedLeft() && !DidTurnLeft && !DidTurnRight) {
 				m_State.RotatePlayer(true);
 				DidTurnLeft = true;

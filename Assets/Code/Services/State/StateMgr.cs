@@ -588,7 +588,7 @@
 //            GameObject[] roots = unityScene.Scene.GetRootGameObjects();
 //			if(path.Contains("Interior"))
 //			{
-//				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+//				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 //	            foreach(var root in roots)
 //				{
 //					//Debug.Log(root);
@@ -606,7 +606,7 @@
 //			}
 //			else if(path.Contains("West"))
 //			{
-//				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+//				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 //	            foreach(var root in roots)
 //				{
 //					if(root.name == "Directional Light")
@@ -649,7 +649,7 @@
 //			SceneBinding unityScene = SceneHelper.FindSceneByPath(newScenePath, SceneCategories.Loaded);
 //            GameObject[] roots = unityScene.Scene.GetRootGameObjects();
 
-//			PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+//			PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 //			foreach(var root in roots)
 //			{
 //				//Debug.Log(root.name);

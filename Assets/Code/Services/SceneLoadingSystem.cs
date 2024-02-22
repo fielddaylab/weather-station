@@ -17,7 +17,7 @@ namespace WeatherStation {
 		
 		public override void ProcessWork(float deltaTime) {
 
-			VRInputState data = Game.SharedState.Get<VRInputState>();
+			VRInputState data = Lookup.State<VRInputState>();
 
 			if (Game.Scenes.IsMainLoading()) {
 				return;
@@ -32,7 +32,7 @@ namespace WeatherStation {
 				FieldDay.Scripting.ScriptPlugin.ForceVOSkipSet = true;
 				data.RightHand.PrevButtons = 0;
 			} else if(data.RightHand.Released(VRControllerButtons.Primary)) {
-				PlayerLocator player = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator player = Lookup.State<PlayerLocator>();
 				
 				SubtitleDisplay sd = player.gameObject.transform.GetChild(0).GetChild(5).GetComponent<SubtitleDisplay>();
 				if(sd != null) {
@@ -72,7 +72,7 @@ namespace WeatherStation {
 			//Debug.Log("Switching scenes...");
 			m_State.SwitchScenes();
 			
-			PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+			PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
 				
 			if(playerLocator.IsInside) {
 				playerLocator.Teleport();

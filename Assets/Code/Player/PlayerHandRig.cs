@@ -39,7 +39,7 @@ namespace WeatherStation {
 		
 		public void UpdateStates() {
 			
-			VRInputState data = Game.SharedState.Get<VRInputState>();
+			VRInputState data = Lookup.State<VRInputState>();
 			
 			LeftHandAnimator.SetInteger(AnimParamIndexPose, 0);
 			RightHandAnimator.SetInteger(AnimParamIndexPose, -1);

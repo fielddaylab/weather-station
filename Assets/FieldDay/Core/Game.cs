@@ -5,6 +5,10 @@ using FieldDay.Processes;
 using FieldDay.Audio;
 using System.Runtime.CompilerServices;
 using FieldDay.Scenes;
+using FieldDay.UI;
+using FieldDay.Assets;
+using FieldDay.HID;
+using FieldDay.Rendering;
 
 [assembly: InternalsVisibleTo("FieldDay.Core.Editor")]
 
@@ -42,6 +46,26 @@ namespace FieldDay {
         /// Scene manager. Maintains scene loading.
         /// </summary>
         static public SceneMgr Scenes { get; internal set; }
+
+        /// <summary>
+        /// Rendering manager. Handles render state callbacks.
+        /// </summary>
+        static public RenderMgr Rendering { get; internal set; }
+
+        /// <summary>
+        /// Input manager. Maintains input state.
+        /// </summary>
+        static public InputMgr Input { get; internal set; }
+
+        /// <summary>
+        /// Gui panel manager. Maintains shared panel references.
+        /// </summary>
+        static public GuiMgr Gui { get; internal set; }
+
+        /// <summary>
+        /// Asset lookup manager. Maintains asset lookup tables.
+        /// </summary>
+        static public AssetMgr Assets { get; internal set; }
 
         /// <summary>
         /// Event dispatcher. Maintains event dispatch.
