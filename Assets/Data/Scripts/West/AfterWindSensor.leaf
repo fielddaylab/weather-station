@@ -16,7 +16,7 @@ $call windSensor->PlaySound()
 $call windSensor->PlayFX()
 
 $if NotIsSocketed(windSensorSled)
-{@Argo} Great, now place it in the sled. $[argo_great_now]
+{@Argo #celebrate} Great, now place it in the sled. $[argo_great_now]
 $call argoHelpButton->SetCurrentClip(11)
 $while NotIsSocketed(windSensorSled)
 $call Wait(1)
@@ -147,7 +147,7 @@ $call map->SetTexture(0)
 $call Wait(1)
 
 $call map->NextTexture()
-{@Argo} Ugh, I always get so nervous at this part... progress bars are so anxiety inducing. $[argo_ugh_i]
+{@Argo #concentrate} {poses 3.6:serious} Ugh, I always get so nervous at this part... progress bars are so anxiety inducing. $[argo_ugh_i]
 $call Wait(1)
 
 $call Wait(0.1)

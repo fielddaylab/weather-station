@@ -109,7 +109,7 @@ public class ArgoAnimator : ScriptComponent {
         }
     }
 
-    private void ApplyPose(ArgoFacePose pose, StringHash32 id) {
+    private void ApplyPose(in ArgoFacePose pose, StringHash32 id) {
         m_CurrentPoseId = id;
         m_CurrentPose = pose;
         m_EyeTracking = (pose.Flags & ArgoFacePoseFlags.DisableEyeTracking) == 0;
@@ -141,11 +141,28 @@ public class ArgoAnimator : ScriptComponent {
             Face.SetSpriteOffset(ArgoFace.PartId.REye, pose.RightEyeOffset);
         }
 
+        Face.SetSpriteOffset(ArgoFace.PartId.LEye_Pupil, pose.LeftPupilOffset);
+        Face.SetSpriteOffset(ArgoFace.PartId.REye_Pupil, pose.RightPupilOffset);
+
         // eyebrows
         Face.SetBrowState(ArgoFace.PartId.LBrow, pose.LeftBrow);
         Face.SetBrowState(ArgoFace.PartId.RBrow, pose.RightBrow);
         Face.SetSpriteOffset(ArgoFace.PartId.LBrow, pose.LeftBrowOffset);
         Face.SetSpriteOffset(ArgoFace.PartId.RBrow, pose.RightBrowOffset);
+
+        // background
+        if ((pose.Flags & ArgoFacePoseFlags.BigCelebration) != 0) {
+            Face.SetBackgroundState(ArgoFace.BackgroundState.Celebrate);
+            Face.SetSparkleState(ArgoFace.SparkleState.All);
+        } else if ((pose.Flags & ArgoFacePoseFlags.Celebration) != 0) {
+            Face.SetBackgroundState(ArgoFace.BackgroundState.Pleased);
+            Face.SetSparkleState(ArgoFace.SparkleState.Top);
+        } else {
+            Face.SetBackgroundState(ArgoFace.BackgroundState.Normal);
+            Face.SetSparkleState(ArgoFace.SparkleState.Off);
+        }
+
+        // sparkles
     }
 
     private void ApplyPose(NamedArgoFacePose pose) {
@@ -294,6 +311,8 @@ public struct ArgoFacePose {
     [AutoEnum] public ArgoFace.EyeState RightEye;
     public Vector2 LeftEyeOffset;
     public Vector2 RightEyeOffset;
+    public Vector2 LeftPupilOffset;
+    public Vector2 RightPupilOffset;
 
     [Header("Brows")]
     [AutoEnum] public ArgoFace.EyebrowState LeftBrow;
@@ -310,8 +329,10 @@ public struct NamedArgoFacePose {
 }
 
 [Flags]
-public enum ArgoFacePoseFlags {
-    DisableEyeTracking = 0x01
+public enum ArgoFacePoseFlags : ushort {
+    DisableEyeTracking = 0x01,
+    Celebration = 0x02,
+    BigCelebration = 0x04
 }
 
 public struct ArgoFacePoseKeyFrame {

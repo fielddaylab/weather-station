@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using BeauUtil;
+using BeauUtil.Debugger;
+using FieldDay.Scripting;
 using FieldDay.SharedState;
 using Leaf.Runtime;
 using UnityEngine;
@@ -121,6 +123,19 @@ namespace WeatherStation {
             }
 
             return null;
+        }
+
+        static public void LoadCustomLineNameMappings(ScriptNodePackage package) {
+            foreach(var line in package.AllLines()) {
+                string name = package.GetLineCustomName(line.Key);
+                if (name != null) {
+                    if (Loader.LineCodeToFileNameMap.ContainsKey(line.Key)) {
+                        Log.Warn("[VoiceoverUtility] Line code '{0}' appears multiple times in scripts", line.Key.ToDebugString());
+                    } else {
+                        Loader.LineCodeToFileNameMap.Add(line.Key, name + ".mp3");
+                    }
+                }
+            }
         }
     }
 }

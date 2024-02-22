@@ -1,12 +1,19 @@
 using System;
 using System.Runtime.CompilerServices;
+using BeauUtil;
+using FieldDay;
 using ScriptableBake;
 using UnityEngine;
 
 public class ArgoFace : MonoBehaviour, IBaked {
     #region Types
 
-    public enum PartId {
+    private struct SparkleRecord {
+        public SpriteRenderer Renderer;
+        public float TimeUntilChange;
+    }
+
+    public enum PartId : ushort {
         Mouth,
         LEye,
         LEye_Pupil,
@@ -16,7 +23,7 @@ public class ArgoFace : MonoBehaviour, IBaked {
         RBrow
     }
 
-    public enum MouthState {
+    public enum MouthState : ushort {
         Open,
         Closed,
         Smirk,
@@ -25,7 +32,7 @@ public class ArgoFace : MonoBehaviour, IBaked {
         Open_Smaller
     }
 
-    public enum EyeState {
+    public enum EyeState : ushort {
         Open,
         Half,
         Wink,
@@ -33,17 +40,23 @@ public class ArgoFace : MonoBehaviour, IBaked {
         Error
     }
 
-    public enum EyebrowState {
+    public enum EyebrowState : ushort {
         Hidden,
         Worried,
         Intrigued
     }
 
-    public enum BackgroundState {
+    public enum BackgroundState : ushort {
         Normal,
         Celebrate,
         Pleased,
         Alert
+    }
+
+    public enum SparkleState : ushort {
+        Off,
+        Top,
+        All
     }
 
     #endregion // Types
@@ -56,6 +69,13 @@ public class ArgoFace : MonoBehaviour, IBaked {
     [SerializeField] private SpriteRenderer[] m_Parts = new SpriteRenderer[7];
     [SerializeField, HideInInspector] private Transform[] m_PartTransforms = Array.Empty<Transform>();
     [SerializeField, HideInInspector] private Vector2[] m_PartOrigins = Array.Empty<Vector2>();
+
+    [Header("Sparkles")]
+    [SerializeField] private SpriteRenderer[] m_Sparkles;
+    [SerializeField] private SpriteRenderer[] m_AdditionalSparkles;
+    [SerializeField] private Sprite[] m_SparkleFrames;
+    [SerializeField] private Color[] m_SparkleColors;
+    [SerializeField] private float m_SparkleUpdateDelay = 0.1f;
 
     [Header("Sprites")]
     [SerializeField] private Sprite m_DefaultIris;
@@ -75,10 +95,55 @@ public class ArgoFace : MonoBehaviour, IBaked {
 
     #endregion // Inspector
 
+    [NonSerialized] private RandomDeck<Color> m_SparkleColorPicker;
+    [NonSerialized] private RandomDeck<Sprite> m_SparkleFramePicker;
+    [NonSerialized] private SparkleRecord[] m_ActiveSparkles;
+    [NonSerialized] private int m_ActiveSparkleCount;
+
     #region Unity Events
 
     private void Awake() {
-        
+        m_SparkleColorPicker = new RandomDeck<Color>(m_SparkleColors.Length);
+        m_SparkleFramePicker = new RandomDeck<Sprite>(m_SparkleFrames);
+
+        m_ActiveSparkles = new SparkleRecord[m_Sparkles.Length + m_AdditionalSparkles.Length];
+        m_ActiveSparkleCount = 0;
+
+        int idx = 0;
+        for(int i = 0; i < m_Sparkles.Length; i++) {
+            m_ActiveSparkles[idx++].Renderer = m_Sparkles[i];
+        }
+        for (int i = 0; i < m_AdditionalSparkles.Length; i++) {
+            m_ActiveSparkles[idx++].Renderer = m_AdditionalSparkles[i];
+        }
+    }
+
+    private void LateUpdate() {
+        float dt = Frame.DeltaTime;
+        if (dt <= 0) {
+            return;
+        }
+
+        for(int i = 0; i < m_ActiveSparkleCount; i++) {
+            ref SparkleRecord record = ref m_ActiveSparkles[i];
+            record.TimeUntilChange -= dt;
+            if (record.TimeUntilChange <= 0) {
+                record.TimeUntilChange += m_SparkleUpdateDelay;
+
+                Sprite nextSprite;
+                do {
+                    nextSprite = m_SparkleFramePicker.Next();
+                }
+                while (nextSprite == record.Renderer.sprite);
+                record.Renderer.sprite = nextSprite;
+
+                Color nextColor;
+                do {
+                    nextColor = m_SparkleColorPicker.Next();
+                } while (nextColor == record.Renderer.color);
+                record.Renderer.color = nextColor;
+            }
+        }
     }
 
     #endregion // Unity Events
@@ -109,6 +174,39 @@ public class ArgoFace : MonoBehaviour, IBaked {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private void SetSpriteFlipX(PartId part, bool x) {
         m_Parts[(int) part].flipX = x;
+    }
+
+    private void RegenerateSparkleColors() {
+        m_SparkleColorPicker.Clear();
+
+        Color bgColor = m_Camera.backgroundColor;
+        foreach(var color in m_SparkleColors) {
+            if (color != bgColor) {
+                m_SparkleColorPicker.Add(color);
+            }
+        }
+    }
+
+    private unsafe void RegenerateSparkleDelays() {
+        if (m_ActiveSparkleCount <= 0) {
+            return;
+        }
+
+        int* indices = stackalloc int[m_ActiveSparkleCount];
+        for(int i = 0; i < m_ActiveSparkleCount; i++) {
+            indices[i] = i;
+        }
+
+        RNG.Instance.Shuffle(indices, m_ActiveSparkleCount);
+
+        for(int i = 0; i < m_ActiveSparkleCount; i++) {
+            int idx = indices[i];
+
+            ref SparkleRecord record = ref m_ActiveSparkles[idx];
+            record.Renderer.sprite = m_SparkleFramePicker.Next();
+            record.Renderer.color = m_SparkleColorPicker.Next();
+            record.TimeUntilChange = RNG.Instance.NextFloat(m_SparkleUpdateDelay);
+        }
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -262,6 +360,34 @@ public class ArgoFace : MonoBehaviour, IBaked {
             case EyebrowState.Intrigued: {
                 SetSpriteEnabled(browIndex, true);
                 SetSpriteFlipY(browIndex, false);
+                break;
+            }
+        }
+    }
+
+    public void SetSparkleState(SparkleState sparkleState) {
+        foreach (var sparkle in m_Sparkles) {
+            sparkle.enabled = sparkleState >= SparkleState.Top;
+        }
+        foreach (var sparkle in m_AdditionalSparkles) {
+            sparkle.enabled = sparkleState >= SparkleState.All;
+        }
+
+        switch (sparkleState) {
+            case SparkleState.Off: {
+                m_ActiveSparkleCount = 0;
+                break;
+            }
+            case SparkleState.Top: {
+                m_ActiveSparkleCount = m_Sparkles.Length;
+                RegenerateSparkleColors();
+                RegenerateSparkleDelays();
+                break;
+            }
+            case SparkleState.All: {
+                m_ActiveSparkleCount = m_ActiveSparkles.Length;
+                RegenerateSparkleColors();
+                RegenerateSparkleDelays();
                 break;
             }
         }

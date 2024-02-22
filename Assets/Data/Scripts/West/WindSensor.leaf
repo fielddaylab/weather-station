@@ -5,7 +5,7 @@
 @evalPriority   100
 @once
 
-{@Argo} The panel is generating electricity! Excellent work, partner! $[argo_the_panel]
+{@Argo #celebrate} The panel is generating electricity! Excellent work, partner! $[argo_the_panel]
 {@Alex} Argo, is the station all fixed up? $[alex_argo_is]
 $call windSensorSocket->SetLocked(false)
 $call windSensor->SetGrabbable(true)
@@ -14,7 +14,7 @@ $call windSensor->PlaySound()
 $call windSensor->PlayFX()
 $call windSensorSled->PlayFX()
 $call windSensorSled->PlaySound()
-{@Argo} Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model. $[argo_hmm_not]
+{@Argo } Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model. $[argo_hmm_not]
 
 $if NotIsGrabbed(windSensor), NotIsSocketed(windSensorSled)
 {@Argo} Ok, first step is removing the wind sensor from the tower. $[argo_ok_first]
@@ -50,7 +50,7 @@ $call windSensorSled->StopFX()
 $call windSensorSled->StopSound()
 
 $if NotIsSocketed(argoSled)
-{@Argo} Awesome!  Ok, just one last thing... Toss ME in the sled. $[argo_awesome_ok]
+{@Argo #celebrate} {poses 1:,3.5:happy} Awesome!  Ok, just one last thing... Toss ME in the sled. $[argo_awesome_ok]
 $call argoHelpButton->SetCurrentClip(3)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
@@ -81,7 +81,7 @@ $while global:west-all-socketed != true
     $endif
 $endwhile
 
-{@Argo} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
+{@Argo #concentrate} {poses 0.97:eyerollsmile,3.333:,} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
 $call fader->FadeOut(3.0)
 $call Wait(4)
 // free argo to be placed in interior
@@ -93,7 +93,7 @@ $call fader->FadeIn(3.0, 1.0)
 $call Wait(3)
 $call windSensorSled->SetLocked(false)
 
-{@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
+{@Argo #happy} {poses 4.0:} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
 $call windSensor->ShowHighlight()
 $call windSensor->PlaySound()
 $call windSensor->PlayFX()

@@ -8,6 +8,7 @@ using FieldDay.SharedState;
 using Leaf;
 using Leaf.Runtime;
 using UnityEngine;
+using WeatherStation;
 
 namespace FieldDay.Scripting {
     [DisallowMultipleComponent]
@@ -123,6 +124,8 @@ namespace FieldDay.Scripting {
             }
 
             package.m_SourceAsset = sourceAsset;
+
+            VoiceoverUtility.LoadCustomLineNameMappings(package);
 
             Log.Msg("[ScriptDatabase] Script '{0}' registered", package.Name());
         }

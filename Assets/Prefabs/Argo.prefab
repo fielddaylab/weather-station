@@ -1720,6 +1720,7 @@ MonoBehaviour:
   BlinkClosedDuration: 0.13
   LookRoot: {fileID: 6482337014993417908}
   LookTarget: {fileID: 0}
+  LookScale: 2
   Resting:
     Flags: 0
     DefaultMouth: 2
@@ -1728,6 +1729,8 @@ MonoBehaviour:
     RightEye: 0
     LeftEyeOffset: {x: 0, y: 0}
     RightEyeOffset: {x: 0, y: 0}
+    LeftPupilOffset: {x: 0, y: 0}
+    RightPupilOffset: {x: 0, y: 0}
     LeftBrow: 0
     RightBrow: 0
     LeftBrowOffset: {x: 0, y: 0}
@@ -1740,11 +1743,98 @@ MonoBehaviour:
     RightEye: 4
     LeftEyeOffset: {x: 0, y: 0}
     RightEyeOffset: {x: 0, y: 0}
+    LeftPupilOffset: {x: 0, y: 0}
+    RightPupilOffset: {x: 0, y: 0}
     LeftBrow: 1
     RightBrow: 1
     LeftBrowOffset: {x: 0, y: 0}
     RightBrowOffset: {x: 0, y: 0}
   NamedPoses:
+  - Id:
+      m_Source: eyerollsmile
+      m_HashValue: 1113915743
+    Pose:
+      Flags: 1
+      DefaultMouth: 2
+      OpenMouth: 0
+      LeftEye: 0
+      RightEye: 0
+      LeftEyeOffset: {x: -2, y: 2}
+      RightEyeOffset: {x: -2, y: 2}
+      LeftPupilOffset: {x: -2, y: 1}
+      RightPupilOffset: {x: -2, y: 1}
+      LeftBrow: 0
+      RightBrow: 0
+      LeftBrowOffset: {x: 0, y: 0}
+      RightBrowOffset: {x: 0, y: 0}
+  - Id:
+      m_Source: celebrate
+      m_HashValue: 3921932554
+    Pose:
+      Flags: 3
+      DefaultMouth: 2
+      OpenMouth: 0
+      LeftEye: 2
+      RightEye: 2
+      LeftEyeOffset: {x: 0, y: 0}
+      RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
+      LeftBrow: 0
+      RightBrow: 0
+      LeftBrowOffset: {x: 0, y: 0}
+      RightBrowOffset: {x: 0, y: 0}
+  - Id:
+      m_Source: bigcelebrate
+      m_HashValue: 1164112574
+    Pose:
+      Flags: -1
+      DefaultMouth: 0
+      OpenMouth: 2
+      LeftEye: 2
+      RightEye: 2
+      LeftEyeOffset: {x: 0, y: 0}
+      RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
+      LeftBrow: 0
+      RightBrow: 0
+      LeftBrowOffset: {x: 0, y: 0}
+      RightBrowOffset: {x: 0, y: 0}
+  - Id:
+      m_Source: serious
+      m_HashValue: 2762971613
+    Pose:
+      Flags: 0
+      DefaultMouth: 3
+      OpenMouth: 5
+      LeftEye: 0
+      RightEye: 0
+      LeftEyeOffset: {x: 0, y: 0}
+      RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
+      LeftBrow: 2
+      RightBrow: 0
+      LeftBrowOffset: {x: 0, y: 0}
+      RightBrowOffset: {x: 0, y: 0}
+  - Id:
+      m_Source: concentrate
+      m_HashValue: 3278381071
+    Pose:
+      Flags: 0
+      DefaultMouth: 3
+      OpenMouth: 5
+      LeftEye: 3
+      RightEye: 3
+      LeftEyeOffset: {x: 0, y: 0}
+      RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
+      LeftBrow: 2
+      RightBrow: 0
+      LeftBrowOffset: {x: 0, y: 0}
+      RightBrowOffset: {x: 0, y: 0}
   - Id:
       m_Source: worried
       m_HashValue: 2702318615
@@ -1756,6 +1846,8 @@ MonoBehaviour:
       RightEye: 0
       LeftEyeOffset: {x: 0, y: 0}
       RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
       LeftBrow: 1
       RightBrow: 1
       LeftBrowOffset: {x: 1, y: 0}
@@ -1771,6 +1863,8 @@ MonoBehaviour:
       RightEye: 0
       LeftEyeOffset: {x: 2, y: 2}
       RightEyeOffset: {x: 2, y: 2}
+      LeftPupilOffset: {x: 0, y: 1}
+      RightPupilOffset: {x: 0, y: 1}
       LeftBrow: 2
       RightBrow: 1
       LeftBrowOffset: {x: 0, y: 0}
@@ -1779,13 +1873,15 @@ MonoBehaviour:
       m_Source: excited
       m_HashValue: 641892773
     Pose:
-      Flags: 1
+      Flags: 0
       DefaultMouth: 0
       OpenMouth: 2
       LeftEye: 0
       RightEye: 0
       LeftEyeOffset: {x: 0, y: 0}
       RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
       LeftBrow: 2
       RightBrow: 2
       LeftBrowOffset: {x: 0, y: 0}
@@ -1801,6 +1897,8 @@ MonoBehaviour:
       RightEye: 1
       LeftEyeOffset: {x: 0, y: 0}
       RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
       LeftBrow: 0
       RightBrow: 0
       LeftBrowOffset: {x: 0, y: 0}
@@ -1816,6 +1914,8 @@ MonoBehaviour:
       RightEye: 2
       LeftEyeOffset: {x: 0, y: 0}
       RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
       LeftBrow: 0
       RightBrow: 0
       LeftBrowOffset: {x: 0, y: 0}
@@ -1831,6 +1931,8 @@ MonoBehaviour:
       RightEye: 1
       LeftEyeOffset: {x: 0, y: 0}
       RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
       LeftBrow: 0
       RightBrow: 0
       LeftBrowOffset: {x: 0, y: 0}
@@ -1846,6 +1948,8 @@ MonoBehaviour:
       RightEye: 1
       LeftEyeOffset: {x: 0, y: 0}
       RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
       LeftBrow: 2
       RightBrow: 1
       LeftBrowOffset: {x: 0, y: 0}
@@ -1854,13 +1958,15 @@ MonoBehaviour:
       m_Source: sleeping
       m_HashValue: 894905216
     Pose:
-      Flags: -1
+      Flags: 1
       DefaultMouth: 1
       OpenMouth: 0
       LeftEye: 3
       RightEye: 3
       LeftEyeOffset: {x: 0, y: 0}
       RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
       LeftBrow: 0
       RightBrow: 0
       LeftBrowOffset: {x: 0, y: 0}
@@ -1876,6 +1982,8 @@ MonoBehaviour:
       RightEye: 0
       LeftEyeOffset: {x: 0, y: 0}
       RightEyeOffset: {x: 0, y: 0}
+      LeftPupilOffset: {x: 0, y: 0}
+      RightPupilOffset: {x: 0, y: 0}
       LeftBrow: 0
       RightBrow: 0
       LeftBrowOffset: {x: 0, y: 0}
