@@ -31,13 +31,13 @@ namespace WeatherStation {
     }
 
     static public class SocketUtility {
-        static public bool TryReleaseFromCurrentSocket(Socketable socketable, bool applyReleaseForce) {
+        static public bool TryReleaseFromCurrentSocket(Socketable socketable, bool applyReleaseForce, bool overrideParent) {
             if (socketable.CurrentSocket) {
                 if (socketable.CurrentSocket.Locked) {
                     return false;
                 }
 
-                ReleaseCurrent(socketable.CurrentSocket, applyReleaseForce);
+                ReleaseCurrent(socketable.CurrentSocket, applyReleaseForce, overrideParent);
             }
 
             return true;
@@ -48,7 +48,7 @@ namespace WeatherStation {
                 return true;
             }
 
-            return TryReleaseFromCurrentSocket(socketable, applyReleaseForce);
+            return TryReleaseFromCurrentSocket(socketable, applyReleaseForce, false);
         }
 
         static public bool TryAddToSocket(ItemSocket socket, Socketable socketable, bool force) {
@@ -104,7 +104,7 @@ namespace WeatherStation {
             return true;
         }
 
-        static public void ReleaseCurrent(ItemSocket socket, bool applyReleaseForce) {
+        static public void ReleaseCurrent(ItemSocket socket, bool applyReleaseForce, bool overrideReparent = false) {
             if (!socket.Current) {
                 return;
             }
@@ -125,7 +125,16 @@ namespace WeatherStation {
 
             if (socket.Mode == ItemSocketMode.Reparent) {
 
-                socket.Current.CachedTransform.SetParent(socket.Current.OriginalParent, true);
+                if (!overrideReparent)
+                {
+                    socket.Current.CachedTransform.SetParent(socket.Current.OriginalParent, true);
+                }
+                else
+                {
+                    socket.Current.CachedTransform.SetParent(null);
+                    socket.Current.OriginalParent = null;
+                    socket.Current.GetComponent<Grabbable>().OriginalParent = null;
+                }
                 socket.Current.CachedRB.isKinematic = false;
 				
 				if(applyReleaseForce) {

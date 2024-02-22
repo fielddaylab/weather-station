@@ -328,6 +328,7 @@ $call map->NextTexture()
 
 $call fader->FadeOut(10.0)
 $call Wait(10)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(2)
 $call levelLoader->LoadEast()

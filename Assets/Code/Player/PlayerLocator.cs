@@ -157,7 +157,7 @@ namespace WeatherStation {
 			}*/
 
 			//release Argo from the Sled
-			SocketUtility.TryReleaseFromCurrentSocket(s, false);
+			SocketUtility.TryReleaseFromCurrentSocket(s, false, false);
 			
 			if(IsInside) {
 				
