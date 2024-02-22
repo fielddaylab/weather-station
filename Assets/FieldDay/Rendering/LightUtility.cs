@@ -56,7 +56,7 @@ namespace FieldDay.Rendering {
                 RenderSettings.ambientMode = ambientMode;
                 RenderSettings.ambientIntensity = ambientIntensity;
                 RenderSettings.ambientLight = ambientLight;
-                RenderSettings.skybox = skybox;
+                //RenderSettings.skybox = skybox;
                 LightmapSettings.lightmaps = lightmaps;
                 LightmapSettings.lightmapsMode = lightmapsMode;
                 //LightmapSettings.lightProbes = lightProbes;

@@ -486,6 +486,7 @@ $endwhile
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
@@ -587,6 +588,7 @@ $call argoSled->StopSound()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(2.0, 1.0)
@@ -644,6 +646,7 @@ $call map->NextTexture()
 
 $call fader->FadeOut(10.0)
 $call Wait(10)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call batterySocket->SetLocked(false)
 $call batteryTwo->SetSocketsLocked(false)

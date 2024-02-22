@@ -370,7 +370,7 @@ namespace WeatherStation {
 		{
 			gp.GrabberVisual.SetActive(true);
 			gp.SetToOriginalParent();
-			gp.gameObject.SetActive(false);
+            gp.gameObject.SetActive(false);
 			gp.IsGrabPosed = false;
 			
 			if(grabbable.CurrentGrabberCount == 0) {
@@ -423,7 +423,7 @@ namespace WeatherStation {
 				component.transform.position = component.OriginalPosition;
 				component.transform.rotation = component.OriginalRotation;
 				component.transform.SetParent(component.OriginalParent, true);
-			}
+            }
 		}
     }
 }

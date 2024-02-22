@@ -58,7 +58,8 @@ namespace WeatherStation {
 			if(BladeSocket != null)
 			{
 				//Debug.Log("Testing");
-				if(BladeSocket.Current) {
+				// if there is a propeller attached AND the sensor is settled into the repair bay
+				if(BladeSocket.Current && Socket.Current) {
 					if(BladeSocket.IsMatched()) {
 						//Debug.Log("Testing matched");
 						//rotate propeller, highlight green and chime sound...
@@ -137,7 +138,7 @@ namespace WeatherStation {
             //unsocket and have it fall to the ground...
 			if(!complete) {
 				if(BladeSocket.Current != null) {
-					SocketUtility.TryReleaseFromCurrentSocket(BladeSocket.Current, true);
+					SocketUtility.TryReleaseFromCurrentSocket(BladeSocket.Current, true, true);
 				}
 			}
 			
