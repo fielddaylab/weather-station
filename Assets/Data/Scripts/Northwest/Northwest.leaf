@@ -182,10 +182,12 @@ $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
-$call map->SetTexture(4)
+
 $call Wait(3)
 
 $call trashChute->SetGrabbable(true)
+
+$call map->SetTexture(4)
 
 $call snowSledSocket->SetLocked(false)
 $call batterySledSocket->SetLocked(false)
@@ -622,7 +624,7 @@ $call uplinkButton->SetButtonPressed(false)
 
 $call uplink->SetTexture(0)
 $call Wait(1)
-$call map->NextTexture()
+$call map->SetTexture(5)
 $call Wait(1)
 $call uplink->NextTexture()
 $call Wait(0.1)
@@ -642,11 +644,11 @@ $call uplink->NextTexture()
 $call Wait(0.1)
 $call uplink->SetTexture(0)
 $call Wait(0.1)
-$call map->NextTexture()
+$call map->SetTexture(6)
 {@Argo} The Phoenix station is up and running again! $[the_phoenix_station]
 
 $call Wait(2)
-$call map->NextTexture()
+$call map->SetTexture(7)
 
 {@Rae} Ok Mission Control, the Tower is transmitting, we’re outta here! $[ok_mission_control]
 
