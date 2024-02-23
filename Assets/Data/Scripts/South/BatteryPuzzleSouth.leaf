@@ -176,7 +176,7 @@ $call cellFour->StopFX()
 $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
 
-$call Wait(1)
+$call Wait(3)
 $call batteryThreeThree->SetDisabled(true) // solution piece
 
 $call batteryBase->SetGrabbable(true)

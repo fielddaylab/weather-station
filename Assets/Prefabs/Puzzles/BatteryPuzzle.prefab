@@ -5041,7 +5041,7 @@ GameObject:
   - component: {fileID: 2110511162547139542}
   - component: {fileID: 8054060642623301849}
   - component: {fileID: 7623626758794349489}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: batteryBox_cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8233,7 +8233,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5095926698040126875}
   - component: {fileID: 1645724275141303202}
-  m_Layer: 0
+  - component: {fileID: 2335948933677897608}
+  - component: {fileID: 8680527450036806683}
+  m_Layer: 12
   m_Name: batteryBox_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8282,6 +8284,34 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.36909986, y: 0.048352335, z: 0.35129791}
   m_Center: {x: -0.08135521, y: -0.06515595, z: 0.023541566}
+--- !u!114 &2335948933677897608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9073391514291438444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f69addabb33eb048b0c60bd1469cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Id:
+    m_Source: batteryBaseFloor
+    m_HashValue: 81867551
+  m_DisableOnStart: 0
+--- !u!114 &8680527450036806683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9073391514291438444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c0939e168f23b4598b3d6400ffa97c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &108354000267548249
 PrefabInstance:
   m_ObjectHideFlags: 0

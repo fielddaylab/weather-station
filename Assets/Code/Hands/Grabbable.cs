@@ -63,9 +63,9 @@ namespace WeatherStation {
         }
 		
 		public void OnCollisionEnter(Collision c) {
-			if(c.gameObject.layer == 12 && !gameObject.GetComponent<Rigidbody>().isKinematic) {
-				if(ReturnOnGroundHit && !ReturnProcess.Exists()) {
-					ReturnProcess = Routine.Start(ReturnToStart());
+			if(c.GetContact(0).otherCollider.gameObject.layer == 12 && !gameObject.GetComponent<Rigidbody>().isKinematic) {
+                if (ReturnOnGroundHit && !ReturnProcess.Exists()) {
+                    ReturnProcess = Routine.Start(ReturnToStart());
 				}
 			}
 		}

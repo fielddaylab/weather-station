@@ -210,7 +210,7 @@ $call cellFour->StopFX()
 
 $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
-$call Wait(1)
+$call Wait(3)
 $call batteryTwoThreeStag->SetDisabled(true) // solution piece
 
 $call argoHelpButton->SetCurrentClip(27)
