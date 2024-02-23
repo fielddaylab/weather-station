@@ -43,8 +43,8 @@ namespace WeatherStation.Scripting {
         public void SetGrabbable(bool grabParam) {
 			m_Grabbable.GrabEnabled = grabParam;
         }
-		
-		[LeafMember("SetWasGrabbed"), Preserve]
+
+        [LeafMember("SetWasGrabbed"), Preserve]
         public void SetWasGrabbable(bool grabParam) {
 			m_Grabbable.WasGrabbed = grabParam;
         }		

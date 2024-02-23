@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Scripting;
 
 namespace WeatherStation.Scripting {
-    public class ScriptToggleReturner : MonoBehaviour
+    public class ScriptToggleReturner : ScriptComponent
     {
         private LayerMask OriginalLayer;
 

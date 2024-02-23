@@ -16,12 +16,20 @@ $call windSensor->PlaySound()
 $call windSensor->PlayFX()
 
 $if NotIsSocketed(windSensorSled)
-{@Argo #celebrate} Great, now place it in the sled. $[argo_great_now]
-$call argoHelpButton->SetCurrentClip(11)
-$while NotIsSocketed(windSensorSled)
-$call Wait(1)
-$endwhile
-$call argoHelpButton->SetButtonLocked(true)
+    {@Argo #celebrate} Great, now place it in the sled. $[argo_great_now]
+    $call argoHelpButton->SetCurrentClip(11)
+    $while NotIsSocketed(windSensorSled)
+        $call Wait(1)
+        // check if the player has put on an incorrect fan blade
+        $if IsNotMatched(windSensorBladeSocket)
+            $call windSensorButton->StopHighlight()
+            $call windSensorButton->StopFX()
+        $else
+            $call windSensorButton->ShowHighlight()
+            $call windSensorButton->PlayFX()
+        $endif
+    $endwhile
+    $call argoHelpButton->SetButtonLocked(true)
 $endif
 
 $call argoSled->PlayFX()

@@ -7,6 +7,8 @@
 
 $call Wait(1)
 
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(true)
 $call argoTowerSocket->SetLocked(true)
 $call argoHelpButton->SetButtonLocked(true)
 
@@ -496,9 +498,10 @@ $call fader->FadeOut(3.0)
 $call Wait(4)
 $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(false)
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
-
 
 $call snowTowerSocket->ShowHighlight()
 $call snowTowerSocket->PlayFX()
