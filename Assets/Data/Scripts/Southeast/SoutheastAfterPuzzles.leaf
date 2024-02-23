@@ -72,6 +72,8 @@ $call alex->StartKneeling()
 $call planeFinal->SetDisabled(true)
 $call planeLeaving->SetDisabled(false)
 
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(false)
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 

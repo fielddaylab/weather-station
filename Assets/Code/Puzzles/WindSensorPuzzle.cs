@@ -19,6 +19,8 @@ namespace WeatherStation {
         #region Inspector
         public PuzzleSocket Socket;
 		public ItemSocket TowerSocket;
+
+		[SerializeField] private float FanSpeed = 10;
         #endregion // Inspector
 		
 		private bool FanRotating = false;
@@ -67,7 +69,7 @@ namespace WeatherStation {
 			//todo - blade rotating sound...
 			WindSocket SocketRotation = Socket.gameObject.transform.GetChild(1).gameObject.GetComponent<WindSocket>();
             while(FanRotating) {
-				Socket.Current.gameObject.transform.RotateAround(SocketRotation.gameObject.transform.position, Socket.gameObject.transform.right, 30f);
+				Socket.Current.gameObject.transform.RotateAround(SocketRotation.gameObject.transform.position, Socket.gameObject.transform.right, FanSpeed);
                 yield return new WaitForEndOfFrame();
             }
         }
