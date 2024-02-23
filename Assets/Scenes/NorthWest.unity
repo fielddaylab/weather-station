@@ -16,9 +16,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.86666673, g: 0.87843144, b: 0.9960785, a: 1}
+  m_FogColor: {r: 0.75956744, g: 0.7771368, b: 0.9528302, a: 1}
   m_FogMode: 2
-  m_FogDensity: 0.02
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.64771765, g: 0.6784912, b: 0.972549, a: 1}
@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.42123085, g: 0.44703874, b: 0.71816283, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2855,7 +2855,7 @@ PrefabInstance:
     - target: {fileID: 7960393443076992931, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7960393443076992931, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
@@ -2865,7 +2865,7 @@ PrefabInstance:
     - target: {fileID: 7960393443076992931, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.7415176
       objectReference: {fileID: 0}
     - target: {fileID: 7960393443076992931, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
@@ -2875,7 +2875,7 @@ PrefabInstance:
     - target: {fileID: 7960393443076992931, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: -0.67093337
       objectReference: {fileID: 0}
     - target: {fileID: 7960393443076992931, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
@@ -2890,7 +2890,7 @@ PrefabInstance:
     - target: {fileID: 7960393443076992931, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -84.278
       objectReference: {fileID: 0}
     - target: {fileID: 7960393443076992931, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
         type: 3}
@@ -2902,6 +2902,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9093844575191831756, guid: 48e2e93fbf71a894e8c9aad8dccf06af,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 15d1c4266e0c61248a4b2e60309b1798, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
