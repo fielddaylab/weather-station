@@ -71,6 +71,7 @@ $call tent->SetDisabled(false)
 $call alex->StartKneeling()
 $call planeFinal->SetDisabled(true)
 $call planeLeaving->SetDisabled(false)
+$call snow->IncreaseParticles()
 
 $call dataLoggerDoor->ResetRotation()
 $call dataLoggerDoor->SetGrabbable(false)
