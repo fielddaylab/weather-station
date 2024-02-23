@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using BeauRoutine;
 using UnityEngine;
 
 namespace WeatherStation {
@@ -12,12 +14,14 @@ namespace WeatherStation {
 		
 		bool IsStopped = false;
 		bool IsTesting = false;
-		
-		private PuzzleSocket BladeSocket = null;
-		private Socketable BrokenProp;
-		private WindSocket SocketRotation = null;
+
+        [NonSerialized] private PuzzleSocket BladeSocket = null;
+        [NonSerialized] private Socketable BrokenProp;
+		[NonSerialized] private WindSocket SocketRotation = null;
 
 		private const float ROTATE_SPEED = 10f;
+
+        private Routine m_TestRoutine;
 		
 		// Start is called before the first frame update
 		void Awake() {
@@ -26,10 +30,6 @@ namespace WeatherStation {
 				Socket.OnRemoved.Register(OnSensorRemoved);
 				Socket.OnAdded.Register(UnlockSocket);
 			}
-		}
-
-		void Update() {
-
 		}
 		
 		public void UnlockSocket(Socketable s) {
@@ -69,15 +69,15 @@ namespace WeatherStation {
 						} else {
 							IsTesting = true;
 							BladeSocket.Locked = true;
-							StartCoroutine(RotateBlade(120f, ROTATE_SPEED, true));
+                            m_TestRoutine.Replace(this, RotateBlade(120f, ROTATE_SPEED, true));
 						}
 					} else if(BladeSocket.Current == BrokenProp) {
 						if(!IsTesting) {
 							//Debug.Log("Testing broken");
 							IsTesting = true;
-							//BladeSocket.Locked = true;
-							//rotate a bit, then have it detach and fall..
-							StartCoroutine(RotateBlade(4f, ROTATE_SPEED, false));
+                            //BladeSocket.Locked = true;
+                            //rotate a bit, then have it detach and fall..
+                            m_TestRoutine.Replace(this, RotateBlade(4f, ROTATE_SPEED, false));
 						}
 						else
 						{
@@ -87,9 +87,9 @@ namespace WeatherStation {
 						if(!IsTesting) {
 							//Debug.Log("Testing wrong");
 							IsTesting = true;
-							//BladeSocket.Locked = true;
-							//rotate a bit, then have it detach and fall..
-							StartCoroutine(RotateBlade(8f, ROTATE_SPEED, false));
+                            //BladeSocket.Locked = true;
+                            //rotate a bit, then have it detach and fall..
+                            m_TestRoutine.Replace(this, RotateBlade(8f, ROTATE_SPEED, false));
 						}
 						else
 						{
@@ -124,14 +124,16 @@ namespace WeatherStation {
 			Socket.Locked = !complete;
 			
             float t = 0f;
-            while(t < duration && !IsStopped) {
+            while(t < duration && !IsStopped && IsTesting) {
 				//Debug.Log("Rotating");
 				if(BladeSocket.Current)
 				{
 					BladeSocket.Current.gameObject.transform.RotateAround(SocketRotation.gameObject.transform.position, BladeSocket.gameObject.transform.right, angle);
 					FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, angle);
-				}
-                yield return new WaitForEndOfFrame();
+				} else {
+                    break;
+                }
+                yield return null;
                 t += Time.deltaTime;
             }
 			
