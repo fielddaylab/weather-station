@@ -200,6 +200,9 @@ $call snowSensor->PlayFX()
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
 
+$call argoHelpButton->SetCurrentClip(23)
+$call argoHelpButton->SetButtonLocked(false)
+
 $while NotWasGrabbed(snowSensor), NotWasGrabbed(batteryBase)
 $call Wait(1)
 $endwhile
@@ -270,6 +273,8 @@ $call snowSensor->StopFX()
 $call snowSensor->StopHighlight()
 
 $endif
+
+$call argoHelpButton->SetButtonLocked(true)
 
 //now both are socketed...
 $call batteryOne->PlayFX()
@@ -423,6 +428,9 @@ $call batteryTwo->StopFX()
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
+
+$call tempSensorButton12->SetButtonLocked(false)
+$call tempSensorButton14->SetButtonLocked(false)
 
 {@Argo} Ok, all we have left is the temperature sensor. See if you can recalibrate it by completing the signal sequence $[ok_all_we]
 

@@ -198,7 +198,8 @@ namespace WeatherStation {
 						{
 							aa.StopAllAnimations();
 							aa.SetStartingLocation(4);
-							aa.StartKneeling();
+							aa.StartWriting();
+							//aa.StartKneeling();
 						}
 					}
 				}

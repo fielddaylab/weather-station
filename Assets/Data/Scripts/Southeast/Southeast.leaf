@@ -9,6 +9,9 @@ $call Wait(1)
 
 $call fader->FadeIn(4.0, 2.0)
 
+$call planeLeaving->SetDisabled(true)
+$call tent->SetDisabled(true)
+
 $call argoTowerSocket->SetLocked(true)
 
 $call argoFunButton->SetButtonLocked(true)

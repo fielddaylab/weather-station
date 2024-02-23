@@ -17,6 +17,8 @@ $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
 $call snowSensorBay->StopFX()
 
+$call tempSensorButton22->SetButtonLocked(false)
+$call tempSensorButton23->SetButtonLocked(false)
 
 $while PuzzleIsNotComplete(snowPuzzle)
 $if IsGrabbed(snowSensor)
