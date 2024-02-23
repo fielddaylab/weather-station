@@ -140,7 +140,7 @@ namespace WeatherStation {
             //unsocket and have it fall to the ground...
 			if(!complete) {
 				if(BladeSocket.Current != null) {
-					SocketUtility.TryReleaseFromCurrentSocket(BladeSocket.Current, true, true);
+					SocketUtility.TryReleaseFromCurrentSocket(BladeSocket.Current, true, "windSensor_defaultBrokenReturn");
 				}
 			}
 			

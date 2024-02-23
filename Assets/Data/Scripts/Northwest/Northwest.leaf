@@ -7,10 +7,10 @@
 
 $call Wait(1)
 
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(true)
 $call argoTowerSocket->SetLocked(true)
 $call argoHelpButton->SetButtonLocked(true)
-
-$call map->SetTexture(0)
 
 $call fader->FadeIn(4.0, 2.0)
 {@Argo #happy} {poses 3.0:} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
@@ -182,7 +182,7 @@ $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
-
+$call map->SetTexture(4)
 $call Wait(3)
 
 $call trashChute->SetGrabbable(true)
@@ -199,6 +199,9 @@ $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
+
+$call argoHelpButton->SetCurrentClip(23)
+$call argoHelpButton->SetButtonLocked(false)
 
 $while NotWasGrabbed(snowSensor), NotWasGrabbed(batteryBase)
 $call Wait(1)
@@ -243,7 +246,7 @@ $call batteryBay->StopHighlight()
 $call batteryBay->StopFX()
 $endif
 
-// $call batteryBaySocket->LockBase(true)
+$call batteryBaySocket->LockBase(true)
 $call batteryBaySocket->OpenCover()
 
 $if NotIsSocketed(snowBaySocket)
@@ -270,6 +273,8 @@ $call snowSensor->StopFX()
 $call snowSensor->StopHighlight()
 
 $endif
+
+$call argoHelpButton->SetButtonLocked(true)
 
 //now both are socketed...
 $call batteryOne->PlayFX()
@@ -401,9 +406,7 @@ $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
 
 // prevent player from grabbing battery internals
-// $call batterySocket->SetLocked(true)
-// $call batteryTwo->SetSocketsLocked(true)
-$call Wait(1)
+$call Wait(3)
 $call batteryTwo->SetDisabled(true)
 
 $call batteryBase->SetGrabbable(true)
@@ -423,6 +426,9 @@ $call batteryTwo->StopFX()
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
+
+$call tempSensorButton12->SetButtonLocked(false)
+$call tempSensorButton14->SetButtonLocked(false)
 
 {@Argo} Ok, all we have left is the temperature sensor. See if you can recalibrate it by completing the signal sequence $[ok_all_we]
 
@@ -490,9 +496,10 @@ $call fader->FadeOut(3.0)
 $call Wait(4)
 $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(false)
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
-
 
 $call snowTowerSocket->ShowHighlight()
 $call snowTowerSocket->PlayFX()
@@ -614,9 +621,6 @@ $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
 
 $call uplink->SetTexture(0)
-$call Wait(1)
-
-$call map->NextTexture()
 $call Wait(1)
 $call map->NextTexture()
 $call Wait(1)

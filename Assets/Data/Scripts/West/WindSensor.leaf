@@ -228,28 +228,27 @@ $call windSensorButton->PlayFX()
 $call windSensorButton->SetButtonPressed(false)
 
 $if ButtonNotPressed(windSensorButton)
-{@Argo} Now let's test it, press the test button. $[argo_now_lets]
+    {@Argo} Now let's test it, press the test button. $[argo_now_lets]
 $endif
 
 $while PuzzleIsNotComplete(windSensorPuzzle)
 
-$call Wait(1)
+    $call Wait(1)
 
-$call argoHelpButton->SetCurrentClip(9)
-$call argoHelpButton->SetButtonLocked(false)
-$while ButtonNotPressed(windSensorButton)
-$call Wait(1)
-$endwhile
-$call argoHelpButton->SetButtonLocked(true)
+    $call argoHelpButton->SetCurrentClip(9)
+    $call argoHelpButton->SetButtonLocked(false)
+        $while ButtonNotPressed(windSensorButton)
+            $call Wait(1)
+        $endwhile
+    $call argoHelpButton->SetButtonLocked(true)
 
-
-$if IsNotMatched(windSensorBladeSocket)
-{@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
-$call argoHelpButton->SetCurrentClip(10)
-$call windSensorButton->SetButtonPressed(false)
-$else
-$call windSensorPuzzle->SetTestSuccess(true)
-$endif
+    $if IsNotMatched(windSensorBladeSocket)
+        {@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
+        $call argoHelpButton->SetCurrentClip(10)
+        $call windSensorButton->SetButtonPressed(false)
+    $else
+        $call windSensorPuzzle->SetTestSuccess(true)
+    $endif
 
 $endwhile
 

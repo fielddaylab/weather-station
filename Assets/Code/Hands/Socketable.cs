@@ -31,7 +31,7 @@ namespace WeatherStation {
     }
 
     static public class SocketUtility {
-        static public bool TryReleaseFromCurrentSocket(Socketable socketable, bool applyReleaseForce, bool overrideParent) {
+        static public bool TryReleaseFromCurrentSocket(Socketable socketable, bool applyReleaseForce, string overrideParent = "") {
             if (socketable.CurrentSocket) {
                 if (socketable.CurrentSocket.Locked) {
                     return false;
@@ -48,7 +48,7 @@ namespace WeatherStation {
                 return true;
             }
 
-            return TryReleaseFromCurrentSocket(socketable, applyReleaseForce, false);
+            return TryReleaseFromCurrentSocket(socketable, applyReleaseForce);
         }
 
         static public bool TryAddToSocket(ItemSocket socket, Socketable socketable, bool force) {
@@ -104,7 +104,7 @@ namespace WeatherStation {
             return true;
         }
 
-        static public void ReleaseCurrent(ItemSocket socket, bool applyReleaseForce, bool overrideReparent = false) {
+        static public void ReleaseCurrent(ItemSocket socket, bool applyReleaseForce, string overrideReparent = "") {
             if (!socket.Current) {
                 return;
             }
@@ -125,15 +125,31 @@ namespace WeatherStation {
 
             if (socket.Mode == ItemSocketMode.Reparent) {
 
-                if (!overrideReparent)
+                if (overrideReparent == "")
                 {
                     socket.Current.CachedTransform.SetParent(socket.Current.OriginalParent, true);
                 }
                 else
                 {
-                    socket.Current.CachedTransform.SetParent(null);
-                    socket.Current.OriginalParent = null;
-                    socket.Current.GetComponent<Grabbable>().OriginalParent = null;
+                    GameObject foundReparent = GameObject.Find(overrideReparent);
+                    if (foundReparent != null)
+                    {
+                        socket.Current.CachedTransform.SetParent(foundReparent.transform);
+                        socket.Current.OriginalParent = foundReparent.transform;
+                        var grabbable = socket.Current.GetComponent<Grabbable>();
+                        grabbable.OriginalParent = foundReparent.transform;
+                        grabbable.OriginalPosition = foundReparent.transform.position;
+                        grabbable.OriginalRotation = foundReparent.transform.rotation;
+                        grabbable.OriginalSocket = null;
+                    }
+                    else
+                    {
+                        socket.Current.CachedTransform.SetParent(null);
+                        socket.Current.OriginalParent = null;
+                        var grabbable = socket.Current.GetComponent<Grabbable>();
+                        grabbable.OriginalParent = null;
+                        grabbable.OriginalSocket = null;
+                    }
                 }
                 socket.Current.CachedRB.isKinematic = false;
 				

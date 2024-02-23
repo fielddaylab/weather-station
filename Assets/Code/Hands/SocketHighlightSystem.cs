@@ -24,10 +24,12 @@ namespace WeatherStation {
 
             foreach(var socket in sockets) {
 				if(socket.IsSocketAllowed(component.SocketType)) {
-					Vector3 dist = socket.Location.position - sourcePos;
-					if (dist.sqrMagnitude < closestDistSq) {
-						closestDistSq = dist.sqrMagnitude;
-						closest = socket;
+					if(socket.Location != null) {
+						Vector3 dist = socket.Location.position - sourcePos;
+						if (dist.sqrMagnitude < closestDistSq) {
+							closestDistSq = dist.sqrMagnitude;
+							closest = socket;
+						}
 					}
 				}
             }

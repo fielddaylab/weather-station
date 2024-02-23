@@ -67,6 +67,8 @@ $call fader->FadeOut(3.0)
 $call Wait(4)
 $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(false)
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
@@ -294,7 +296,6 @@ $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
 $call argoHelpButton->SetButtonLocked(true)
 
-$call map->SetTexture(0)
 $call uplink->SetTexture(0)
 
 $call Wait(1)

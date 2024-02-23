@@ -15,7 +15,8 @@ namespace WeatherStation {
 		public Transform OutsideLocation;
 		public Transform SledInsideLocation;
 		public Transform SledOutsideLocation;
-
+		public Transform FinalLocation;
+		
 		public GameObject Sled;
 		public GameObject PlaneExterior;
 		public GameObject PlaneInterior;
@@ -67,6 +68,13 @@ namespace WeatherStation {
 		{
 			//rotate the player from their current y-orientation left or right 30 degrees...
 			transform.RotateAround(HeadRoot.transform.position, Vector3.up, left ? -30f : 30f);
+		}
+		
+		public void SetFinalLocation() {
+			OutsideLocation.position = FinalLocation.position;
+			OutsideLocation.rotation = FinalLocation.rotation;
+			transform.position = FinalLocation.position;
+			StartCoroutine("InitialAlignment");
 		}
 		
 		public void StartTeleportCountdown(Socketable s) {
@@ -157,7 +165,7 @@ namespace WeatherStation {
 			}*/
 
 			//release Argo from the Sled
-			SocketUtility.TryReleaseFromCurrentSocket(s, false, false);
+			SocketUtility.TryReleaseFromCurrentSocket(s, false);
 			
 			if(IsInside) {
 				

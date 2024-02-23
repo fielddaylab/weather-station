@@ -67,6 +67,14 @@ $call fader->FadeOut(3.0)
 $call Wait(4)
 $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
+$call tent->SetDisabled(false)
+$call alex->StartKneeling()
+$call planeFinal->SetDisabled(true)
+$call planeLeaving->SetDisabled(false)
+$call snow->IncreaseParticles()
+
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(false)
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
@@ -146,5 +154,5 @@ $call argoFunButton->SetButtonLocked(true)
 
 $call fader->FadeOut(4.0)
 $call Wait(4)
-
+$call playerLocation->SetFinalLocation()
 $call levelLoader->LoadEpilogue()

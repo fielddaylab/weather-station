@@ -171,6 +171,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0
+  UseLocalSpace: 0
   SoundEffect: {fileID: 5663989105036243529}
 --- !u!82 &5663989105036243529
 AudioSource:
@@ -676,6 +677,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0.01
+  UseLocalSpace: 0
   SoundEffect: {fileID: 7935987587306255137}
 --- !u!82 &7935987587306255137
 AudioSource:
@@ -1158,6 +1160,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0
+  UseLocalSpace: 0
   SoundEffect: {fileID: 6450719093982818194}
 --- !u!82 &6450719093982818194
 AudioSource:
@@ -1451,6 +1454,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0
+  UseLocalSpace: 0
   SoundEffect: {fileID: 5995084541150342408}
 --- !u!82 &5995084541150342408
 AudioSource:
@@ -1995,6 +1999,7 @@ Transform:
   - {fileID: 8485429587987066269}
   - {fileID: 2809050175800426279}
   - {fileID: 3118623653548925591}
+  - {fileID: 4831226865099228980}
   m_Father: {fileID: 7920677508343754630}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5677640928993344066
@@ -2594,6 +2599,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0.01
+  UseLocalSpace: 0
   SoundEffect: {fileID: 1348946134404259302}
 --- !u!82 &1348946134404259302
 AudioSource:
@@ -2965,6 +2971,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2508815758317184546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4831226865099228980}
+  m_Layer: 0
+  m_Name: windSensor_defaultBrokenReturn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4831226865099228980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2508815758317184546}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.21, y: -0.117, z: -0.264}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2191715865109828073}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2754277371189361341
 GameObject:
   m_ObjectHideFlags: 0
@@ -4012,6 +4049,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0.01
+  UseLocalSpace: 0
   SoundEffect: {fileID: 4465861257254624155}
 --- !u!82 &4465861257254624155
 AudioSource:
@@ -4371,6 +4409,7 @@ MonoBehaviour:
   Toggleable: 1
   YShift: 0.005
   XShift: 0
+  UseLocalSpace: 0
   SoundEffect: {fileID: 932546836204456827}
 --- !u!65 &7935850334724153126
 BoxCollider:
@@ -5273,6 +5312,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0.01
+  UseLocalSpace: 0
   SoundEffect: {fileID: 7477729865898345971}
 --- !u!82 &7477729865898345971
 AudioSource:
@@ -5649,6 +5689,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0.01
+  UseLocalSpace: 0
   SoundEffect: {fileID: 5810884753222264549}
 --- !u!82 &5810884753222264549
 AudioSource:
@@ -7077,6 +7118,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0
+  UseLocalSpace: 0
   SoundEffect: {fileID: 2953491897076004764}
 --- !u!82 &2953491897076004764
 AudioSource:
@@ -7427,6 +7469,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0.01
+  UseLocalSpace: 0
   SoundEffect: {fileID: 759018793664431502}
 --- !u!82 &759018793664431502
 AudioSource:
@@ -7961,6 +8004,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0
+  UseLocalSpace: 0
   SoundEffect: {fileID: 2586876403957561621}
 --- !u!82 &2586876403957561621
 AudioSource:
@@ -8732,6 +8776,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.01
   XShift: 0
+  UseLocalSpace: 0
   SoundEffect: {fileID: 702008671364812805}
 --- !u!82 &702008671364812805
 AudioSource:
@@ -9690,6 +9735,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RepairDesk: {fileID: 7394970609973802300}
+  MaxMove: 0.8975
+  MinMove: 0.615
   MoveUp: 1
 --- !u!114 &349449266139109381
 MonoBehaviour:
@@ -9707,6 +9754,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0
   XShift: 0.012
+  UseLocalSpace: 0
   SoundEffect: {fileID: 0}
 --- !u!82 &2136801726304351906
 AudioSource:
@@ -9889,6 +9937,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RepairDesk: {fileID: 7394970609973802300}
+  MaxMove: 0.8975
+  MinMove: 0.615
   MoveUp: 0
 --- !u!114 &3670362332636140449
 MonoBehaviour:
@@ -9906,6 +9956,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0
   XShift: 0.012
+  UseLocalSpace: 0
   SoundEffect: {fileID: 0}
 --- !u!82 &294871138068169156
 AudioSource:

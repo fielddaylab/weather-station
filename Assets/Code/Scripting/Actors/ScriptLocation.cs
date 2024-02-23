@@ -32,6 +32,10 @@ namespace WeatherStation.Scripting {
 			m_Locator.Teleport();
         }
 		
+		[LeafMember("SetFinalLocation"), Preserve]
+		public void SetFinalLocation() {
+			m_Locator.SetFinalLocation();
+		}
 		
         #endregion // Leaf
 		

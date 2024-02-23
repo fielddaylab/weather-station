@@ -17,6 +17,10 @@ $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
 $call snowSensorBay->StopFX()
 
+$call tempSensorButton31->SetButtonLocked(false)
+$call tempSensorButton33->SetButtonLocked(false)
+$call tempSensorButton34->SetButtonLocked(false)
+
 $while PuzzleIsNotComplete(snowPuzzle)
 $if IsGrabbed(snowSensor)
 $call argoHelpButton->SetCurrentClip(31)

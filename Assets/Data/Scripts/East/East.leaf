@@ -6,6 +6,7 @@
 @once
 
 $call Wait(1)
+// $call argoTowerSocket->SetDisabled(true)
 
 $call fader->FadeIn(4.0, 2.0)
 
@@ -18,5 +19,6 @@ $call fader->FadeIn(4.0, 2.0)
 {@Rae} Come on, let's move out. Tomorrow we'll check out the last station or what ever is left of it. $[come_on_lets]
 
 $call fader->FadeOut(4.0)
+// $call argoTowerSocket->SetDisabled(false)
 $call Wait(4)
 $call levelLoader->LoadSouthEast()
