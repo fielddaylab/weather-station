@@ -246,7 +246,7 @@ $call batteryBay->StopHighlight()
 $call batteryBay->StopFX()
 $endif
 
-// $call batteryBaySocket->LockBase(true)
+$call batteryBaySocket->LockBase(true)
 $call batteryBaySocket->OpenCover()
 
 $if NotIsSocketed(snowBaySocket)
@@ -406,9 +406,7 @@ $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
 
 // prevent player from grabbing battery internals
-// $call batterySocket->SetLocked(true)
-// $call batteryTwo->SetSocketsLocked(true)
-$call Wait(1)
+$call Wait(3)
 $call batteryTwo->SetDisabled(true)
 
 $call batteryBase->SetGrabbable(true)
