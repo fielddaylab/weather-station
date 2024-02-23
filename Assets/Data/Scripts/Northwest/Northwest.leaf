@@ -12,8 +12,6 @@ $call dataLoggerDoor->SetGrabbable(true)
 $call argoTowerSocket->SetLocked(true)
 $call argoHelpButton->SetButtonLocked(true)
 
-$call map->SetTexture(0)
-
 $call fader->FadeIn(4.0, 2.0)
 {@Argo #happy} {poses 3.0:} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
 {@Rae} Morning, ARGO. $[morning_argo]
@@ -184,7 +182,7 @@ $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
-
+$call map->SetTexture(4)
 $call Wait(3)
 
 $call trashChute->SetGrabbable(true)
@@ -623,9 +621,6 @@ $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
 
 $call uplink->SetTexture(0)
-$call Wait(1)
-
-$call map->NextTexture()
 $call Wait(1)
 $call map->NextTexture()
 $call Wait(1)

@@ -37,6 +37,16 @@ namespace WeatherStation.Scripting {
 				m_PS.Stop();
 			}
         }
+		
+		[LeafMember("IncreaseParticles"), Preserve]
+		public void IncreaseParticles(int numParticles, float rate) {
+			if(m_PS != null) {
+				ParticleSystem.MainModule m = m_PS.main;
+				m.maxParticles = numParticles;
+				ParticleSystem.EmissionModule e = m_PS.emission;
+				e.rateOverTime = rate;
+			}
+		}
 
 
         #endregion // Leaf

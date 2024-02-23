@@ -92,9 +92,13 @@ namespace WeatherStation {
 				nextIndex = nextIndex % SceneList.Count;
                 Game.Scenes.UnloadScene(SceneList[CurrentSceneIndex]);
 				Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional", null, SceneImportFlags.ImportLightingSettings);
-				if(MapMaterial != null) {
-					MapMaterial.mainTexture = MapTextures[nextIndex];
-				}
+				
+				/*if(MapMaterial != null) {
+					if(MapTextures.Count < nextIndex*2+1) {
+						MapMaterial.mainTexture = MapTextures[nextIndex];
+					}
+				}*/
+				
 				RenderSettings.skybox = SkyboxMaterials[nextIndex];
 				CurrentSceneIndex = nextIndex;
 				StartCoroutine(PostLoad(3f));

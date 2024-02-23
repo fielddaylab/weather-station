@@ -71,6 +71,7 @@ $call tent->SetDisabled(false)
 $call alex->StartKneeling()
 $call planeFinal->SetDisabled(true)
 $call planeLeaving->SetDisabled(false)
+$call snow->IncreaseParticles()
 
 $call dataLoggerDoor->ResetRotation()
 $call dataLoggerDoor->SetGrabbable(false)
@@ -148,7 +149,7 @@ $call argoFunButton->SetButtonLocked(true)
 {@Argo} The station is transmitting! All sensors are back online. $[the_station_is]
 {@Alex} I can’t believe it. We did it!  And just in time. We better take cover. $[i_cant_believe]
 {@Argo} Yes. In these conditions, humans can suffer frostbite in as little as five minutes! I’ll be fine however... I was built for the cold! $[yes_in_these]
-{@Argo} Are we positive that ARGO doesn’t have a mute button? $[are_we_positive]
+{@Alex} Are we positive that ARGO doesn’t have a mute button? $[are_we_positive]
 
 
 $call fader->FadeOut(4.0)
