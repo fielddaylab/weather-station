@@ -22,6 +22,7 @@ namespace WeatherStation {
         public Vector3 ReleaseForce;
 		
 		public AudioSource SoundEffect;
+        public SfxAsset SocketedSound;
 		
         [NonSerialized] public FixedJoint CurrentJoint;
 
@@ -65,10 +66,13 @@ namespace WeatherStation {
         }
 		
 		private void OnSocketableAdded(Socketable socketable) {
-			//Debug.Log(socketable.gameObject.name + " added to " + gameObject.name);
-			if(SoundEffect != null && SoundEffect.clip != null) {
-				SoundEffect.Play();
-			}
+            if (SocketedSound != null && SoundEffect) {
+                Sfx.OneShot(SocketedSound, SoundEffect);
+            }
+			////Debug.Log(socketable.gameObject.name + " added to " + gameObject.name);
+			//if(SoundEffect != null && SoundEffect.clip != null) {
+			//	SoundEffect.Play();
+			//}
 		}
     }
 

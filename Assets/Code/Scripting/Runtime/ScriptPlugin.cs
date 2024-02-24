@@ -88,7 +88,7 @@ namespace FieldDay.Scripting {
         }
 
         public override void OnNodeEnter(ScriptNode inNode, LeafThreadState<ScriptNode> inThreadState) {
-            ScriptPersistence persistence = Lookup.State<ScriptPersistence>();
+            ScriptPersistence persistence = Find.State<ScriptPersistence>();
 	
             StringHash32 nodeId = inNode.Id();
             persistence.RecentViewedNodeIds.PushFront(nodeId);

@@ -5,6 +5,7 @@ using BeauUtil.Debugger;
 using FieldDay;
 using Leaf.Runtime;
 using UnityEngine;
+using WeatherStation;
 using WeatherStation.Scripting;
 
 public class ArgoAnimator : ScriptComponent {
@@ -30,9 +31,9 @@ public class ArgoAnimator : ScriptComponent {
     public NamedArgoFacePose[] NamedPoses;
 
     [Header("Celebration")]
-    public AudioSource CelebrationPlayer;
-    public AudioClip CelebrationSfx;
-    public AudioClip BigCelebrationSfx;
+    public Transform CelebrationPlayer;
+    [SfxRef] public StringHash32 CelebrationSfx;
+    [SfxRef] public StringHash32 BigCelebrationSfx;
 
     [NonSerialized] private long m_NextTalkCheckTimestamp;
     [NonSerialized] private double m_LastVolume;
@@ -54,7 +55,7 @@ public class ArgoAnimator : ScriptComponent {
     [NonSerialized] private RingBuffer<ArgoFacePoseKeyFrame> m_QueuedPoses = new RingBuffer<ArgoFacePoseKeyFrame>(16, RingBufferMode.Expand);
 
     private void Start() {
-        ApplyPose(Resting, default);
+        ApplyPose(Resting, default); 
     }
 
     [LeafMember("SetFacePose")]
@@ -159,15 +160,11 @@ public class ArgoAnimator : ScriptComponent {
         if ((pose.Flags & ArgoFacePoseFlags.BigCelebration) != 0) {
             Face.SetBackgroundState(ArgoFace.BackgroundState.Celebrate);
             Face.SetSparkleState(ArgoFace.SparkleState.All);
-            CelebrationPlayer.Stop();
-            CelebrationPlayer.clip = BigCelebrationSfx;
-            CelebrationPlayer.Play();
+            Sfx.OneShot(BigCelebrationSfx, CelebrationPlayer);
         } else if ((pose.Flags & ArgoFacePoseFlags.Celebration) != 0) {
             Face.SetBackgroundState(ArgoFace.BackgroundState.Pleased);
             Face.SetSparkleState(ArgoFace.SparkleState.Top);
-            CelebrationPlayer.Stop();
-            CelebrationPlayer.clip = CelebrationSfx;
-            CelebrationPlayer.Play();
+            Sfx.OneShot(CelebrationSfx, CelebrationPlayer);
         } else {
             Face.SetBackgroundState(ArgoFace.BackgroundState.Normal);
             Face.SetSparkleState(ArgoFace.SparkleState.Off);

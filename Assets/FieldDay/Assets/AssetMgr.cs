@@ -7,6 +7,8 @@ using Unity.IL2CPP.CompilerServices;
 
 using GlobalAssetIndex = BeauUtil.TypeIndex<FieldDay.Assets.IGlobalAsset>;
 using LiteAssetIndex = BeauUtil.TypeIndex<FieldDay.Assets.ILiteAsset>;
+using NamedAssetIndex = BeauUtil.TypeIndex<FieldDay.Assets.INamedAsset>;
+using NamedAssetCollection = FieldDay.Assets.AssetCollection<FieldDay.Assets.INamedAsset>;
 
 namespace FieldDay.Assets {
     /// <summary>
@@ -15,6 +17,8 @@ namespace FieldDay.Assets {
     public sealed class AssetMgr {
         private readonly IGlobalAsset[] m_GlobalAssetTable = new IGlobalAsset[GlobalAssetIndex.Capacity];
         private readonly IAssetCollection[] m_LiteAssetTable = new IAssetCollection[LiteAssetIndex.Capacity];
+        private readonly NamedAssetCollection[] m_NamedAssetTable = new NamedAssetCollection[NamedAssetIndex.Capacity];
+        private readonly HashSet<IAssetPackage> m_LoadedPackages = new HashSet<IAssetPackage>(16);
 
         #region Events
 
@@ -25,13 +29,20 @@ namespace FieldDay.Assets {
                 }
             }
 
-            for(int i = 0; i < GlobalAssetIndex.Count; i++) {
+            for (int i = 0; i < NamedAssetIndex.Count; i++) {
+                if (m_NamedAssetTable[i] != null) {
+                    m_NamedAssetTable[i].Clear();
+                }
+            }
+
+            for (int i = 0; i < GlobalAssetIndex.Count; i++) {
                 if (m_GlobalAssetTable[i] != null) {
                     m_GlobalAssetTable[i].Unmount();
                 }
             }
 
             Array.Clear(m_LiteAssetTable, 0, m_LiteAssetTable.Length);
+            Array.Clear(m_NamedAssetTable, 0, m_NamedAssetTable.Length);
             Array.Clear(m_GlobalAssetTable, 0, m_GlobalAssetTable.Length);
         }
 
@@ -78,9 +89,71 @@ namespace FieldDay.Assets {
 
         #endregion // Global
 
+        #region Named
+
+        /// <summary>
+        /// Adds a named asset.
+        /// </summary>
+        public void AddNamed(StringHash32 id, INamedAsset asset) {
+            Assert.NotNull(asset);
+            Assert.False(id.IsEmpty);
+
+            Type assetType = asset.GetType();
+            var typeIndices = NamedAssetIndex.GetAll(assetType);
+            foreach(var index in typeIndices) {
+                GetNamedCollection(index, true).Register(id, asset);
+            }
+
+            RegistrationCallbacks.InvokeRegister(asset);
+            Log.Msg("[AssetMgr] Named asset '{0}' of type '{1}' registered", id.ToDebugString(), assetType.FullName);
+        }
+
+        /// <summary>
+        /// Removes a named asset.
+        /// </summary>
+        public void RemoveNamed(StringHash32 id, INamedAsset asset) {
+            Assert.NotNull(asset);
+            Assert.False(id.IsEmpty);
+
+            Type assetType = asset.GetType();
+            var typeIndices = NamedAssetIndex.GetAll(assetType);
+            foreach (var index in typeIndices) {
+                GetNamedCollection(index, false)?.Deregister(id);
+            }
+
+            RegistrationCallbacks.InvokeDeregister(asset);
+            Log.Msg("[AssetMgr] Named asset '{0}' of type '{1}' deregistered", id.ToDebugString(), assetType.FullName);
+        }
+
+        #endregion // Named
+
         #region Packages
 
-        // TODO: Implement
+        /// <summary>
+        /// Loads the given package into the asset manager.
+        /// </summary>
+        public void LoadPackage(IAssetPackage package) {
+            if (!m_LoadedPackages.Add(package)) {
+                return;
+            }
+
+            Log.Msg("[AssetMgr] Loading package '{0}'...", AssetUtility.NameOf(package));
+            package.Mount(this);
+            Log.Msg("[AssetMgr] ...finished loading package '{0}'", AssetUtility.NameOf(package));
+        }
+
+        /// <summary>
+        /// Unloads the given package from the asset manager.
+        /// </summary>
+        public void UnloadPackage(IAssetPackage package) {
+            if (!m_LoadedPackages.Remove(package)) {
+                return;
+            }
+
+            Log.Msg("[AssetMgr] Unloading package '{0}'...", AssetUtility.NameOf(package));
+            package.Unmount(this);
+            Log.Msg("[AssetMgr] ...finished unloading package '{0}'", AssetUtility.NameOf(package));
+        }
 
         #endregion // Packages
 
@@ -220,6 +293,30 @@ namespace FieldDay.Assets {
 
         #endregion // Global
 
+        #region Named
+
+        /// <summary>
+        /// Looks up the named asset with the given id.
+        /// </summary>
+        [Il2CppSetOption(Option.NullChecks, false)]
+        public T GetNamed<T>(StringHash32 id) where T : class, INamedAsset {
+            NamedAssetCollection typedCollection = GetNamedCollection<T>(true);
+            return (T) typedCollection.Lookup(id);
+        }
+
+        /// <summary>
+        /// Attempts to look up the named asset with the given id.
+        /// </summary>
+        [Il2CppSetOption(Option.NullChecks, false)]
+        public bool TryGetNamed<T>(StringHash32 id, out T asset) where T : class, INamedAsset {
+            NamedAssetCollection typedCollection = GetNamedCollection<T>(true);
+            bool found = typedCollection.TryLookup(id, out INamedAsset interfaceAsset);
+            asset = (T) interfaceAsset;
+            return found;
+        }
+
+        #endregion // Named
+
         #region Lite
 
         /// <summary>
@@ -256,6 +353,33 @@ namespace FieldDay.Assets {
                 collection = typedCollection = new AssetCollection<T>();
             } else {
                 typedCollection = (AssetCollection<T>) collection;
+            }
+            return typedCollection;
+        }
+
+        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+        [Il2CppSetOption(Option.NullChecks, false)]
+        private NamedAssetCollection GetNamedCollection<T>(bool create) where T : class, INamedAsset {
+            int index = NamedAssetIndex.Get<T>();
+            NamedAssetCollection typedCollection;
+            ref NamedAssetCollection collection = ref m_NamedAssetTable[index];
+            if (collection == null && create) {
+                collection = typedCollection = new NamedAssetCollection();
+            } else {
+                typedCollection = collection;
+            }
+            return typedCollection;
+        }
+
+        [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+        [Il2CppSetOption(Option.NullChecks, false)]
+        private NamedAssetCollection GetNamedCollection(int index, bool create) {
+            NamedAssetCollection typedCollection;
+            ref NamedAssetCollection collection = ref m_NamedAssetTable[index];
+            if (collection == null && create) {
+                collection = typedCollection = new NamedAssetCollection();
+            } else {
+                typedCollection = collection;
             }
             return typedCollection;
         }

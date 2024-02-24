@@ -6,7 +6,7 @@ namespace FieldDay.Scripting {
         public LeafAsset[] Scripts;
 
         public void OnEnable() {
-            ScriptDatabase db = Lookup.State<ScriptDatabase>();
+            ScriptDatabase db = Find.State<ScriptDatabase>();
             foreach(var script in Scripts) {
                 ScriptDatabaseUtility.LoadNow(db, script);
             }
@@ -17,7 +17,7 @@ namespace FieldDay.Scripting {
                 return;
             }
 
-            ScriptDatabase db = Lookup.State<ScriptDatabase>();
+            ScriptDatabase db = Find.State<ScriptDatabase>();
             foreach (var script in Scripts) {
                 ScriptDatabaseUtility.Unload(db, script);
             }

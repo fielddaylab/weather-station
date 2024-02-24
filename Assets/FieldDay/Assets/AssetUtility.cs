@@ -69,6 +69,32 @@ namespace FieldDay.Assets {
         static public bool IsPersistent(UnityEngine.Object obj) {
             return UnityHelper.IsPersistent(obj);
         }
+
+        /// <summary>
+        /// Caches the name hash of the given object.
+        /// </summary>
+        static public StringHash32 CacheNameHash(ref StringHash32 hash, UnityEngine.Object obj) {
+            if (hash.IsEmpty) {
+                hash = obj.name;
+            }
+            return hash;
+        }
+
+        /// <summary>
+        /// Returns the name of the given object.
+        /// </summary>
+        static public string NameOf(object asset) {
+            if (asset == null) {
+                return null;
+            }
+
+            UnityEngine.Object obj = asset as UnityEngine.Object;
+            if (obj != null) {
+                return obj.name;
+            }
+
+            return asset.ToString();
+        }
     }
 
     /// <summary>

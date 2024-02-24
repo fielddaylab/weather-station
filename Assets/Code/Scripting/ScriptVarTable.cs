@@ -31,7 +31,7 @@ namespace FieldDay.Scripting {
         }
 
         static public TempVarTable Alloc() {
-            ScriptRuntimeState state = Lookup.State<ScriptRuntimeState>();
+            ScriptRuntimeState state = Find.State<ScriptRuntimeState>();
             var temp = state.TablePool.TempAlloc();
             temp.Object.Name = "temp";
             return new TempVarTable(temp);

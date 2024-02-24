@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc4a12e31f72d6040a99115010bf0fe7, type: 3}
-  m_Name: New Audio Event
+  m_Script: {fileID: 11500000, guid: 6322129876fa00a43b386d7cb7e3ca6b, type: 3}
+  m_Name: argo-bigcelebrate
   m_EditorClassIdentifier: 
-  SampleType: 0
-  BusIndex: 0
-  Clips: []
-  StreamingPath: 
+  Clips:
+  - {fileID: 8300000, guid: 115a085874ed8f24ea494924ecd5ac43, type: 3}
   Volume:
     Base: 1
     ModifierMin: 0
@@ -28,13 +26,9 @@ MonoBehaviour:
     Base: 0
     ModifierMin: 0
     ModifierMax: 0
-  Loop: 0
-  RandomizeStartLocation: 0
-  Spatial:
-    Mode: 0
-    Rolloff: 0
-    CustomRolloffCurveIndex: 0
-    MinDistance: 1
-    MaxDistance: 300
-    DespatializeFactor: 1
-    EffectBypasses: 4
+  Tag:
+    m_Source: argo
+    m_HashValue: 2433389656
+  SpatialBlend: 1
+  Spread: 45
+  Range: 12

@@ -131,8 +131,8 @@ namespace WeatherStation {
 			}
 			
 			if(grabbable.UseGrabPoses) {
-				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
-				VRInputState data = Lookup.State<VRInputState>();
+				PlayerHandRig handRig = Find.State<PlayerHandRig>();
+				VRInputState data = Find.State<VRInputState>();
 				if(handRig.LeftHandGrab.GrabbableBy == grabber) {
 					data.LeftHand.HapticImpulse = 0.25f;
 					
@@ -187,7 +187,7 @@ namespace WeatherStation {
 					if(grabber.Holding != null) {
 
 						if(grabber.Holding.UseGrabPoses) {
-							PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+							PlayerHandRig handRig = Find.State<PlayerHandRig>();
 
 							if(handRig.LeftHandGrab.GrabbableBy == grabber && handRig.LeftHandGrab.IsGrabPosed) {
 								GrabUtility.GrabPoseOff(handRig.LeftHandGrab, grabber.Holding, grabber, applyReleaseForce, handRig.RightHandGrab);
@@ -412,7 +412,7 @@ namespace WeatherStation {
                     } 
                 }
 			} else {
-				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+				PlayerHandRig handRig = Find.State<PlayerHandRig>();
 				GrabPoseOn(otherGrabPose, grabbable, (handRig.LeftHandGrab == otherGrabPose));
 			}
 		}

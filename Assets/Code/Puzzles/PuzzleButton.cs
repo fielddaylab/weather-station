@@ -55,9 +55,10 @@ namespace WeatherStation {
 					}
 					
 					On = !On;
-					if(SoundEffect != null && SoundEffect.clip != null) {
-						SoundEffect.Play();
-					}
+                    //if(SoundEffect != null && SoundEffect.clip != null) {
+                    //	SoundEffect.Play();
+                    //}
+                    Sfx.OneShot("button-click", transform.position);
 					
 					if(!On) {
 						Vector3 vPos = transform.position;
@@ -87,7 +88,7 @@ namespace WeatherStation {
 					if(!WasPressed) {
 						//this should only happen if we're on the first level...
 						if(gameObject.name == "ArgoFaceButton") {
-							SceneLoader sceneInfo = Lookup.State<SceneLoader>();
+							SceneLoader sceneInfo = Find.State<SceneLoader>();
 							if(sceneInfo.GetCurrentSceneIndex() == 0) {
 								ScriptPlugin.ForceKill = true;
 								StartCoroutine(ArgoWasPressed(1f));
@@ -96,13 +97,14 @@ namespace WeatherStation {
 
 						WasPressed = true;
 					}
-					
-					
-					if(SoundEffect != null && SoundEffect.clip != null) {
-						SoundEffect.Play();
-					}
-					
-					if(UseLocalSpace)
+
+
+                    //if(SoundEffect != null && SoundEffect.clip != null) {
+                    //	SoundEffect.Play();
+                    //}
+                    Sfx.OneShot("button-click", transform.position);
+
+                    if (UseLocalSpace)
 					{
 						Vector3 vPos = transform.localPosition;
 						vPos.y += YShift;
@@ -123,7 +125,7 @@ namespace WeatherStation {
 				
 				//haptics...
 				//todo - optimize
-				VRInputState data = Lookup.State<VRInputState>();
+				VRInputState data = Find.State<VRInputState>();
 				if(c.gameObject.name.StartsWith("Left")) {
 					data.LeftHand.HapticImpulse = 0.25f;
 				} else if(c.gameObject.name.StartsWith("Right")) {

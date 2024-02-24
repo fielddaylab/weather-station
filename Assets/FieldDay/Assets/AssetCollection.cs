@@ -11,6 +11,8 @@ using Unity.IL2CPP.CompilerServices;
 
 namespace FieldDay.Assets {
     internal interface IAssetCollection {
+        void Register(StringHash32 id, object asset);
+        void Deregister(StringHash32 id);
         object Lookup(StringHash32 id);
         void Clear();
     }
@@ -90,6 +92,10 @@ namespace FieldDay.Assets {
         #endregion // Modifications
 
         #region IAssetCollection
+
+        void IAssetCollection.Register(StringHash32 id, object asset) {
+            Register(id, (T) asset);
+        }
 
         object IAssetCollection.Lookup(StringHash32 id) {
             return Lookup(id);

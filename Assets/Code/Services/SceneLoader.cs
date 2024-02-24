@@ -48,7 +48,7 @@ namespace WeatherStation {
 			if(!SwitchingScenes) {
 				SwitchingScenes = true;
 				//return anything in your hands when switching scenes.
-				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+				PlayerHandRig handRig = Find.State<PlayerHandRig>();
 				
 				//if(handRig.LeftHandGrab.IsGrabPosed) {
 					GrabUtility.ForceGrabPoseOff(handRig.LeftHandGrab);
@@ -82,7 +82,7 @@ namespace WeatherStation {
 					}
 				}
 				
-				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
+				PlayerLocator playerLocator = Find.State<PlayerLocator>();
 				
 				GrabUtility.ReturnToOriginalSpawnPoint(playerLocator.Argo.gameObject.GetComponent<Grabbable>());
 				
@@ -119,7 +119,7 @@ namespace WeatherStation {
 			if(sceneArgs.Scene.path.Contains("Interior"))
 			{
 				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
-				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
+				PlayerLocator playerLocator = Find.State<PlayerLocator>();
 	            foreach(var root in roots)
 				{
 					//Debug.Log(root);
@@ -140,7 +140,7 @@ namespace WeatherStation {
 			else
 			{
 				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
-				PlayerLocator playerLocator = Lookup.State<PlayerLocator>();
+				PlayerLocator playerLocator = Find.State<PlayerLocator>();
 	            foreach(var root in roots)
 				{
 					
@@ -178,7 +178,7 @@ namespace WeatherStation {
 				
 				if(sceneArgs.Scene.path.Contains("SouthEast"))
 				{
-					RepairDesk rd = Lookup.State<RepairDesk>();
+					RepairDesk rd = Find.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -209,7 +209,7 @@ namespace WeatherStation {
 				}
 				else if(sceneArgs.Scene.path.Contains("NorthWest"))
 				{
-					RepairDesk rd = Lookup.State<RepairDesk>();
+					RepairDesk rd = Find.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -239,7 +239,7 @@ namespace WeatherStation {
 				}
 				else if(sceneArgs.Scene.path.Contains("South"))
 				{
-					RepairDesk rd = Lookup.State<RepairDesk>();
+					RepairDesk rd = Find.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
