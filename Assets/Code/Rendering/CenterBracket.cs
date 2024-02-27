@@ -30,15 +30,13 @@ namespace WeatherStation {
 		[NonSerialized] public bool WasGrabbed = false;
 		
 		private Vector3 LastPos = Vector3.zero;
-		private List<GameObject> TowerObjects;
 		
 		void Update() {
 
 			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
 
 			Vector3 currPos = Vector3.zero;
-			Vector3 euler = transform.rotation.eulerAngles;
-			//Debug.Log(euler.ToString("F5"));
+
 			if(LeftGrabbed || RightGrabbed) {
 				
 				WasGrabbed = true;

@@ -69,9 +69,25 @@ $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call tent->SetDisabled(false)
 $call alex->StartKneeling()
-$call planeFinal->SetDisabled(true)
+
+$call storageCabinet->SetDisabled(true)
 $call planeLeaving->SetDisabled(false)
-$call snow->IncreaseParticles()
+$call snow->IncreaseParticles(10000, 2000.0)
+$call batteryBroken->SetDisabled(true)
+$call batteryBase->SetDisabled(true)
+$call batteryOne->SetDisabled(true)
+$call batteryTwo->SetDisabled(true)
+$call batteryThree->SetDisabled(true)
+$call batteryOneThree->SetDisabled(true)
+$call batteryTwoThree->SetDisabled(true)
+$call batteryThreeThree->SetDisabled(true)
+$call batteryOneThreeStag->SetDisabled(true)
+$call batteryTwoThreeStag->SetDisabled(true)
+$call batteryThreeThreeStag->SetDisabled(true)
+$call cellOne->SetDisabled(true)
+$call cellTwo->SetDisabled(true)
+$call cellThree->SetDisabled(true)
+$call cellFour->SetDisabled(true)
 
 $call dataLoggerDoor->ResetRotation()
 $call dataLoggerDoor->SetGrabbable(false)
@@ -82,6 +98,8 @@ $call argoHelpButton->SetButtonLocked(true)
 
 $call snowSledSocket->SetLocked(false)
 $call batterySledSocket->SetLocked(false)
+
+$call planeToHide->SetDisabled(true)
 
 {@Rae} Stay safe, I’ll be back tomorrow...I hope. $[stay_safe_ill]
 
