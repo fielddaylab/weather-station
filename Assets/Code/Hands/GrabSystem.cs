@@ -90,7 +90,10 @@ namespace WeatherStation {
 
                 case GrabberState.AttemptRelease: {
                     if (component.Holding && component.Holding.TryGetComponent(out Socketable socketable) && socketable.HighlightedSocket) {
-                        SocketUtility.TryAddToSocket(socketable.HighlightedSocket, socketable, false);
+                        if(!SocketUtility.TryAddToSocket(socketable.HighlightedSocket, socketable, false))
+						{
+							 GrabUtility.DropCurrent(component, false);
+						}
                     } else {
                         GrabUtility.DropCurrent(component, true);
                     }

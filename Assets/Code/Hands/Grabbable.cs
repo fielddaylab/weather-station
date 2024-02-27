@@ -95,7 +95,7 @@ namespace WeatherStation {
             }
 
             if (grabbable.CurrentGrabberCount >= grabbable.MaxGrabbers) {
-                DetachOldest(grabbable);
+				DetachOldest(grabbable);
             }
 
             if (!ReferenceEquals(grabber.Holding, null)) {
@@ -413,6 +413,7 @@ namespace WeatherStation {
                 }
 			} else {
 				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+				//Debug.Log(grabbable.CurrentGrabberCount);
 				GrabPoseOn(otherGrabPose, grabbable, (handRig.LeftHandGrab == otherGrabPose));
 			}
 		}
