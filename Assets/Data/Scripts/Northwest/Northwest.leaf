@@ -11,6 +11,7 @@ $call dataLoggerDoor->ResetRotation()
 $call dataLoggerDoor->SetGrabbable(true)
 $call argoTowerSocket->SetLocked(true)
 $call argoHelpButton->SetButtonLocked(true)
+$call batteryBroken->SetDisabled(true)
 
 $call fader->FadeIn(4.0, 2.0)
 {@Argo #happy} {poses 3.0:} Ah, a beautiful day on the ice! Good morning, partner! Good morning, Rae! $[ah_a_beautiful]
@@ -249,6 +250,7 @@ $call batteryBay->StopFX()
 $endif
 
 $call batteryBaySocket->LockBase(true)
+$call batteryBroken->SetDisabled(false)
 $call batteryBaySocket->OpenCover()
 $call batteryBase->DisableCollider(true)
 

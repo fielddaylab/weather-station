@@ -12,6 +12,7 @@ $call fader->FadeIn(4.0, 2.0)
 $call dataLoggerDoor->ResetRotation()
 $call dataLoggerDoor->SetGrabbable(true)
 $call argoTowerSocket->SetLocked(true)
+$call batteryBroken->SetDisabled(true)
 
 $call argoFunButton->SetButtonLocked(true)
 $call argoHelpButton->SetButtonLocked(true)

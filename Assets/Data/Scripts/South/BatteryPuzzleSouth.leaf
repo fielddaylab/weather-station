@@ -48,6 +48,7 @@ $endif
 $endif
 
 $call batteryBaySocket->LockBase(true)
+$call batteryBroken->SetDisabled(false)
 $call batteryBaySocket->OpenCover()
 $call batteryBase->DisableCollider(true)
 
