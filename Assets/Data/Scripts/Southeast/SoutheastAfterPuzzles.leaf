@@ -92,6 +92,7 @@ $call cellFour->SetDisabled(true)
 $call dataLoggerDoor->ResetRotation()
 $call dataLoggerDoor->SetGrabbable(false)
 $call Wait(4)
+$call argoTowerSocket->SetLocked(true)
 $call fader->FadeIn(3.0, 1.0)
 
 $call argoHelpButton->SetButtonLocked(true)
@@ -168,7 +169,6 @@ $call argoFunButton->SetButtonLocked(true)
 {@Alex} I can’t believe it. We did it!  And just in time. We better take cover. $[i_cant_believe]
 {@Argo} Yes. In these conditions, humans can suffer frostbite in as little as five minutes! I’ll be fine however... I was built for the cold! $[yes_in_these]
 {@Alex} Are we positive that ARGO doesn’t have a mute button? $[are_we_positive]
-
 
 $call fader->FadeOut(4.0)
 $call Wait(4)
