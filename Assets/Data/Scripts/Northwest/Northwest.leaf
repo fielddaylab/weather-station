@@ -250,6 +250,7 @@ $endif
 
 $call batteryBaySocket->LockBase(true)
 $call batteryBaySocket->OpenCover()
+$call batteryBase->DisableCollider(true)
 
 $if NotIsSocketed(snowBaySocket)
 
@@ -406,6 +407,7 @@ $call cellFour->StopFX()
 
 $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
+$call batteryBase->DisableCollider(false)
 
 // prevent player from grabbing battery internals
 $call Wait(3)

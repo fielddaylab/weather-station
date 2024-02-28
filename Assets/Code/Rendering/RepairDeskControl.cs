@@ -18,8 +18,6 @@ namespace WeatherStation {
 		[SerializeField] float MaxMove = 0.8975f;
 		[SerializeField] float MinMove = 0.615f;
 		
-		[SerializeField] bool MoveUp = false;
-		
 		private bool RightGrabbed = false;
 		private bool LeftGrabbed = false;
 		

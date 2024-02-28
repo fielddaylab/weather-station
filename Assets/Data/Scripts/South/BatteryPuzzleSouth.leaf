@@ -49,6 +49,7 @@ $endif
 
 $call batteryBaySocket->LockBase(true)
 $call batteryBaySocket->OpenCover()
+$call batteryBase->DisableCollider(true)
 
 $call argoHelpButton->SetCurrentClip(24)
 
@@ -175,6 +176,7 @@ $call cellFour->StopFX()
 
 $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
+$call batteryBase->DisableCollider(false)
 
 $call Wait(3)
 $call batteryThreeThree->SetDisabled(true) // solution piece
