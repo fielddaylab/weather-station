@@ -16,6 +16,7 @@ public class AlexAnimation : MonoBehaviour
 	
 	public GameObject StartPointS;	
 	public GameObject WalkPointS;
+	public GameObject WalkPointS2;
 	
 	[SerializeField]
 	List<Transform> _startLocations = new List<Transform>(5);
@@ -25,7 +26,7 @@ public class AlexAnimation : MonoBehaviour
 	private bool WalkingBackAndForthS = false;
 	private bool WalkingBackAndForthNW = false;
 	private bool TurnedAround = true;
-	private bool TurningAround = false;
+	private bool TurningAround = true;
 	
     // Start is called before the first frame update
     void Start()
@@ -43,26 +44,30 @@ public class AlexAnimation : MonoBehaviour
 	{
 		if(!Walking)
 		{
+			Walking = true;
+			
 			_animator.SetBool("walking", true);
 			yield return new WaitForSeconds(1f);
 			
-			Walking = true;
 			float t = 0f;
 			Vector3 startPos = transform.position;
+			Quaternion startRot = transform.rotation;
 			while(t < duration && (WalkingBackAndForthS || WalkingBackAndForthNW))
 			{
 				Vector3 newPos = Vector3.Lerp(startPos, location.position, t/duration);
+				Quaternion newRot = Quaternion.Slerp(startRot, location.rotation, t/duration);
 				transform.position = newPos;
+				transform.rotation = newRot;
 				t += UnityEngine.Time.unscaledDeltaTime;
 				yield return null;
 			}
 			
+			ToggleSpot = !ToggleSpot;
 			_animator.SetBool("walking", false);
 			
 			yield return new WaitForSeconds(2f);
 		}
 		
-		ToggleSpot = !ToggleSpot;
 		Walking = false;
 		TurnedAround = false;
 	}
@@ -79,11 +84,11 @@ public class AlexAnimation : MonoBehaviour
 				_animator.SetTrigger("point00");
 			}
 			
-			yield return new WaitForSeconds(2f);
+			yield return new WaitForSeconds(3f);
 			
 			_animator.SetTrigger("turnaround");
 			
-			yield return new WaitForSeconds(2f);
+			yield return new WaitForSeconds(3f);
 			
 		}
 		
@@ -97,33 +102,24 @@ public class AlexAnimation : MonoBehaviour
 		{
 			if(!Walking)
 			{
+				if(!TurningAround)
+				{
+					StartCoroutine(TurnAround());
+				}	
+				
 				if(TurnedAround)
 				{
 					TurningAround = false;
 					
 					if(ToggleSpot)
 					{
-						StartCoroutine(Walk(StartPointS.transform, 15f));
+						StartCoroutine(Walk(WalkPointS2.transform, 15f));
 					}
 					else
 					{
 						StartCoroutine(Walk(WalkPointS.transform, 15f));
 					}
 				}
-				else
-				{
-					if(!TurningAround)
-					{
-						StartCoroutine(TurnAround());
-					}
-				}
-			}
-			else
-			{
-				if(!TurningAround)
-				{
-					StartCoroutine(TurnAround());
-				}		
 			}
 
 			yield return null;
