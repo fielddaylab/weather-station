@@ -254,6 +254,9 @@ $call batteryBroken->SetDisabled(false)
 $call batteryBaySocket->OpenCover()
 $call batteryBase->DisableCollider(true)
 
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(24)
+
 $if NotIsSocketed(snowBaySocket)
 
 $if NotWasGrabbed(snowSensor)
@@ -343,6 +346,8 @@ $endif
 
 $if IsNotMatched(batterySocket)
 
+$call argoHelpButton->SetCurrentClip(25)
+
 {@Argo} Hmm, it looks like this would supply too much power. Try a different one. $[hmm_it_looks]
 
 $while IsPuzzleSocketed(batterySocket)
@@ -355,6 +360,8 @@ $endwhile
 
 $endif
 $endwhile
+
+$call argoHelpButton->SetCurrentClip(26)
 
 $call batteryOne->StopFX()
 $call batteryOne->StopHighlight()
@@ -421,6 +428,8 @@ $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
 $call batterySledSocket->PlayFX()
 
+$call argoHelpButton->SetCurrentClip(27)
+
 {@Argo} Nice! Now that that’s finished, let’s put it in the sled and move onto the sensor $[nice_now_that]
 
 $while NotIsSocketed(batterySledSocket)
@@ -438,11 +447,14 @@ $call tempSensorButton14->SetButtonLocked(false)
 
 {@Argo} Ok, all we have left is the temperature sensor. See if you can recalibrate it by completing the signal sequence $[ok_all_we]
 
-$call argoHelpButton->SetCurrentClip(18)
+$call argoHelpButton->SetCurrentClip(31)
 $call argoHelpButton->SetButtonLocked(false)
 
 $while PuzzleIsNotComplete(snowPuzzle)
 $call Wait(1)
+$if PuzzleIsAlmostComplete(snowPuzzle)
+$call argoHelpButton->SetCurrentClip(32)
+$endif
 $endwhile
 
 $call argoHelpButton->SetButtonLocked(true)
