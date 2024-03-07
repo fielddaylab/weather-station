@@ -30,7 +30,7 @@ $call argoHelpButton->SetButtonLocked(true)
 $call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(20)
 $call argoFunButton->SetButtonLocked(false)
-$call argoFunButton->SetCurrentClip(10)
+$call argoFunButton->SetStartClip(10)
 $call argoFunButton->SetEndClip(12)
 
 $call rightPanelHandle->PlayFX()
@@ -274,5 +274,5 @@ $call levelLoader->LoadSoutheastBatteryPuzzle()
 {@Argo} Technically, I said snow here is exceedingly rare. $[technically_i_said]
 
 $call argoFunButton->SetButtonLocked(false)
-$call argoFunButton->SetCurrentClip(13)
+$call argoFunButton->SetStartClip(13)
 $call argoFunButton->SetEndClip(18)

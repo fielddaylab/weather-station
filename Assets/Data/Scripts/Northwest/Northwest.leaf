@@ -346,6 +346,7 @@ $endif
 
 $if IsNotMatched(batterySocket)
 
+$call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(25)
 
 {@Argo} Hmm, it looks like this would supply too much power. Try a different one. $[hmm_it_looks]
