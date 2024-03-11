@@ -25,7 +25,7 @@ $call argoHelpButton->SetButtonLocked(true)
 {@Rae} You guys better work fast. I can't take off in white-out conditions. If you're not back on the plane in time, I'll have to leave without you. $[you_guys_better]
 
 $call argoFunButton->SetButtonLocked(false)
-$call argoFunButton->SetCurrentClip(0)
+$call argoFunButton->SetStartClip(0)
 $call argoFunButton->SetEndClip(7)
 
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
@@ -298,7 +298,7 @@ $call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(23)	
 
 $call argoFunButton->SetButtonLocked(false)
-$call argoFunButton->SetCurrentClip(7)
+$call argoFunButton->SetStartClip(7)
 $call argoFunButton->SetEndClip(9)
 
 $call levelLoader->LoadSouthTempPuzzle()

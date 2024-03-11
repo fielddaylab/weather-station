@@ -35,8 +35,8 @@ public class ArgoHelp : SharedStateComponent {
 	public void SetCurrentClip(int clip) { m_CurrentClip = clip; }
 	
     // Update is called once per frame
-    public void UpdateStates() {
-		if(!ArgoAudio.isPlaying)
+    void Update() {
+		if(HelpIsPlaying && !ArgoAudio.isPlaying)
 		{
 			HelpIsPlaying = false;
 		}
