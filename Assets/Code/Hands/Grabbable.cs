@@ -416,7 +416,7 @@ namespace WeatherStation {
                     } 
                 }
 			} else {
-				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+				PlayerHandRig handRig = Find.State<PlayerHandRig>();
 				//Debug.Log(grabbable.CurrentGrabberCount);
 				GrabPoseOn(otherGrabPose, grabbable, (handRig.LeftHandGrab == otherGrabPose));
 			}

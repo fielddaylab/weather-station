@@ -48,7 +48,7 @@ namespace WeatherStation {
 		
 		void Update() {
 
-			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 
 			Vector3 currPos = Vector3.zero;
 
@@ -80,7 +80,7 @@ namespace WeatherStation {
 		
 		private void OnGrabPanel(Grabber grabber) {
 			
-			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = true;
@@ -94,7 +94,7 @@ namespace WeatherStation {
 		}
 		
 		private void OnReleasePanel(Grabber grabber) {
-			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = false;

@@ -92,7 +92,7 @@ namespace WeatherStation {
 
 		private void ReturnAnythingInHand(Socketable s)
         {
-			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			if (handRig.LeftHand.Physics.State == GrabberState.Holding)
 			{
 				Grabbable h = handRig.LeftHand.Physics.Holding;

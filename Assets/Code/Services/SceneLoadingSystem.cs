@@ -37,7 +37,7 @@ namespace WeatherStation {
 
 			} else if(data.RightHand.Released(VRControllerButtons.Primary)) {
 #if ENABLE_INPUT_SHORTCUTS
-				PlayerLocator player = Lookup.State<PlayerLocator>();
+				PlayerLocator player = Find.State<PlayerLocator>();
 				
 				SubtitleDisplay sd = player.gameObject.transform.GetChild(0).GetChild(5).GetComponent<SubtitleDisplay>();
 				if(sd != null) {

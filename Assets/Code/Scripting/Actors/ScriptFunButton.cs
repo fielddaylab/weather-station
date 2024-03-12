@@ -32,7 +32,7 @@ namespace WeatherStation.Scripting {
 		
 		[LeafMember("SetStartClip"), Preserve]
 		public void SetStartClip(int clipIndex) {
-			ArgoFun argo = Lookup.State<ArgoFun>();
+			ArgoFun argo = Find.State<ArgoFun>();
 			if(argo != null) {
 				argo.SetCurrentClip(clipIndex);
 			}
