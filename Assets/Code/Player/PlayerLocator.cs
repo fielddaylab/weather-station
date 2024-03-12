@@ -78,51 +78,72 @@ namespace WeatherStation {
 		}
 		
 		public void StartTeleportCountdown(Socketable s) {
-			
+
 			//we should return any item in your hand to their original location before teleporting...
-			PlayerHandRig handRig = Find.State<PlayerHandRig>();
-			if(handRig.LeftHand.Physics.State == GrabberState.Holding) {
-				Grabbable h = handRig.LeftHand.Physics.Holding;
-				Socketable s2 = h.gameObject.GetComponent<Socketable>();
-				if(s2 != s) {
-					if(s2 == null) {
-						GrabUtility.DropCurrent(handRig.LeftHand.Physics, false);
-					}
-					else {
-						if(h != null) {
-							if(h.OriginalSocket != null && h.OriginalSocket.Current == null) {
-								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
-							} else {
-								GrabUtility.ReturnToOriginalSpawnPoint(h);
-							}
-						}
-					}
-				}
-			}
-			
-			if(handRig.RightHand.Physics.State == GrabberState.Holding) {
-				Grabbable h = handRig.RightHand.Physics.Holding;
-				Socketable s2 = h.gameObject.GetComponent<Socketable>();
-				if(s2 != s) {
-					if(s2 == null) {
-						GrabUtility.DropCurrent(handRig.RightHand.Physics, false);
-					}
-					else {
-						if(h != null) {
-							if(h.OriginalSocket.Current == null) {
-								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
-							} else {
-								GrabUtility.ReturnToOriginalSpawnPoint(h);
-							}
-						}
-					}
-				}
-			}
+			ReturnAnythingInHand(s);
 			
 			if(s.SocketType == SocketFlags.Argo) {
 				if(!IsTeleporting) {
 					IsTeleporting = true;
 					StartCoroutine(WaitForTeleport(s, 1f));
+				}
+			}
+		}
+
+		private void ReturnAnythingInHand(Socketable s)
+        {
+			PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+			if (handRig.LeftHand.Physics.State == GrabberState.Holding)
+			{
+				Grabbable h = handRig.LeftHand.Physics.Holding;
+				Socketable s2 = h.gameObject.GetComponent<Socketable>();
+				if (s2 != s)
+				{
+					if (s2 == null)
+					{
+						GrabUtility.DropCurrent(handRig.LeftHand.Physics, false);
+					}
+					else
+					{
+						if (h != null)
+						{
+							if (h.OriginalSocket != null && h.OriginalSocket.Current == null)
+							{
+								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+							}
+							else
+							{
+								GrabUtility.ReturnToOriginalSpawnPoint(h);
+							}
+						}
+					}
+				}
+			}
+
+			if (handRig.RightHand.Physics.State == GrabberState.Holding)
+			{
+				Grabbable h = handRig.RightHand.Physics.Holding;
+				Socketable s2 = h.gameObject.GetComponent<Socketable>();
+				if (s2 != s)
+				{
+					if (s2 == null)
+					{
+						GrabUtility.DropCurrent(handRig.RightHand.Physics, false);
+					}
+					else
+					{
+						if (h != null)
+						{
+							if (h.OriginalSocket.Current == null)
+							{
+								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+							}
+							else
+							{
+								GrabUtility.ReturnToOriginalSpawnPoint(h);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -153,7 +174,7 @@ namespace WeatherStation {
 		IEnumerator WaitForTeleport(Socketable s, float duration)
 		{
 			yield return new WaitForSeconds(duration);
-			
+
 			/*if(Fader) {
 				Fader.FadeOut(1f);
 			}
@@ -163,6 +184,9 @@ namespace WeatherStation {
 			if(Fader) {
 				Fader.FadeIn(1f);
 			}*/
+
+			// release anything if player has grabbed something since fade began
+			ReturnAnythingInHand(s);
 
 			//release Argo from the Sled
 			SocketUtility.TryReleaseFromCurrentSocket(s, false);

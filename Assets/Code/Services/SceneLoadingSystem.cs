@@ -1,3 +1,4 @@
+#define ENABLE_INPUT_SHORTCUTS
 using FieldDay;
 using FieldDay.Components;
 using FieldDay.SharedState;
@@ -29,10 +30,14 @@ namespace WeatherStation {
 				//switch scenes.. why is this hitting twice?
 				//Debug.Log("SWITCH SCENES");
 				//m_State.SwitchScenes();
+#if ENABLE_INPUT_SHORTCUTS
 				FieldDay.Scripting.ScriptPlugin.ForceVOSkipSet = true;
+#endif
 				data.RightHand.PrevButtons = 0;
+
 			} else if(data.RightHand.Released(VRControllerButtons.Primary)) {
-				PlayerLocator player = Find.State<PlayerLocator>();
+#if ENABLE_INPUT_SHORTCUTS
+				PlayerLocator player = Lookup.State<PlayerLocator>();
 				
 				SubtitleDisplay sd = player.gameObject.transform.GetChild(0).GetChild(5).GetComponent<SubtitleDisplay>();
 				if(sd != null) {
@@ -40,13 +45,13 @@ namespace WeatherStation {
 					sdOn = !sdOn;
 					sd.SetOn(sdOn);
 				}
-				
+#endif
 				data.RightHand.PrevButtons = 0;
 			}
 
 			//temp
 			if(data.LeftHand.Released(VRControllerButtons.Secondary) || Input.GetKeyDown(KeyCode.S)) {
-				
+#if ENABLE_INPUT_SHORTCUTS
 				if(!WaitingForSceneSwitch)
 				{
 					ScriptPlugin.LastAudioSource.Stop();
@@ -55,7 +60,7 @@ namespace WeatherStation {
 					
 					StartCoroutine("WaitForKill");
 				}
-
+#endif
 				data.LeftHand.PrevButtons = 0;
 			}
 

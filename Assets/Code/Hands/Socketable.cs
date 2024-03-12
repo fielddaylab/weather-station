@@ -186,10 +186,13 @@ namespace WeatherStation {
         BatteryBase = 0x04,
         SnowSensor = 0x08,
         WindSensorBlade = 0x10,
-        BatteryPiece = 0x20,
-        BatteryPlug = 0x40,
+        BatteryStagPlug = 0x20,
+        BatteryCell = 0x40,
         DataLoggerPiece = 0x80,
 		DataLoggerPuzzle = 0x100,
-		SolarPanel = 0x200
+		SolarPanel = 0x200,
+        BrokenBattery = 0x400,
+        Battery2Plug = 0x800,
+        Battery3Plug = 0x1000,
     }
 }

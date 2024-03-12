@@ -34,8 +34,6 @@ namespace WeatherStation {
         [NonSerialized] public Grabber[] CurrentGrabbers;
         [NonSerialized] public int CurrentGrabberCount;
 
-        
-
         [NonSerialized] public bool WasGrabbed = false;
 
         [NonSerialized] public bool WasKinematic = false;
@@ -57,7 +55,7 @@ namespace WeatherStation {
             WasKinematic = Rigidbody.isKinematic;
             OriginalPosition = transform.position;
             OriginalRotation = transform.rotation;
-            OriginalParent = transform.parent;
+			OriginalParent = transform.parent;
 			
             CurrentGrabbers = new Grabber[MaxGrabbers];	
         }
@@ -76,12 +74,18 @@ namespace WeatherStation {
 				if(OriginalSocket) {
 					if(TryGetComponent(out Socketable s)) {
 						if(OriginalSocket.Current == null) {
+							//Debug.Log("Return 1");
 							SocketUtility.TryAddToSocket(OriginalSocket, s, true);
 						} else {
-							GrabUtility.ReturnToOriginalSpawnPoint(this);
+							/*if(OriginalParent != null && (OriginalParent.gameObject != OriginalSocket.gameObject))
+							{
+								//Debug.Log("Return 2");
+								GrabUtility.ReturnToOriginalSpawnPoint(this);
+							}*/
 						}
 					}
 				} else {
+					//Debug.Log("Return 3");
 					GrabUtility.ReturnToOriginalSpawnPoint(this);
 				}
 			}
@@ -95,7 +99,7 @@ namespace WeatherStation {
             }
 
             if (grabbable.CurrentGrabberCount >= grabbable.MaxGrabbers) {
-                DetachOldest(grabbable);
+				DetachOldest(grabbable);
             }
 
             if (!ReferenceEquals(grabber.Holding, null)) {
@@ -412,7 +416,8 @@ namespace WeatherStation {
                     } 
                 }
 			} else {
-				PlayerHandRig handRig = Find.State<PlayerHandRig>();
+				PlayerHandRig handRig = Lookup.State<PlayerHandRig>();
+				//Debug.Log(grabbable.CurrentGrabberCount);
 				GrabPoseOn(otherGrabPose, grabbable, (handRig.LeftHandGrab == otherGrabPose));
 			}
 		}

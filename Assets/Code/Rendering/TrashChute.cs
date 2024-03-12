@@ -57,15 +57,23 @@ namespace WeatherStation {
 				}
 				
 				Vector3 angles = transform.rotation.eulerAngles;
-				
-				if(angles.z < RotateMin) {
-					angles.z = RotateMin+0.5f;
-					transform.rotation = Quaternion.Euler(angles);
-				} else if(angles.z > RotateMax) {
-					angles.z = RotateMax-0.5f;
+
+				// barely crossed rotate min the normal way
+				if(angles.z <= RotateMin && angles.z > RotateMin - 50) {
+					angles.z = RotateMin;
 					transform.rotation = Quaternion.Euler(angles);
 				}
-				//
+				// drastically jumped to rotate min from rotate max
+				else if (angles.z <= RotateMin && angles.z <= RotateMin - 50)
+                {
+                    angles.z = RotateMax;
+                    transform.rotation = Quaternion.Euler(angles);
+                }
+				// barely crossed rotate max the normal way
+                else if(angles.z >= RotateMax) {
+					angles.z = RotateMax;
+					transform.rotation = Quaternion.Euler(angles);
+				}
 				LastPos = currPos;
 			} 
 			

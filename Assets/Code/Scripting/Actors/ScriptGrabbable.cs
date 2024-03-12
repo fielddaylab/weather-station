@@ -19,12 +19,20 @@ namespace WeatherStation.Scripting {
 		
 		
 		#endregion // Inspector
-		private Grabbable m_Grabbable =null;
-        
+		private Grabbable m_Grabbable = null;
+        private Vector3 m_OldSize = Vector3.zero;
+		private Vector3 m_TempSize = Vector3.zero;
         #region Leaf
 		
         private void Awake() {
             m_Grabbable = GetComponent<Grabbable>();
+			BoxCollider c = GetComponent<BoxCollider>();
+			if(c != null) {
+				m_OldSize = c.size;
+				m_TempSize.x = 0.001f;
+				m_TempSize.y = 0.001f;
+				m_TempSize.z = 0.001f;
+			}
         }
 		
 		public bool WasGrabbed() { return m_Grabbable.WasGrabbed; }
@@ -43,7 +51,21 @@ namespace WeatherStation.Scripting {
         public void SetGrabbable(bool grabParam) {
 			m_Grabbable.GrabEnabled = grabParam;
         }
-
+		
+		[LeafMember("DisableCollider"), Preserve]
+		public void DisableCollider(bool disable)
+		{
+			BoxCollider c = GetComponent<BoxCollider>();
+			if(c != null) {
+				if(disable) {
+					c.size = m_TempSize;
+				} else {
+					c.size = m_OldSize;
+				}
+				
+			}
+		}
+		
         [LeafMember("SetWasGrabbed"), Preserve]
         public void SetWasGrabbable(bool grabParam) {
 			m_Grabbable.WasGrabbed = grabParam;

@@ -48,7 +48,9 @@ $endif
 $endif
 
 $call batteryBaySocket->LockBase(true)
+$call batteryBroken->SetDisabled(false)
 $call batteryBaySocket->OpenCover()
+$call batteryBase->DisableCollider(true)
 
 $call argoHelpButton->SetCurrentClip(24)
 
@@ -175,6 +177,7 @@ $call cellFour->StopFX()
 
 $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
+$call batteryBase->DisableCollider(false)
 
 $call Wait(3)
 $call batteryThreeThree->SetDisabled(true) // solution piece
@@ -198,3 +201,26 @@ $endwhile
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
+
+$if PuzzleIsNotComplete(snowPuzzle)
+    $if IsGrabbed(snowSensor)
+        $call argoHelpButton->SetCurrentClip(31)
+    $endif
+    $if PuzzleIsAlmostComplete(snowPuzzle)
+        $call argoHelpButton->SetCurrentClip(32)
+    $endif
+$else
+    $if PuzzleIsNotComplete(windSensorPuzzle)
+        $if IsGrabbableSocketed(brokenBladeSmall)
+            $call argoHelpButton->SetCurrentClip(28)
+        $endif
+
+        $if IsMatched(windSensorBladeSocket)
+            $if ButtonPressed(windSensorButton)
+                $call argoHelpButton->SetCurrentClip(29)
+            $endif
+        $else
+            $call argoHelpButton->SetCurrentClip(30)
+        $endif
+    $endif
+$endif

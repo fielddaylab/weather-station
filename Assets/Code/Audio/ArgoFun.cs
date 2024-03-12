@@ -55,6 +55,8 @@ namespace WeatherStation {
 			
 			ArgoAudio.Stop();
 			
+			int startClip = m_CurrentClip;
+			
 			while(m_CurrentClip <= m_EndCurrentClip) {	
 				//Debug.Log("Fun pressed " + m_CurrentClip);
 				m_SubTitles.ClipDisplayLength = m_ArgoFunAudio[m_CurrentClip].length;
@@ -70,6 +72,8 @@ namespace WeatherStation {
 				}
 				m_CurrentClip++;
 			}
+			
+			m_CurrentClip = startClip;
 			
 		}
 	}

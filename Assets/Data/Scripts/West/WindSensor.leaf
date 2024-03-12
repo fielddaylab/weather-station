@@ -14,7 +14,8 @@ $call windSensor->PlaySound()
 $call windSensor->PlayFX()
 $call windSensorSled->PlayFX()
 $call windSensorSled->PlaySound()
-{@Argo } Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model. $[argo_hmm_not]
+{@Argo} Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model. $[argo_hmm_not]
+{@Argo} If you ever need some help, just press my big red button. $[if_you_ever]
 
 $if NotIsGrabbed(windSensor), NotIsSocketed(windSensorSled)
 {@Argo} Ok, first step is removing the wind sensor from the tower. $[argo_ok_first]
@@ -231,6 +232,9 @@ $if ButtonNotPressed(windSensorButton)
     {@Argo} Now let's test it, press the test button. $[argo_now_lets]
 $endif
 
+$call windSensorButton->StopHighlight()
+$call windSensorButton->StopFX()
+
 $while PuzzleIsNotComplete(windSensorPuzzle)
 
     $call Wait(1)
@@ -245,6 +249,8 @@ $while PuzzleIsNotComplete(windSensorPuzzle)
     $if IsNotMatched(windSensorBladeSocket)
         {@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
         $call argoHelpButton->SetCurrentClip(10)
+		$call windSensorButton->ShowHighlight()
+		$call windSensorButton->PlayFX()
         $call windSensorButton->SetButtonPressed(false)
     $else
         $call windSensorPuzzle->SetTestSuccess(true)

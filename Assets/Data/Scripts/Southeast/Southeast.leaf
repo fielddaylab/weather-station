@@ -15,6 +15,7 @@ $call tent->SetDisabled(true)
 $call dataLoggerDoor->ResetRotation()
 $call dataLoggerDoor->SetGrabbable(true)
 $call argoTowerSocket->SetLocked(true)
+$call batteryBroken->SetDisabled(true)
 
 $call argoFunButton->SetButtonLocked(true)
 $call argoHelpButton->SetButtonLocked(true)
@@ -29,7 +30,7 @@ $call argoHelpButton->SetButtonLocked(true)
 $call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(20)
 $call argoFunButton->SetButtonLocked(false)
-$call argoFunButton->SetCurrentClip(10)
+$call argoFunButton->SetStartClip(10)
 $call argoFunButton->SetEndClip(12)
 
 $call rightPanelHandle->PlayFX()
@@ -40,6 +41,8 @@ $call leftPanelHandle->SetGrabbable(true)
 $if DoorWasNotGrabbed(dataLoggerDoor)
 $call dataLoggerDoor->ShowHighlight()
 $endif
+
+$call dataLoggerDoor->StopHighlight()
 
 $while PuzzleIsNotComplete(dataLoggerPuzzle), PuzzleIsNotComplete(solarPanel2)
 
@@ -273,5 +276,5 @@ $call levelLoader->LoadSoutheastBatteryPuzzle()
 {@Argo} Technically, I said snow here is exceedingly rare. $[technically_i_said]
 
 $call argoFunButton->SetButtonLocked(false)
-$call argoFunButton->SetCurrentClip(13)
+$call argoFunButton->SetStartClip(13)
 $call argoFunButton->SetEndClip(18)
