@@ -30,6 +30,30 @@ $call argoHelpButton->SetCurrentClip(32)
 $endif
 $endwhile
 
+$if PuzzleIsNotComplete(windSensorPuzzle)
+    $if IsGrabbableSocketed(brokenBladeSmall)
+        $call argoHelpButton->SetCurrentClip(28)
+    $endif
+
+    $if IsMatched(windSensorBladeSocket)
+        $if ButtonPressed(windSensorButton)
+            $call argoHelpButton->SetCurrentClip(29)
+        $endif
+    $else
+        $call argoHelpButton->SetCurrentClip(30)
+    $endif
+$else
+    $if PuzzleIsNotComplete(batteryPuzzle)
+        $if IsPuzzleSocketed(batterySocket)
+            $if IsNotMatched(batterySocket)
+                $call argoHelpButton->SetCurrentClip(25)
+            $else
+                $call argoHelpButton->SetCurrentClip(26)
+            $endif
+        $endif
+    $endif
+$endif
+
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call snowSledSocket->PlayFX()

@@ -14,6 +14,7 @@ $call trashChute->SetGrabbable(true)
 $call propS->SetWasGrabbed(false)
 $call propM->SetWasGrabbed(false)
 $call propL->SetWasGrabbed(false)
+$call brokenBladeSmall->SetWasGrabbed(false)
 
 $if IsSocketed(windSensorSled)
     $while IsSocketed(windSensorSled)
@@ -114,7 +115,8 @@ $call propM->StopFX()
 $call propM->StopHighlight()
 $call propS->StopFX()
 $call propS->StopHighlight()
-
+$call brokenBladeSmall->StopFX()
+$call brokenBladeSmall->StopHighlight()
 
 $if NotIsSocketed(windSensorSled)
     $while NotIsSocketed(windSensorSled)
@@ -125,3 +127,22 @@ $endif
 $call windSensor->StopHighlight()
 $call windSensor->StopFX()
 $call windSensorSled->StopFX()
+
+$if PuzzleIsNotComplete(snowPuzzle)
+    $if IsGrabbed(snowSensor)
+        $call argoHelpButton->SetCurrentClip(31)
+    $endif
+    $if PuzzleIsAlmostComplete(snowPuzzle)
+        $call argoHelpButton->SetCurrentClip(32)
+    $endif
+$else
+    $if PuzzleIsNotComplete(batteryPuzzle)
+        $if IsPuzzleSocketed(batterySocket)
+            $if IsNotMatched(batterySocket)
+                $call argoHelpButton->SetCurrentClip(25)
+            $else
+                $call argoHelpButton->SetCurrentClip(26)
+            $endif
+        $endif
+    $endif
+$endif

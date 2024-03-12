@@ -113,11 +113,11 @@ public class AlexAnimation : MonoBehaviour
 					
 					if(ToggleSpot)
 					{
-						StartCoroutine(Walk(WalkPointS2.transform, 15f));
+						StartCoroutine(Walk(WalkPointS2.transform, 30f));
 					}
 					else
 					{
-						StartCoroutine(Walk(WalkPointS.transform, 15f));
+						StartCoroutine(Walk(WalkPointS.transform, 30f));
 					}
 				}
 			}
