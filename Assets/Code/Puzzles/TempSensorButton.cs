@@ -23,6 +23,10 @@ namespace WeatherStation {
 		[SerializeField] private Texture2D Solution;
 		[SerializeField] private Texture2D SolutionTexture;
 		
+		public GameObject ParticleFX;
+		public string PrevState;
+		public string NextState;
+		
 		public TempSensorButton PrevButton;
 		public TempSensorButton NextButton;
 		
@@ -83,6 +87,16 @@ namespace WeatherStation {
 					if(PrevButton != null) {
 						PrevButton.BayMaterial.SetColor("_BaseColor", GlowColor);
 					}
+					
+					if(ParticleFX != null)
+					{
+						Animator anim = ParticleFX.GetComponent<Animator>();
+						anim.SetBool(NextState, true);
+						if(PrevState.Length > 0)
+						{
+							anim.SetBool(PrevState, false);
+						}
+					}
 
 					//if this happens, then also walk ahead and see if we can switch any that are on a solution to final..
 					TempSensorButton AfterButton = NextButton;
@@ -91,6 +105,16 @@ namespace WeatherStation {
 						if(AfterButton.SensorMaterial.mainTexture == AfterButton.Solution)
 						{
 							AfterButton.SensorMaterial.mainTexture = AfterButton.SolutionTexture;
+							if(AfterButton.ParticleFX != null)
+							{
+								Animator anim = AfterButton.ParticleFX.GetComponent<Animator>();
+								anim.SetBool(AfterButton.NextState, true);
+								if(AfterButton.PrevState.Length > 0)
+								{
+									anim.SetBool(AfterButton.PrevState, false);
+								}
+							}
+							
 							if(AfterButton.PrevButton != null)
 							{
 								AfterButton.PrevButton.BayMaterial.SetColor("_BaseColor", GlowColor);
@@ -120,6 +144,15 @@ namespace WeatherStation {
 					if(AfterButton.SensorMaterial.mainTexture == AfterButton.SolutionTexture)
 					{
 						AfterButton.SensorMaterial.mainTexture = AfterButton.Solution;
+						if(AfterButton.ParticleFX != null)
+						{
+							Animator anim = AfterButton.ParticleFX.GetComponent<Animator>();
+							anim.SetBool(AfterButton.NextState, false);
+							if(AfterButton.PrevState.Length > 0)
+							{
+								anim.SetBool(AfterButton.PrevState, true);
+							}
+						}
 					}
 					
 					if(AfterButton.PrevButton != null)

@@ -225,6 +225,8 @@ $endwhile
 $call snowSensorBay->StopHighlight()
 $call snowSensorBay->StopFX()
 $call snowSensor->StopFX()
+$call tempSensorFX->SetDisabled(false)
+$call tempSensorFX->PlayFX()
 $endif
 
 $while NotWasGrabbed(batteryBase)
@@ -273,6 +275,8 @@ $endwhile
 
 $call snowSensorBay->StopHighlight()
 $call snowSensorBay->StopFX()
+$call tempSensorFX->SetDisabled(false)
+$call tempSensorFX->PlayFX()
 $endif
 
 $endif
@@ -465,6 +469,13 @@ $call argoHelpButton->SetButtonLocked(true)
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call snowSledSocket->PlayFX()
+
+$while IsSocketed(snowBaySocket)
+$call Wait(1)
+$endwhile
+
+$call tempSensorFX->SetDisabled(true)
+$call tempSensorFX->StopFX()
 
 $while NotIsSocketed(snowSledSocket)
 $call Wait(1)
