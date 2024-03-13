@@ -23,6 +23,8 @@ namespace WeatherStation {
 		[SerializeField] private Texture2D Solution;
 		[SerializeField] private Texture2D SolutionTexture;
 		
+		[SerializeField] private bool PuzzleLocked = false;
+		
 		public GameObject ParticleFX;
 		public string PrevState;
 		public string NextState;
@@ -31,24 +33,32 @@ namespace WeatherStation {
 		public TempSensorButton NextButton;
 		
 		
-		public Color GlowColor;
+		//public Color GlowColor;
 		
         #endregion // Inspector
 
-		private Color PriorColor;
+		//private Color PriorColor;
         private int ButtonIndex;
 
         private void Awake() {
 			PB.OnPressed.Register(SensorButtonPressed);
 			SensorMaterial.mainTexture = SlotTextures[0];
-			PriorColor = Color.white;//SensorMaterial.color;
+			//PriorColor = Color.white;//SensorMaterial.color;
 			ButtonIndex = 0;
         }
-
-		public void OnDisable()
+		
+		public void OnEnable()
 		{
-			if(BayMaterial != null) {
-				BayMaterial.SetColor("_BaseColor", Color.white);
+			if(ParticleFX != null) {
+				PuzzleButton p = GetComponent<PuzzleButton>();
+				if(PuzzleLocked) {
+					Animator anim = ParticleFX.GetComponent<Animator>();
+					anim.SetBool(NextState, true);
+					if(PrevState.Length > 0) {
+						anim.SetBool(PrevState, false);
+					}
+					//Debug.Log("Setting next state");
+				}
 			}
 		}
 		
@@ -84,9 +94,9 @@ namespace WeatherStation {
 				
 				if(allSetBefore) {
 					SensorMaterial.mainTexture = SolutionTexture;
-					if(PrevButton != null) {
+					/*if(PrevButton != null) {
 						PrevButton.BayMaterial.SetColor("_BaseColor", GlowColor);
-					}
+					}*/
 					
 					if(ParticleFX != null)
 					{
@@ -109,16 +119,16 @@ namespace WeatherStation {
 							{
 								Animator anim = AfterButton.ParticleFX.GetComponent<Animator>();
 								anim.SetBool(AfterButton.NextState, true);
-								if(AfterButton.PrevState.Length > 0)
+								/*if(AfterButton.PrevState.Length > 0)
 								{
 									anim.SetBool(AfterButton.PrevState, false);
-								}
+								}*/
 							}
 							
-							if(AfterButton.PrevButton != null)
+							/*if(AfterButton.PrevButton != null)
 							{
 								AfterButton.PrevButton.BayMaterial.SetColor("_BaseColor", GlowColor);
-							}
+							}*/
 							AfterButton = AfterButton.NextButton;
 						}
 						else
@@ -137,6 +147,15 @@ namespace WeatherStation {
 					}*/
 				}
 			} else {
+				
+				if(ParticleFX != null) {
+					Animator anim = ParticleFX.GetComponent<Animator>();
+					anim.SetBool(NextState, false);
+					if(PrevState.Length > 0) {
+						anim.SetBool(PrevState, true);
+					}
+				}
+				
 				//if we turn off.. then anything ahead of me should also go red...
 				TempSensorButton AfterButton = this;
 				while(AfterButton != null)
@@ -148,17 +167,17 @@ namespace WeatherStation {
 						{
 							Animator anim = AfterButton.ParticleFX.GetComponent<Animator>();
 							anim.SetBool(AfterButton.NextState, false);
-							if(AfterButton.PrevState.Length > 0)
+							/*if(AfterButton.PrevState.Length > 0)
 							{
 								anim.SetBool(AfterButton.PrevState, true);
-							}
+							}*/
 						}
 					}
 					
-					if(AfterButton.PrevButton != null)
+					/*if(AfterButton.PrevButton != null)
 					{
 						AfterButton.PrevButton.SensorMaterial.color = PriorColor;
-					}
+					}*/
 					
 					AfterButton = AfterButton.NextButton;
 				}

@@ -77,6 +77,10 @@ namespace WeatherStation {
 							//Debug.Log("Return 1");
 							SocketUtility.TryAddToSocket(OriginalSocket, s, true);
 						} else {
+							if(s.SocketType == SocketFlags.DataLoggerPiece) {
+								
+								
+							}
 							/*if(OriginalParent != null && (OriginalParent.gameObject != OriginalSocket.gameObject))
 							{
 								//Debug.Log("Return 2");

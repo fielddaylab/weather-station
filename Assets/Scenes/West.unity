@@ -777,6 +777,12 @@ Transform:
   - {fileID: 2027904585466113570}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &913724310 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1103682017014218347, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1141696962}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1141696962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -984,7 +990,13 @@ PrefabInstance:
         type: 3}
       propertyPath: SoundEffect
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 913724310}
+    - target: {fileID: 1666795964852156815, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
+        type: 3}
+      propertyPath: SocketedSound
+      value: 
+      objectReference: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2,
+        type: 2}
     - target: {fileID: 1666795964852156815, guid: 1fd54cc0cbb9243cb9e2be84a535ced1,
         type: 3}
       propertyPath: MatchingSocket

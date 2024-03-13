@@ -225,9 +225,10 @@ $endwhile
 $call snowSensorBay->StopHighlight()
 $call snowSensorBay->StopFX()
 $call snowSensor->StopFX()
+$endif
+
 $call tempSensorFX->SetDisabled(false)
 $call tempSensorFX->PlayFX()
-$endif
 
 $while NotWasGrabbed(batteryBase)
 $call Wait(1)
@@ -275,12 +276,13 @@ $endwhile
 
 $call snowSensorBay->StopHighlight()
 $call snowSensorBay->StopFX()
+
+$endif
+
+$endif
+
 $call tempSensorFX->SetDisabled(false)
 $call tempSensorFX->PlayFX()
-$endif
-
-$endif
-
 $call snowSensor->StopFX()
 $call snowSensor->StopHighlight()
 
