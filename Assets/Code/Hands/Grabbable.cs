@@ -46,6 +46,7 @@ namespace WeatherStation {
 		
         public readonly CastableEvent<Grabber> OnGrabbed = new CastableEvent<Grabber>();
         public readonly CastableEvent<Grabber> OnReleased = new CastableEvent<Grabber>();
+		public readonly CastableEvent<Socketable> OnCantReturn = new CastableEvent<Socketable>();
 		
 		private Routine ReturnProcess;
 		
@@ -78,8 +79,7 @@ namespace WeatherStation {
 							SocketUtility.TryAddToSocket(OriginalSocket, s, true);
 						} else {
 							if(s.SocketType == SocketFlags.DataLoggerPiece) {
-								
-								
+								OnCantReturn.Invoke(s);
 							}
 							/*if(OriginalParent != null && (OriginalParent.gameObject != OriginalSocket.gameObject))
 							{

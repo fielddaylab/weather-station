@@ -20,6 +20,10 @@ namespace WeatherStation {
 
         public List<Material> DoorPieceMaterials = new List<Material>(6);
 		
+		public List<ItemSocket> DoorSockets = new List<ItemSocket>(6);
+		
+		public List<Grabbable> LoggerPieces = new List<Grabbable>(6);
+		
         #endregion // Inspector
 		
 		public override bool CheckComplete() {
@@ -54,7 +58,22 @@ namespace WeatherStation {
 			for(int i = 0; i < PuzzleSockets.Count; ++i) {
 				PuzzleSockets[i].OnRemoved.Register(OnDataPieceRemoved);
 			}
+			
+			for(int i = 0; i < LoggerPieces.Count; ++i) {
+				LoggerPieces[i].OnCantReturn.Register(OnCantReturnPuck);
+			}
+			
         }
+		
+		private void OnCantReturnPuck(Socketable s) {
+			for(int i = 0; i < DoorSockets.Count; ++i) {
+				if(DoorSockets[i].Current == null) {
+					if(SocketUtility.TryAddToSocket(DoorSockets[i], s, false)) {
+						break;
+					}
+				}
+			}
+		}
 		
 		private void OnDataPieceRemoved(Socketable s)
 		{
