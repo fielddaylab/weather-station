@@ -10,7 +10,7 @@ Material:
   m_Name: TS_Button
   m_Shader: {fileID: 4800000, guid: e88aeddd2ef1f934d805981244872e27, type: 3}
   m_Parent: {fileID: 2100000, guid: deeec02bb6324cc48ace8141b1e79232, type: 2}
-  m_ModifiedSerializedProperties: 16
+  m_ModifiedSerializedProperties: 18
   m_ValidKeywords:
   - _HALFTONESHAPE_CUSTOM
   - _OUTLINE
@@ -42,9 +42,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _HalftoneTilling: 55.62
     - _OutlineWidth: 9.49
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
+    - _HalfToneColor: {r: 0.1802764, g: 0.21680179, b: 0.22641376, a: 0.129}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0.24}
   m_BuildTextureStacks: []
 --- !u!114 &1550234097129023509
 MonoBehaviour:
