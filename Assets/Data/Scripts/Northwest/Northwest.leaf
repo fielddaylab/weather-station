@@ -302,6 +302,9 @@ $call batteryBase->SetGrabbable(false)
 
 {@Argo} OK, we need to craft a new battery, check your inventory for a baseplate. $[ok_we_need]
 
+$call cabinetButton->PlayFX()
+$call cabinetButton->ShowHighlight()
+
 $while NotWasGrabbed(batteryOne), NotWasGrabbed(batteryTwo), NotWasGrabbed(batteryThree)
 $call Wait(1)
 $endwhile
@@ -436,6 +439,9 @@ $call batteryBase->PlayFX()
 $call batterySledSocket->PlayFX()
 
 $call argoHelpButton->SetCurrentClip(27)
+
+$call cabinetButton->StopFX()
+$call cabinetButton->StopHighlight()
 
 {@Argo} Nice! Now that that’s finished, let’s put it in the sled and move onto the sensor $[nice_now_that]
 
