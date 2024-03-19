@@ -225,6 +225,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 840497735}
     m_Modifications:
+    - target: {fileID: 225780653094140203, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: ObjectToActivate
+      value: 
+      objectReference: {fileID: 1752359179}
     - target: {fileID: 1055696559514702452, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
       propertyPath: m_audioClip
@@ -472,6 +477,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6882733559621624574, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
+      propertyPath: ObjectToActivate
+      value: 
+      objectReference: {fileID: 676483661}
+    - target: {fileID: 6882733559621624574, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
       propertyPath: MatchingSockets.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -635,6 +645,11 @@ PrefabInstance:
       propertyPath: NewColor
       value: 
       objectReference: {fileID: 2100000, guid: d08b2a257bb305b4ba9c4ba0e62af885, type: 2}
+    - target: {fileID: 8316304723800383339, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: ObjectToActivate
+      value: 
+      objectReference: {fileID: 927393813}
     - target: {fileID: 8316304723800383339, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
       propertyPath: OutMaterials.Array.size
@@ -2155,6 +2170,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 1878732048}
+  SocketedSound: {fileID: 0}
   MatchingSockets:
   - {fileID: 1891605859}
   - {fileID: 1891605858}
@@ -2165,6 +2181,7 @@ MonoBehaviour:
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
 --- !u!114 &588611315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2191,6 +2208,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 2066594936}
+  SocketedSound: {fileID: 0}
   MatchingSockets:
   - {fileID: 1891605859}
   - {fileID: 1891605858}
@@ -2201,6 +2219,13 @@ MonoBehaviour:
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+--- !u!1 &676483661 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2944305593135395848, guid: 313483ea2997c416eb803ec0bcdbca05,
+    type: 3}
+  m_PrefabInstance: {fileID: 243166755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &677192319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2399,6 +2424,12 @@ Transform:
   - {fileID: 1141696963}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &927393813 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 541962394215780255, guid: 313483ea2997c416eb803ec0bcdbca05,
+    type: 3}
+  m_PrefabInstance: {fileID: 243166755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &949557652 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6998434560101676930, guid: ac258cd2bb0e1464fb1321702c3e7190,
@@ -2557,6 +2588,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 977289351}
+  SocketedSound: {fileID: 0}
   MatchingSockets:
   - {fileID: 1891605859}
   - {fileID: 1891605858}
@@ -2567,6 +2599,7 @@ MonoBehaviour:
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
 --- !u!1001 &1053051987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4365,6 +4398,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48e2e93fbf71a894e8c9aad8dccf06af, type: 3}
+--- !u!1 &1752359179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5489888899936112069, guid: 313483ea2997c416eb803ec0bcdbca05,
+    type: 3}
+  m_PrefabInstance: {fileID: 243166755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1878732048 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 6282034075965980497, guid: ac258cd2bb0e1464fb1321702c3e7190,

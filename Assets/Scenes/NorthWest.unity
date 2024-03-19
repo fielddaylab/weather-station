@@ -721,6 +721,11 @@ PrefabInstance:
       propertyPath: GrabSpots.Array.data[0]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4753785700353597728, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4837473902379668462, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -730,6 +735,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.0124
+      objectReference: {fileID: 0}
+    - target: {fileID: 5487478715939207724, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5718664556950076504, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
@@ -996,6 +1006,11 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 5a1c5b015dc6ff54186fc241aaac2e86, type: 3}
+    - target: {fileID: 8472050396681128476, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8513607707832277825, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
       propertyPath: m_audioClip
@@ -1033,6 +1048,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8894311326836644438, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
+      propertyPath: ObjectToActivate
+      value: 
+      objectReference: {fileID: 243166759}
+    - target: {fileID: 8894311326836644438, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
       propertyPath: MatchingSockets.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1041,6 +1061,11 @@ PrefabInstance:
       propertyPath: Current
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8895702926715132058, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: ObjectToActivate
+      value: 
+      objectReference: {fileID: 243166760}
     - target: {fileID: 8895702926715132058, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
       propertyPath: MatchingSockets.Array.size
@@ -1111,6 +1136,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1391b34a19c04564861f980b5c2598c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &243166759 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4753785700353597728, guid: 313483ea2997c416eb803ec0bcdbca05,
+    type: 3}
+  m_PrefabInstance: {fileID: 243166755}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &243166760 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7305058472266957409, guid: 313483ea2997c416eb803ec0bcdbca05,
+    type: 3}
+  m_PrefabInstance: {fileID: 243166755}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &352531879
 PrefabInstance:
   m_ObjectHideFlags: 0

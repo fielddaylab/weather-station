@@ -55,10 +55,6 @@ namespace WeatherStation {
 		
         private void Awake() {
 
-			for(int i = 0; i < PuzzleSockets.Count; ++i) {
-				PuzzleSockets[i].OnRemoved.Register(OnDataPieceRemoved);
-			}
-			
 			for(int i = 0; i < LoggerPieces.Count; ++i) {
 				LoggerPieces[i].OnCantReturn.Register(OnCantReturnPuck);
 			}
@@ -73,23 +69,6 @@ namespace WeatherStation {
 					}
 				}
 			}
-		}
-		
-		private void OnDataPieceRemoved(Socketable s)
-		{
-			//Debug.Log("Piece removed");
-			/*Material[] m = s.gameObject.GetComponent<MeshRenderer>().materials;
-			for(int i = 0; i < m.Length; ++i)
-			{
-				for(int j = 0; j < DoorPieceMaterials.Count; ++j)
-				{
-					if(DoorPieceMaterials[j] == m[i])
-					{
-						m[i].color = DoorPieceColor;
-						break;
-					}
-				}
-			}*/
 		}
     }
 }

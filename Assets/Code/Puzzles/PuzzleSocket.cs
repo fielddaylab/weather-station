@@ -20,7 +20,9 @@ namespace WeatherStation {
 
         public Material NewColor;
         public float BlinkTiming = 1f;
-
+		public GameObject ObjectToActivate = null;
+		public GameObject NextObjectToActivate = null;
+		
         #endregion // Inspector
 		
         [NonSerialized] public bool PulseSet = false;
@@ -77,6 +79,14 @@ namespace WeatherStation {
 
                 PulseSet = true;
             }
+			
+			if(ObjectToActivate != null) {
+				ObjectToActivate.SetActive(true);
+			}
+			
+			if(NextObjectToActivate != null) {
+				NextObjectToActivate.SetActive(true);
+			}
         }
 
         public void UnsetPulse() {
@@ -96,6 +106,14 @@ namespace WeatherStation {
 
                 PulseSet = false;
             }
+			
+			if(ObjectToActivate != null) {
+				ObjectToActivate.SetActive(false);
+			}
+			
+			if(NextObjectToActivate != null) {
+				NextObjectToActivate.SetActive(false);
+			}
         }
 
         public void BlinkIncoming() {
