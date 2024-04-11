@@ -95,11 +95,19 @@ namespace WeatherStation {
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = true;
 				LastPos = handRig.RightHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogGrabTrash(false, transform.rotation.eulerAngles.z);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = true;
 				LastPos = handRig.LeftHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogGrabTrash(true, transform.rotation.eulerAngles.z);
+				}
 			}	
 		}
 		
@@ -108,10 +116,18 @@ namespace WeatherStation {
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogReleaseTrash(false, transform.rotation.eulerAngles.z);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogReleaseTrash(true, transform.rotation.eulerAngles.z);
+				}
 			}
 		}
 		
@@ -121,6 +137,19 @@ namespace WeatherStation {
 			if(s != null) {	
 				if(s.SocketType == SocketFlags.WindSensorBlade) {
 					//temp - only can trash wind sensor blades at the moment
+					WSAnalytics w = Find.State<WSAnalytics>();
+					if(w != null) {
+                		w.LogDiscardObject("PropellerShape");
+					}
+					Destroy(c.gameObject);
+				}
+				else if(s.SocketType == SocketFlags.BatteryStagPlug || s.SocketType == SocketFlags.BatteryCell || 
+						s.SocketType == SocketFlags.BrokenBattery || s.SocketType == SocketFlags.Battery2Plug || s.SocketType == SocketFlags.Battery3Plug)
+				{
+					WSAnalytics w = Find.State<WSAnalytics>();
+					if(w != null) {
+                		w.LogDiscardObject("BatteryShape");
+					}
 					Destroy(c.gameObject);
 				}
 			}

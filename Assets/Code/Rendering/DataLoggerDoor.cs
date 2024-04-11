@@ -87,11 +87,20 @@ namespace WeatherStation {
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = true;
 				LastPos = handRig.RightHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogGrabDoorHandle(false, transform.rotation.eulerAngles.y);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = true;
 				LastPos = handRig.LeftHand.Visual.position;
+				
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogGrabDoorHandle(true, transform.rotation.eulerAngles.y);
+				}
 			}	
 		}
 		
@@ -100,10 +109,18 @@ namespace WeatherStation {
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogReleaseDoorHandle(false, transform.rotation.eulerAngles.y);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogReleaseDoorHandle(true, transform.rotation.eulerAngles.y);
+				}
 			}
 		}
     }

@@ -27,6 +27,15 @@ namespace WeatherStation.Scripting {
             m_Loader = GetComponent<SceneLoader>();
         }
 		
+		private void LogLevelComplete()
+		{
+			WSAnalytics w = Find.State<WSAnalytics>();
+			if(w != null) 
+			{
+				w.LogLevelComplete();
+			}
+		}
+
 		[LeafMember("SwitchScenes"), Preserve]
         public void SwitchScenes() {
 			m_Loader.SwitchScenes();
@@ -35,30 +44,39 @@ namespace WeatherStation.Scripting {
 		[LeafMember("LoadNorthwest"), Preserve]
 		public void LoadNorthwest() {
 			m_Loader.SwitchScenes();
+			LogLevelComplete();
 			ScriptUtility.Trigger("LevelOneFinished");
 		}
 		
 		[LeafMember("LoadSouth"), Preserve]
 		public void LoadSouth() {
 			m_Loader.SwitchScenes();
+			LogLevelComplete();
 			ScriptUtility.Trigger("LevelTwoFinished");
 		}
 		
 		[LeafMember("LoadEast"), Preserve]
 		public void LoadEast() {
 			m_Loader.SwitchScenes();
+			LogLevelComplete();
 			ScriptUtility.Trigger("LevelThreeFinished");
 		}
 		
 		[LeafMember("LoadSouthEast"), Preserve]
 		public void LoadSouthEast() {
 			m_Loader.SwitchScenes();
+			LogLevelComplete();
 			ScriptUtility.Trigger("LevelFourFinished");
 		}
 		
 		[LeafMember("LoadEpilogue"), Preserve]
 		public void LoadEpilogue() {
 			m_Loader.SwitchScenes();
+			WSAnalytics w = Find.State<WSAnalytics>();
+			if(w != null) 
+			{
+				w.LogEpilogueStart();
+			}
 			ScriptUtility.Trigger("EpilogueReady");
 		}
 		

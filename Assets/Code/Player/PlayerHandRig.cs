@@ -24,6 +24,20 @@ namespace WeatherStation {
 		private int AnimParamIndexFlex = -1;
 		private int AnimParamIndexPose = -1;
 		
+		public void GetHandTransform(bool left, out Vector3 pos, out Quaternion quat)
+		{
+			if(left)
+			{
+				pos = LeftHand.transform.position;
+				quat = LeftHand.transform.rotation;
+			}
+			else
+			{
+				pos = RightHand.transform.position;
+				quat = RightHand.transform.rotation;
+			}
+		}
+
 		private void Awake() {
 			if(LeftHandAnimator != null) {
 				AnimLayerIndexPointLeft = LeftHandAnimator.GetLayerIndex("Point Layer");

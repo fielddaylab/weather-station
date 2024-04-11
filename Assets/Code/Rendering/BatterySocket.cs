@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FieldDay;
 
 namespace WeatherStation {
 	public class BatterySocket : MonoBehaviour
@@ -26,6 +27,10 @@ namespace WeatherStation {
 				if(CoverAnim != null)
 				{
 					CoverAnim.SetBool("Open", true);
+					WSAnalytics w = Find.State<WSAnalytics>();
+					if(w != null) {
+						w.LogBatteryBoxOpen();
+					}
 				}
 			}
 		}
@@ -42,6 +47,10 @@ namespace WeatherStation {
 				if(CoverAnim != null)
 				{
 					CoverAnim.SetBool("Open", false);
+					WSAnalytics w = Find.State<WSAnalytics>();
+					if(w != null) {
+						w.LogBatteryBoxOpen();
+					}
 				}
 			}
 		}

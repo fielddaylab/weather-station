@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BeauRoutine;
 using UnityEngine;
+using FieldDay;
 
 namespace WeatherStation {
 	public class WindButton : MonoBehaviour
@@ -71,6 +72,12 @@ namespace WeatherStation {
 							BladeSocket.Locked = true;
                             m_TestRoutine.Replace(this, RotateBlade(120f, ROTATE_SPEED, true));
 						}
+
+						WSAnalytics w = Find.State<WSAnalytics>();
+						if(w != null) {
+							w.LogTestPropeller(true, true, BladeSocket.Current.gameObject.name);
+						}
+				
 					} else if(BladeSocket.Current == BrokenProp) {
 						if(!IsTesting) {
 							//Debug.Log("Testing broken");
@@ -82,7 +89,12 @@ namespace WeatherStation {
 						else
 						{
 							IsStopped = true;
-						}				
+						}		
+
+						WSAnalytics w = Find.State<WSAnalytics>();
+						if(w != null) {
+							w.LogTestPropeller(true, false, BladeSocket.Current.gameObject.name);
+						}		
 					} else {
 						if(!IsTesting) {
 							//Debug.Log("Testing wrong");
@@ -94,6 +106,11 @@ namespace WeatherStation {
 						else
 						{
 							IsStopped = true;
+						}
+						
+						WSAnalytics w = Find.State<WSAnalytics>();
+						if(w != null) {
+							w.LogTestPropeller(true, false, BladeSocket.Current.gameObject.name);
 						}
 					}
 				}

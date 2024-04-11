@@ -128,6 +128,9 @@ namespace WeatherStation {
             }
             jointConfig.Apply(grabber.Joint);
 
+			//check for grabbing of puzzle object type here for logging purposes.
+			CheckPuzzleLoggingGrab(grabbable, grabber);
+
             grabber.State = GrabberState.Holding;
             grabber.HoldStartTime = Frame.Timestamp();
 
@@ -156,6 +159,57 @@ namespace WeatherStation {
 			
             return true;
         }
+
+		static private void CheckPuzzleLoggingGrab(Grabbable grabbable, Grabber grabber) {
+			WSAnalytics w = Find.State<WSAnalytics>();
+			if(w != null) { 
+				if(grabbable.TryGetComponent(out Socketable s)) {
+					if(s.SocketType == SocketFlags.WindSensor || s.SocketType == SocketFlags.SolarPanel || 
+						s.SocketType == SocketFlags.SnowSensor || s.SocketType == SocketFlags.BatteryBase || s.SocketType == SocketFlags.Argo) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogGrabPuzzleObject(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name);
+					}
+					else if(s.SocketType == SocketFlags.DataLoggerPiece) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogGrabPuzzleObject(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name);
+					}
+					else if(s.SocketType == SocketFlags.WindSensorBlade) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogGrabPropeller(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name);
+					}
+					else if(s.SocketType == SocketFlags.BatteryCell || s.SocketType == SocketFlags.Battery2Plug || 
+							s.SocketType == SocketFlags.Battery3Plug || s.SocketType == SocketFlags.BatteryStagPlug) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogGrabBatteryComponent(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name);
+					}
+				}
+			}
+		}
+
+		static private void CheckPuzzleLoggingRelease(Grabbable grabbable, Grabber grabber) {
+			WSAnalytics w = Find.State<WSAnalytics>();
+			if(w != null) { 
+				if(grabbable.TryGetComponent(out Socketable s)) {
+					if(s.SocketType == SocketFlags.WindSensor || s.SocketType == SocketFlags.SolarPanel || 
+						s.SocketType == SocketFlags.SnowSensor || s.SocketType == SocketFlags.BatteryBase || s.SocketType == SocketFlags.Argo) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogReleasePuzzleObject(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name, grabbable.transform.position, grabbable.transform.rotation);
+					}
+					else if(s.SocketType == SocketFlags.DataLoggerPiece) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogReleaseDataPuck(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name, grabbable.transform.position, grabbable.transform.rotation);
+					}
+					else if(s.SocketType == SocketFlags.WindSensorBlade) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogReleasePropeller(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name, grabbable.transform.position, grabbable.transform.rotation);
+					}
+					else if(s.SocketType == SocketFlags.BatteryCell || s.SocketType == SocketFlags.Battery2Plug || s.SocketType == SocketFlags.Battery3Plug || s.SocketType == SocketFlags.BatteryStagPlug) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogReleaseBatteryComponent(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name, grabbable.transform.position, grabbable.transform.rotation);
+					}
+				}
+			}
+		}
 
         static private bool DetachOldest(Grabbable grabbable) {
             if (grabbable.CurrentGrabberCount <= 0) {
@@ -207,6 +261,8 @@ namespace WeatherStation {
 						}
 					}
 					
+					CheckPuzzleLoggingRelease(grabber.Holding, grabber);
+
                     grabber.Holding.OnReleased.Invoke(grabber);
                     grabber.OnRelease.Invoke(grabber.Holding);
                     grabber.Holding = null;

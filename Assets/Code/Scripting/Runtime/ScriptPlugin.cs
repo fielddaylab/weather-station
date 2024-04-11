@@ -205,6 +205,10 @@ namespace FieldDay.Scripting {
                         if(a != null) {
 							LastAudioSource = a;
                             a.clip = clip;
+                            WSAnalytics w = Find.State<WSAnalytics>();
+                            if(w != null) {
+                                w.LogAudioStarted(voiceoverLineCode.ToDebugString(), "exposition", voiceCharacter.name);
+                            }
                             a.Play();
                         }
 
@@ -213,6 +217,10 @@ namespace FieldDay.Scripting {
                         }
 
                     } else {
+                        WSAnalytics w = Find.State<WSAnalytics>();
+                        if(w != null) {
+                            w.LogAudioStarted(voiceoverLineCode.ToDebugString(), "exposition", "unknown");
+                        }
 					    AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
                         LastAudioSource = null;
                     }
@@ -255,6 +263,11 @@ namespace FieldDay.Scripting {
 							yield return Routine.Race(routineList);
 						}
 						
+                        WSAnalytics w = Find.State<WSAnalytics>();
+                        if(w != null) {
+                            w.LogAudioComplete(voiceoverLineCode.ToDebugString(), "exposition", voiceCharacter.name);
+                        }
+
 						//if should skip vo fails passes here, turn off audio...
 						if(ForceVOSkipSet || ForceKill) {
 							if(voiceCharacter != null) {
@@ -281,7 +294,7 @@ namespace FieldDay.Scripting {
             if (m_RuntimeState.Cutscene == inThreadState.GetHandle()) {
                 m_RuntimeState.Cutscene = default;
             }
-			//Debug.Log("HIT END");
+			
 			ForceKill = false;
             base.OnEnd(inThreadState);
         }

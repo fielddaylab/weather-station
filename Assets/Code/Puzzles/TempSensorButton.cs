@@ -36,6 +36,18 @@ namespace WeatherStation {
 
         private int ButtonIndex;
 
+		public string GetCurrentSlotTexture()
+		{
+			return SlotTextures[ButtonIndex].name;
+		}
+
+		public string GetNextSlotTexture()
+		{
+			int next = ButtonIndex+1;
+			next = next % SlotTextures.Count;
+			return SlotTextures[next].name;
+		}
+
         private void Awake() {
 			PB.OnPressed.Register(SensorButtonPressed);
 			SensorMaterial.mainTexture = SlotTextures[0];
@@ -182,8 +194,6 @@ namespace WeatherStation {
 					
 					PB = PB.PrevButton;
 				}
-				
-				
 			}
         }
     }

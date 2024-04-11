@@ -132,6 +132,28 @@ namespace WeatherStation {
 					data.RightHand.HapticImpulse = 0.25f;
 				}
 
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					if(gameObject.name == "Uplink_Button") {
+						SceneLoader s = Find.State<SceneLoader>();
+						w.LogTestUplink((c.gameObject.name == "LeftPointer"), s.GetCurrentSceneIndex());
+					} else if(gameObject.name == "s.Cabinet_controlButton") {
+						w.LogRotateDrawer((c.gameObject.name == "LeftPointer"));
+					} else if(gameObject.name == "SSBay_Button1" || gameObject.name == "SSBay_Button12" || gameObject.name == "SSBay_Button_13") {
+						TempSensorButton t = gameObject.GetComponent<TempSensorButton>();
+						w.LogClickTemperatureComponent(c.gameObject.name == "LeftPointer", 1, t.GetCurrentSlotTexture(), t.GetNextSlotTexture() );
+					} else if(gameObject.name == "SSBay_Button2" || gameObject.name == "SSBay_Button22" || gameObject.name == "SSBay_Button_2") {
+						TempSensorButton t = gameObject.GetComponent<TempSensorButton>();
+						w.LogClickTemperatureComponent(c.gameObject.name == "LeftPointer", 2, t.GetCurrentSlotTexture(), t.GetNextSlotTexture() );
+					} else if(gameObject.name == "SSBay_Button3" || gameObject.name == "SSBay_Button32" || gameObject.name == "SSBay_Button_33") {
+						TempSensorButton t = gameObject.GetComponent<TempSensorButton>();
+						w.LogClickTemperatureComponent(c.gameObject.name == "LeftPointer", 3, t.GetCurrentSlotTexture(), t.GetNextSlotTexture() );
+					} else if(gameObject.name == "SSBay_Button4" || gameObject.name == "SSBay_Button42" || gameObject.name == "SSBay_Button_43") {
+						TempSensorButton t = gameObject.GetComponent<TempSensorButton>();
+						w.LogClickTemperatureComponent(c.gameObject.name == "LeftPointer", 4, t.GetCurrentSlotTexture(), t.GetNextSlotTexture() );
+					}
+				}
+
 				OnPressed.Invoke(this);
 			}
 		}

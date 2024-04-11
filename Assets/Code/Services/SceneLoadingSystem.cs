@@ -35,7 +35,7 @@ namespace WeatherStation {
 #endif
 				data.RightHand.PrevButtons = 0;
 
-			} else if(data.RightHand.Released(VRControllerButtons.Primary)) {
+			} else if(data.RightHand.Released(VRControllerButtons.Primary) || Input.GetKeyDown(KeyCode.Q)) {
 #if ENABLE_INPUT_SHORTCUTS
 				PlayerLocator player = Find.State<PlayerLocator>();
 				

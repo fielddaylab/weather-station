@@ -11,6 +11,7 @@ namespace WeatherStation {
         public bool Locked = false;
         public Socketable Current = null;
         public SocketFlags AllowedSockets = SocketFlags.Nothing;
+        public ItemSocketType SocketCategory = ItemSocketType.NONE;
 
         [Header("Configuration")]
         public ItemSocketMode Mode = ItemSocketMode.Reparent;
@@ -79,5 +80,13 @@ namespace WeatherStation {
     public enum ItemSocketMode {
         FixedJoint,
         Reparent
+    }
+
+    public enum ItemSocketType
+    {
+        NONE,
+        SLED,
+        WORKBENCH,
+        TOWER
     }
 }

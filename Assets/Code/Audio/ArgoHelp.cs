@@ -42,8 +42,13 @@ public class ArgoHelp : SharedStateComponent {
 		}
 	}
 	
-	public void ArgoHelpPressed() {
+	public void ArgoHelpPressed(Collider c) {
 		
+		WSAnalytics w = Find.State<WSAnalytics>();
+		if(w != null) {
+			w.LogArgoHelp(c.gameObject.name == "LeftPointer");
+		}
+
 		if(!m_Button.Locked && m_Button.WasPressed) {
 			if(m_CurrentClip != -1) {
 				ArgoAudio.Stop();

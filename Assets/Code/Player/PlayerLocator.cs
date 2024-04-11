@@ -58,6 +58,12 @@ namespace WeatherStation {
 				StartTeleportCountdown(Argo);
 			}
 		}
+
+		public void GetHeadTransform(out Vector3 pos, out Quaternion quat)
+		{
+			pos = HeadRoot.transform.position;
+			quat = HeadRoot.transform.rotation;
+		}
 		
 		public void SocketArgoOutside()
 		{
@@ -252,6 +258,11 @@ namespace WeatherStation {
 				
 				RenderSettings.fog = true;
 				
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogLocationTransition("OUTSIDE");
+				}
+				
 			} else {
 				
 				Vector3 headPos = transform.GetChild(0).transform.localPosition;
@@ -315,6 +326,11 @@ namespace WeatherStation {
 				}
 				
 				RenderSettings.fog = false;
+
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogLocationTransition("INSIDE");
+				}
 			}
 			
 			IsInside = !IsInside;

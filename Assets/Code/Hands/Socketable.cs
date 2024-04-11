@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BeauUtil;
+using FieldDay;
 using FieldDay.Components;
 using UnityEngine;
 
@@ -97,11 +98,35 @@ namespace WeatherStation {
 			{
 				grabbable.OriginalSocket = socket;
 			}
+
+            CheckSocketLogging(socketable, socket);
             
             socketable.OnAddedToSocket.Invoke(socket);
             socket.OnAdded.Invoke(socketable);
 
             return true;
+        }
+
+        //todo - fix handedness here.
+        static private void CheckSocketLogging(Socketable socketable, ItemSocket socket) {
+            WSAnalytics w = Find.State<WSAnalytics>();
+			if(w != null) { 
+                if(socketable.SocketType == SocketFlags.WindSensor || socketable.SocketType == SocketFlags.SolarPanel || 
+						socketable.SocketType == SocketFlags.SnowSensor || socketable.SocketType == SocketFlags.BatteryBase || 
+                        socketable.SocketType == SocketFlags.Argo) {
+                    w.LogPlacePuzzleObject(true, socketable.gameObject.name, socket.SocketCategory.ToString());
+                }
+                else if(socketable.SocketType == SocketFlags.DataLoggerPiece) {
+                    w.LogPlaceDataPuck(true, socketable.gameObject.name);
+                }
+                else if(socketable.SocketType == SocketFlags.WindSensorBlade) {
+                    w.LogPlacePropeller(true, socketable.gameObject.name);
+                }
+                else if(socketable.SocketType == SocketFlags.BatteryCell || socketable.SocketType == SocketFlags.Battery2Plug ||
+                 socketable.SocketType == SocketFlags.Battery3Plug || socketable.SocketType == SocketFlags.BatteryStagPlug) {
+					w.LogPlaceBatteryComponent(true, socketable.gameObject.name);
+                 }
+            }
         }
 
         static public void ReleaseCurrent(ItemSocket socket, bool applyReleaseForce, string overrideReparent = "") {
