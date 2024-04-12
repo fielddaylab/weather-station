@@ -11,6 +11,8 @@ namespace WeatherStation {
     public class VRInputUpdateSystem : SharedStateSystemBehaviour<VRInputState> {
         private readonly List<XRNodeState> m_NodeStateWorkList = new List<XRNodeState>(16);
         private readonly List<InputDevice> m_InputDeviceWorkList = new List<InputDevice>(16);
+        
+        private bool WasPresent = false;
 
         public override bool HasWork() {
             return base.HasWork() && XRSettings.isDeviceActive;
@@ -56,6 +58,25 @@ namespace WeatherStation {
                         if (TryGetPose(node, out Pose pose)) {
                             found |= VRDataSources.Head;
                             m_State.Head = pose;
+                            InputDevice input = InputDevices.GetDeviceAtXRNode(XRNode.Head);
+                            bool userPresent = GetFeature(input, CommonUsages.userPresence);
+                            if(input.isValid && userPresent) {
+                                if(!WasPresent) {
+                                    WSAnalytics w = Find.State<WSAnalytics>();
+                                    if(w != null) {
+                                        w.LogHeadsetOn();
+                                    }
+                                    WasPresent = true;
+                                }
+                            } else {
+                                if(WasPresent && !userPresent) {
+                                    WSAnalytics w = Find.State<WSAnalytics>();
+                                    if(w != null) {
+                                        w.LogHeadsetOff();
+                                    }
+                                    WasPresent = false;
+                                }
+                            }
                         }
                         break;
                     }
