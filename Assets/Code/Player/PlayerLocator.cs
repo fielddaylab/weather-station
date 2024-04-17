@@ -233,13 +233,15 @@ namespace WeatherStation {
 
 				SocketUtility.TryAddToSocket(ArgoOutsideSocket, s, false);
 				
+				OutsideLocation.GetComponent<AudioSource>().Play();
+				
 				if(PlaneExterior != null) {
-					PlaneExterior.GetComponent<AudioSource>().Play();
 					PlaneExterior.SetActive(true);
 				}
 				
-				if(PlaneInterior != null) {
-					PlaneInterior.GetComponent<AudioSource>().Stop();
+				InsideLocation.GetComponent<AudioSource>().Stop();
+				
+				if(PlaneInterior != null) {	
 					PlaneInterior.SetActive(false);
 				}
 				
@@ -305,14 +307,16 @@ namespace WeatherStation {
 				Sled.transform.rotation = SledInsideLocation.transform.rotation;
 				SocketUtility.TryAddToSocket(ArgoInsideSocket, s, false);
 				
-				if(PlaneExterior != null) {
-					PlaneExterior.GetComponent<AudioSource>().Stop();
+				OutsideLocation.GetComponent<AudioSource>().Stop();
+				
+				if(PlaneExterior != null) {	
 					PlaneExterior.SetActive(false);
 				}
 				
+				InsideLocation.GetComponent<AudioSource>().Play();
+				
 				if(PlaneInterior != null) {
-					PlaneInterior.SetActive(true);
-					PlaneInterior.GetComponent<AudioSource>().Play();
+					PlaneInterior.SetActive(true);	
 				}
 				
 				if(ExteriorLight != null) {
