@@ -94,6 +94,10 @@ namespace WeatherStation {
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = true;
+				AudioSource aSource = gameObject.GetComponent<AudioSource>();
+				if(aSource != null) {
+					aSource.Play();
+				}
 				LastPos = handRig.RightHand.Visual.position;
 				WSAnalytics w = Find.State<WSAnalytics>();
 				if(w != null) {
@@ -103,6 +107,10 @@ namespace WeatherStation {
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = true;
+				AudioSource aSource = gameObject.GetComponent<AudioSource>();
+				if(aSource != null) {
+					aSource.Play();
+				}
 				LastPos = handRig.LeftHand.Visual.position;
 				WSAnalytics w = Find.State<WSAnalytics>();
 				if(w != null) {

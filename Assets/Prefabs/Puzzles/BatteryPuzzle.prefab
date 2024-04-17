@@ -80,6 +80,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -91,13 +92,15 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 7112176456165787414}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
   MatchingSockets: []
   InMaterials: []
   OutMaterials: []
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+  NextObjectToActivate: {fileID: 0}
 --- !u!82 &7112176456165787414
 AudioSource:
   m_ObjectHideFlags: 0
@@ -108,7 +111,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -460,6 +463,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -471,7 +475,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 4532921389646914686}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &4532921389646914686
 AudioSource:
   m_ObjectHideFlags: 0
@@ -482,7 +486,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -853,6 +857,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -864,7 +869,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 7838193049718069750}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &7838193049718069750
 AudioSource:
   m_ObjectHideFlags: 0
@@ -875,7 +880,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1097,6 +1102,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -1119,6 +1125,8 @@ MonoBehaviour:
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+  NextObjectToActivate: {fileID: 0}
 --- !u!82 &6690085652933978655
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1264,6 +1272,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -1275,7 +1284,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 6282034075965980497}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &6282034075965980497
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1286,7 +1295,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1482,7 +1491,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 93702d0d06534470297fdc3a79bbf9af, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1493,9 +1502,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 4
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1583,6 +1592,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 32
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -1594,13 +1604,15 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 7271149512796441760}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: bb85acbf4ce5c2742bd2e5f7b2d267c2, type: 2}
   MatchingSockets: []
   InMaterials: []
   OutMaterials: []
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+  NextObjectToActivate: {fileID: 0}
 --- !u!114 &1334536008319870951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1991,6 +2003,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -2002,7 +2015,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 5286571926506273550}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &5286571926506273550
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2013,7 +2026,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2949,6 +2962,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -2960,7 +2974,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 6565991343526997917}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
   MatchingSockets:
   - {fileID: 3878873578123246677}
   - {fileID: 6555380197528295719}
@@ -2971,6 +2985,8 @@ MonoBehaviour:
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+  NextObjectToActivate: {fileID: 0}
 --- !u!82 &6565991343526997917
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2981,7 +2997,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3116,6 +3132,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -3127,7 +3144,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 5875783169578899709}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &5875783169578899709
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3138,7 +3155,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3625,11 +3642,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8d64fb5d7c321b64a8680e4ddbd798f0, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0
+  m_audioClip: {fileID: 8300000, guid: ccfc6fb8c79b2458aa6631b6e6caa6f8, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 1
   SpatializePostEffects: 0
@@ -4141,6 +4158,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -4152,7 +4170,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 4504416890044204702}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &4504416890044204702
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4163,7 +4181,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -4618,6 +4636,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -4629,7 +4648,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 5590461792060244725}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &5590461792060244725
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4640,7 +4659,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5240,6 +5259,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 4
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -5425,6 +5445,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -5436,13 +5457,15 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 5125690740502823436}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
   MatchingSockets: []
   InMaterials: []
   OutMaterials: []
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+  NextObjectToActivate: {fileID: 0}
 --- !u!82 &5125690740502823436
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5453,7 +5476,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -5685,6 +5708,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -5696,7 +5720,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 3978204262840810972}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &3978204262840810972
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5707,7 +5731,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -6004,6 +6028,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -6015,7 +6040,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 4892053353729297151}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &4892053353729297151
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6026,7 +6051,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -6733,6 +6758,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -6744,13 +6770,15 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 4824322247238289549}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
   MatchingSockets: []
   InMaterials: []
   OutMaterials: []
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+  NextObjectToActivate: {fileID: 0}
 --- !u!82 &4824322247238289549
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6761,7 +6789,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -7010,6 +7038,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -7021,7 +7050,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 563259113516762227}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &563259113516762227
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7032,7 +7061,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5a1c5b015dc6ff54186fc241aaac2e86, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -7167,6 +7196,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -7178,13 +7208,15 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 7191939308322464066}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
   MatchingSockets: []
   InMaterials: []
   OutMaterials: []
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+  NextObjectToActivate: {fileID: 0}
 --- !u!82 &7191939308322464066
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7195,7 +7227,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -7421,6 +7453,7 @@ MonoBehaviour:
   Locked: 1
   Current: {fileID: 2369846376538294236}
   AllowedSockets: 4
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -7432,7 +7465,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 745826185758917974}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &745826185758917974
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7443,20 +7476,20 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
-  Spatialize: 0
+  Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.1
+  MaxDistance: 4
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -7489,7 +7522,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -7706,6 +7739,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -7728,6 +7762,8 @@ MonoBehaviour:
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+  NextObjectToActivate: {fileID: 0}
 --- !u!82 &4193568830181996848
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8830,6 +8866,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -8841,7 +8878,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 3817849967517389507}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &3817849967517389507
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8852,7 +8889,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -9018,6 +9055,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -9029,7 +9067,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 1059579047568492812}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
   MatchingSockets:
   - {fileID: 3878873578123246677}
   - {fileID: 6555380197528295719}
@@ -9040,6 +9078,8 @@ MonoBehaviour:
   OutMaterialIndex: 
   NewColor: {fileID: 0}
   BlinkTiming: 1
+  ObjectToActivate: {fileID: 0}
+  NextObjectToActivate: {fileID: 0}
 --- !u!82 &1059579047568492812
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9050,7 +9090,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -9185,6 +9225,7 @@ MonoBehaviour:
   Locked: 0
   Current: {fileID: 0}
   AllowedSockets: 64
+  SocketCategory: 0
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -9196,7 +9237,7 @@ MonoBehaviour:
   ReleaseLocation: {fileID: 0}
   ReleaseForce: {x: 0, y: 0, z: 0}
   SoundEffect: {fileID: 8451272150122997055}
-  SocketedSound: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2, type: 2}
+  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &8451272150122997055
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9207,7 +9248,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ba011846a398483448246fb551adc3b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

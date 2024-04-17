@@ -70,7 +70,7 @@ $call loggerPieceSix->StopHighlight()
 $endif
 $endwhile
 $call argoHelpButton->SetButtonLocked(true)
-
+$call dataLoggerPuzzle->PlaySound()
 $endif
 
 $call argoHelpButton->SetCurrentClip(21)

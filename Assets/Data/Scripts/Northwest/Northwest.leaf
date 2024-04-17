@@ -68,7 +68,7 @@ $call loggerPieceSix->StopHighlight()
 $endif
 $endwhile
 $call argoHelpButton->SetButtonLocked(true)
-
+$call dataLoggerPuzzle->PlaySound()
 $endif
 
 {@Argo #happy} {poses 3.0:} All this repairing reminds me of the time that I singlehandedly saved... $[argo_all_this]
@@ -88,7 +88,6 @@ $call loggerPieceSix->StopHighlight()
 $call snowTowerSocket->SetLocked(false)
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
-$call snowSensor->PlaySound()
 $call snowSensor->SetGrabbable(true)
 $call snowSledSocket->PlayFX()
 $call snowSledSocket->SetLocked(false)
@@ -96,7 +95,6 @@ $call batterySledSocket->PlayFX()
 $call batterySledSocket->SetLocked(false)
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
-$call batteryBase->PlaySound()
 $call batteryBase->SetGrabbable(true)
 
 {@Argo #celebrate} {poses 1.1:} Great! We’ll have to fix the battery and sensor in the repair unit, place them both in the sled! $[great_well_have]
@@ -112,7 +110,6 @@ $if IsSocketed(snowSledSocket)
 $call snowSledSocket->StopFX()
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
-$call snowSensor->StopSound()
 $while NotIsSocketed(batterySledSocket)
 $call Wait(1)
 $endwhile
@@ -122,7 +119,6 @@ $if IsSocketed(batterySledSocket)
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
-$call batteryBase->StopSound()
 $while NotIsSocketed(snowSledSocket)
 $call Wait(1)
 $endwhile
@@ -133,12 +129,10 @@ $call argoHelpButton->SetButtonLocked(true)
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
 $call snowSledSocket->StopFX()
-$call snowSensor->StopSound()
 
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
-$call batteryBase->StopSound()
 
 $call argo->SetGrabbable(true)
 $call argo->PlayFX()
@@ -422,6 +416,8 @@ $endif
 $call Wait(1)
 $endwhile
 
+$call batteryBase->PlaySound()
+
 $call cellOne->StopHighlight()
 $call cellTwo->StopHighlight()
 $call cellThree->StopHighlight()
@@ -461,6 +457,7 @@ $call batteryTwo->StopFX()
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
+$call batteryBase->StopSound()
 
 $call tempSensorButton12->SetButtonLocked(false)
 $call tempSensorButton14->SetButtonLocked(false)
@@ -476,6 +473,8 @@ $if PuzzleIsAlmostComplete(snowPuzzle)
 $call argoHelpButton->SetCurrentClip(32)
 $endif
 $endwhile
+
+$call snowSensor->PlaySound()
 
 $call argoHelpButton->SetButtonLocked(true)
 
@@ -578,6 +577,8 @@ $call batteryBase->StopFX()
 $call batteryBase->StopHighlight()
 $endif
 
+$call batteryBase->PlaySound()
+
 $if NotIsSocketed(snowTowerSocket)
 $call batterySnowSocket->StopFX()
 $call batteryBase->StopFX()
@@ -639,6 +640,7 @@ $endwhile
 $call argo->StopFX()
 $call argoSled->StopFX()
 $call argoSled->StopSound()
+$call batteryBase->StopSound()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)

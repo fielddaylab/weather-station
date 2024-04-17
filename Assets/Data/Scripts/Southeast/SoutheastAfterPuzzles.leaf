@@ -139,6 +139,7 @@ $if NotIsSocketed(batterySnowSocket)
     $call batterySnowSocket->StopFX()
     $call batteryBase->StopFX()
     $call batteryBase->StopHighlight()
+    $call batteryBase->PlaySound()
 $endif
 
 $if NotIsSocketed(snowTowerSocket)
@@ -156,6 +157,7 @@ $endif
 $call batterySnowSocket->StopFX()
 $call batteryBase->StopFX()
 $call batteryBase->StopHighlight()
+$call batteryBase->StopSound()
 $call snowSensor->StopFX()
 $call snowSensor->StopHighlight()
 $call snowTowerSocket->StopHighlight()

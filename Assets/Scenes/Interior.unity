@@ -24971,6 +24971,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1830525473}
     m_Modifications:
+    - target: {fileID: 132007056002980885, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 93702d0d06534470297fdc3a79bbf9af, type: 3}
     - target: {fileID: 247488827114982354, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
         type: 3}
       propertyPath: m_IsActive
@@ -25546,7 +25551,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 5a1c5b015dc6ff54186fc241aaac2e86, type: 3}
+      objectReference: {fileID: 8300000, guid: 93702d0d06534470297fdc3a79bbf9af, type: 3}
     - target: {fileID: 2889157138834367063, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -25556,7 +25561,7 @@ PrefabInstance:
         type: 3}
       propertyPath: SocketedSound
       value: 
-      objectReference: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2,
+      objectReference: {fileID: 11400000, guid: bb85acbf4ce5c2742bd2e5f7b2d267c2,
         type: 2}
     - target: {fileID: 2927402944683479896, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
         type: 3}
@@ -25578,6 +25583,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 21567fe091750d84892d0e17521ec621, type: 2}
+    - target: {fileID: 3086651932316646797, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
+        type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3086651932316646797, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e0101f0558edc41c9b715703e2716f9c, type: 3}
     - target: {fileID: 3144403474234744092, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
         type: 3}
       propertyPath: m_Collider
@@ -25708,7 +25723,7 @@ PrefabInstance:
         type: 3}
       propertyPath: SocketedSound
       value: 
-      objectReference: {fileID: 11400000, guid: c7ec32d3ee94e6548a89629b7bfc27d2,
+      objectReference: {fileID: 11400000, guid: bb85acbf4ce5c2742bd2e5f7b2d267c2,
         type: 2}
     - target: {fileID: 3485705033851122765, guid: 428ed30e4dba4c6428fb9833f2b8c0e6,
         type: 3}
@@ -27048,7 +27063,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.1
-  MaxDistance: 2
+  MaxDistance: 4
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0

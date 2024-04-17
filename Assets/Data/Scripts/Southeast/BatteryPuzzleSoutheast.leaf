@@ -201,6 +201,8 @@ $while PuzzleIsNotComplete(batteryPuzzle)
 
 $endwhile
 
+$call batteryBase->PlaySound()
+
 $call cellOne->StopHighlight()
 $call cellOne->StopFX()
 $call cellTwo->StopHighlight()
@@ -231,3 +233,4 @@ $endwhile
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
 $call batterySledSocket->StopFX()
+$call batteryBase->StopSound()

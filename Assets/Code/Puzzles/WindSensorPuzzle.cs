@@ -35,6 +35,10 @@ namespace WeatherStation {
 						ScriptUtility.Trigger("WindSensorComplete");
 					}
 				}
+				AudioSource aSource = gameObject.GetComponent<AudioSource>();
+				if(aSource != null) {
+					aSource.Play();
+				}
 				State = PuzzleState.Complete;
 				return true;
 			}
