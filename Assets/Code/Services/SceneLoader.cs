@@ -101,6 +101,9 @@ namespace WeatherStation {
 				
 				RenderSettings.skybox = SkyboxMaterials[nextIndex];
 				CurrentSceneIndex = nextIndex;
+				
+				playerLocator.PlayBackgroundMusic();
+				
 				StartCoroutine(PostLoad(3f));
 			}
 		}

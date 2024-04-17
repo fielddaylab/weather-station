@@ -32,7 +32,8 @@ namespace WeatherStation {
 		
 		public Socketable Argo;
 
-		public AudioClip OutsideMusic;
+		public List<AudioClip> OutsideMusic = new List<AudioClip>(8);
+
 		public AudioClip InsideMusic;
 
 		public AudioClip InsideDropEffect;
@@ -93,6 +94,16 @@ namespace WeatherStation {
 					IsTeleporting = true;
 					StartCoroutine(WaitForTeleport(s, 1f));
 				}
+			}
+		}
+
+		public void PlayBackgroundMusic()
+		{
+			if(MainCamera != null) {
+				SceneLoader sl = Find.State<SceneLoader>();
+				MainCamera.gameObject.GetComponent<AudioSource>().Stop();
+				MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic[sl.GetCurrentSceneIndex()];
+				MainCamera.gameObject.GetComponent<AudioSource>().Play();
 			}
 		}
 
@@ -223,10 +234,12 @@ namespace WeatherStation {
 				SocketUtility.TryAddToSocket(ArgoOutsideSocket, s, false);
 				
 				if(PlaneExterior != null) {
+					PlaneExterior.GetComponent<AudioSource>().Play();
 					PlaneExterior.SetActive(true);
 				}
 				
 				if(PlaneInterior != null) {
+					PlaneInterior.GetComponent<AudioSource>().Stop();
 					PlaneInterior.SetActive(false);
 				}
 				
@@ -251,8 +264,9 @@ namespace WeatherStation {
 				}
 				
 				if(MainCamera != null) {
+					SceneLoader sl = Find.State<SceneLoader>();
 					MainCamera.gameObject.GetComponent<AudioSource>().Stop();
-					MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic;
+					MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic[sl.GetCurrentSceneIndex()];
 					MainCamera.gameObject.GetComponent<AudioSource>().Play();
 				}
 				
@@ -292,11 +306,13 @@ namespace WeatherStation {
 				SocketUtility.TryAddToSocket(ArgoInsideSocket, s, false);
 				
 				if(PlaneExterior != null) {
+					PlaneExterior.GetComponent<AudioSource>().Stop();
 					PlaneExterior.SetActive(false);
 				}
 				
 				if(PlaneInterior != null) {
 					PlaneInterior.SetActive(true);
+					PlaneInterior.GetComponent<AudioSource>().Play();
 				}
 				
 				if(ExteriorLight != null) {

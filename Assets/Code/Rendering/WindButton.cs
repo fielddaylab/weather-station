@@ -47,6 +47,7 @@ namespace WeatherStation {
 				
 		private void OnSensorRemoved() {
 			if(FanBlade != null) {
+				FanBlade.GetComponent<AudioSource>().Stop();
 				IsStopped = true;
 			}
 			
@@ -133,6 +134,10 @@ namespace WeatherStation {
 					audioSource.Play();
 				}
 			}
+
+			if(BladeSocket.Current != null && !IsStopped && IsTesting) {
+				FanBlade.GetComponent<AudioSource>().Play();
+			}
 			
 			if(SocketRotation == null) {
 				SocketRotation = BladeSocket.gameObject.transform.GetChild(1).gameObject.GetComponent<WindSocket>();
@@ -158,6 +163,7 @@ namespace WeatherStation {
 			if(!complete) {
 				if(BladeSocket.Current != null) {
 					SocketUtility.TryReleaseFromCurrentSocket(BladeSocket.Current, true, "windSensor_defaultBrokenReturn");
+					FanBlade.GetComponent<AudioSource>().Stop();
 				}
 			}
 			

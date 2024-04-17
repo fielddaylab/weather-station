@@ -158,7 +158,7 @@ $call Wait(1)
 $call map->NextTexture()
 {@Argo #irritated} {poses 3.6:serious} Ugh, I always get so nervous at this part... progress bars are so anxiety inducing. $[argo_ugh_i]
 $call Wait(1)
-
+$call uplink->PlaySound()
 $call Wait(0.1)
 $call uplink->NextTexture()
 $call Wait(0.1)
@@ -176,10 +176,12 @@ $call uplink->NextTexture()
 $call Wait(0.1)
 $call uplink->NextTexture()
 $call Wait(1)
-
+$call uplink->StopSound()
 $call uplink->SetTexture(0)
 
+$call map->PlaySound()
 $call map->NextTexture()
+
 {@Argo} Hooray! See there was nothing to be concerned about. $[argo_hooray_see]
 
 $call Wait(1)
