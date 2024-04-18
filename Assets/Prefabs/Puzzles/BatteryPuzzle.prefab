@@ -1232,7 +1232,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3348098017698003507}
-  - component: {fileID: 6581579963435484576}
   - component: {fileID: 6282034075965980497}
   m_Layer: 0
   m_Name: SocketMiddle
@@ -1257,34 +1256,6 @@ Transform:
   - {fileID: 1027809968937065557}
   m_Father: {fileID: 496530706943489567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6581579963435484576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 978845469470482681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0270a952bd6bf247924c1b0977a04e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Locked: 0
-  Current: {fileID: 0}
-  AllowedSockets: 64
-  SocketCategory: 0
-  Mode: 1
-  JointConfig:
-    BreakForce: Infinity
-    BreakTorque: Infinity
-    MassScale: 1
-    ConnectedMassScale: 1
-  Location: {fileID: 1027809968937065557}
-  Detector: {fileID: 4383939805762686785}
-  ReleaseLocation: {fileID: 0}
-  ReleaseForce: {x: 0, y: 0, z: 0}
-  SoundEffect: {fileID: 6282034075965980497}
-  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &6282034075965980497
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4118,7 +4089,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6609648793732701501}
-  - component: {fileID: 4395369733408947154}
   - component: {fileID: 4504416890044204702}
   m_Layer: 0
   m_Name: SocketTop
@@ -4143,34 +4113,6 @@ Transform:
   - {fileID: 2526883517141855728}
   m_Father: {fileID: 496530706943489567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4395369733408947154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4066638674041509124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0270a952bd6bf247924c1b0977a04e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Locked: 0
-  Current: {fileID: 0}
-  AllowedSockets: 64
-  SocketCategory: 0
-  Mode: 1
-  JointConfig:
-    BreakForce: Infinity
-    BreakTorque: Infinity
-    MassScale: 1
-    ConnectedMassScale: 1
-  Location: {fileID: 2526883517141855728}
-  Detector: {fileID: 746155354573278976}
-  ReleaseLocation: {fileID: 0}
-  ReleaseForce: {x: 0, y: 0, z: 0}
-  SoundEffect: {fileID: 4504416890044204702}
-  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &4504416890044204702
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9185,7 +9127,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 713647404796173033}
-  - component: {fileID: 7683010825794013784}
   - component: {fileID: 8451272150122997055}
   m_Layer: 0
   m_Name: SocketBottom
@@ -9210,34 +9151,6 @@ Transform:
   - {fileID: 8353709837047103225}
   m_Father: {fileID: 496530706943489567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7683010825794013784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8899418114460109225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0270a952bd6bf247924c1b0977a04e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Locked: 0
-  Current: {fileID: 0}
-  AllowedSockets: 64
-  SocketCategory: 0
-  Mode: 1
-  JointConfig:
-    BreakForce: Infinity
-    BreakTorque: Infinity
-    MassScale: 1
-    ConnectedMassScale: 1
-  Location: {fileID: 8353709837047103225}
-  Detector: {fileID: 5717946250914910586}
-  ReleaseLocation: {fileID: 0}
-  ReleaseForce: {x: 0, y: 0, z: 0}
-  SoundEffect: {fileID: 8451272150122997055}
-  SocketedSound: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8, type: 2}
 --- !u!82 &8451272150122997055
 AudioSource:
   m_ObjectHideFlags: 0
