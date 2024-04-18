@@ -28,6 +28,14 @@ $call argoTowerSocket->SetLocked(false)
 $call argoSled->PlayFX()
 $call argoSled->PlaySound()
 
+{@Alex} Matt, Don’t let me forget, before I leave for Madison, we should calibrate the new Argo unit. $[alex_matt_dont]
+
+{@Matt} Copy that. $[matt_copy_that]
+
+{@Argo} Heh heh umm I'm sorry... did you say new Argo unit?? $[argo_im_sorry]
+
+{@Rae} No time to dawdle Argo, lets pick up the pace! $[rae_no_time]
+
 $if NotIsSocketed(argoSled)
     $while NotIsSocketed(argoSled)
         $call Wait(1)
@@ -103,8 +111,7 @@ $call argoHelpButton->SetCurrentClip(34)
 
 {@Alex} Maybe for you. We don’t have weatherproof screens. $[maybe_for_you]
 
-{@Argo} Hmm. You poor humans… so easily damaged. It’s a good thing you have me to look out for you! $[hmm_you_poor]
-
+{@Argo} Hmm. You poor humans… so easily damaged. It’s a good thing you have me to look out for you! You might say my level of expertise is indispensable. $[hmm_you_poor]
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket), NotIsSocketed(windSensorSocket)
 $call Wait(1)

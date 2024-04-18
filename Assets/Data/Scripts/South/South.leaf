@@ -23,6 +23,7 @@ $call argoHelpButton->SetButtonLocked(true)
 {@Alex} Yeah, we noticed that too. $[yeah_we_noticed]
 {@Argo} Status Report: We have a dead battery and a damaged wind sensor, data logger, and snow sensor. $[status_report_we]
 {@Rae} You guys better work fast. I can't take off in white-out conditions. If you're not back on the plane in time, I'll have to leave without you. $[you_guys_better]
+{@Alex} Thanks Rae, Alright Matt, a little trial by fire never hurt anyone, right?  Let's see what you've got. $[alex_thanks_rae]
 
 $call argoFunButton->SetButtonLocked(false)
 $call argoFunButton->SetStartClip(0)
@@ -98,7 +99,7 @@ $call windSensor->PlayFX()
 $call windSensorSled->PlayFX()
 $call windSensorSled->PlaySound()
 
-{@Argo} Ooh. It's been years since we've had a campout! Remember, partner? That time out on Thurston Island? $[ooh_its_been]
+{@Argo} If Rae does leave without us, we could tell Matt the story the time we got stranded on Thurston Island? $[ooh_its_been]
 
 $call loggerPieceOne->StopHighlight()
 $call loggerPieceTwo->StopHighlight()
@@ -107,7 +108,9 @@ $call loggerPieceFour->StopHighlight()
 $call loggerPieceFive->StopHighlight()
 $call loggerPieceSix->StopHighlight() 
 
-{@Argo} Let's get to work, and fast. There's no way I'm spending all night stranded here with that little chatterbox. $[lets_get_to]
+{@Alex} Matt, Let's get to work, and fast. There's no way I'm spending all night stranded here with that little chatterbox. $[lets_get_to]
+
+{@Matt} Copy that. $[matt_copy_that]
 
 $while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket), NotIsSocketed(windSensorSled)
 $call Wait(1)
@@ -292,7 +295,11 @@ $call argoFunButton->SetButtonLocked(true)
 
 {@MissionControl} Otter Three, storm is moving in faster than expected. You've only got about an hour left. $[storm_is_moving]
 
-{@Alex} We're working as fast as we can. $[were_working_as]
+{@Alex} Let’s keep it up Matt, You’ll be in charge of looking after this station once I’m gone. $[were_working_as]
+
+{@Argo} Gone?  Where are you going? $[argo_gone_where]
+
+{@Matt} He's got a baby to raise, Argo. $[matt_hes_got]
 
 $call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(23)	
@@ -304,3 +311,13 @@ $call argoFunButton->SetEndClip(9)
 $call levelLoader->LoadSouthTempPuzzle()
 $call levelLoader->LoadSouthWindPuzzle()
 $call levelLoader->LoadSouthBatteryPuzzle()
+
+{@Argo} Matt, do you like hearing fun facts? $[argo_matt_do]
+
+{@Matt} Uhhh... $[matt_uhh]
+
+{@Alex} Don't give him an inch Matt, he'll take a mile. $[alex_dont_give]
+
+{@Argo} I prefer my worn out idioms to use the metric system. $[argo_i_prefer]
+
+{@Alex} Uggghhh... $[alex_uggh]
