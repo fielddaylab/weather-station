@@ -13,6 +13,11 @@ $while NotIsSocketed(snowBaySocket)
 $call Wait(1)
 $endwhile
 
+{@Argo} We make a pretty good team huh Matt? $[argo_we_make]
+{@Alex} Oh yeah, that reminds me Argo, you're coming back to Madison with me... $[alex_oh_yeah]
+{@Argo} I am?  Why? I thought you hated fun facts. $[argo_i_am]
+{@Alex} Oh I do, I'm reassinging you as a baby monitor. $[alex_oh_i]
+
 $call tempSensorFX->SetDisabled(false)
 $call tempSensorFX->PlayFX()
 
