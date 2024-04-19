@@ -321,3 +321,11 @@ $call levelLoader->LoadSouthBatteryPuzzle()
 {@Argo} I prefer my worn out idioms to use the metric system. $[argo_i_prefer]
 
 {@Alex} Uggghhh... $[alex_uggh]
+
+$while NotIsSocketed(batteryBaySocket)
+$call Wait(1)
+$endwhile
+
+{@Argo} Alex, you look far younger in this photo. Antarctic wind and air is known for being severely unkind to skin moisture levels. $[argo_alex_you]
+
+{@Alex} That’s pretty rich coming from someone who’s held together with duct tape... $[alex_thats_pretty]

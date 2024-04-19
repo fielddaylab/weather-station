@@ -33,6 +33,8 @@ $call argoHelpButton->SetCurrentClip(32)
 $endif
 $endwhile
 
+$call snowSensor->PlaySound()
+
 $if PuzzleIsNotComplete(windSensorPuzzle)
     $if IsGrabbableSocketed(brokenBladeSmall)
         $call argoHelpButton->SetCurrentClip(28)

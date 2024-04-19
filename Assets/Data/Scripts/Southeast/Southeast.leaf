@@ -274,3 +274,19 @@ $call levelLoader->LoadSoutheastBatteryPuzzle()
 $call argoFunButton->SetButtonLocked(false)
 $call argoFunButton->SetStartClip(13)
 $call argoFunButton->SetEndClip(18)
+
+$while NotIsSocketed(batteryBaySocket)
+    $call Wait(1)
+$endwhile
+
+{@Matt} Whoa Alex, there's a picture of you in the battery box. $[matt_whoa_alex]
+{@Alex} Oh man. Is it the one of me standing next to a penguin? My old advisor took that. Jeeze that must have been...12 years ago? $[alex_oh_man]
+
+$while NotIsSocketed(snowBaySocket)
+$call Wait(1)
+$endwhile
+
+{@Argo} We make a pretty good team huh Matt? $[argo_we_make]
+{@Alex} Oh yeah, that reminds me Argo, you're coming back to Madison with me... $[alex_oh_yeah]
+{@Argo} I am?  Why? I thought you hated fun facts. $[argo_i_am]
+{@Alex} Oh I do, I'm reassinging you as a baby monitor. $[alex_oh_i]

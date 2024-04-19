@@ -48,9 +48,6 @@ $if WasGrabbed(batteryBase)
     $endif
 $endif
 
-{@Matt} Whoa Alex, there's a picture of you in the battery box. $[matt_whoa_alex]
-{@Alex} Oh man. Is it the one of me standing next to a penguin? My old advisor took that. Jeeze that must have been...12 years ago? $[alex_oh_man]
-
 $call batteryBaySocket->LockBase(true)
 $call batteryBroken->SetDisabled(false)
 $call batteryBaySocket->OpenCover()
