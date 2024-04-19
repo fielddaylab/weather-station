@@ -245,6 +245,7 @@ $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+$call planeToHide->SetDisabled(true)
 $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)

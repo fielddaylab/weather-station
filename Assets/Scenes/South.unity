@@ -3776,6 +3776,12 @@ PrefabInstance:
       propertyPath: Current
       value: 
       objectReference: {fileID: 1053051991}
+    - target: {fileID: 1620299874480809178, guid: 4a7dad240dec4e84ba06601d3adbddb6,
+        type: 3}
+      propertyPath: SocketedSound
+      value: 
+      objectReference: {fileID: 11400000, guid: d20af95b877e6614888d9d2c6dbebde8,
+        type: 2}
     - target: {fileID: 1968291606435734493, guid: 4a7dad240dec4e84ba06601d3adbddb6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3828,9 +3834,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2772719505674652865, guid: 4a7dad240dec4e84ba06601d3adbddb6,
         type: 3}
+      propertyPath: MaxDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772719505674652865, guid: 4a7dad240dec4e84ba06601d3adbddb6,
+        type: 3}
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 5a1c5b015dc6ff54186fc241aaac2e86, type: 3}
+    - target: {fileID: 2772719505674652865, guid: 4a7dad240dec4e84ba06601d3adbddb6,
+        type: 3}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2772719505674652865, guid: 4a7dad240dec4e84ba06601d3adbddb6,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4956470164118255688, guid: 4a7dad240dec4e84ba06601d3adbddb6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3875,7 +3896,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 5a1c5b015dc6ff54186fc241aaac2e86, type: 3}
+      objectReference: {fileID: 8300000, guid: a1d096f49377d4feea40ac2cd0a894b6, type: 3}
     - target: {fileID: 7758205781430174559, guid: 4a7dad240dec4e84ba06601d3adbddb6,
         type: 3}
       propertyPath: Current

@@ -74,7 +74,6 @@ $call storageCabinet->SetDisabled(true)
 $call planeLeaving->SetDisabled(false)
 $call snow->IncreaseParticles(10000, 2000.0)
 $call batteryBroken->SetDisabled(true)
-$call batteryBase->SetDisabled(true)
 $call batteryOne->SetDisabled(true)
 $call batteryTwo->SetDisabled(true)
 $call batteryThree->SetDisabled(true)
@@ -84,6 +83,8 @@ $call batteryThreeThree->SetDisabled(true)
 $call batteryOneThreeStag->SetDisabled(true)
 $call batteryTwoThreeStag->SetDisabled(true)
 $call batteryThreeThreeStag->SetDisabled(true)
+$call propExtra->SetDisabled(true)
+$call propExtra2->SetDisabled(true)
 $call cellOne->SetDisabled(true)
 $call cellTwo->SetDisabled(true)
 $call cellThree->SetDisabled(true)
@@ -99,8 +100,6 @@ $call argoHelpButton->SetButtonLocked(true)
 
 $call snowSledSocket->SetLocked(false)
 $call batterySledSocket->SetLocked(false)
-
-$call planeToHide->SetDisabled(true)
 
 {@Rae} Stay safe, I’ll be back tomorrow...I hope. $[stay_safe_ill]
 
