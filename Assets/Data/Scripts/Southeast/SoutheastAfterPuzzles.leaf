@@ -63,6 +63,7 @@ $call argo->StopFX()
 $call argoSled->StopSound()
 $call argoSled->StopFX()
 
+$call planeToHide->SetDisabled(true)
 $call fader->FadeOut(3.0)
 $call Wait(4)
 $call argoSled->SetLocked(false)

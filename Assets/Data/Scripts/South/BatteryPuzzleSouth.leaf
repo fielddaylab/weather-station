@@ -5,14 +5,9 @@
 @evalPriority   100
 @once
 
-$call batteryBase->SetGrabbable(true)
+$call batteryBase->SetGrabbable(false)
+
 $call batterySnowSocket->SetLocked(false)
-
-$call batteryBase->ShowHighlight()
-$call batteryBase->PlayFX()
-
-$call batteryBay->ShowHighlight()
-$call batteryBay->PlayFX()
 
 $call batteryBase->SetWasGrabbed(false)
 $call batteryOne->SetWasGrabbed(false)
@@ -26,7 +21,15 @@ $call cellTwo->SetWasGrabbed(false)
 $call cellThree->SetWasGrabbed(false)
 $call cellFour->SetWasGrabbed(false)
 
-$while NotIsGrabbed(batteryBase)
+$call batteryBase->SetGrabbable(true)
+
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+
+$call batteryBay->ShowHighlight()
+$call batteryBay->PlayFX()
+
+$while NotWasGrabbed(batteryBase)
 $call Wait(1)
 $endwhile
 
