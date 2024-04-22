@@ -36,7 +36,7 @@ namespace WeatherStation {
                     } else {
 						if(component.Holding.UseGrabPoses && component.Holding.ConstrainGripPosition) {
 							
-							PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+							PlayerHandRig handRig = Find.State<PlayerHandRig>();
 							
 							if(handRig.LeftHandGrab.GrabbableBy == component && handRig.LeftHandGrab.IsGrabPosed) {
 								
@@ -90,7 +90,10 @@ namespace WeatherStation {
 
                 case GrabberState.AttemptRelease: {
                     if (component.Holding && component.Holding.TryGetComponent(out Socketable socketable) && socketable.HighlightedSocket) {
-                        SocketUtility.TryAddToSocket(socketable.HighlightedSocket, socketable, false);
+                        if(!SocketUtility.TryAddToSocket(socketable.HighlightedSocket, socketable, false))
+						{
+							 GrabUtility.DropCurrent(component, false);
+						}
                     } else {
                         GrabUtility.DropCurrent(component, true);
                     }

@@ -23,6 +23,9 @@ namespace WeatherStation {
 		
 		public List<Material> SkyboxMaterials = new List<Material>(8);
 		
+		[SerializeField]
+		GameObject Alex;
+		
 		#endregion // Inspector
 		
 		private int CurrentSceneIndex = 0;
@@ -45,7 +48,7 @@ namespace WeatherStation {
 			if(!SwitchingScenes) {
 				SwitchingScenes = true;
 				//return anything in your hands when switching scenes.
-				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+				PlayerHandRig handRig = Find.State<PlayerHandRig>();
 				
 				//if(handRig.LeftHandGrab.IsGrabPosed) {
 					GrabUtility.ForceGrabPoseOff(handRig.LeftHandGrab);
@@ -79,7 +82,7 @@ namespace WeatherStation {
 					}
 				}
 				
-				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator playerLocator = Find.State<PlayerLocator>();
 				
 				GrabUtility.ReturnToOriginalSpawnPoint(playerLocator.Argo.gameObject.GetComponent<Grabbable>());
 				
@@ -89,11 +92,18 @@ namespace WeatherStation {
 				nextIndex = nextIndex % SceneList.Count;
                 Game.Scenes.UnloadScene(SceneList[CurrentSceneIndex]);
 				Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional", null, SceneImportFlags.ImportLightingSettings);
-				if(MapMaterial != null) {
-					MapMaterial.mainTexture = MapTextures[nextIndex];
-				}
+				
+				/*if(MapMaterial != null) {
+					if(MapTextures.Count < nextIndex*2+1) {
+						MapMaterial.mainTexture = MapTextures[nextIndex];
+					}
+				}*/
+				
 				RenderSettings.skybox = SkyboxMaterials[nextIndex];
 				CurrentSceneIndex = nextIndex;
+				
+				playerLocator.PlayBackgroundMusic();
+				
 				StartCoroutine(PostLoad(3f));
 			}
 		}
@@ -112,7 +122,7 @@ namespace WeatherStation {
 			if(sceneArgs.Scene.path.Contains("Interior"))
 			{
 				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
-				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator playerLocator = Find.State<PlayerLocator>();
 	            foreach(var root in roots)
 				{
 					//Debug.Log(root);
@@ -124,12 +134,16 @@ namespace WeatherStation {
 					{
 						playerLocator.InteriorLight = root;
 					}
+					else if(root.name == "Directional Light_IntObjs")
+					{
+						playerLocator.InteriorLight2 = root;
+					}
 				}			
 			}
 			else
 			{
 				GameObject[] roots = sceneArgs.Scene.GetRootGameObjects();
-				PlayerLocator playerLocator = Game.SharedState.Get<PlayerLocator>();
+				PlayerLocator playerLocator = Find.State<PlayerLocator>();
 	            foreach(var root in roots)
 				{
 					
@@ -139,7 +153,15 @@ namespace WeatherStation {
 					}
 					else if(root.name == "SunLight00")
 					{
-						playerLocator.ExteriorLight = root.transform.GetChild(0).gameObject;
+						if(root.transform.childCount > 0)
+						{
+							playerLocator.ExteriorLight = root.transform.GetChild(0).gameObject;
+						}
+						
+						if(root.transform.childCount > 1)
+						{
+							playerLocator.ExteriorLightInside = root.transform.GetChild(1).gameObject;
+						}
 					}
 					else if(root.name.Contains("AWS"))
 					{
@@ -151,11 +173,15 @@ namespace WeatherStation {
 							playerLocator.SocketArgoOutside();
 						}
 					}
+					else if(root.name == "PlaneExterior00")
+					{
+						playerLocator.PlaneExterior = root;
+					}
 				}
 				
 				if(sceneArgs.Scene.path.Contains("SouthEast"))
 				{
-					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					RepairDesk rd = Find.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -171,10 +197,22 @@ namespace WeatherStation {
 					{
 						rd.TemperatureSensorButtons3[i].SetActive(true);
 					}
+					
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.StopAllAnimations();
+							aa.SetStartingLocation(4);
+							aa.StartWriting();
+							//aa.StartKneeling();
+						}
+					}
 				}
 				else if(sceneArgs.Scene.path.Contains("NorthWest"))
 				{
-					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					RepairDesk rd = Find.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -190,10 +228,21 @@ namespace WeatherStation {
 					{
 						rd.TemperatureSensorButtons3[i].SetActive(false);
 					}
+					
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.StopAllAnimations();
+							aa.SetStartingLocation(1);
+							aa.StartWalkLoopNW();
+						}
+					}
 				}
 				else if(sceneArgs.Scene.path.Contains("South"))
 				{
-					RepairDesk rd = Game.SharedState.Get<RepairDesk>();
+					RepairDesk rd = Find.State<RepairDesk>();
 					
 					for(int i = 0; i < rd.TemperatureSensorButtons1.Count; ++i)
 					{
@@ -208,6 +257,43 @@ namespace WeatherStation {
 					for(int i = 0; i < rd.TemperatureSensorButtons3.Count; ++i)
 					{
 						rd.TemperatureSensorButtons3[i].SetActive(false);
+					}
+					
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.StopAllAnimations();
+							aa.SetStartingLocation(2);
+							aa.StartWalkLoopS();
+						}
+					}
+				}
+				else if(sceneArgs.Scene.path.Contains("West"))
+				{
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.StopAllAnimations();
+							aa.SetStartingLocation(0);
+							aa.StartWriting();
+						}
+					}
+				}
+				else if(sceneArgs.Scene.path.Contains("East"))
+				{
+					if(Alex != null)
+					{
+						AlexAnimation aa = Alex.GetComponent<AlexAnimation>();
+						if(aa != null)
+						{
+							aa.StopAllAnimations();
+							aa.SetStartingLocation(3);
+							aa.StartTinkering();
+						}
 					}
 				}
 			}

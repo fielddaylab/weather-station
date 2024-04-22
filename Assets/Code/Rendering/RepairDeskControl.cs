@@ -1,6 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using BeauUtil;
+using BeauUtil.Debugger;
+using FieldDay;
+using FieldDay.Components;
+using FieldDay.SharedState;
+using FieldDay.Systems;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace WeatherStation {
 	public class RepairDeskControl : MonoBehaviour
@@ -10,34 +18,107 @@ namespace WeatherStation {
 		[SerializeField] float MaxMove = 0.8975f;
 		[SerializeField] float MinMove = 0.615f;
 		
-		[SerializeField] bool MoveUp = false;
+		private bool RightGrabbed = false;
+		private bool LeftGrabbed = false;
+		
+		private Grabbable Handle;
+		
+		[NonSerialized] public bool WasGrabbed = false;
+		
+		private Vector3 LastPos = Vector3.zero;
 		
 		// Start is called before the first frame update
-		void Awake() {
-			
+        private void Awake() {
+			Handle = GetComponent<Grabbable>();
+			if(Handle != null) {
+				Handle.OnGrabbed.Register(OnGrabPanel);
+				Handle.OnReleased.Register(OnReleasePanel);
+			}
+        }
+		
+		void Start() {
+
 		}
+		
 		
 		public void MoveDesk()
 		{ 
-			if(RepairDesk != null) {
+		
+		}
+		
+		void Update() {
+
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
+
+			Vector3 currPos = Vector3.zero;
+
+			if(LeftGrabbed || RightGrabbed) {
 				
-				float currY = RepairDesk.transform.position.y;
+				WasGrabbed = true;
 				
-				if(MoveUp) {
-					if(currY + 0.02f <= MaxMove) {
-						RepairDesk.transform.Translate(Vector3.up * 0.02f, Space.World);
+				if(LeftGrabbed) {
+					currPos = handRig.LeftHand.Visual.position;
+				} else {
+					currPos = handRig.RightHand.Visual.position;
+				}
+				
+
+				float dir = 1f;
+				if(LastPos.y - currPos.y > 0f) {
+					dir = -1f;
+				}
+				
+				if(currPos.y > MinMove && currPos.y < MaxMove) {
+					if(RepairDesk != null) {
+						RepairDesk.transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
 					}
 				}
-				else {
-					if(currY - 0.02f >= MinMove) {
-						RepairDesk.transform.Translate(-Vector3.up * 0.02f, Space.World);
-					}
+				
+				LastPos = currPos;
+			} 
+		}
+		
+		private void OnGrabPanel(Grabber grabber) {
+			
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
+			
+			if(grabber == handRig.RightHand.Physics) {
+				RightGrabbed = true;
+				LastPos = handRig.RightHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogGrabWorkBenchHandle(false, RepairDesk.transform.position.y);
 				}
 			}
-		}
-
-		void Update() {
 			
+			if(grabber == handRig.LeftHand.Physics) {
+				LeftGrabbed = true;
+				LastPos = handRig.LeftHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogGrabWorkBenchHandle(true, RepairDesk.transform.position.y);
+				}
+			}	
+		}
+		
+		private void OnReleasePanel(Grabber grabber) {
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
+			
+			if(grabber == handRig.RightHand.Physics) {
+				RightGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogReleaseWorkBenchHandle(false, RepairDesk.transform.position.y);
+				}
+			}
+			
+			if(grabber == handRig.LeftHand.Physics) {
+				LeftGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogReleaseWorkBenchHandle(true, RepairDesk.transform.position.y);
+				}
+			}
 		}
 	}
 }

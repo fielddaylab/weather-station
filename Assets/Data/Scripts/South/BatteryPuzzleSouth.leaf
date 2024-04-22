@@ -5,14 +5,9 @@
 @evalPriority   100
 @once
 
-$call batteryBase->SetGrabbable(true)
+$call batteryBase->SetGrabbable(false)
+
 $call batterySnowSocket->SetLocked(false)
-
-$call batteryBase->ShowHighlight()
-$call batteryBase->PlayFX()
-
-$call batteryBay->ShowHighlight()
-$call batteryBay->PlayFX()
 
 $call batteryBase->SetWasGrabbed(false)
 $call batteryOne->SetWasGrabbed(false)
@@ -26,7 +21,15 @@ $call cellTwo->SetWasGrabbed(false)
 $call cellThree->SetWasGrabbed(false)
 $call cellFour->SetWasGrabbed(false)
 
-$while NotIsGrabbed(batteryBase)
+$call batteryBase->SetGrabbable(true)
+
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+
+$call batteryBay->ShowHighlight()
+$call batteryBay->PlayFX()
+
+$while NotWasGrabbed(batteryBase)
 $call Wait(1)
 $endwhile
 
@@ -48,7 +51,9 @@ $endif
 $endif
 
 $call batteryBaySocket->LockBase(true)
+$call batteryBroken->SetDisabled(false)
 $call batteryBaySocket->OpenCover()
+$call batteryBase->DisableCollider(true)
 
 $call argoHelpButton->SetCurrentClip(24)
 
@@ -164,6 +169,8 @@ $call Wait(1)
 
 $endwhile
 
+$call batteryBase->PlaySound()
+
 $call cellOne->StopHighlight()
 $call cellOne->StopFX()
 $call cellTwo->StopHighlight()
@@ -175,6 +182,10 @@ $call cellFour->StopFX()
 
 $call batteryBaySocket->CloseCover()
 $call batteryBaySocket->SetLocked(false)
+$call batteryBase->DisableCollider(false)
+
+$call Wait(3)
+$call batteryThreeThree->SetDisabled(true) // solution piece
 
 $call batteryBase->SetGrabbable(true)
 
@@ -195,3 +206,27 @@ $endwhile
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
+$call batteryBase->StopSound()
+
+$if PuzzleIsNotComplete(snowPuzzle)
+    $if IsGrabbed(snowSensor)
+        $call argoHelpButton->SetCurrentClip(31)
+    $endif
+    $if PuzzleIsAlmostComplete(snowPuzzle)
+        $call argoHelpButton->SetCurrentClip(32)
+    $endif
+$else
+    $if PuzzleIsNotComplete(windSensorPuzzle)
+        $if IsGrabbableSocketed(brokenBladeSmall)
+            $call argoHelpButton->SetCurrentClip(28)
+        $endif
+
+        $if IsMatched(windSensorBladeSocket)
+            $if ButtonPressed(windSensorButton)
+                $call argoHelpButton->SetCurrentClip(29)
+            $endif
+        $else
+            $call argoHelpButton->SetCurrentClip(30)
+        $endif
+    $endif
+$endif

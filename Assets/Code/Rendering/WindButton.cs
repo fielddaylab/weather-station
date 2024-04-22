@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using BeauRoutine;
 using UnityEngine;
+using FieldDay;
 
 namespace WeatherStation {
 	public class WindButton : MonoBehaviour
@@ -12,10 +15,14 @@ namespace WeatherStation {
 		
 		bool IsStopped = false;
 		bool IsTesting = false;
-		
-		private PuzzleSocket BladeSocket = null;
-		private Socketable BrokenProp;
-		private WindSocket SocketRotation = null;
+
+        [NonSerialized] private PuzzleSocket BladeSocket = null;
+        [NonSerialized] private Socketable BrokenProp;
+		[NonSerialized] private WindSocket SocketRotation = null;
+
+		private const float ROTATE_SPEED = 10f;
+
+        private Routine m_TestRoutine;
 		
 		// Start is called before the first frame update
 		void Awake() {
@@ -24,10 +31,6 @@ namespace WeatherStation {
 				Socket.OnRemoved.Register(OnSensorRemoved);
 				Socket.OnAdded.Register(UnlockSocket);
 			}
-		}
-
-		void Update() {
-
 		}
 		
 		public void UnlockSocket(Socketable s) {
@@ -44,10 +47,11 @@ namespace WeatherStation {
 				
 		private void OnSensorRemoved() {
 			if(FanBlade != null) {
+				FanBlade.GetComponent<AudioSource>().Stop();
 				IsStopped = true;
 			}
 			
-			TestButton.Untoggle();
+			//TestButton.Untoggle();
 			IsTesting = false;
 		}
 		
@@ -56,7 +60,8 @@ namespace WeatherStation {
 			if(BladeSocket != null)
 			{
 				//Debug.Log("Testing");
-				if(BladeSocket.Current) {
+				// if there is a propeller attached AND the sensor is settled into the repair bay
+				if(BladeSocket.Current && Socket.Current) {
 					if(BladeSocket.IsMatched()) {
 						//Debug.Log("Testing matched");
 						//rotate propeller, highlight green and chime sound...
@@ -66,31 +71,47 @@ namespace WeatherStation {
 						} else {
 							IsTesting = true;
 							BladeSocket.Locked = true;
-							StartCoroutine(RotateBlade(120f, 30f, true));
+                            m_TestRoutine.Replace(this, RotateBlade(120f, ROTATE_SPEED, true));
 						}
+
+						WSAnalytics w = Find.State<WSAnalytics>();
+						if(w != null) {
+							w.LogTestPropeller(true, true, BladeSocket.Current.gameObject.name);
+						}
+				
 					} else if(BladeSocket.Current == BrokenProp) {
 						if(!IsTesting) {
 							//Debug.Log("Testing broken");
 							IsTesting = true;
-							//BladeSocket.Locked = true;
-							//rotate a bit, then have it detach and fall..
-							StartCoroutine(RotateBlade(5f, 5f, false));
+                            //BladeSocket.Locked = true;
+                            //rotate a bit, then have it detach and fall..
+                            m_TestRoutine.Replace(this, RotateBlade(4f, ROTATE_SPEED, false));
 						}
 						else
 						{
 							IsStopped = true;
-						}				
+						}		
+
+						WSAnalytics w = Find.State<WSAnalytics>();
+						if(w != null) {
+							w.LogTestPropeller(true, false, BladeSocket.Current.gameObject.name);
+						}		
 					} else {
 						if(!IsTesting) {
 							//Debug.Log("Testing wrong");
 							IsTesting = true;
-							//BladeSocket.Locked = true;
-							//rotate a bit, then have it detach and fall..
-							StartCoroutine(RotateBlade(10f, 10f, false));
+                            //BladeSocket.Locked = true;
+                            //rotate a bit, then have it detach and fall..
+                            m_TestRoutine.Replace(this, RotateBlade(8f, ROTATE_SPEED, false));
 						}
 						else
 						{
 							IsStopped = true;
+						}
+						
+						WSAnalytics w = Find.State<WSAnalytics>();
+						if(w != null) {
+							w.LogTestPropeller(true, false, BladeSocket.Current.gameObject.name);
 						}
 					}
 				}
@@ -98,6 +119,10 @@ namespace WeatherStation {
 				{
 					TestButton.Untoggle();
 				}
+			}
+			else
+			{
+				TestButton.Untoggle();
 			}
         }
 
@@ -109,6 +134,10 @@ namespace WeatherStation {
 					audioSource.Play();
 				}
 			}
+
+			if(BladeSocket.Current != null && !IsStopped && IsTesting) {
+				FanBlade.GetComponent<AudioSource>().Play();
+			}
 			
 			if(SocketRotation == null) {
 				SocketRotation = BladeSocket.gameObject.transform.GetChild(1).gameObject.GetComponent<WindSocket>();
@@ -117,25 +146,31 @@ namespace WeatherStation {
 			Socket.Locked = !complete;
 			
             float t = 0f;
-            while(t < duration && !IsStopped) {
+            while(t < duration && !IsStopped && IsTesting) {
 				//Debug.Log("Rotating");
 				if(BladeSocket.Current)
 				{
 					BladeSocket.Current.gameObject.transform.RotateAround(SocketRotation.gameObject.transform.position, BladeSocket.gameObject.transform.right, angle);
 					FanBlade.transform.RotateAround(FanRotate.position, -FanBlade.transform.forward, angle);
-				}
-                yield return new WaitForEndOfFrame();
+				} else {
+                    break;
+                }
+                yield return null;
                 t += Time.deltaTime;
             }
 			
             //unsocket and have it fall to the ground...
 			if(!complete) {
 				if(BladeSocket.Current != null) {
-					SocketUtility.TryReleaseFromCurrentSocket(BladeSocket.Current, true);
+					SocketUtility.TryReleaseFromCurrentSocket(BladeSocket.Current, true, "windSensor_defaultBrokenReturn");
+					FanBlade.GetComponent<AudioSource>().Stop();
 				}
 			}
 			
-			TestButton.Untoggle();
+			if(TestButton.IsOn())
+			{
+				TestButton.Untoggle();
+			}
 			
 			IsTesting = false;
 			IsStopped = false;

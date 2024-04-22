@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using BeauUtil;
 using BeauUtil.Debugger;
-using FieldDay.Systems;
-using UnityEngine;
 
 using StateIndex = BeauUtil.TypeIndex<FieldDay.SharedState.ISharedState>;
 
@@ -22,6 +20,8 @@ namespace FieldDay.SharedState {
 
         private ISharedState[] m_StateMap = new ISharedState[StateIndex.Capacity];
         private readonly HashSet<ISharedState> m_StateSet = new HashSet<ISharedState>(32);
+
+        internal SharedStateMgr() { }
 
         #region Add/Remove
 
@@ -70,6 +70,7 @@ namespace FieldDay.SharedState {
                 s_StaticInjector.Remove(state);
                 RegistrationCallbacks.InvokeDeregister(state);
             }
+            m_StateSet.Clear();
             Array.Clear(m_StateMap, 0, m_StateMap.Length);
         }
 

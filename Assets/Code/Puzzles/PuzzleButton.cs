@@ -18,15 +18,17 @@ namespace WeatherStation {
         public float YShift = 0.012f;
 		
 		public float XShift = 0.0f;
+		
+		public bool UseLocalSpace = false;
         
 		public AudioSource SoundEffect;
         #endregion // Inspector
 		
 		[NonSerialized] public bool WasPressed = false;
 
-        private bool On;
-        //private Color PriorColor;
-        //private MeshRenderer CachedMeshRenderer;
+        private bool On = false;
+		
+		public bool IsOn() { return On; }
 
         public readonly CastableEvent<PuzzleButton> OnPressed = new CastableEvent<PuzzleButton>();
 		
@@ -34,38 +36,43 @@ namespace WeatherStation {
 			On = false;
 			Vector3 vPos = transform.position;
 			vPos.y += YShift;
+			//Debug.Log("Untoggle: " + vPos.ToString("F4"));
 			transform.position = vPos;
 			//CachedMeshRenderer.material.color = PriorColor;
 		}
 		
 		public void ButtonTrigger(Collider c) {
 			if(!Locked) {
-				if(Toggleable) {
+				if(Toggleable) {					
+				
+					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
+					if(rb != null) {
+						rb.detectCollisions = false;
+					}
+					
 					if(!WasPressed) {
 						WasPressed = true;
 					}
 					
 					On = !On;
-					if(SoundEffect != null && SoundEffect.clip != null) {
-						SoundEffect.Play();
-					}
-					
-					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
-					if(rb != null) {
-						rb.detectCollisions = false;
-					}
+                    //if(SoundEffect != null && SoundEffect.clip != null) {
+                    //	SoundEffect.Play();
+                    //}
+                    Sfx.OneShot("button-click", transform.position);
 					
 					if(!On) {
 						Vector3 vPos = transform.position;
 						vPos.y += YShift;
 						vPos.x += XShift;
 						transform.position = vPos;
+						//Debug.Log("PuzzleButtonToggle Off: " + vPos.ToString("F4"));
 						//CachedMeshRenderer.material.color = PriorColor;
 					} else {
 						Vector3 vPos = transform.position;
 						vPos.y -= YShift;
 						vPos.x -= XShift;
 						transform.position = vPos;
+						//Debug.Log("PuzzleButtonToggle On: " + vPos.ToString("F4"));
 						//CachedMeshRenderer.material.color = ButtonColor;
 					}
 					
@@ -73,46 +80,78 @@ namespace WeatherStation {
 					
 				} else {
 					
+					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
+					if(rb != null) {
+						rb.detectCollisions = false;
+					}
+					
 					if(!WasPressed) {
 						//this should only happen if we're on the first level...
 						if(gameObject.name == "ArgoFaceButton") {
-							SceneLoader sceneInfo = Game.SharedState.Get<SceneLoader>();
+							SceneLoader sceneInfo = Find.State<SceneLoader>();
 							if(sceneInfo.GetCurrentSceneIndex() == 0) {
 								ScriptPlugin.ForceKill = true;
 								StartCoroutine(ArgoWasPressed(1f));
 							}
 						}
-						/*using (var table = TempVarTable.Alloc()) {
-							table.Set("someRandomValue", RNG.Instance.Next(60));
-							
-						}*/
+
 						WasPressed = true;
 					}
-					
-					
-					if(SoundEffect != null && SoundEffect.clip != null) {
-						SoundEffect.Play();
+
+
+                    //if(SoundEffect != null && SoundEffect.clip != null) {
+                    //	SoundEffect.Play();
+                    //}
+                    Sfx.OneShot("button-click", transform.position);
+
+                    if (UseLocalSpace)
+					{
+						Vector3 vPos = transform.localPosition;
+						vPos.y += YShift;
+						vPos.x += XShift;
+						transform.localPosition = vPos;
+					}
+					else
+					{
+						Vector3 vPos = transform.position;
+						vPos.y -= YShift;
+						vPos.x -= XShift;
+						transform.position = vPos;
 					}
 					
-					Vector3 vPos = transform.position;
-					vPos.y -= YShift;
-					vPos.x -= XShift;
-					transform.position = vPos;
-					
-					Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
-					if(rb != null) {
-						rb.detectCollisions = false;
-					}
+
 					StartCoroutine(ShiftBack(c));
 				}
 				
 				//haptics...
 				//todo - optimize
-				VRInputState data = Game.SharedState.Get<VRInputState>();
+				VRInputState data = Find.State<VRInputState>();
 				if(c.gameObject.name.StartsWith("Left")) {
 					data.LeftHand.HapticImpulse = 0.25f;
 				} else if(c.gameObject.name.StartsWith("Right")) {
 					data.RightHand.HapticImpulse = 0.25f;
+				}
+
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					if(gameObject.name == "Uplink_Button") {
+						SceneLoader s = Find.State<SceneLoader>();
+						w.LogTestUplink((c.gameObject.name == "LeftPointer"), s.GetCurrentSceneIndex());
+					} else if(gameObject.name == "s.Cabinet_controlButton") {
+						w.LogRotateDrawer((c.gameObject.name == "LeftPointer"));
+					} else if(gameObject.name == "SSBay_Button1" || gameObject.name == "SSBay_Button12" || gameObject.name == "SSBay_Button_13") {
+						TempSensorButton t = gameObject.GetComponent<TempSensorButton>();
+						w.LogClickTemperatureComponent(c.gameObject.name == "LeftPointer", 1, t.GetCurrentSlotTexture(), t.GetNextSlotTexture() );
+					} else if(gameObject.name == "SSBay_Button2" || gameObject.name == "SSBay_Button22" || gameObject.name == "SSBay_Button_2") {
+						TempSensorButton t = gameObject.GetComponent<TempSensorButton>();
+						w.LogClickTemperatureComponent(c.gameObject.name == "LeftPointer", 2, t.GetCurrentSlotTexture(), t.GetNextSlotTexture() );
+					} else if(gameObject.name == "SSBay_Button3" || gameObject.name == "SSBay_Button32" || gameObject.name == "SSBay_Button_33") {
+						TempSensorButton t = gameObject.GetComponent<TempSensorButton>();
+						w.LogClickTemperatureComponent(c.gameObject.name == "LeftPointer", 3, t.GetCurrentSlotTexture(), t.GetNextSlotTexture() );
+					} else if(gameObject.name == "SSBay_Button4" || gameObject.name == "SSBay_Button42" || gameObject.name == "SSBay_Button_43") {
+						TempSensorButton t = gameObject.GetComponent<TempSensorButton>();
+						w.LogClickTemperatureComponent(c.gameObject.name == "LeftPointer", 4, t.GetCurrentSlotTexture(), t.GetNextSlotTexture() );
+					}
 				}
 
 				OnPressed.Invoke(this);
@@ -121,15 +160,24 @@ namespace WeatherStation {
 		
 		IEnumerator ShiftBack(Collider c) {
 			yield return new WaitForSeconds(0.5f);
-			Vector3 vPos = transform.position;
-			vPos.y += YShift;
-			vPos.x += XShift;
-			transform.position = vPos;
-			Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
-			if(rb != null) {
-				rb.detectCollisions = true;
+			if(UseLocalSpace)
+			{
+				Vector3 vPos = transform.localPosition;
+				vPos.y -= YShift;
+				vPos.x -= XShift;
+				//Debug.Log("Shifted back : " + vPos.ToString("F4"));
+				transform.localPosition = vPos;
+			}
+			else
+			{
+				Vector3 vPos = transform.position;
+				vPos.y += YShift;
+				vPos.x += XShift;
+				//Debug.Log("Shifted back : " + vPos.ToString("F4"));
+				transform.position = vPos;
 			}
 			
+			StartCoroutine(TurnBackOn(c));
 			/*if(Toggleable) {
 				CachedMeshRenderer.material.color = PriorColor;
 			}*/

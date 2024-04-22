@@ -26,7 +26,7 @@ namespace FieldDay.Scripting {
 		
 		static public AudioSource LastAudioSource = null;
 		
-		public Func<bool> ForceVOSkip = new Func<bool>(() => (ForceVOSkipSet || ForceKill || CompleteForceKill));
+		public readonly Func<bool> ForceVOSkip = new Func<bool>(() => (ForceVOSkipSet || ForceKill || CompleteForceKill));
 		
         public ScriptPlugin(ScriptRuntimeState inHost, CustomVariantResolver inResolver, IMethodCache inCache = null, LeafRuntimeConfiguration inConfiguration = null)
             : base(inHost, inResolver, inCache, inConfiguration) {
@@ -40,7 +40,10 @@ namespace FieldDay.Scripting {
             LeafUtils.ConfigureDefaultParsers(m_TagParseConfig, this, null);
             LeafUtils.ConfigureDefaultHandlers(m_TagHandler, this);
 
+            m_TagParseConfig.AddEvent("poses", "KeyFramePoses", ParsePoseData);
+
             m_TagHandler.Register(LeafUtils.Events.Character, () => { });
+            m_TagHandler.Register("KeyFramePoses", HandlePoseEvent);
 
             LateEndCutsceneDelegate = LateDecrementNestedPauseCount;
         }
@@ -85,7 +88,7 @@ namespace FieldDay.Scripting {
         }
 
         public override void OnNodeEnter(ScriptNode inNode, LeafThreadState<ScriptNode> inThreadState) {
-            ScriptPersistence persistence = Game.SharedState.Get<ScriptPersistence>();
+            ScriptPersistence persistence = Find.State<ScriptPersistence>();
 	
             StringHash32 nodeId = inNode.Id();
             persistence.RecentViewedNodeIds.PushFront(nodeId);
@@ -120,7 +123,22 @@ namespace FieldDay.Scripting {
                 // TODO: End cutscene
             }
         }
-		
+
+        private void ParsePoseData(TagData inTag, object inContext, ref TagEventData ioData) {
+            ioData.StringArgument = inTag.Data;
+        }
+
+        private void HandlePoseEvent(TagEventData inEvent, object inContext) {
+            ArgoAnimator argo = LastAudioSource ? LastAudioSource.GetComponent<ArgoAnimator>() : null;
+            if (argo != null) {
+                var args = inEvent.ExtractStringArgs();
+                for(int i = 0; i < args.Count; i++) {
+                    TagData tag = TagData.Parse(args[i], Parsing.InlineEvent);
+                    argo.QueuePoseChange(StringParser.ParseFloat(tag.Id), tag.Data);
+                }
+            }
+        }
+
         public override IEnumerator RunLine(LeafThreadState<ScriptNode> inThreadState, LeafLineInfo inLine) {
             
 			if (inLine.IsEmptyOrWhitespace)
@@ -149,6 +167,7 @@ namespace FieldDay.Scripting {
             // TODO: Play VO?
             StringHash32 voiceoverLineCode = default;
             GameObject voiceCharacter = null;
+            StringHash32 pose = default;
 
             // TODO: Voiceover
             if (eventString.TryFindEvent(LeafUtils.Events.Character, out TagEventData charData)) {
@@ -158,6 +177,9 @@ namespace FieldDay.Scripting {
                 // TODO: Find the character in the scene that maps to the character id
                 // Play the VO from there
                 voiceCharacter = VoiceoverUtility.GetCharacterForLineCode(charId);
+                pose = charData.Argument1.AsStringHash();
+            } else if (eventString.TryFindEvent(LeafUtils.Events.Pose, out TagEventData poseData)) {
+                pose = poseData.GetStringHash();
             }
 
             TagStringEventHandler overrideHandler = m_TextDisplayer.PrepareLine(eventString, eventHandler);
@@ -165,7 +187,9 @@ namespace FieldDay.Scripting {
                 overrideHandler.Base = eventHandler;
                 eventHandler = overrideHandler;
             }
-			
+
+            ArgoAnimator argo = null;
+
             if (!voiceoverLineCode.IsEmpty) {
 				
                 AudioClip clip = null;
@@ -181,10 +205,24 @@ namespace FieldDay.Scripting {
                         if(a != null) {
 							LastAudioSource = a;
                             a.clip = clip;
+                            WSAnalytics w = Find.State<WSAnalytics>();
+                            if(w != null) {
+                                w.LogAudioStarted(voiceoverLineCode.ToDebugString(), "exposition", voiceCharacter.name);
+                            }
                             a.Play();
                         }
+
+                        if (voiceCharacter.TryGetComponent(out argo)) {
+                            argo.SetPoseById(pose);
+                        }
+
                     } else {
+                        WSAnalytics w = Find.State<WSAnalytics>();
+                        if(w != null) {
+                            w.LogAudioStarted(voiceoverLineCode.ToDebugString(), "exposition", "unknown");
+                        }
 					    AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
+                        LastAudioSource = null;
                     }
 					
 					if(((SubtitleDisplay)m_TextDisplayer).SubtitlesOn) {
@@ -225,6 +263,11 @@ namespace FieldDay.Scripting {
 							yield return Routine.Race(routineList);
 						}
 						
+                        WSAnalytics w = Find.State<WSAnalytics>();
+                        if(w != null) {
+                            w.LogAudioComplete(voiceoverLineCode.ToDebugString(), "exposition", voiceCharacter.name);
+                        }
+
 						//if should skip vo fails passes here, turn off audio...
 						if(ForceVOSkipSet || ForceKill) {
 							if(voiceCharacter != null) {
@@ -251,7 +294,7 @@ namespace FieldDay.Scripting {
             if (m_RuntimeState.Cutscene == inThreadState.GetHandle()) {
                 m_RuntimeState.Cutscene = default;
             }
-			//Debug.Log("HIT END");
+			
 			ForceKill = false;
             base.OnEnd(inThreadState);
         }

@@ -5,8 +5,8 @@
 @evalPriority   100
 @once
 
-{@Argo} The panel is generating electricity! Excellent work, partner! $[argo_the_panel]
-{@Alex} Argo, is the station all fixed up? $[rae_okay_thats]
+{@Argo #celebrate} The panel is generating electricity! Excellent work, partner! $[argo_the_panel]
+{@Alex} Argo, is the station all fixed up? $[alex_argo_is]
 $call windSensorSocket->SetLocked(false)
 $call windSensor->SetGrabbable(true)
 $call windSensor->ShowHighlight()
@@ -15,6 +15,7 @@ $call windSensor->PlayFX()
 $call windSensorSled->PlayFX()
 $call windSensorSled->PlaySound()
 {@Argo} Hmmm, not yet. It appears the wind sensor is broken.  You will need to replace it with an updated model. $[argo_hmm_not]
+{@Argo} If you ever need some help, just press my big red button. $[if_you_ever]
 
 $if NotIsGrabbed(windSensor), NotIsSocketed(windSensorSled)
 {@Argo} Ok, first step is removing the wind sensor from the tower. $[argo_ok_first]
@@ -50,7 +51,7 @@ $call windSensorSled->StopFX()
 $call windSensorSled->StopSound()
 
 $if NotIsSocketed(argoSled)
-{@Argo} Awesome!  Ok, just one last thing... Toss ME in the sled. $[argo_awesome_ok]
+{@Argo #celebrate} {poses 1:,3.5:happy} Awesome!  Ok, just one last thing... Toss ME in the sled. $[argo_awesome_ok]
 $call argoHelpButton->SetCurrentClip(3)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
@@ -63,16 +64,37 @@ $call argo->StopFX()
 $call argoSled->StopSound()
 $call argoSled->StopFX()
 
-{@Argo} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
+// ensure all required components are in the sled
+$set global:west-all-socketed = false
+$while global:west-all-socketed != true
+    $set global:west-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:west-all-socketed = false
+    $endif
+    $if NotIsSocketed(windSensorSled)
+        $set global:west-all-socketed = false
+    $endif
+    $if global:west-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call windSensorSled->SetLocked(true)
+    $endif
+$endwhile
+
+{@Argo #irritated} {poses 0.97:eyerollsmile,3.333:,} Could have been a bit more gentle! But no matter, to the repair unit! $[argo_could_have]
 $call fader->FadeOut(3.0)
 $call Wait(4)
+// free argo to be placed in interior
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
 
 $call Wait(3)
+$call windSensorSled->SetLocked(false)
 
-{@Argo} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
+{@Argo #happy} {poses 4.0:} Ah, the mobile repair unit!  Home sweet home. This unit has everything you'll need to make essential repairs. See if you can find the replacement wind sensor. $[argo_ah_the]
 $call windSensor->ShowHighlight()
 $call windSensor->PlaySound()
 $call windSensor->PlayFX()
@@ -207,28 +229,32 @@ $call windSensorButton->PlayFX()
 $call windSensorButton->SetButtonPressed(false)
 
 $if ButtonNotPressed(windSensorButton)
-{@Argo} Now let's test it, press the test button. $[argo_now_lets]
+    {@Argo} Now let's test it, press the test button. $[argo_now_lets]
 $endif
+
+$call windSensorButton->StopHighlight()
+$call windSensorButton->StopFX()
 
 $while PuzzleIsNotComplete(windSensorPuzzle)
 
-$call Wait(1)
+    $call Wait(1)
 
-$call argoHelpButton->SetCurrentClip(9)
-$call argoHelpButton->SetButtonLocked(false)
-$while ButtonNotPressed(windSensorButton)
-$call Wait(1)
-$endwhile
-$call argoHelpButton->SetButtonLocked(true)
+    $call argoHelpButton->SetCurrentClip(9)
+    $call argoHelpButton->SetButtonLocked(false)
+        $while ButtonNotPressed(windSensorButton)
+            $call Wait(1)
+        $endwhile
+    $call argoHelpButton->SetButtonLocked(true)
 
-
-$if IsNotMatched(windSensorBladeSocket)
-{@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
-$call argoHelpButton->SetCurrentClip(10)
-$call windSensorButton->SetButtonPressed(false)
-$else
-$call windSensorPuzzle->SetTestSuccess(true)
-$endif
+    $if IsNotMatched(windSensorBladeSocket)
+        {@Argo} Hmm, that's not the right size, let's try another one. $[argo_hmm_thats]
+        $call argoHelpButton->SetCurrentClip(10)
+		$call windSensorButton->ShowHighlight()
+		$call windSensorButton->PlayFX()
+        $call windSensorButton->SetButtonPressed(false)
+    $else
+        $call windSensorPuzzle->SetTestSuccess(true)
+    $endif
 
 $endwhile
 

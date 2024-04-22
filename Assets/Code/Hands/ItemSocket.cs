@@ -11,6 +11,7 @@ namespace WeatherStation {
         public bool Locked = false;
         public Socketable Current = null;
         public SocketFlags AllowedSockets = SocketFlags.Nothing;
+        public ItemSocketType SocketCategory = ItemSocketType.NONE;
 
         [Header("Configuration")]
         public ItemSocketMode Mode = ItemSocketMode.Reparent;
@@ -22,6 +23,7 @@ namespace WeatherStation {
         public Vector3 ReleaseForce;
 		
 		public AudioSource SoundEffect;
+        public SfxAsset SocketedSound;
 		
         [NonSerialized] public FixedJoint CurrentJoint;
 
@@ -65,15 +67,26 @@ namespace WeatherStation {
         }
 		
 		private void OnSocketableAdded(Socketable socketable) {
-			//Debug.Log(socketable.gameObject.name + " added to " + gameObject.name);
-			if(SoundEffect != null && SoundEffect.clip != null) {
-				SoundEffect.Play();
-			}
+            if (SocketedSound != null && SoundEffect) {
+                Sfx.OneShot(SocketedSound, SoundEffect);
+            }
+			////Debug.Log(socketable.gameObject.name + " added to " + gameObject.name);
+			//if(SoundEffect != null && SoundEffect.clip != null) {
+			//	SoundEffect.Play();
+			//}
 		}
     }
 
     public enum ItemSocketMode {
         FixedJoint,
         Reparent
+    }
+
+    public enum ItemSocketType
+    {
+        NONE,
+        SLED,
+        WORKBENCH,
+        TOWER
     }
 }

@@ -31,7 +31,7 @@ namespace WeatherStation {
 		
 		void Update() {
 
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 
 			Vector3 currPos = Vector3.zero;
 			Vector3 euler = transform.rotation.eulerAngles;
@@ -57,15 +57,23 @@ namespace WeatherStation {
 				}
 				
 				Vector3 angles = transform.rotation.eulerAngles;
-				
-				if(angles.z < RotateMin) {
-					angles.z = RotateMin+0.5f;
-					transform.rotation = Quaternion.Euler(angles);
-				} else if(angles.z > RotateMax) {
-					angles.z = RotateMax-0.5f;
+
+				// barely crossed rotate min the normal way
+				if(angles.z <= RotateMin && angles.z > RotateMin - 50) {
+					angles.z = RotateMin;
 					transform.rotation = Quaternion.Euler(angles);
 				}
-				//
+				// drastically jumped to rotate min from rotate max
+				else if (angles.z <= RotateMin && angles.z <= RotateMin - 50)
+                {
+                    angles.z = RotateMax;
+                    transform.rotation = Quaternion.Euler(angles);
+                }
+				// barely crossed rotate max the normal way
+                else if(angles.z >= RotateMax) {
+					angles.z = RotateMax;
+					transform.rotation = Quaternion.Euler(angles);
+				}
 				LastPos = currPos;
 			} 
 			
@@ -82,28 +90,52 @@ namespace WeatherStation {
 		
 		private void OnGrabPanel(Grabber grabber) {
 			
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = true;
+				AudioSource aSource = gameObject.GetComponent<AudioSource>();
+				if(aSource != null) {
+					aSource.Play();
+				}
 				LastPos = handRig.RightHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogGrabTrash(false, transform.rotation.eulerAngles.z);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = true;
+				AudioSource aSource = gameObject.GetComponent<AudioSource>();
+				if(aSource != null) {
+					aSource.Play();
+				}
 				LastPos = handRig.LeftHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogGrabTrash(true, transform.rotation.eulerAngles.z);
+				}
 			}	
 		}
 		
 		private void OnReleasePanel(Grabber grabber) {
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogReleaseTrash(false, transform.rotation.eulerAngles.z);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogReleaseTrash(true, transform.rotation.eulerAngles.z);
+				}
 			}
 		}
 		
@@ -113,6 +145,19 @@ namespace WeatherStation {
 			if(s != null) {	
 				if(s.SocketType == SocketFlags.WindSensorBlade) {
 					//temp - only can trash wind sensor blades at the moment
+					WSAnalytics w = Find.State<WSAnalytics>();
+					if(w != null) {
+                		w.LogDiscardObject("PropellerShape");
+					}
+					Destroy(c.gameObject);
+				}
+				else if(s.SocketType == SocketFlags.BatteryStagPlug || s.SocketType == SocketFlags.BatteryCell || 
+						s.SocketType == SocketFlags.BrokenBattery || s.SocketType == SocketFlags.Battery2Plug || s.SocketType == SocketFlags.Battery3Plug)
+				{
+					WSAnalytics w = Find.State<WSAnalytics>();
+					if(w != null) {
+                		w.LogDiscardObject("BatteryShape");
+					}
 					Destroy(c.gameObject);
 				}
 			}

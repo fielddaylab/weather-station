@@ -31,7 +31,7 @@ namespace WeatherStation {
 		
 		void Update() {
 
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 
 			Vector3 currPos = Vector3.zero;
 			Vector3 euler = transform.rotation.eulerAngles;
@@ -82,28 +82,53 @@ namespace WeatherStation {
 		
 		private void OnGrabPanel(Grabber grabber) {
 			
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
+				AudioSource aSource = gameObject.GetComponent<AudioSource>();
+				if(aSource != null) {
+					aSource.Play();
+				}
 				RightGrabbed = true;
 				LastPos = handRig.RightHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogGrabDoorHandle(false, transform.rotation.eulerAngles.y);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
+				AudioSource aSource = gameObject.GetComponent<AudioSource>();
+				if(aSource != null) {
+					aSource.Play();
+				}
 				LeftGrabbed = true;
 				LastPos = handRig.LeftHand.Visual.position;
+				
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogGrabDoorHandle(true, transform.rotation.eulerAngles.y);
+				}
 			}	
 		}
 		
 		private void OnReleasePanel(Grabber grabber) {
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogReleaseDoorHandle(false, transform.rotation.eulerAngles.y);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogReleaseDoorHandle(true, transform.rotation.eulerAngles.y);
+				}
 			}
 		}
     }

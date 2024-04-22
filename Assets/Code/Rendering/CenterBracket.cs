@@ -13,7 +13,12 @@ using UnityEngine.XR;
 namespace WeatherStation {
     public class CenterBracket : MonoBehaviour {
         #region Inspector
-
+		
+		[SerializeField]
+		float MinHeight;
+		
+		[SerializeField]
+		float MaxHeight;
 		
         #endregion // Inspector
 		
@@ -25,15 +30,13 @@ namespace WeatherStation {
 		[NonSerialized] public bool WasGrabbed = false;
 		
 		private Vector3 LastPos = Vector3.zero;
-		private List<GameObject> TowerObjects;
 		
 		void Update() {
 
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 
 			Vector3 currPos = Vector3.zero;
-			Vector3 euler = transform.rotation.eulerAngles;
-			//Debug.Log(euler.ToString("F5"));
+
 			if(LeftGrabbed || RightGrabbed) {
 				
 				WasGrabbed = true;
@@ -50,18 +53,13 @@ namespace WeatherStation {
 					dir = -1f;
 				}
 				
-				if(currPos.y > 0.25f && currPos.y < 1.5f) {
+				if(currPos.y > MinHeight && currPos.y < MaxHeight) {
 					transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
-					/*for(int i = 0; i < TowerObjects.Count; ++i)
-					{
-						TowerObjects[i].transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
-					}*/
 				}
 				
 				LastPos = currPos;
 			} 
 			
-			//Debug.Log(euler.z);
 		}
 		
         private void Awake() {
@@ -73,33 +71,49 @@ namespace WeatherStation {
         }
 		
 		private void Start() {
-			//TowerObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Tower"));
+
 		}
 		
 		private void OnGrabPanel(Grabber grabber) {
 			
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = true;
 				LastPos = handRig.RightHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogGrabStationHandle(false);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = true;
 				LastPos = handRig.LeftHand.Visual.position;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogGrabStationHandle(true);
+				}
 			}	
 		}
 		
 		private void OnReleasePanel(Grabber grabber) {
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogReleaseStationHandle(false);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+                	w.LogReleaseStationHandle(true);
+				}
 			}
 		}
     }

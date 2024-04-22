@@ -13,10 +13,15 @@ $while NotIsSocketed(snowBaySocket)
 $call Wait(1)
 $endwhile
 
+$call tempSensorFX->SetDisabled(false)
+$call tempSensorFX->PlayFX()
+
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
 $call snowSensorBay->StopFX()
 
+$call tempSensorButton22->SetButtonLocked(false)
+$call tempSensorButton23->SetButtonLocked(false)
 
 $while PuzzleIsNotComplete(snowPuzzle)
 $if IsGrabbed(snowSensor)
@@ -28,9 +33,42 @@ $call argoHelpButton->SetCurrentClip(32)
 $endif
 $endwhile
 
+$call snowSensor->PlaySound()
+
+$if PuzzleIsNotComplete(windSensorPuzzle)
+    $if IsGrabbableSocketed(brokenBladeSmall)
+        $call argoHelpButton->SetCurrentClip(28)
+    $endif
+
+    $if IsMatched(windSensorBladeSocket)
+        $if ButtonPressed(windSensorButton)
+            $call argoHelpButton->SetCurrentClip(29)
+        $endif
+    $else
+        $call argoHelpButton->SetCurrentClip(30)
+    $endif
+$else
+    $if PuzzleIsNotComplete(batteryPuzzle)
+        $if IsPuzzleSocketed(batterySocket)
+            $if IsNotMatched(batterySocket)
+                $call argoHelpButton->SetCurrentClip(25)
+            $else
+                $call argoHelpButton->SetCurrentClip(26)
+            $endif
+        $endif
+    $endif
+$endif
+
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call snowSledSocket->PlayFX()
+
+$while IsSocketed(snowBaySocket)
+$call Wait(1)
+$endwhile
+
+$call tempSensorFX->SetDisabled(true)
+$call tempSensorFX->StopFX()
 
 $while NotIsSocketed(snowSledSocket)
 $call Wait(1)

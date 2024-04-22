@@ -35,14 +35,20 @@ namespace WeatherStation {
 		
 		[SerializeField] private float RotateMin;
 		[SerializeField] private float RotateMax;
+
+		private bool TimerInProgress; // whether the angles are in completion range
+		[SerializeField] private float CompletionTime; // how long player must have panel in correct position before marked as complete
+        private float CompletionTimer;
 		
+		private bool StartedPuzzle = false;
+
 		public override bool CheckComplete() {
 			if(!PowerMeter || !SolarPanel || !DirectionalLight) {
 				Log.Msg("[SolarPanelPuzzle] Required references not set.");
 				return false;
 			}
 			
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
 			Vector3 euler = handRig.RightHand.Visual.rotation.eulerAngles;
 			
@@ -132,7 +138,7 @@ namespace WeatherStation {
 				}
 			}
 			
-			VRInputState data = Game.SharedState.Get<VRInputState>();
+			VRInputState data = Find.State<VRInputState>();
 			
 			Vector3 vSun = DirectionalLight.forward;
 			if(PuzzleLevel == 0)
@@ -160,16 +166,42 @@ namespace WeatherStation {
 				}
 				
 				if(numToHighlight == cc) {
-					//Log.Msg("[SolarPanelPuzzle] completed solar panel puzzle.");
-					if(State != PuzzleState.Complete) {
-						if(GameLevel == 1) {
-							ScriptPlugin.ForceKill = true;
-							StartCoroutine(SolarPanelComplete(1f));
-						}
+					// if countdown has not begun, begin countdown
+					if (!TimerInProgress) {
+						TimerInProgress = true;
+						CompletionTimer = CompletionTime;
 					}
-					State = PuzzleState.Complete;
-					return true;
+					// else continue countdown. If countdown is completed, return true
+					else {
+						CompletionTimer -= Time.deltaTime;
+						if (CompletionTimer <= 0)
+						{
+                            //Log.Msg("[SolarPanelPuzzle] completed solar panel puzzle.");
+                            if (State != PuzzleState.Complete)
+                            {
+                                if (GameLevel == 1)
+                                {
+                                    ScriptPlugin.ForceKill = true;
+                                    StartCoroutine(SolarPanelComplete(1f));
+                                }
+                            }
+							
+							WSAnalytics w = Find.State<WSAnalytics>();
+							if(w != null) {
+								w.LogCompletePuzzle("SOLAR");
+							}
+                            State = PuzzleState.Complete;
+                            return true;
+                        }
+                    }
+
 				} else {
+					// if previous countdown was in progress, end it without completing
+					if (TimerInProgress)
+					{
+						TimerInProgress = false;
+					}
+
 					if(LeftGrabbed) {
 						data.LeftHand.HapticImpulse = (float)numToHighlight / (float)cc;
 					}
@@ -198,30 +230,76 @@ namespace WeatherStation {
 		
 		private void OnGrabPanel(Grabber grabber) {
 			
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
+			int cc = PowerMeter.transform.childCount;
+			int numLights = 0;
+			for(int i = 0; i < cc; ++i) {
+				if(PowerMeter.transform.GetChild(i).gameObject.activeSelf) {
+					numLights++;
+				}
+			}
+
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = true;
 				GrabPointRight = handRig.RightHand.Visual.position;
 				GrabPointRight.y = SolarPanel.transform.position.y;
+
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogGrabSolarHandle(false, SolarPanel.transform.rotation.eulerAngles.y, numLights);
+				}
+
+				if(!StartedPuzzle) {
+					StartedPuzzle = true;
+					w.LogStartPuzzle("SOLAR");
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = true;
 				GrabPointLeft = handRig.LeftHand.Visual.position;
 				GrabPointLeft.y = SolarPanel.transform.position.y;
+
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogGrabSolarHandle(true, SolarPanel.transform.rotation.eulerAngles.y, numLights);
+				}
+				
+				if(!StartedPuzzle) {
+					StartedPuzzle = true;
+					if(w != null) {
+						w.LogStartPuzzle("SOLAR");
+					}
+				}
 			}	
 		}
 		
 		private void OnReleasePanel(Grabber grabber) {
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
 			
+			int cc = PowerMeter.transform.childCount;
+			int numLights = 0;
+			for(int i = 0; i < cc; ++i) {
+				if(PowerMeter.transform.GetChild(i).gameObject.activeSelf) {
+					numLights++;
+				}
+			}
+
 			if(grabber == handRig.RightHand.Physics) {
 				RightGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogReleaseSolarHandle(false, SolarPanel.transform.rotation.eulerAngles.y, numLights);
+				}
 			}
 			
 			if(grabber == handRig.LeftHand.Physics) {
 				LeftGrabbed = false;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogReleaseSolarHandle(true, SolarPanel.transform.rotation.eulerAngles.y, numLights);
+				}
 			}
 		}
 		

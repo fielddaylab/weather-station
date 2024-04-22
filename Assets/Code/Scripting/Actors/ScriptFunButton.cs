@@ -30,14 +30,9 @@ namespace WeatherStation.Scripting {
 		
 		public bool WasButtonPressed() { return ((m_Button != null) && m_Button.WasPressed); }
 		
-        [LeafMember("SetButtonLocked"), Preserve]
-        public void SetButtonLocked(bool lockParam) {
-			m_Button.Locked = lockParam;
-        }
-		
-		[LeafMember("SetCurrentClip"), Preserve]
-		public void SetCurrentClip(int clipIndex) {
-			ArgoFun argo = Game.SharedState.Get<ArgoFun>();
+		[LeafMember("SetStartClip"), Preserve]
+		public void SetStartClip(int clipIndex) {
+			ArgoFun argo = Find.State<ArgoFun>();
 			if(argo != null) {
 				argo.SetCurrentClip(clipIndex);
 			}
@@ -45,7 +40,7 @@ namespace WeatherStation.Scripting {
 		
 		[LeafMember("SetEndClip"), Preserve]
 		public void SetEndClip(int clipIndex) {
-			ArgoFun argo = Game.SharedState.Get<ArgoFun>();
+			ArgoFun argo = Find.State<ArgoFun>();
 			if(argo != null) {
 				argo.SetEndClip(clipIndex);
 			}

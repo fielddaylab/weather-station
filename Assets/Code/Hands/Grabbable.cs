@@ -34,8 +34,6 @@ namespace WeatherStation {
         [NonSerialized] public Grabber[] CurrentGrabbers;
         [NonSerialized] public int CurrentGrabberCount;
 
-        
-
         [NonSerialized] public bool WasGrabbed = false;
 
         [NonSerialized] public bool WasKinematic = false;
@@ -48,6 +46,7 @@ namespace WeatherStation {
 		
         public readonly CastableEvent<Grabber> OnGrabbed = new CastableEvent<Grabber>();
         public readonly CastableEvent<Grabber> OnReleased = new CastableEvent<Grabber>();
+		public readonly CastableEvent<Socketable> OnCantReturn = new CastableEvent<Socketable>();
 		
 		private Routine ReturnProcess;
 		
@@ -57,31 +56,42 @@ namespace WeatherStation {
             WasKinematic = Rigidbody.isKinematic;
             OriginalPosition = transform.position;
             OriginalRotation = transform.rotation;
-            OriginalParent = transform.parent;
+			OriginalParent = transform.parent;
 			
             CurrentGrabbers = new Grabber[MaxGrabbers];	
         }
 		
 		public void OnCollisionEnter(Collision c) {
-			if(c.gameObject.layer == 12 && !gameObject.GetComponent<Rigidbody>().isKinematic) {
-				if(ReturnOnGroundHit && !ReturnProcess.Exists()) {
-					ReturnProcess = Routine.Start(ReturnToStart());
+			if(c.GetContact(0).otherCollider.gameObject.layer == 12 && !gameObject.GetComponent<Rigidbody>().isKinematic) {
+                if (ReturnOnGroundHit && !ReturnProcess.Exists()) {
+                    ReturnProcess = Routine.Start(ReturnToStart());
 				}
 			}
 		}
 		
 		private IEnumerator ReturnToStart() {
 			yield return 1;
-			if(OriginalSocket) {
-				if(TryGetComponent(out Socketable s)) {
-					if(OriginalSocket.Current == null) {
-						SocketUtility.TryAddToSocket(OriginalSocket, s, true);
-					} else {
-						GrabUtility.ReturnToOriginalSpawnPoint(this);
+			if(CurrentGrabberCount == 0) {
+				if(OriginalSocket) {
+					if(TryGetComponent(out Socketable s)) {
+						if(OriginalSocket.Current == null) {
+							//Debug.Log("Return 1");
+							SocketUtility.TryAddToSocket(OriginalSocket, s, true);
+						} else {
+							if(s.SocketType == SocketFlags.DataLoggerPiece) {
+								OnCantReturn.Invoke(s);
+							}
+							/*if(OriginalParent != null && (OriginalParent.gameObject != OriginalSocket.gameObject))
+							{
+								//Debug.Log("Return 2");
+								GrabUtility.ReturnToOriginalSpawnPoint(this);
+							}*/
+						}
 					}
+				} else {
+					//Debug.Log("Return 3");
+					GrabUtility.ReturnToOriginalSpawnPoint(this);
 				}
-			} else {
-				GrabUtility.ReturnToOriginalSpawnPoint(this);
 			}
 		}
     }
@@ -93,7 +103,7 @@ namespace WeatherStation {
             }
 
             if (grabbable.CurrentGrabberCount >= grabbable.MaxGrabbers) {
-                DetachOldest(grabbable);
+				DetachOldest(grabbable);
             }
 
             if (!ReferenceEquals(grabber.Holding, null)) {
@@ -118,6 +128,9 @@ namespace WeatherStation {
             }
             jointConfig.Apply(grabber.Joint);
 
+			//check for grabbing of puzzle object type here for logging purposes.
+			CheckPuzzleLoggingGrab(grabbable, grabber);
+
             grabber.State = GrabberState.Holding;
             grabber.HoldStartTime = Frame.Timestamp();
 
@@ -129,21 +142,74 @@ namespace WeatherStation {
 			}
 			
 			if(grabbable.UseGrabPoses) {
-				PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
-				VRInputState data = Game.SharedState.Get<VRInputState>();
+				PlayerHandRig handRig = Find.State<PlayerHandRig>();
+				VRInputState data = Find.State<VRInputState>();
 				if(handRig.LeftHandGrab.GrabbableBy == grabber) {
-					data.LeftHand.HapticImpulse = 0.1f;
+					data.LeftHand.HapticImpulse = 0.25f;
+					
 					GrabUtility.GrabPoseOn(handRig.LeftHandGrab, grabbable, true);
 				}
 
 				if(handRig.RightHandGrab.GrabbableBy == grabber) {
-					data.RightHand.HapticImpulse = 0.1f;
+					data.RightHand.HapticImpulse = 0.25f;
+					
 					GrabUtility.GrabPoseOn(handRig.RightHandGrab, grabbable, false);
 				}
 			}
 			
             return true;
         }
+
+		static private void CheckPuzzleLoggingGrab(Grabbable grabbable, Grabber grabber) {
+			WSAnalytics w = Find.State<WSAnalytics>();
+			if(w != null) { 
+				if(grabbable.TryGetComponent(out Socketable s)) {
+					if(s.SocketType == SocketFlags.WindSensor || s.SocketType == SocketFlags.SolarPanel || 
+						s.SocketType == SocketFlags.SnowSensor || s.SocketType == SocketFlags.BatteryBase || s.SocketType == SocketFlags.Argo) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogGrabPuzzleObject(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name);
+					}
+					else if(s.SocketType == SocketFlags.DataLoggerPiece) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogGrabPuzzleObject(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name);
+					}
+					else if(s.SocketType == SocketFlags.WindSensorBlade) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogGrabPropeller(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name);
+					}
+					else if(s.SocketType == SocketFlags.BatteryCell || s.SocketType == SocketFlags.Battery2Plug || 
+							s.SocketType == SocketFlags.Battery3Plug || s.SocketType == SocketFlags.BatteryStagPlug) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogGrabBatteryComponent(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name);
+					}
+				}
+			}
+		}
+
+		static private void CheckPuzzleLoggingRelease(Grabbable grabbable, Grabber grabber) {
+			WSAnalytics w = Find.State<WSAnalytics>();
+			if(w != null) { 
+				if(grabbable.TryGetComponent(out Socketable s)) {
+					if(s.SocketType == SocketFlags.WindSensor || s.SocketType == SocketFlags.SolarPanel || 
+						s.SocketType == SocketFlags.SnowSensor || s.SocketType == SocketFlags.BatteryBase || s.SocketType == SocketFlags.Argo) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogReleasePuzzleObject(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name, grabbable.transform.position, grabbable.transform.rotation);
+					}
+					else if(s.SocketType == SocketFlags.DataLoggerPiece) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogReleaseDataPuck(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name, grabbable.transform.position, grabbable.transform.rotation);
+					}
+					else if(s.SocketType == SocketFlags.WindSensorBlade) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogReleasePropeller(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name, grabbable.transform.position, grabbable.transform.rotation);
+					}
+					else if(s.SocketType == SocketFlags.BatteryCell || s.SocketType == SocketFlags.Battery2Plug || s.SocketType == SocketFlags.Battery3Plug || s.SocketType == SocketFlags.BatteryStagPlug) {
+						PlayerHandRig handRig = Find.State<PlayerHandRig>();
+						w.LogReleaseBatteryComponent(handRig.LeftHandGrab.GrabbableBy == grabber, s.gameObject.name, grabbable.transform.position, grabbable.transform.rotation);
+					}
+				}
+			}
+		}
 
         static private bool DetachOldest(Grabbable grabbable) {
             if (grabbable.CurrentGrabberCount <= 0) {
@@ -183,7 +249,7 @@ namespace WeatherStation {
 					if(grabber.Holding != null) {
 
 						if(grabber.Holding.UseGrabPoses) {
-							PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
+							PlayerHandRig handRig = Find.State<PlayerHandRig>();
 
 							if(handRig.LeftHandGrab.GrabbableBy == grabber && handRig.LeftHandGrab.IsGrabPosed) {
 								GrabUtility.GrabPoseOff(handRig.LeftHandGrab, grabber.Holding, grabber, applyReleaseForce, handRig.RightHandGrab);
@@ -195,25 +261,32 @@ namespace WeatherStation {
 						}
 					}
 					
+					CheckPuzzleLoggingRelease(grabber.Holding, grabber);
+
                     grabber.Holding.OnReleased.Invoke(grabber);
                     grabber.OnRelease.Invoke(grabber.Holding);
                     grabber.Holding = null;
                 }
 
                 if (applyReleaseForce && grabber.ReleaseThrowForce > 0) {
-                    Rigidbody connected = grabber.Joint.connectedBody;
-                    if (connected) {
-                        Vector3 anchor = grabber.Joint.connectedAnchor;
-                        anchor = connected.transform.TransformPoint(anchor);
-                        Vector3 velocity = grabber.CachedRB.velocity;
+					if(grabber.Joint != null) {
+						Rigidbody connected = grabber.Joint.connectedBody;
+						if (connected) {
+							Vector3 anchor = grabber.Joint.connectedAnchor;
+							anchor = connected.transform.TransformPoint(anchor);
+							Vector3 velocity = grabber.CachedRB.velocity;
 
-                        connected.AddForceAtPosition(velocity * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
-                    }
+							connected.AddForceAtPosition(velocity * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
+						}
+					}
                 }
                 
-                grabber.Joint.connectedBody = null;
-                Joint.Destroy(grabber.Joint);
-                grabber.Joint = null;
+				if(grabber.Joint != null)
+				{
+					grabber.Joint.connectedBody = null;
+					Joint.Destroy(grabber.Joint);
+					grabber.Joint = null;
+				}
 
                 grabber.HoldStartTime = -1;
                 grabber.State = GrabberState.Empty;
@@ -227,6 +300,13 @@ namespace WeatherStation {
 		static public void GrabPoseOn(GrabPose gp, Grabbable grabbable, bool isLeft=false) {
 			gp.GrabberVisual.SetActive(false);
 			gp.gameObject.SetActive(true);
+			
+			AudioSource aSource = gp.gameObject.GetComponent<AudioSource>();
+			if(aSource)
+			{
+				aSource.Play();
+			}
+			
 			gp.IsGrabPosed = true;
 			
 			grabbable.Rigidbody.useGravity = false;
@@ -234,16 +314,16 @@ namespace WeatherStation {
 			
 			Animator a = gp.gameObject.GetComponent<Animator>();
 			if(a != null) {
-				if(grabbable.GripPoseIndex != -1) {
-					a.SetInteger(Animator.StringToHash("Pose"), grabbable.GripPoseIndex);
-				} else {
-					a.SetInteger(Animator.StringToHash("Pose"), 0);
-					a.SetFloat(Animator.StringToHash("Flex"), grabbable.GripAmount);
+				if(grabbable.GripPoseIndex == -1) {
+					a.SetInteger(Animator.StringToHash("Pose"), -1);
+					a.SetFloat(Animator.StringToHash("Flex"), grabbable.GripAmount);	
 				}
 			}
 			
+			int closestSpot = -1;
 			if(isLeft && grabbable.UsePerHandGrabPose) {
-				int closestSpot = -1;
+				
+				int specificGripPose = -1;
 				float dist = 9999f;
 				for(int i = 0; i < grabbable.GrabSpotsLeft.Count; ++i) {
 					float currDist = Vector3.Distance(gp.GrabberVisual.transform.position, grabbable.GrabSpotsLeft[i].position);
@@ -256,6 +336,7 @@ namespace WeatherStation {
 				if(closestSpot != -1) {
 					//for position, instead walk through list of possible grab points... attach to closest...
 					gp.gameObject.transform.position = grabbable.GrabSpotsLeft[closestSpot].transform.position;
+					gp.gameObject.transform.rotation = grabbable.GrabSpotsLeft[closestSpot].transform.rotation;
 					if(grabbable.ConstrainGripPosition) {
 						gp.ConstrainGripPosition = true;
 						gp.ConstrainedGripTransform = grabbable.GrabSpotsLeft[closestSpot].transform;
@@ -265,9 +346,21 @@ namespace WeatherStation {
 						gp.ConstrainedGripPosition = Vector3.zero;
 					}
 				}
+				
+				/*if(a != null) {
+					GrabSpot gs = grabbable.GrabSpotsLeft[closestSpot].gameObject.GetComponent<GrabSpot>();
+					if(gs != null) {
+						specificGripPose = gs.GrabPoseIndex;
+					}
+					
+					if(specificGripPose != -1) {
+						a.SetInteger(Animator.StringToHash("Pose"), specificGripPose);
+					}
+				}*/
 			}
 			else {
-				int closestSpot = -1;
+				
+				int specificGripPose = -1;
 				float dist = 9999f;
 				for(int i = 0; i < grabbable.GrabSpots.Count; ++i) {
 					float currDist = Vector3.Distance(gp.GrabberVisual.transform.position, grabbable.GrabSpots[i].position);
@@ -280,6 +373,7 @@ namespace WeatherStation {
 				if(closestSpot != -1) {
 					//for position, instead walk through list of possible grab points... attach to closest...
 					gp.gameObject.transform.position = grabbable.GrabSpots[closestSpot].transform.position;
+					gp.gameObject.transform.rotation = grabbable.GrabSpots[closestSpot].transform.rotation;
 					if(grabbable.ConstrainGripPosition) {
 						gp.ConstrainGripPosition = true;
 						gp.ConstrainedGripTransform = grabbable.GrabSpots[closestSpot].transform;
@@ -289,14 +383,35 @@ namespace WeatherStation {
 						gp.ConstrainedGripPosition = Vector3.zero;
 					}
 				}
+
+				/*if(a != null) {
+					GrabSpot gs = grabbable.GrabSpots[closestSpot].gameObject.GetComponent<GrabSpot>();
+					if(gs != null) {
+						specificGripPose = gs.GrabPoseIndex;
+					}
+					
+					if(specificGripPose != -1) {
+						a.SetInteger(Animator.StringToHash("Pose"), specificGripPose);
+					}
+				}*/
 			}
 			
-			//we want to temporarily set the parent of the grab pose component to the thing we grabbed, but also set the thing we grabbed'd parent to the grabber visual
 			gp.gameObject.transform.SetParent(grabbable.transform);
 			
+			//we want to temporarily set the parent of the grab pose component to the thing we grabbed, but also set the thing we grabbed'd parent to the grabber visual
+			/*if(isLeft && grabbable.UsePerHandGrabPose) 
+			{
+				gp.gameObject.transform.SetParent(grabbable.GrabSpotsLeft[closestSpot].transform);
+			}
+			else
+			{
+				gp.gameObject.transform.SetParent(grabbable.GrabSpots[closestSpot].transform);
+			}*/
+
 			if(!grabbable.ConstrainGripPosition) {
 				grabbable.transform.SetParent(gp.GrabberVisual.transform.parent);
 			}
+			
 		}
 		
 		static public void ForceGrabPoseOff(GrabPose gp) {
@@ -304,23 +419,31 @@ namespace WeatherStation {
 			gp.SetToOriginalParent();
 			gp.gameObject.SetActive(false);
 			gp.IsGrabPosed = false;
+			
+			if(gp.GrabbableBy != null) {
+				if(gp.GrabbableBy.Joint != null) {
+					gp.GrabbableBy.Joint.connectedBody = null;
+					Joint.Destroy(gp.GrabbableBy.Joint);
+					gp.GrabbableBy.Joint = null;
+				}
+			}
+			
 		}
 		
 		static public void GrabPoseOff(GrabPose gp, Grabbable grabbable, Grabber grabber, bool applyReleaseForce, GrabPose otherGrabPose) 
 		{
 			gp.GrabberVisual.SetActive(true);
 			gp.SetToOriginalParent();
-			gp.gameObject.SetActive(false);
+            gp.gameObject.SetActive(false);
 			gp.IsGrabPosed = false;
 			
-			//Debug.Log(grabbable.CurrentGrabberCount);
 			if(grabbable.CurrentGrabberCount == 0) {
 
 				if(grabbable.GripPoseIndex != -1) {
 					Animator a = gp.gameObject.GetComponent<Animator>();
 					if(a)
 					{
-						a.SetInteger(Animator.StringToHash("Pose"), 0);
+						a.SetInteger(Animator.StringToHash("Pose"), -1);
 					}
 				} 
 
@@ -336,18 +459,26 @@ namespace WeatherStation {
                 if (applyReleaseForce && grabber.ReleaseThrowForce > 0) {
                     Rigidbody connected = grabbable.Rigidbody;
                     if (connected) {
-                        Vector3 anchor = grabber.Joint.connectedAnchor;
-                        anchor = connected.transform.TransformPoint(anchor);
-                        Vector3 velocity = grabber.CachedRB.velocity;
-						Vector3 forceVec = (grabbable.gameObject.transform.position - grabbable.LastPosition);
-						forceVec.x *= velocity.x;
-						forceVec.y *= velocity.y;
-						forceVec.z *= velocity.z;
-                        connected.AddForceAtPosition(forceVec * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
+						if(grabber.Joint != null) {
+							Vector3 anchor = grabber.Joint.connectedAnchor;
+							anchor = connected.transform.TransformPoint(anchor);
+							Vector3 velocity = grabber.CachedRB.velocity;
+							Vector3 forceVec = (grabbable.gameObject.transform.position - grabbable.LastPosition);
+							forceVec.x *= velocity.x;
+							forceVec.y *= velocity.y;
+							forceVec.z *= velocity.z;
+							connected.AddForceAtPosition(forceVec * grabber.ReleaseThrowForce, anchor, ForceMode.Impulse);
+							
+							//grabber.Joint.connectedBody = null;
+							//Joint.Destroy(grabber.Joint);
+							//grabber.Joint = null;
+						}
                     } 
                 }
 			} else {
-				GrabPoseOn(otherGrabPose, grabbable);
+				PlayerHandRig handRig = Find.State<PlayerHandRig>();
+				//Debug.Log(grabbable.CurrentGrabberCount);
+				GrabPoseOn(otherGrabPose, grabbable, (handRig.LeftHandGrab == otherGrabPose));
 			}
 		}
 		
@@ -357,7 +488,7 @@ namespace WeatherStation {
 				component.transform.position = component.OriginalPosition;
 				component.transform.rotation = component.OriginalRotation;
 				component.transform.SetParent(component.OriginalParent, true);
-			}
+            }
 		}
     }
 }

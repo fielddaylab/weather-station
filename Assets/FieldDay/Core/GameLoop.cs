@@ -2,6 +2,14 @@
 #define USE_SRP
 #endif // UNITY_2019_1_OR_NEWER
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif // UNITY_EDITOR
+
+#if USING_VR && !UNITY_EDITOR
+#define SKIP_ONGUI
+#endif // USING_VR && !UNITY_EDITOR
+
 using System;
 using System.Collections;
 using System.Reflection;
@@ -23,10 +31,10 @@ using FieldDay.Scenes;
 using System.Threading;
 using System.Globalization;
 using BeauRoutine;
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif // UNITY_EDITOR
+using FieldDay.UI;
+using FieldDay.Assets;
+using FieldDay.HID;
+using FieldDay.Rendering;
 
 #if USE_SRP
 using UnityEngine.Rendering;
@@ -119,6 +127,16 @@ namespace FieldDay {
         /// </summary>
         static public readonly ActionEvent OnShutdown = new ActionEvent(16);
 
+        /// <summary>
+        /// Invoked when the pause state is changed.
+        /// </summary>
+        static public readonly CastableEvent<bool> OnPauseStateChanged = new CastableEvent<bool>(4);
+
+        /// <summary>
+        /// Invoked when the focus state is changed.
+        /// </summary>
+        static public readonly CastableEvent<bool> OnFocusStateChanged = new CastableEvent<bool>(4);
+
         #endregion // Global Events
 
         static private readonly WaitForEndOfFrame s_EndOfFrame = new WaitForEndOfFrame();
@@ -146,6 +164,8 @@ namespace FieldDay {
 
         // pausing
         static private bool s_DebugPause = false;
+        static private bool s_AppFocusState = false;
+        static private bool s_AppPauseState = false;
 
         // profiling
         static private PhaseTiming s_TimeProfiling;
@@ -191,6 +211,20 @@ namespace FieldDay {
             Log.Msg("[GameLoop] Creating scene manager...");
             Game.Scenes = new SceneMgr();
 
+            Log.Msg("[GameLoop] Creating rendering manager...");
+            Game.Rendering = new RenderMgr();
+
+            Log.Msg("[GameLoop] Creating input manager...");
+            Game.Input = new InputMgr();
+
+            Log.Msg("[GameLoop] Creating gui manager...");
+            Game.Gui = new GuiMgr(Game.Input);
+
+            Log.Msg("[GameLoop] Creating asset manager...");
+            Game.Assets = new AssetMgr();
+
+            CursorUtility.PlatformInit();
+
             Application.targetFrameRate = m_TargetFramerate;
 
             Log.Msg("[GameLoop] Loading config vars...");
@@ -207,12 +241,17 @@ namespace FieldDay {
             useGUILayout = false;
             StartCoroutine(DelayedBoot());
 
+            Game.Components.Lock();
+
             Async.InvokeAsync(PotentiallyExpensiveSystemResourceRetrieval);
         }
 
         private void Start() {
             Log.Msg("[GameLoop] Boot finished");
             SetCurrentPhase(GameLoopPhase.Booted);
+            Game.Components.Unlock();
+            Game.Input.Initialize();
+            Game.Gui.Initialize();
 			Game.Scenes.Prepare();
             Game.Systems.ProcessInitQueue();
             FlushQueue(s_OnBootQueue);
@@ -280,6 +319,22 @@ namespace FieldDay {
             CameraHelper.RemoveOnPreRender(this);
             CameraHelper.RemoveOnPostRender(this);
 
+            Log.Msg("[GameLoop] Shutting down asset manager...");
+            Game.Assets.Shutdown();
+            Game.Assets = null;
+
+            Log.Msg("[GameLoop] Shutting down gui manager...");
+            Game.Gui.Shutdown();
+            Game.Gui = null;
+
+            Log.Msg("[GameLoop] Shutting down input manager...");
+            Game.Input.Shutdown();
+            Game.Input = null;
+
+            Log.Msg("[GameLoop] Shutting down rendering manager...");
+            Game.Rendering.Shutdown();
+            Game.Rendering = null;
+
             Log.Msg("[GameLoop] Shutting down scene manager...");
             Game.Scenes.Shutdown();
             Game.Scenes = null;
@@ -317,6 +372,8 @@ namespace FieldDay {
             OnUnscaledLateUpdate.Clear();
             OnUnscaledUpdate.Clear();
             OnUpdate.Clear();
+            OnPauseStateChanged.Clear();
+            OnFocusStateChanged.Clear();
 
             // clearing all callback queues
             s_AfterLateUpdateQueue.Clear();
@@ -404,6 +461,7 @@ namespace FieldDay {
                 OnUnscaledLateUpdate.Invoke(Frame.UnscaledDeltaTime);
             }
 
+            Game.Gui.ProcessUpdate();
             Game.Audio.Update(Frame.UnscaledDeltaTime);
 
             // flush event queue
@@ -411,6 +469,7 @@ namespace FieldDay {
 
             FlushQueue(s_AfterLateUpdateQueue);
             Game.Scenes.Update();
+            Game.Rendering.PollScreenSettings();
 
             m_ReadyForRender = true;
         }
@@ -484,6 +543,16 @@ namespace FieldDay {
             }
         }
 
+        private void OnApplicationFocus(bool focus) {
+            s_AppFocusState = focus;
+            OnFocusStateChanged.Invoke(focus);
+        }
+
+        private void OnApplicationPause(bool pause) {
+            s_AppPauseState = pause;
+            OnPauseStateChanged.Invoke(pause);
+        }
+
         #endregion // Unity Events
 
         #region Handlers
@@ -500,6 +569,8 @@ namespace FieldDay {
                 FlushQueue(s_FrameStartQueue);
 
                 FlushQueue(s_OnBootQueue);
+
+                Game.Input.UpdateDoubleClickBuffer();
 
                 // DEBUG UPDATE
                 Game.Components.Lock();
@@ -719,7 +790,7 @@ namespace FieldDay {
         /// Returns if the game loop is paused.
         /// </summary>
         static public bool IsPaused() {
-            return s_DebugPause;
+            return s_DebugPause || s_AppPauseState;
         }
 
         /// <summary>
@@ -727,6 +798,13 @@ namespace FieldDay {
         /// </summary>
         static internal void SetDebugPause(bool paused) {
             s_DebugPause = paused;
+        }
+
+        /// <summary>
+        /// Returns if the application is focused.
+        /// </summary>
+        static public bool IsFocused() {
+            return s_AppFocusState;
         }
 
         #endregion // Pausing

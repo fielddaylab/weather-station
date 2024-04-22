@@ -15,12 +15,15 @@ namespace WeatherStation {
 		public Transform OutsideLocation;
 		public Transform SledInsideLocation;
 		public Transform SledOutsideLocation;
-
+		public Transform FinalLocation;
+		
 		public GameObject Sled;
 		public GameObject PlaneExterior;
 		public GameObject PlaneInterior;
 		public GameObject ExteriorLight;
+		public GameObject ExteriorLightInside;
 		public GameObject InteriorLight;
+		public GameObject InteriorLight2;
 		public OVRScreenFade Fader;
 
 		public ItemSocket ArgoInsideSocket;
@@ -29,7 +32,8 @@ namespace WeatherStation {
 		
 		public Socketable Argo;
 
-		public AudioClip OutsideMusic;
+		public List<AudioClip> OutsideMusic = new List<AudioClip>(8);
+
 		public AudioClip InsideMusic;
 
 		public AudioClip InsideDropEffect;
@@ -55,6 +59,12 @@ namespace WeatherStation {
 				StartTeleportCountdown(Argo);
 			}
 		}
+
+		public void GetHeadTransform(out Vector3 pos, out Quaternion quat)
+		{
+			pos = HeadRoot.transform.position;
+			quat = HeadRoot.transform.rotation;
+		}
 		
 		public void SocketArgoOutside()
 		{
@@ -67,44 +77,90 @@ namespace WeatherStation {
 			transform.RotateAround(HeadRoot.transform.position, Vector3.up, left ? -30f : 30f);
 		}
 		
+		public void SetFinalLocation() {
+			OutsideLocation.position = FinalLocation.position;
+			OutsideLocation.rotation = FinalLocation.rotation;
+			transform.position = FinalLocation.position;
+			StartCoroutine("InitialAlignment");
+		}
+		
 		public void StartTeleportCountdown(Socketable s) {
-			
+
 			//we should return any item in your hand to their original location before teleporting...
-			PlayerHandRig handRig = Game.SharedState.Get<PlayerHandRig>();
-			if(handRig.LeftHand.Physics.State == GrabberState.Holding) {
-				Grabbable h = handRig.LeftHand.Physics.Holding;
-				Socketable s2 = h.gameObject.GetComponent<Socketable>();
-				if(s2 != s) {
-					if(h != null)
-					{
-						if(h.OriginalSocket.Current == null) {
-							SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
-						} else {
-							GrabUtility.ReturnToOriginalSpawnPoint(h);
-						}
-					}
-				}
-			}
-			
-			if(handRig.RightHand.Physics.State == GrabberState.Holding) {
-				Grabbable h = handRig.RightHand.Physics.Holding;
-				Socketable s2 = h.gameObject.GetComponent<Socketable>();
-				if(s2 != s) {
-					if(h != null)
-					{
-						if(h.OriginalSocket.Current == null) {
-							SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
-						} else {
-							GrabUtility.ReturnToOriginalSpawnPoint(h);
-						}
-					}
-				}
-			}
+			ReturnAnythingInHand(s);
 			
 			if(s.SocketType == SocketFlags.Argo) {
 				if(!IsTeleporting) {
 					IsTeleporting = true;
 					StartCoroutine(WaitForTeleport(s, 1f));
+				}
+			}
+		}
+
+		public void PlayBackgroundMusic()
+		{
+			if(MainCamera != null) {
+				SceneLoader sl = Find.State<SceneLoader>();
+				MainCamera.gameObject.GetComponent<AudioSource>().Stop();
+				MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic[sl.GetCurrentSceneIndex()];
+				MainCamera.gameObject.GetComponent<AudioSource>().Play();
+			}
+		}
+
+		private void ReturnAnythingInHand(Socketable s)
+        {
+			PlayerHandRig handRig = Find.State<PlayerHandRig>();
+			if (handRig.LeftHand.Physics.State == GrabberState.Holding)
+			{
+				Grabbable h = handRig.LeftHand.Physics.Holding;
+				Socketable s2 = h.gameObject.GetComponent<Socketable>();
+				if (s2 != s)
+				{
+					if (s2 == null)
+					{
+						GrabUtility.DropCurrent(handRig.LeftHand.Physics, false);
+					}
+					else
+					{
+						if (h != null)
+						{
+							if (h.OriginalSocket != null && h.OriginalSocket.Current == null)
+							{
+								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+							}
+							else
+							{
+								GrabUtility.ReturnToOriginalSpawnPoint(h);
+							}
+						}
+					}
+				}
+			}
+
+			if (handRig.RightHand.Physics.State == GrabberState.Holding)
+			{
+				Grabbable h = handRig.RightHand.Physics.Holding;
+				Socketable s2 = h.gameObject.GetComponent<Socketable>();
+				if (s2 != s)
+				{
+					if (s2 == null)
+					{
+						GrabUtility.DropCurrent(handRig.RightHand.Physics, false);
+					}
+					else
+					{
+						if (h != null)
+						{
+							if (h.OriginalSocket.Current == null)
+							{
+								SocketUtility.TryAddToSocket(h.OriginalSocket, s2, true);
+							}
+							else
+							{
+								GrabUtility.ReturnToOriginalSpawnPoint(h);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -135,7 +191,7 @@ namespace WeatherStation {
 		IEnumerator WaitForTeleport(Socketable s, float duration)
 		{
 			yield return new WaitForSeconds(duration);
-			
+
 			/*if(Fader) {
 				Fader.FadeOut(1f);
 			}
@@ -145,6 +201,9 @@ namespace WeatherStation {
 			if(Fader) {
 				Fader.FadeIn(1f);
 			}*/
+
+			// release anything if player has grabbed something since fade began
+			ReturnAnythingInHand(s);
 
 			//release Argo from the Sled
 			SocketUtility.TryReleaseFromCurrentSocket(s, false);
@@ -174,11 +233,15 @@ namespace WeatherStation {
 
 				SocketUtility.TryAddToSocket(ArgoOutsideSocket, s, false);
 				
+				OutsideLocation.GetComponent<AudioSource>().Play();
+				
 				if(PlaneExterior != null) {
 					PlaneExterior.SetActive(true);
 				}
 				
-				if(PlaneInterior != null) {
+				InsideLocation.GetComponent<AudioSource>().Stop();
+				
+				if(PlaneInterior != null) {	
 					PlaneInterior.SetActive(false);
 				}
 				
@@ -189,16 +252,33 @@ namespace WeatherStation {
 				if(InteriorLight != null) {
 					InteriorLight.SetActive(false);
 				}
-
+				
+				if(InteriorLight2 != null) {
+					InteriorLight2.SetActive(false);
+				}
+				
+				if(ExteriorLightInside != null) {
+					ExteriorLightInside.SetActive(false);
+				}
+				
 				if(OutsideDropEffect != null) {
 					GetComponent<AudioSource>().clip = OutsideDropEffect;
 				}
 				
 				if(MainCamera != null) {
+					SceneLoader sl = Find.State<SceneLoader>();
 					MainCamera.gameObject.GetComponent<AudioSource>().Stop();
-					MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic;
+					MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic[sl.GetCurrentSceneIndex()];
 					MainCamera.gameObject.GetComponent<AudioSource>().Play();
 				}
+				
+				RenderSettings.fog = true;
+				
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogLocationTransition("OUTSIDE");
+				}
+				
 			} else {
 				
 				Vector3 headPos = transform.GetChild(0).transform.localPosition;
@@ -227,12 +307,16 @@ namespace WeatherStation {
 				Sled.transform.rotation = SledInsideLocation.transform.rotation;
 				SocketUtility.TryAddToSocket(ArgoInsideSocket, s, false);
 				
-				if(PlaneExterior != null) {
+				OutsideLocation.GetComponent<AudioSource>().Stop();
+				
+				if(PlaneExterior != null) {	
 					PlaneExterior.SetActive(false);
 				}
 				
+				InsideLocation.GetComponent<AudioSource>().Play();
+				
 				if(PlaneInterior != null) {
-					PlaneInterior.SetActive(true);
+					PlaneInterior.SetActive(true);	
 				}
 				
 				if(ExteriorLight != null) {
@@ -243,6 +327,14 @@ namespace WeatherStation {
 					InteriorLight.SetActive(true);
 				}
 				
+				if(InteriorLight2 != null) {
+					InteriorLight2.SetActive(true);
+				}
+				
+				if(ExteriorLightInside != null) {
+					ExteriorLightInside.SetActive(true);
+				}
+				
 				if(InsideDropEffect != null) {
 					GetComponent<AudioSource>().clip = InsideDropEffect;
 				}
@@ -251,6 +343,13 @@ namespace WeatherStation {
 					MainCamera.gameObject.GetComponent<AudioSource>().Stop();
 					MainCamera.gameObject.GetComponent<AudioSource>().clip = InsideMusic;
 					MainCamera.gameObject.GetComponent<AudioSource>().Play();
+				}
+				
+				RenderSettings.fog = false;
+
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogLocationTransition("INSIDE");
 				}
 			}
 			

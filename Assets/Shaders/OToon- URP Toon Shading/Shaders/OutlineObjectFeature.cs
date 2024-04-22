@@ -57,7 +57,7 @@ namespace OToon
             {
                 CommandBuffer cmd = CommandBufferPool.Get(m_ProfilerTag);
 
-                using (new ProfilingSample(cmd, m_ProfilerTag))
+                using (new ProfilingScope(cmd, m_ProfilingSampler))
                 {
                     context.ExecuteCommandBuffer(cmd);
                     cmd.Clear();

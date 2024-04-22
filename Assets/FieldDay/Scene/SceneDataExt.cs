@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using BeauUtil;
 using UnityEngine;
@@ -95,11 +94,31 @@ namespace FieldDay.Scenes {
             return (m_VisitState & flags) == flags;
         }
 
+        /// <summary>
+        /// Queue of callbacks for when the scene is marked loaded.
+        /// </summary>
+        public RingBuffer<Action> LoadedCallbackQueue = new RingBuffer<Action>(32, RingBufferMode.Expand);
+        
+        /// <summary>
+        /// Queues of callbacks for when the scene is marked as being unloaded.
+        /// </summary>
+        public RingBuffer<Action> UnloadingCallbackQueue = new RingBuffer<Action>(32, RingBufferMode.Expand);
+
         #region Tracking
 
         static private readonly List<SceneDataExt> s_Loaded = new List<SceneDataExt>(4);
-        static private readonly Dictionary<Scene, SceneDataExt> s_LoadedMap = new Dictionary<Scene, SceneDataExt>(32);
+        static private readonly Dictionary<Scene, SceneDataExt> s_LoadedMap = new Dictionary<Scene, SceneDataExt>(32, new SceneEqualityComparer());
         static private readonly Dictionary<string, SceneDataExt> s_LoadedMapByPath = new Dictionary<string, SceneDataExt>(32, StringComparer.Ordinal);
+
+        private sealed class SceneEqualityComparer : EqualityComparer<Scene> {
+            public override bool Equals(Scene x, Scene y) {
+                return x.handle == y.handle;
+            }
+
+            public override int GetHashCode(Scene obj) {
+                return obj.handle;
+            }
+        }
 
         private void OnEnable() {
             s_Loaded.Add(this);

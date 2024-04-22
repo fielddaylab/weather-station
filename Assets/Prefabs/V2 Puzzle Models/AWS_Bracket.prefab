@@ -506,12 +506,14 @@ MonoBehaviour:
   IsHeavy: 0
   StayKinematic: 1
   UseGrabPoses: 1
+  UsePerHandGrabPose: 0
   ReturnOnGroundHit: 0
   GripAmount: 0.5
   GripPoseIndex: -1
   ConstrainGripPosition: 1
   GrabSpots:
   - {fileID: 4114600397752767046}
+  GrabSpotsLeft: []
 --- !u!114 &404210814271039804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,6 +526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e62ef7078af4c845aac2cc56f533eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinHeight: 0
+  MaxHeight: 0
 --- !u!1 &8361104540031283339
 GameObject:
   m_ObjectHideFlags: 0
@@ -2082,6 +2086,12 @@ PrefabInstance:
       propertyPath: SoundEffect
       value: 
       objectReference: {fileID: 3091296429450661915}
+    - target: {fileID: 1092880702828975181, guid: c1f916a2ee9feee488bb8274e1733de5,
+        type: 3}
+      propertyPath: SocketedSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 88feb352750b5334bbc30baf292b74a2,
+        type: 2}
     - target: {fileID: 1092880702828975181, guid: c1f916a2ee9feee488bb8274e1733de5,
         type: 3}
       propertyPath: AllowedSockets

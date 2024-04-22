@@ -6,11 +6,11 @@
 @once
 
 $while NotIsSocketed(snowSledSocket)
-$call Wait(1)
+    $call Wait(1)
 $endwhile
 
 $while NotIsSocketed(batterySledSocket)
-$call Wait(1)
+    $call Wait(1)
 $endwhile
 
 $call argoFunButton->SetButtonLocked(true)
@@ -38,17 +38,69 @@ $call Wait(1)
 $endwhile
 $endif
 
+$set global:southeast-all-socketed = false
+$while global:southeast-all-socketed != true
+    $set global:southeast-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:southeast-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:southeast-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:southeast-all-socketed = false
+    $endif
+    $if global:southeast-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+    $endif
+$endwhile
+
 $call argo->StopFX()
 $call argoSled->StopSound()
 $call argoSled->StopFX()
 
+$call planeToHide->SetDisabled(true)
 $call fader->FadeOut(3.0)
 $call Wait(4)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
+$call tent->SetDisabled(false)
+$call alex->StartKneeling()
+
+$call storageCabinet->SetDisabled(true)
+$call planeLeaving->SetDisabled(false)
+$call snow->IncreaseParticles(10000, 2000.0)
+$call batteryBroken->SetDisabled(true)
+$call batteryOne->SetDisabled(true)
+$call batteryTwo->SetDisabled(true)
+$call batteryThree->SetDisabled(true)
+$call batteryOneThree->SetDisabled(true)
+$call batteryTwoThree->SetDisabled(true)
+$call batteryThreeThree->SetDisabled(true)
+$call batteryOneThreeStag->SetDisabled(true)
+$call batteryTwoThreeStag->SetDisabled(true)
+$call batteryThreeThreeStag->SetDisabled(true)
+$call propExtra->SetDisabled(true)
+$call propExtra2->SetDisabled(true)
+$call cellOne->SetDisabled(true)
+$call cellTwo->SetDisabled(true)
+$call cellThree->SetDisabled(true)
+$call cellFour->SetDisabled(true)
+
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(false)
 $call Wait(4)
+$call argoTowerSocket->SetLocked(true)
 $call fader->FadeIn(3.0, 1.0)
 
 $call argoHelpButton->SetButtonLocked(true)
+
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
 
 {@Rae} Stay safe, I’ll be back tomorrow...I hope. $[stay_safe_ill]
 
@@ -73,37 +125,39 @@ $call batterySnowSocket->PlayFX()
 
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
-$call Wait(1)
+    $call Wait(1)
 $endwhile
 
 $if NotIsSocketed(batterySnowSocket)
-$call snowTowerSocket->StopHighlight()
-$call snowTowerSocket->StopFX()
-$call snowSensor->StopFX()
+    $call snowTowerSocket->StopHighlight()
+    $call snowTowerSocket->StopFX()
+    $call snowSensor->StopFX()
 
-$while NotIsSocketed(batterySnowSocket)
-$call Wait(1)
-$endwhile
-$call batterySnowSocket->StopFX()
-$call batteryBase->StopFX()
-$call batteryBase->StopHighlight()
+    $while NotIsSocketed(batterySnowSocket)
+        $call Wait(1)
+    $endwhile
+    $call batterySnowSocket->StopFX()
+    $call batteryBase->StopFX()
+    $call batteryBase->StopHighlight()
+    $call batteryBase->PlaySound()
 $endif
 
 $if NotIsSocketed(snowTowerSocket)
-$call batterySnowSocket->StopFX()
-$call batteryBase->StopFX()
-$call batteryBase->StopHighlight()
-$while NotIsSocketed(snowTowerSocket)
-$call Wait(1)
-$endwhile
-$call snowTowerSocket->StopHighlight()
-$call snowTowerSocket->StopFX()
-$call snowSensor->StopFX()
+    $call batterySnowSocket->StopFX()
+    $call batteryBase->StopFX()
+    $call batteryBase->StopHighlight()
+    $while NotIsSocketed(snowTowerSocket)
+        $call Wait(1)
+    $endwhile
+    $call snowTowerSocket->StopHighlight()
+    $call snowTowerSocket->StopFX()
+    $call snowSensor->StopFX()
 $endif
 
 $call batterySnowSocket->StopFX()
 $call batteryBase->StopFX()
 $call batteryBase->StopHighlight()
+$call batteryBase->StopSound()
 $call snowSensor->StopFX()
 $call snowSensor->StopHighlight()
 $call snowTowerSocket->StopHighlight()
@@ -114,12 +168,11 @@ $call argoFunButton->SetButtonLocked(true)
 
 {@Alex} Okay. Moment of truth. ARGO, how did we do? $[okay_moment_of]
 {@Argo} The station is transmitting! All sensors are back online. $[the_station_is]
-{@Alex} I can’t believe it. We did it!  And just in time. We better take cover. $[i_cant_believe]
+{@Alex} I can’t believe it. We did it! Argo?...Nice Job.. Ok... we better take cover. $[i_cant_believe]
 {@Argo} Yes. In these conditions, humans can suffer frostbite in as little as five minutes! I’ll be fine however... I was built for the cold! $[yes_in_these]
-{@Argo} Are we positive that ARGO doesn’t have a mute button? $[are_we_positive]
+{@Alex} Are we positive that ARGO doesn’t have a mute button? $[are_we_positive]
 
-
-$call fader->FadeOut(10.0)
-$call Wait(10)
-
+$call fader->FadeOut(4.0)
+$call Wait(4)
+$call playerLocation->SetFinalLocation()
 $call levelLoader->LoadEpilogue()

@@ -40,8 +40,13 @@ namespace WeatherStation {
 			
 		}
 		
-		public void ArgoFunPressed() {
+		public void ArgoFunPressed(Collider c) {
 			
+			WSAnalytics w = Find.State<WSAnalytics>();
+			if(w != null) {
+				w.LogArgoFun(c.gameObject.name == "LeftPointer");
+			}
+
 			if(!m_Button.Locked && m_Button.WasPressed && !m_ArgoHelp.HelpIsPlaying) {
 				
 				if(m_CurrentClip != -1 && m_EndCurrentClip != -1) {
@@ -54,6 +59,8 @@ namespace WeatherStation {
 		IEnumerator StartFunProcess() {
 			
 			ArgoAudio.Stop();
+			
+			int startClip = m_CurrentClip;
 			
 			while(m_CurrentClip <= m_EndCurrentClip) {	
 				//Debug.Log("Fun pressed " + m_CurrentClip);
@@ -70,6 +77,8 @@ namespace WeatherStation {
 				}
 				m_CurrentClip++;
 			}
+			
+			m_CurrentClip = startClip;
 			
 		}
 	}

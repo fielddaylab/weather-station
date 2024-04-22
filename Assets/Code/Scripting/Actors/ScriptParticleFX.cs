@@ -21,13 +21,18 @@ namespace WeatherStation.Scripting {
 
         #endregion // ILeafActor
 
+        bool m_IsDestination = false;
+
         #region Leaf
 
         [LeafMember("PlayFX"), Preserve]
         public void PlayFX() {
-			
 			if(m_PS != null) {
 				m_PS.Play();
+                WSAnalytics w = Find.State<WSAnalytics>();
+                if(w != null) {
+			        w.LogObjectHighlighted(gameObject.name, m_PS.name == "PickupHintFX0");
+                }
 			}
         }
 
@@ -35,8 +40,22 @@ namespace WeatherStation.Scripting {
         public void StopFX() {
             if(m_PS != null) {
 				m_PS.Stop();
+                WSAnalytics w = Find.State<WSAnalytics>();
+                if(w != null) {
+			        w.LogObjectUnhighlighted(gameObject.name, m_PS.name == "PickupHintFX0");
+                }
 			}
         }
+		
+		[LeafMember("IncreaseParticles"), Preserve]
+		public void IncreaseParticles(int numParticles, float rate) {
+			if(m_PS != null) {
+				ParticleSystem.MainModule m = m_PS.main;
+				m.maxParticles = numParticles;
+				ParticleSystem.EmissionModule e = m_PS.emission;
+				e.rateOverTime = rate;
+			}
+		}
 
 
         #endregion // Leaf

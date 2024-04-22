@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BeauUtil;
+using FieldDay;
 using FieldDay.Components;
 using UnityEngine;
 
@@ -31,13 +32,13 @@ namespace WeatherStation {
     }
 
     static public class SocketUtility {
-        static public bool TryReleaseFromCurrentSocket(Socketable socketable, bool applyReleaseForce) {
+        static public bool TryReleaseFromCurrentSocket(Socketable socketable, bool applyReleaseForce, string overrideParent = "") {
             if (socketable.CurrentSocket) {
                 if (socketable.CurrentSocket.Locked) {
                     return false;
                 }
 
-                ReleaseCurrent(socketable.CurrentSocket, applyReleaseForce);
+                ReleaseCurrent(socketable.CurrentSocket, applyReleaseForce, overrideParent);
             }
 
             return true;
@@ -97,6 +98,8 @@ namespace WeatherStation {
 			{
 				grabbable.OriginalSocket = socket;
 			}
+
+            CheckSocketLogging(socketable, socket);
             
             socketable.OnAddedToSocket.Invoke(socket);
             socket.OnAdded.Invoke(socketable);
@@ -104,7 +107,29 @@ namespace WeatherStation {
             return true;
         }
 
-        static public void ReleaseCurrent(ItemSocket socket, bool applyReleaseForce) {
+        //todo - fix handedness here.
+        static private void CheckSocketLogging(Socketable socketable, ItemSocket socket) {
+            WSAnalytics w = Find.State<WSAnalytics>();
+			if(w != null) { 
+                if(socketable.SocketType == SocketFlags.WindSensor || socketable.SocketType == SocketFlags.SolarPanel || 
+						socketable.SocketType == SocketFlags.SnowSensor || socketable.SocketType == SocketFlags.BatteryBase || 
+                        socketable.SocketType == SocketFlags.Argo) {
+                    w.LogPlacePuzzleObject(true, socketable.gameObject.name, socket.SocketCategory.ToString());
+                }
+                else if(socketable.SocketType == SocketFlags.DataLoggerPiece) {
+                    w.LogPlaceDataPuck(true, socketable.gameObject.name);
+                }
+                else if(socketable.SocketType == SocketFlags.WindSensorBlade) {
+                    w.LogPlacePropeller(true, socketable.gameObject.name);
+                }
+                else if(socketable.SocketType == SocketFlags.BatteryCell || socketable.SocketType == SocketFlags.Battery2Plug ||
+                 socketable.SocketType == SocketFlags.Battery3Plug || socketable.SocketType == SocketFlags.BatteryStagPlug) {
+					w.LogPlaceBatteryComponent(true, socketable.gameObject.name);
+                 }
+            }
+        }
+
+        static public void ReleaseCurrent(ItemSocket socket, bool applyReleaseForce, string overrideReparent = "") {
             if (!socket.Current) {
                 return;
             }
@@ -125,7 +150,32 @@ namespace WeatherStation {
 
             if (socket.Mode == ItemSocketMode.Reparent) {
 
-                socket.Current.CachedTransform.SetParent(socket.Current.OriginalParent, true);
+                if (overrideReparent == "")
+                {
+                    socket.Current.CachedTransform.SetParent(socket.Current.OriginalParent, true);
+                }
+                else
+                {
+                    GameObject foundReparent = GameObject.Find(overrideReparent);
+                    if (foundReparent != null)
+                    {
+                        socket.Current.CachedTransform.SetParent(foundReparent.transform);
+                        socket.Current.OriginalParent = foundReparent.transform;
+                        var grabbable = socket.Current.GetComponent<Grabbable>();
+                        grabbable.OriginalParent = foundReparent.transform;
+                        grabbable.OriginalPosition = foundReparent.transform.position;
+                        grabbable.OriginalRotation = foundReparent.transform.rotation;
+                        grabbable.OriginalSocket = null;
+                    }
+                    else
+                    {
+                        socket.Current.CachedTransform.SetParent(null);
+                        socket.Current.OriginalParent = null;
+                        var grabbable = socket.Current.GetComponent<Grabbable>();
+                        grabbable.OriginalParent = null;
+                        grabbable.OriginalSocket = null;
+                    }
+                }
                 socket.Current.CachedRB.isKinematic = false;
 				
 				if(applyReleaseForce) {
@@ -161,10 +211,13 @@ namespace WeatherStation {
         BatteryBase = 0x04,
         SnowSensor = 0x08,
         WindSensorBlade = 0x10,
-        BatteryPiece = 0x20,
-        BatteryPlug = 0x40,
+        BatteryStagPlug = 0x20,
+        BatteryCell = 0x40,
         DataLoggerPiece = 0x80,
 		DataLoggerPuzzle = 0x100,
-		SolarPanel = 0x200
+		SolarPanel = 0x200,
+        BrokenBattery = 0x400,
+        Battery2Plug = 0x800,
+        Battery3Plug = 0x1000,
     }
 }

@@ -28,11 +28,44 @@ $call argoTowerSocket->SetLocked(false)
 $call argoSled->PlayFX()
 $call argoSled->PlaySound()
 
+{@Alex} Matt, Don’t let me forget, before I leave for Madison, we should calibrate the new Argo unit. $[alex_matt_dont]
+
+{@Matt} Copy that. $[matt_copy_that]
+
+{@Argo} Heh heh umm I'm sorry... did you say new Argo unit?? $[argo_im_sorry]
+
+{@Rae} No time to dawdle Argo, lets pick up the pace! $[rae_no_time]
+
 $if NotIsSocketed(argoSled)
-$while NotIsSocketed(argoSled)
-$call Wait(1)
-$endwhile
+    $while NotIsSocketed(argoSled)
+        $call Wait(1)
+    $endwhile
 $endif
+
+$set global:south-all-socketed = false
+$while global:south-all-socketed != true
+    $set global:south-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(windSensorSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if global:south-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+        $call windSensorSled->SetLocked(true)
+    $endif
+$endwhile
 
 $call argo->StopFX()
 $call argoSled->StopSound()
@@ -40,10 +73,12 @@ $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(false)
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
-
 
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
@@ -61,6 +96,9 @@ $call windSensorSocket->PlayFX()
 
 $call argoHelpButton->SetButtonLocked(true)
 
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
+$call windSensorSled->SetLocked(false)
 
 {@Rae} Okay, dream team, I'm prepping the plane for take-off. How's it going out there? $[okay_dream_time]
 
@@ -73,8 +111,7 @@ $call argoHelpButton->SetCurrentClip(34)
 
 {@Alex} Maybe for you. We don’t have weatherproof screens. $[maybe_for_you]
 
-{@Argo} Hmm. You poor humans… so easily damaged. It’s a good thing you have me to look out for you! $[hmm_you_poor]
-
+{@Argo} Hmm. You poor humans… so easily damaged. It’s a good thing you have me to look out for you! You might say my level of expertise is indispensable. $[hmm_you_poor]
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket), NotIsSocketed(windSensorSocket)
 $call Wait(1)
@@ -85,6 +122,7 @@ $if IsSocketed(batterySnowSocket)
 $call batterySnowSocket->StopFX()
 $call batteryBase->StopFX()
 $call batteryBase->StopHighlight()
+$call batteryBase->PlaySound()
 
 $while NotIsSocketed(snowTowerSocket), NotIsSocketed(windSensorSocket)
 $call Wait(1)
@@ -127,6 +165,7 @@ $if IsSocketed(batterySnowSocket)
 $call batterySnowSocket->StopFX()
 $call batteryBase->StopFX()
 $call batteryBase->StopHighlight()
+$call batteryBase->PlaySound()
 $while NotIsSocketed(windSensorSocket)
 $call Wait(1)
 $endwhile
@@ -158,6 +197,7 @@ $if IsSocketed(batterySnowSocket)
 $call batterySnowSocket->StopFX()
 $call batteryBase->StopFX()
 $call batteryBase->StopHighlight()
+$call batteryBase->PlaySound()
 $while NotIsSocketed(snowTowerSocket)
 $call Wait(1)
 $endwhile
@@ -205,17 +245,44 @@ $call argoSled->PlayFX()
 $call argoSled->PlaySound()
 
 $if NotIsSocketed(argoSled)
-$while NotIsSocketed(argoSled)
-$call Wait(1)
-$endwhile
+    $while NotIsSocketed(argoSled)
+        $call Wait(1)
+    $endwhile
 $endif
+
+$set global:south-all-socketed = false
+$while global:south-all-socketed != true
+    $set global:south-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowTowerSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySnowSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(windSensorSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if global:south-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowTowerSocket->SetLocked(true)
+        $call batterySnowSocket->SetLocked(true)
+        $call windSensorSocket->SetLocked(true)
+    $endif
+$endwhile
 
 $call argo->StopFX()
 $call argoSled->StopSound()
 $call argoSled->StopFX()
+$call batteryBase->StopSound()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
@@ -240,13 +307,12 @@ $call uplinkButton->StopFX()
 $call uplinkButton->SetButtonPressed(false)
 $call argoHelpButton->SetButtonLocked(true)
 
-$call map->SetTexture(0)
 $call uplink->SetTexture(0)
 
 $call Wait(1)
-
-$call map->NextTexture()
+$call map->SetTexture(9)
 $call Wait(1)
+$call uplink->PlaySound()
 $call uplink->NextTexture()
 $call Wait(0.1)
 $call uplink->NextTexture()
@@ -263,17 +329,20 @@ $call uplink->NextTexture()
 $call Wait(0.1)
 $call uplink->NextTexture()
 $call Wait(0.1)
+$call uplink->StopSound()
 $call uplink->SetTexture(0)
-$call map->NextTexture()
+$call map->SetTexture(10)
+$call map->PlaySound()
 $call Wait(0.1)
 {@Argo} It works! $[it_works_works]
 $call Wait(1)
-$call map->NextTexture()
+$call map->SetTexture(11)
 
 {@Rae} Yes, hold onto your butts! $[yes_hold_onto]
 
-$call fader->FadeOut(10.0)
-$call Wait(10)
+$call fader->FadeOut(4.0)
+$call Wait(4)
+$call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(2)
 $call levelLoader->LoadEast()
