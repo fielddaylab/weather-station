@@ -23,6 +23,8 @@ $call cellTwo->SetWasGrabbed(false)
 $call cellThree->SetWasGrabbed(false)
 $call cellFour->SetWasGrabbed(false)
 
+$call batterySledSocket->SetLocked(false)
+
 $call batteryBase->SetGrabbable(true)
 
 $call batteryBase->ShowHighlight()
@@ -35,26 +37,15 @@ $while NotWasGrabbed(batteryBase)
     $call Wait(1)
 $endwhile
 
-$if WasGrabbed(batteryBase)
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
 
-    $call batteryBase->StopHighlight()
-    $call batteryBase->StopFX()
+$while NotIsSocketed(batteryBaySocket)
+	$call Wait(1)
+$endwhile
 
-    $if NotIsSocketed(batteryBaySocket)
-
-        $call batteryBay->ShowHighlight()
-        $call batteryBay->PlayFX()
-
-        $while NotIsSocketed(batteryBaySocket)
-            $call Wait(1)
-        $endwhile
-
-        $call batteryBay->StopHighlight()
-        $call batteryBay->StopFX()
-
-    $endif
-$endif
-
+$call batteryBay->StopHighlight()
+$call batteryBay->StopFX()
 $call batteryBaySocket->LockBase(true)
 $call batteryBroken->SetDisabled(false)
 $call batteryBaySocket->OpenCover()

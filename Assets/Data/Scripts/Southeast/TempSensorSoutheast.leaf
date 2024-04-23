@@ -5,6 +5,8 @@
 @evalPriority   100
 @once
 
+$call snowSledSocket->SetLocked(false)
+
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call snowSensorBay->PlayFX()

@@ -9,10 +9,8 @@ $call propM->StopFX()
 $call propM->StopHighlight()
 
 $call windSensorSled->PlayFX()
-$call windSensorSled->PlaySound()
 $call windSensor->SetGrabbable(true)
 $call windSensor->ShowHighlight()
-$call windSensor->PlaySound()
 $call windSensor->PlayFX()
 
 $if NotIsSocketed(windSensorSled)
@@ -32,16 +30,15 @@ $if NotIsSocketed(windSensorSled)
     $call argoHelpButton->SetButtonLocked(true)
 $endif
 
+$call windSensorButton->StopHighlight()
+$call windSensorButton->StopFX()
+
 $call argoSled->PlayFX()
-$call argoSled->PlaySound()
 $call argo->PlayFX()
 
 $call windSensorSled->StopFX()
-$call windSensorSled->StopSound()
 $call windSensor->StopHighlight()
-$call windSensor->StopSound()
 $call windSensor->StopFX()
-
 
 $if NotIsSocketed(argoSled)
 {@Argo} Perfect, now you know the drill, toss me in the sled as well. $[perfect_no_you]
@@ -73,7 +70,6 @@ $endwhile
 
 $call argo->StopFX()
 $call argoSled->StopFX()
-$call argoSled->StopSound()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)

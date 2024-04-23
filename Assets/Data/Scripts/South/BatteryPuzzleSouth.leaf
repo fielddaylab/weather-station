@@ -7,8 +7,6 @@
 
 $call batteryBase->SetGrabbable(false)
 
-$call batterySnowSocket->SetLocked(false)
-
 $call batteryBase->SetWasGrabbed(false)
 $call batteryOne->SetWasGrabbed(false)
 $call batteryTwo->SetWasGrabbed(false)
@@ -22,6 +20,7 @@ $call cellThree->SetWasGrabbed(false)
 $call cellFour->SetWasGrabbed(false)
 
 $call batteryBase->SetGrabbable(true)
+$call batterySledSocket->SetLocked(false)
 
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
@@ -33,12 +32,8 @@ $while NotWasGrabbed(batteryBase)
 $call Wait(1)
 $endwhile
 
-$if WasGrabbed(batteryBase)
-
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
-
-$if NotIsSocketed(batteryBaySocket)
 
 $while NotIsSocketed(batteryBaySocket)
 $call Wait(1)
@@ -46,9 +41,6 @@ $endwhile
 
 $call batteryBay->StopHighlight()
 $call batteryBay->StopFX()
-
-$endif
-$endif
 
 $call batteryBaySocket->LockBase(true)
 $call batteryBroken->SetDisabled(false)

@@ -137,7 +137,6 @@ $call windSensorBay->StopHighlight()
 $call windSensor->SetGrabbable(false)
 
 $call brokenBlade->PlayFX()
-$call brokenBlade->PlaySound()
 $call brokenBlade->ShowHighlight()
 $call windSensorBladeSocket->SetLocked(false)
 
@@ -152,12 +151,10 @@ $call argoHelpButton->SetButtonLocked(true)
 $endif
 
 $call brokenBlade->StopFX()
-$call brokenBlade->StopSound()
 $call brokenBlade->StopHighlight()
 
 
 $call trashChute->PlayFX()
-$call trashChute->PlaySound()
 $call trashChute->ShowHighlight()
 
 $if TrashWasNotGrabbed(trashChute)
@@ -171,16 +168,13 @@ $call argoHelpButton->SetButtonLocked(true)
 $endif
 
 $call trashChute->StopFX()
-$call trashChute->StopSound()
 $call trashChute->StopHighlight()
 
 $call propM->PlayFX()
 $call propM->ShowHighlight()
 $call propM->SetGrabbable(true)
-$call propM->PlaySound()
 $call propS->PlayFX()
 $call propS->ShowHighlight()
-$call propS->PlaySound()
 $call propS->SetGrabbable(true)
 
 $if NotWasGrabbed(propM), NotWasGrabbed(propS)
@@ -196,15 +190,11 @@ $call Wait(1)
 $if WasGrabbed(propM)
 $call propM->StopFX()
 $call propM->StopHighlight()
-$call propM->StopSound()
-$call propS->StopSound()
 $endif
 
 $if WasGrabbed(propS)
 $call propS->StopFX()
 $call propS->StopHighlight()
-$call propM->StopSound()
-$call propS->StopSound()
 $endif
 
 $endwhile
@@ -253,6 +243,8 @@ $while PuzzleIsNotComplete(windSensorPuzzle)
 		$call windSensorButton->PlayFX()
         $call windSensorButton->SetButtonPressed(false)
     $else
+		$call windSensorButton->StopHighlight()
+		$call windSensorButton->StopFX()
         $call windSensorPuzzle->SetTestSuccess(true)
     $endif
 
