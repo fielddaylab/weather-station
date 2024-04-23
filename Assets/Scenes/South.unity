@@ -16,7 +16,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.9052941, g: 0.92316175, b: 0.9529412, a: 1}
+  m_FogColor: {r: 0.4973122, g: 0.56790245, b: 0.6320754, a: 1}
   m_FogMode: 2
   m_FogDensity: 0.005
   m_LinearFogStart: 0
@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4717426, g: 0.50237894, b: 0.5814955, a: 1}
+  m_IndirectSpecularColor: {r: 0.4722032, g: 0.5027087, b: 0.58139944, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -230,6 +230,11 @@ PrefabInstance:
       propertyPath: ObjectToActivate
       value: 
       objectReference: {fileID: 1752359179}
+    - target: {fileID: 541962394215780255, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1055696559514702452, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
       propertyPath: m_audioClip
@@ -345,6 +350,26 @@ PrefabInstance:
       propertyPath: m_PS
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2752303201243162200, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0365
+      objectReference: {fileID: 0}
+    - target: {fileID: 2785491869742441998, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_LengthScale
+      value: 3.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790859965581002725, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_LengthScale
+      value: 5.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944305593135395848, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3144103811251532976, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
       propertyPath: m_audioClip
@@ -415,6 +440,16 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 5a1c5b015dc6ff54186fc241aaac2e86, type: 3}
+    - target: {fileID: 4393998439311881253, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0854
+      objectReference: {fileID: 0}
+    - target: {fileID: 4393998439311881253, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0953
+      objectReference: {fileID: 0}
     - target: {fileID: 4403415129570931778, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
       propertyPath: MaxGrabbers
@@ -429,6 +464,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.0123
+      objectReference: {fileID: 0}
+    - target: {fileID: 5487478715939207724, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5489888899936112069, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5718664556950076504, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
@@ -664,6 +709,21 @@ PrefabInstance:
         type: 3}
       propertyPath: OutMaterialIndex.Array.data[3]
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8500743380483121034, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0876
+      objectReference: {fileID: 0}
+    - target: {fileID: 8500743380483121034, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0012
+      objectReference: {fileID: 0}
+    - target: {fileID: 8500743380483121034, guid: 313483ea2997c416eb803ec0bcdbca05,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0956
       objectReference: {fileID: 0}
     - target: {fileID: 8513607707832277825, guid: 313483ea2997c416eb803ec0bcdbca05,
         type: 3}
@@ -2248,12 +2308,17 @@ PrefabInstance:
     - target: {fileID: 2986190092953756209, guid: ed34653c121dfa64eb47cda109c65cb4,
         type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.8008474
       objectReference: {fileID: 0}
     - target: {fileID: 2986190092953756209, guid: ed34653c121dfa64eb47cda109c65cb4,
         type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.8150847
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986190092953756209, guid: ed34653c121dfa64eb47cda109c65cb4,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.84
       objectReference: {fileID: 0}
     - target: {fileID: 2986190092953756209, guid: ed34653c121dfa64eb47cda109c65cb4,
         type: 3}
