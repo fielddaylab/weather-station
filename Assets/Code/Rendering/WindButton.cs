@@ -21,6 +21,7 @@ namespace WeatherStation {
 		[NonSerialized] private WindSocket SocketRotation = null;
 
 		private const float ROTATE_SPEED = 10f;
+		private const float SLOW_ROTATE_SPEED = 5f;
 
         private Routine m_TestRoutine;
 		
@@ -85,7 +86,7 @@ namespace WeatherStation {
 							IsTesting = true;
                             //BladeSocket.Locked = true;
                             //rotate a bit, then have it detach and fall..
-                            m_TestRoutine.Replace(this, RotateBlade(4f, ROTATE_SPEED, false));
+                            m_TestRoutine.Replace(this, RotateBlade(4f, SLOW_ROTATE_SPEED, false));
 						}
 						else
 						{
@@ -102,7 +103,7 @@ namespace WeatherStation {
 							IsTesting = true;
                             //BladeSocket.Locked = true;
                             //rotate a bit, then have it detach and fall..
-                            m_TestRoutine.Replace(this, RotateBlade(8f, ROTATE_SPEED, false));
+                            m_TestRoutine.Replace(this, RotateBlade(8f, SLOW_ROTATE_SPEED, false));
 						}
 						else
 						{

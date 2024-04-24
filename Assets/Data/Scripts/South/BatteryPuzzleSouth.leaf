@@ -161,6 +161,7 @@ $call Wait(1)
 
 $endwhile
 
+$call batteryPuzzle->PlaySound()
 $call batteryBase->PlaySound()
 
 $call cellOne->StopHighlight()

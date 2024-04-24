@@ -36,6 +36,8 @@ $if PuzzleIsNotComplete(solarPanel)
     $endwhile
 $endif
 
+$call solarPanel->PlaySound()
+
 // deactivate handles
 $call leftPanelHandle->StopFX()
 $call leftPanelHandle->SetGrabbable(false)

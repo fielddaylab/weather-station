@@ -102,6 +102,8 @@ $while PuzzleIsNotComplete(windSensorPuzzle)
 
 $endwhile
 
+$call windSensorPuzzle->PlaySound()
+
 $call windSensorButton->StopHighlight()
 $call windSensorButton->StopFX()
 $call windSensorSled->PlayFX()

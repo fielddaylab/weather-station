@@ -199,6 +199,7 @@ $while PuzzleIsNotComplete(batteryPuzzle)
 
 $endwhile
 
+$call batteryPuzzle->PlaySound()
 $call batteryBase->PlaySound()
 
 $call cellOne->StopHighlight()

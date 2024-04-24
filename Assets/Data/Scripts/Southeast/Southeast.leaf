@@ -38,6 +38,18 @@ $call rightPanelHandle->ShowHighlight()
 $call rightPanelHandle->SetGrabbable(true)
 $call leftPanelHandle->SetGrabbable(true)
 
+$call snowTowerSocket->SetLocked(false)
+$call snowSensor->ShowHighlight()
+$call snowSensor->PlayFX()
+$call snowSensor->SetGrabbable(true)
+$call snowSledSocket->PlayFX()
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->PlayFX()
+$call batterySledSocket->SetLocked(false)
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+$call batteryBase->SetGrabbable(true)
+
 $if DoorWasNotGrabbed(dataLoggerDoor)
 $call dataLoggerDoor->ShowHighlight()
 $endif
@@ -95,6 +107,8 @@ $endwhile
 
 $endif
 
+$call solarPanel2->PlaySound()
+
 $call rightPanelHandle->StopFX()
 $call rightPanelHandle->StopHighlight()
 $call leftPanelHandle->SetGrabbable(false)
@@ -125,18 +139,6 @@ $call leftPanelHandle->SetGrabbable(false)
 $call rightPanelHandle->SetGrabbable(false)
 
 $call argoHelpButton->SetCurrentClip(21)
-
-$call snowTowerSocket->SetLocked(false)
-$call snowSensor->ShowHighlight()
-$call snowSensor->PlayFX()
-$call snowSensor->SetGrabbable(true)
-$call snowSledSocket->PlayFX()
-$call snowSledSocket->SetLocked(false)
-$call batterySledSocket->PlayFX()
-$call batterySledSocket->SetLocked(false)
-$call batteryBase->ShowHighlight()
-$call batteryBase->PlayFX()
-$call batteryBase->SetGrabbable(true)
 
 $while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket)
 $call Wait(1)
@@ -172,7 +174,6 @@ $if IsSocketed(batterySledSocket)
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
-$call batteryBase->StopSound()
 
 $while NotIsSocketed(snowSledSocket)
 $call Wait(1)
@@ -182,7 +183,6 @@ $if IsSocketed(snowSledSocket)
 $call snowSledSocket->StopFX()
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
-$call snowSensor->StopSound()
 $while NotIsSocketed(batterySledSocket)
 $call Wait(1)
 $endwhile
@@ -193,12 +193,10 @@ $endif
 $call snowSensor->StopHighlight()
 $call snowSensor->StopFX()
 $call snowSledSocket->StopFX()
-$call snowSensor->StopSound()
 
 $call batterySledSocket->StopFX()
 $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
-$call batteryBase->StopSound()
 
 $call argoSled->PlayFX()
 $call argoSled->PlaySound()

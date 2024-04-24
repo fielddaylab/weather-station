@@ -24,6 +24,18 @@ $call fader->FadeIn(4.0, 2.0)
 {@Matt} Yikes, are they always so beat up? $[matt_yikes]
 {@Alex} Not usually, but we've been away for several years, and it shows, so yeah, this one is bad... $[alex_not_usually]
 
+$call snowTowerSocket->SetLocked(false)
+$call snowSensor->ShowHighlight()
+$call snowSensor->PlayFX()
+$call snowSensor->SetGrabbable(true)
+$call snowSledSocket->PlayFX()
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->PlayFX()
+$call batterySledSocket->SetLocked(false)
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+$call batteryBase->SetGrabbable(true)
+
 $if PuzzleIsNotComplete(dataLoggerPuzzle)
 
 $call argoHelpButton->SetCurrentClip(15)
@@ -67,8 +79,9 @@ $call loggerPieceSix->StopHighlight()
 $endif
 $endwhile
 $call argoHelpButton->SetButtonLocked(true)
-$call dataLoggerPuzzle->PlaySound()
 $endif
+
+$call dataLoggerPuzzle->PlaySound()
 
 {@Argo #happy} {poses 3.0:} All this repairing reminds me of the time that I singlehandedly saved... $[argo_all_this]
 {@Alex} No one is interested in hearing you crow on about your glory years Argo. $[alex_no_interest]
@@ -84,19 +97,9 @@ $call loggerPieceFour->StopHighlight()
 $call loggerPieceFive->StopHighlight()
 $call loggerPieceSix->StopHighlight()
 
-$call snowTowerSocket->SetLocked(false)
-$call snowSensor->ShowHighlight()
-$call snowSensor->PlayFX()
-$call snowSensor->SetGrabbable(true)
-$call snowSledSocket->PlayFX()
-$call snowSledSocket->SetLocked(false)
-$call batterySledSocket->PlayFX()
-$call batterySledSocket->SetLocked(false)
-$call batteryBase->ShowHighlight()
-$call batteryBase->PlayFX()
-$call batteryBase->SetGrabbable(true)
-
+$if NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket)
 {@Argo #celebrate} {poses 1.1:} Great! We’ll have to fix the battery and sensor in the repair unit, place them both in the sled! $[great_well_have]
+$endif
 
 $call argoHelpButton->SetCurrentClip(16)
 $call argoHelpButton->SetButtonLocked(false)
@@ -183,33 +186,27 @@ $call argoSled->SetLocked(false)
 $call playerLocation->Teleport()
 $call Wait(4)
 $call fader->FadeIn(3.0, 1.0)
-
+$call snowSensor->SetWasGrabbed(false)
+$call batteryBase->SetWasGrabbed(false)
 $call Wait(3)
 
 $call trashChute->SetGrabbable(true)
 
 $call map->SetTexture(4)
 
-$call snowSensor->SetGrabbable(false)
-$call batteryBase->SetGrabbable(false)
-
-{@Argo} So, first things first, let’s get the battery box and sensor onto our workbench. $[so_first_things]
-
-$call snowSensor->SetWasGrabbed(false)
-$call batteryBase->SetWasGrabbed(false)
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
 
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call batteryBase->ShowHighlight()
 $call batteryBase->PlayFX()
 
+{@Argo} So, first things first, let’s get the battery box and sensor onto our workbench. $[so_first_things]
+
 $call argoHelpButton->SetCurrentClip(23)
 $call argoHelpButton->SetButtonLocked(false)
 
-$call snowSledSocket->SetLocked(false)
-$call batterySledSocket->SetLocked(false)
-$call snowSensor->SetGrabbable(true)
-$call batteryBase->SetGrabbable(true)
 
 $while NotWasGrabbed(snowSensor), NotWasGrabbed(batteryBase)
 $call Wait(1)
@@ -422,6 +419,7 @@ $endif
 $call Wait(1)
 $endwhile
 
+$call batteryPuzzle->PlaySound()
 $call batteryBase->PlaySound()
 
 $call cellOne->StopHighlight()
