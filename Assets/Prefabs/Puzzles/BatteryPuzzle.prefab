@@ -3624,9 +3624,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.1
-  MaxDistance: 2
+  MaxDistance: 3
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -3659,7 +3659,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -7395,7 +7395,7 @@ MonoBehaviour:
   Locked: 1
   Current: {fileID: 2369846376538294236}
   AllowedSockets: 4
-  SocketCategory: 0
+  SocketCategory: 3
   Mode: 1
   JointConfig:
     BreakForce: Infinity
@@ -8056,8 +8056,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5878766, y: 0.17027995, z: 0.64729595}
-  m_Center: {x: 0.7613022, y: 0.055532247, z: 0.34433493}
+  m_Size: {x: 0.58787656, y: 0.35526866, z: 0.64729595}
+  m_Center: {x: 0.7613022, y: 0.14802662, z: 0.34433493}
 --- !u!114 &1579123013398634929
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -20,5 +20,13 @@ $call fader->FadeIn(4.0, 2.0)
 {@Argo} I never thought about it that way.  Babies love fun facts right? $[ah_yes_more]
 {@Alex} I regret this already. $[alex_i_regret]
 
-$call fader->FadeOut(4.0)
+$call fader->FadeOut(3.0)
 $call Wait(4)
+$call argoSled->SetLocked(false)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+$call storageCabinet->SetDisabled(false)
+//$call map->SetTexture(8)
+$call Wait(3)
+

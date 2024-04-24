@@ -19,6 +19,11 @@ $if NotIsSocketed(windSensorSled)
     $while NotIsSocketed(windSensorSled)
         $call Wait(1)
         // check if the player has put on an incorrect fan blade
+		$if WasGrabbed(windSensor)
+		    $call windSensorButton->StopHighlight()
+            $call windSensorButton->StopFX()	
+		$endif
+		
         $if IsNotMatched(windSensorBladeSocket)
             $call windSensorButton->StopHighlight()
             $call windSensorButton->StopFX()

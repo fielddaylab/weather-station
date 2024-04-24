@@ -190,8 +190,8 @@ $call trashChute->SetGrabbable(true)
 
 $call map->SetTexture(4)
 
-$call snowSledSocket->SetLocked(false)
-$call batterySledSocket->SetLocked(false)
+$call snowSensor->SetGrabbable(false)
+$call batteryBase->SetGrabbable(false)
 
 {@Argo} So, first things first, let’s get the battery box and sensor onto our workbench. $[so_first_things]
 
@@ -205,6 +205,11 @@ $call batteryBase->PlayFX()
 
 $call argoHelpButton->SetCurrentClip(23)
 $call argoHelpButton->SetButtonLocked(false)
+
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
+$call snowSensor->SetGrabbable(true)
+$call batteryBase->SetGrabbable(true)
 
 $while NotWasGrabbed(snowSensor), NotWasGrabbed(batteryBase)
 $call Wait(1)
@@ -254,8 +259,7 @@ $endif
 
 $call batteryBaySocket->LockBase(true)
 $call batteryBroken->SetDisabled(false)
-$call batteryBaySocket->OpenCover()
-$call batteryBase->DisableCollider(true)
+
 
 $call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(24)
@@ -291,6 +295,9 @@ $endif
 $call argoHelpButton->SetButtonLocked(true)
 
 //now both are socketed...
+$call batteryBaySocket->OpenCover()
+$call batteryBase->DisableCollider(true)
+
 $call batteryOne->PlayFX()
 $call batteryOne->ShowHighlight()
 $call batteryTwo->PlayFX()

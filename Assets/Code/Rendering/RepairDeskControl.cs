@@ -67,13 +67,15 @@ namespace WeatherStation {
 				if(LastPos.y - currPos.y > 0f) {
 					dir = -1f;
 				}
-				
-				if(currPos.y > MinMove && currPos.y < MaxMove) {
-					if(RepairDesk != null) {
-						RepairDesk.transform.Translate(Vector3.up * dir * Vector3.Distance(LastPos, currPos), Space.World);
+
+				if(RepairDesk != null) {
+					Vector3 vTrans = Vector3.up * dir * Vector3.Distance(LastPos, currPos);
+					if(RepairDesk.transform.position.y + vTrans.y < MaxMove && RepairDesk.transform.position.y + vTrans.y > MinMove)
+					{
+						RepairDesk.transform.Translate(vTrans, Space.World);
 					}
 				}
-				
+			
 				LastPos = currPos;
 			} 
 		}
