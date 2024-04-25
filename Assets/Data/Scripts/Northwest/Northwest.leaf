@@ -558,6 +558,9 @@ $call batterySledSocket->SetLocked(false)
 
 {@Argo} Now we just need to put the battery and the sensor back on the tower. $[now_we_just]
 
+$call argoHelpButton->SetCurrentClip(37)
+$call argoHelpButton->SetButtonLocked(false)
+	
 {@MissionControl} Be advised, Otter Three, wind gusts are now predicted to reach thirty knots $[be_advised_otter]
 {@Rae} Acknowledged $[acknowledged_acknowledged_acknowledged]
 
@@ -613,8 +616,9 @@ $call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(argoSled)
 $call Wait(1)
 $endwhile
-$call argoHelpButton->SetButtonLocked(true)
 $endif
+
+$call argoHelpButton->SetButtonLocked(true)
 
 $set global:northwest-all-socketed = false
 $while global:northwest-all-socketed != true
