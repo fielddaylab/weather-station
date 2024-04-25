@@ -40,6 +40,7 @@ $call rightPanelHandle->SetGrabbable(true)
 $call leftPanelHandle->SetGrabbable(true)
 
 $call snowTowerSocket->SetLocked(false)
+$call batterySnowSocket->SetLocked(false)
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call snowSensor->SetGrabbable(true)
@@ -123,7 +124,6 @@ $endwhile
 $call dataLoggerPuzzle->PlaySound()
 $endif
 
-$call batterySnowSocket->SetLocked(false)
 
 $call loggerPieceOne->StopHighlight()
 $call loggerPieceTwo->StopHighlight()
