@@ -66,7 +66,7 @@ namespace WeatherStation {
             }
         }
 		
-		private void OnSocketableAdded(Socketable socketable) {
+		protected void OnSocketableAdded(Socketable socketable) {
             if (SocketedSound != null && SoundEffect) {
                 Sfx.OneShot(SocketedSound, SoundEffect);
             }

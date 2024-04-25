@@ -73,6 +73,11 @@ namespace WeatherStation {
 							IsTesting = true;
 							BladeSocket.Locked = true;
                             m_TestRoutine.Replace(this, RotateBlade(120f, ROTATE_SPEED, true));
+							
+							AudioSource propAudio = BladeSocket.Current.gameObject.GetComponent<AudioSource>();
+							if(propAudio != null) {
+								propAudio.Play();
+							}
 						}
 
 						WSAnalytics w = Find.State<WSAnalytics>();
@@ -87,6 +92,11 @@ namespace WeatherStation {
                             //BladeSocket.Locked = true;
                             //rotate a bit, then have it detach and fall..
                             m_TestRoutine.Replace(this, RotateBlade(4f, SLOW_ROTATE_SPEED, false));
+							
+							AudioSource propAudio = BladeSocket.Current.gameObject.GetComponent<AudioSource>();
+							if(propAudio != null) {
+								propAudio.Play();
+							}
 						}
 						else
 						{
@@ -104,6 +114,11 @@ namespace WeatherStation {
                             //BladeSocket.Locked = true;
                             //rotate a bit, then have it detach and fall..
                             m_TestRoutine.Replace(this, RotateBlade(8f, SLOW_ROTATE_SPEED, false));
+							
+							AudioSource propAudio = BladeSocket.Current.gameObject.GetComponent<AudioSource>();
+							if(propAudio != null) {
+								propAudio.Play();
+							}
 						}
 						else
 						{

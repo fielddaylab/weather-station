@@ -35,7 +35,10 @@ namespace WeatherStation {
 
         protected override void Awake() {
             base.Awake();
-
+			
+			OnAdded.Deregister(OnSocketableAdded);
+			OnAdded.Register(OnPuzzleSocketableAdded);
+			
             if(InMaterials.Count > 0) {
                 OldColorsIn = new List<Material>(InMaterials.Count);
                 for(int i = 0; i < InMaterials.Count; ++i) {
@@ -136,5 +139,20 @@ namespace WeatherStation {
             }
         }
 
+		private void OnPuzzleSocketableAdded(Socketable socketable) {
+			if(IsMatched()) {
+				if (SocketedSound != null && SoundEffect) {
+					Sfx.OneShot(SocketedSound, SoundEffect);
+				}
+			} else {
+				if(SoundEffect != null && SoundEffect.clip != null) {
+					SoundEffect.Play();
+				} else {
+					if (SocketedSound != null && SoundEffect) {
+						Sfx.OneShot(SocketedSound, SoundEffect);
+					}		
+				}
+			}
+		}
     }
 }   
