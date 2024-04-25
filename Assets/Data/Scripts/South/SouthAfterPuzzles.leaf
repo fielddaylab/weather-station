@@ -26,7 +26,6 @@ $call argo->SetGrabbable(true)
 $call argo->PlayFX()
 $call argoTowerSocket->SetLocked(false)
 $call argoSled->PlayFX()
-$call argoSled->PlaySound()
 
 {@Alex} Matt, Don’t let me forget, before I leave for Madison, we should calibrate the new Argo unit. $[alex_matt_dont]
 
@@ -68,7 +67,6 @@ $while global:south-all-socketed != true
 $endwhile
 
 $call argo->StopFX()
-$call argoSled->StopSound()
 $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)
@@ -242,7 +240,6 @@ $call argo->SetGrabbable(true)
 $call argo->PlayFX()
 $call argoTowerSocket->SetLocked(false)
 $call argoSled->PlayFX()
-$call argoSled->PlaySound()
 
 $if NotIsSocketed(argoSled)
     $while NotIsSocketed(argoSled)
@@ -276,7 +273,6 @@ $while global:south-all-socketed != true
 $endwhile
 
 $call argo->StopFX()
-$call argoSled->StopSound()
 $call argoSled->StopFX()
 $call batteryBase->StopSound()
 

@@ -112,7 +112,6 @@ $call windSensor->StopFX()
 $call windSensorSocket->SetLocked(true)
 
 $call argoSled->PlayFX()
-$call argoSled->PlaySound()
 $call argo->PlayFX()
 
 $if NotIsSocketed(argoSled)
@@ -127,7 +126,6 @@ $endif
 
 $call argo->StopFX()
 $call argoSled->StopFX()
-$call argoSled->StopSound()
 
 $call fader->FadeOut(3.0)
 $call Wait(4)

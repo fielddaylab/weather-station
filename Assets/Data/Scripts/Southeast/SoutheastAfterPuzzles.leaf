@@ -30,7 +30,6 @@ $call argo->SetGrabbable(true)
 $call argo->PlayFX()
 $call argoTowerSocket->SetLocked(false)
 $call argoSled->PlayFX()
-$call argoSled->PlaySound()
 
 $if NotIsSocketed(argoSled)
 $while NotIsSocketed(argoSled)
@@ -60,7 +59,6 @@ $while global:southeast-all-socketed != true
 $endwhile
 
 $call argo->StopFX()
-$call argoSled->StopSound()
 $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)
@@ -72,7 +70,7 @@ $call alex->StartKneeling()
 
 $call storageCabinet->SetDisabled(true)
 $call planeLeaving->SetDisabled(false)
-$call snow->IncreaseParticles(10000, 2000.0)
+//$call snow->IncreaseParticles(10000, 2000.0)
 $call batteryBroken->SetDisabled(true)
 $call batteryOne->SetDisabled(true)
 $call batteryTwo->SetDisabled(true)

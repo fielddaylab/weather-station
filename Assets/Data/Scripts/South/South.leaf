@@ -9,6 +9,8 @@ $call Wait(1)
 
 $call fader->FadeIn(4.0, 2.0)
 
+$call snow->IncreaseParticles(10000, 2000.0)
+
 $call dataLoggerDoor->ResetRotation()
 $call dataLoggerDoor->SetGrabbable(true)
 $call argoTowerSocket->SetLocked(true)
@@ -259,7 +261,6 @@ $call batterySledSocket->StopFX()
 $call windSensorSled->StopFX()
 $call argo->StopFX()
 $call argo->StopHighlight()
-$call argoSled->StopSound()
 $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)

@@ -8,6 +8,7 @@
 $call Wait(1)
 
 $call fader->FadeIn(4.0, 2.0)
+$call snow->IncreaseParticles(20000, 4000.0)
 
 $call planeLeaving->SetDisabled(true)
 $call tent->SetDisabled(true)
@@ -199,7 +200,6 @@ $call batteryBase->StopHighlight()
 $call batteryBase->StopFX()
 
 $call argoSled->PlayFX()
-$call argoSled->PlaySound()
 $call argoTowerSocket->SetLocked(false)
 $call argo->SetGrabbable(true)
 $call argo->PlayFX()
@@ -238,7 +238,6 @@ $call batterySledSocket->StopFX()
 
 $call argo->StopFX()
 $call argo->StopHighlight()
-$call argoSled->StopSound()
 $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)

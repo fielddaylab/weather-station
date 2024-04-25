@@ -140,7 +140,6 @@ $call argo->SetGrabbable(true)
 $call argo->PlayFX()
 $call argoTowerSocket->SetLocked(false)
 $call argoSled->PlayFX()
-$call argoSled->PlaySound()
 
 $if NotIsSocketed(argoSled)
 {@Argo} Nice Job, now put me in and let’s get fixin! $[nice_job_now]
@@ -176,7 +175,6 @@ $endwhile
 $call snowSledSocket->StopFX()
 $call batterySledSocket->StopFX()
 $call argo->StopFX()
-$call argoSled->StopSound()
 $call argoSled->StopFX()
 
 $call fader->FadeOut(3.0)
@@ -607,7 +605,6 @@ $call snowTowerSocket->StopFX()
 {@MissionControl} Come in, Otter Three. Wind speeds are starting to pick up at your coordinates. Better pick up the pace. $[come_in_otter]
 
 $call argoSled->PlayFX()
-$call argoSled->PlaySound()
 $call argo->PlayFX()
 
 $if NotIsSocketed(argoSled)
@@ -643,7 +640,6 @@ $endwhile
 
 $call argo->StopFX()
 $call argoSled->StopFX()
-$call argoSled->StopSound()
 $call batteryBase->StopSound()
 
 $call fader->FadeOut(3.0)
