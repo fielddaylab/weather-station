@@ -151,8 +151,7 @@ namespace WeatherStation {
 					}
 					Destroy(c.gameObject);
 				}
-				else if(s.SocketType == SocketFlags.BatteryStagPlug || s.SocketType == SocketFlags.BatteryCell || 
-						s.SocketType == SocketFlags.BrokenBattery || s.SocketType == SocketFlags.Battery2Plug || s.SocketType == SocketFlags.Battery3Plug)
+				else if(s.SocketType == SocketFlags.BrokenBattery)
 				{
 					WSAnalytics w = Find.State<WSAnalytics>();
 					if(w != null) {

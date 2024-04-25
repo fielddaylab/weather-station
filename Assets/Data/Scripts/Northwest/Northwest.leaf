@@ -25,6 +25,7 @@ $call fader->FadeIn(4.0, 2.0)
 {@Alex} Not usually, but we've been away for several years, and it shows, so yeah, this one is bad... $[alex_not_usually]
 
 $call snowTowerSocket->SetLocked(false)
+$call batterySnowSocket->SetLocked(false)
 $call snowSensor->ShowHighlight()
 $call snowSensor->PlayFX()
 $call snowSensor->SetGrabbable(true)
@@ -87,8 +88,6 @@ $call dataLoggerPuzzle->PlaySound()
 {@Alex} No one is interested in hearing you crow on about your glory years Argo. $[alex_no_interest]
 {@Argo #happy} {poses 3.0:} But Matt hasn't heard any of my stories, he will LOVE them! $[argo_matt_hasnt]
 {@Alex} No... $[alex_no]
-
-$call batterySnowSocket->SetLocked(false)
 
 $call loggerPieceOne->StopHighlight()
 $call loggerPieceTwo->StopHighlight()
