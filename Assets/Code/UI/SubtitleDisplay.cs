@@ -59,13 +59,13 @@ namespace WeatherStation {
 			if(ClipDisplayLength == 0f) {
 				yield return inType.VisibleCharacterCount * 0.095f;
 			} else {
-				yield return Routine.Inline(TruncateLine(ClipDisplayLength / (float)Text.text.Length));//ClipDisplayLength;
+				yield return Routine.Inline(TruncateLine((ClipDisplayLength / (float)Text.text.Length) * 0.85f));//ClipDisplayLength;
 			}
         }
 		
 		public IEnumerator TruncateLine(float freq) {
 			
-			yield return new WaitForSeconds(1.5f);
+			yield return new WaitForSeconds(1f);
 			
 			while(Text.text.Length > 0) {
 				yield return new WaitForSeconds(freq);
@@ -87,6 +87,8 @@ namespace WeatherStation {
 			} else {
 				yield return Routine.Inline(TruncateLine(ClipDisplayLength / (float)Text.text.Length));//ClipDisplayLength;
 			}
+			
+			yield return CompleteLine();
         }
     }
 }

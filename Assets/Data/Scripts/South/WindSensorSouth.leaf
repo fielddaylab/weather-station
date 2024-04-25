@@ -82,19 +82,19 @@ $while PuzzleIsNotComplete(windSensorPuzzle)
         $if WasGrabbed(propM)
             $call propM->StopFX()
             $call propM->StopHighlight()
+		    $call argoHelpButton->SetCurrentClip(30)
         $endif
 
         $if WasGrabbed(propS)
             $call propS->StopFX()
             $call propS->StopHighlight()
+			$call argoHelpButton->SetCurrentClip(30)
         $endif
 
         $if WasGrabbed(propL)
             $call propL->StopFX()
             $call propL->StopHighlight()
         $endif
-
-        $call argoHelpButton->SetCurrentClip(30)
 
     $endif
 

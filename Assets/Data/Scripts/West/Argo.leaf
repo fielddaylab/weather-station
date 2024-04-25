@@ -30,7 +30,7 @@ $call leftPanelHandle->SetGrabbable(true)
 $call leftPanelHandle->PlaySound()
 
 $if PuzzleIsNotComplete(solarPanel)
-    {@Argo} Grab the solar panel with your hands and rotate it until the solar bar fills up. $[alex_ok_we]
+    {@Argo} Great, now let's focus on the solar panel, grab it with your hands and rotate it until the solar bar fills up. $[alex_ok_we]
     $while PuzzleIsNotComplete(solarPanel)
         $call Wait(1)
     $endwhile

@@ -51,6 +51,11 @@ namespace WeatherStation {
 				}
 			}
 			
+			AudioSource shelfAudio = GetComponent<AudioSource>();
+			if(shelfAudio != null) {
+				shelfAudio.Play();
+			}
+			
 			Turning = false;
 		}
 	}

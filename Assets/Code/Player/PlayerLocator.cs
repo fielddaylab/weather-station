@@ -33,6 +33,7 @@ namespace WeatherStation {
 		public Socketable Argo;
 
 		public List<AudioClip> OutsideMusic = new List<AudioClip>(8);
+		public List<AudioClip> OutsideSFX = new List<AudioClip>(8);
 
 		public AudioClip InsideMusic;
 
@@ -101,9 +102,20 @@ namespace WeatherStation {
 		{
 			if(MainCamera != null) {
 				SceneLoader sl = Find.State<SceneLoader>();
-				MainCamera.gameObject.GetComponent<AudioSource>().Stop();
-				MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic[sl.GetCurrentSceneIndex()];
-				MainCamera.gameObject.GetComponent<AudioSource>().Play();
+				AudioSource mainMusic = MainCamera.gameObject.GetComponent<AudioSource>();
+				if(mainMusic != null) {
+					mainMusic.Stop();
+					mainMusic.clip = OutsideMusic[sl.GetCurrentSceneIndex()];
+					mainMusic.Play();
+				}
+				
+				AudioSource mainSFX = OutsideLocation.GetComponent<AudioSource>();
+				
+				if(mainSFX != null) {
+					mainSFX.Stop();
+					mainSFX.clip = OutsideSFX[sl.GetCurrentSceneIndex()];
+					mainSFX.Play();
+				}
 			}
 		}
 
@@ -210,6 +222,8 @@ namespace WeatherStation {
 			
 			if(IsInside) {
 				
+				SceneLoader sl = Find.State<SceneLoader>();
+				
 				Vector3 headPos = transform.GetChild(0).transform.localPosition;
 				Quaternion localHead = transform.GetChild(0).transform.localRotation;
 				
@@ -233,6 +247,7 @@ namespace WeatherStation {
 
 				SocketUtility.TryAddToSocket(ArgoOutsideSocket, s, false);
 				
+				OutsideLocation.GetComponent<AudioSource>().clip = OutsideSFX[sl.GetCurrentSceneIndex()];
 				OutsideLocation.GetComponent<AudioSource>().Play();
 				
 				if(PlaneExterior != null) {
@@ -266,7 +281,6 @@ namespace WeatherStation {
 				}
 				
 				if(MainCamera != null) {
-					SceneLoader sl = Find.State<SceneLoader>();
 					MainCamera.gameObject.GetComponent<AudioSource>().Stop();
 					MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic[sl.GetCurrentSceneIndex()];
 					MainCamera.gameObject.GetComponent<AudioSource>().Play();

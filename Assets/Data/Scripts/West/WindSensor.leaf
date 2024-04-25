@@ -36,7 +36,7 @@ $call argoTowerSocket->SetLocked(false)
 $call argoSled->PlayFX()
 
 $if NotIsSocketed(windSensorSled)
-{@Argo} Great!  Now place it in the sled! $[argo_great_now]
+{@Argo} Great!  Now place it on the bracket in the sled! $[argo_great_now]
 $call argoHelpButton->SetCurrentClip(2)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsSocketed(windSensorSled)
@@ -200,7 +200,7 @@ $endif
 $call argoHelpButton->SetButtonLocked(true)
 
 $if NotIsPuzzleSocketed(windSensorBladeSocket)
-{@Argo} Now pop it on the wind sensor and see if it's a match. $[argo_great_now2]
+{@Argo} Now pop it on the wind sensor and we'll see if it's a match. $[argo_great_now2]
 $call argoHelpButton->SetCurrentClip(8)
 $call argoHelpButton->SetButtonLocked(false)
 $while NotIsPuzzleSocketed(windSensorBladeSocket)
