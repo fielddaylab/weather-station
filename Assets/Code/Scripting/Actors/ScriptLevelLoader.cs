@@ -41,6 +41,12 @@ namespace WeatherStation.Scripting {
 			m_Loader.SwitchScenes();
         }
 		
+		[LeafMember("LoadWest"), Preserve]
+		public void LoadWest() {
+			m_Loader.SwitchScenes();
+			ScriptUtility.Trigger("LoadWest");
+		}
+		
 		[LeafMember("LoadNorthwest"), Preserve]
 		public void LoadNorthwest() {
 			m_Loader.SwitchScenes();

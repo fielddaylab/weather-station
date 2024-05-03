@@ -28,13 +28,13 @@ namespace WeatherStation {
 		
 		#endregion // Inspector
 		
-		private int CurrentSceneIndex = 0;
+		private int CurrentSceneIndex = -1;
 		
 		private bool SwitchingScenes = false;
 			
         void Start() {
 			Game.Scenes.OnSceneReady.Register(SceneIsReady);
-            Game.Scenes.LoadAuxScene(SceneList[0], "Additional", null, SceneImportFlags.ImportLightingSettings);
+            //Game.Scenes.LoadAuxScene(SceneList[0], "Additional", null, SceneImportFlags.ImportLightingSettings);
         }
 
         public void UpdateStates() {
@@ -90,7 +90,11 @@ namespace WeatherStation {
 				
 				int nextIndex = CurrentSceneIndex+1;
 				nextIndex = nextIndex % SceneList.Count;
-                Game.Scenes.UnloadScene(SceneList[CurrentSceneIndex]);
+				
+				if(CurrentSceneIndex != -1) {
+					Game.Scenes.UnloadScene(SceneList[CurrentSceneIndex]);
+				}
+				
 				Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional", null, SceneImportFlags.ImportLightingSettings);
 				
 				/*if(MapMaterial != null) {

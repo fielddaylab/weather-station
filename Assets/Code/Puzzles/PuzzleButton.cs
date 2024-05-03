@@ -159,7 +159,7 @@ namespace WeatherStation {
 		}
 		
 		IEnumerator ShiftBack(Collider c) {
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(0.3f);
 			if(UseLocalSpace)
 			{
 				Vector3 vPos = transform.localPosition;
@@ -184,7 +184,7 @@ namespace WeatherStation {
 		}
 		
 		IEnumerator TurnBackOn(Collider c) {
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(0.3f);
 			Rigidbody rb = c.gameObject.GetComponent<Rigidbody>();
 			if(rb != null) {
 				rb.detectCollisions = true;

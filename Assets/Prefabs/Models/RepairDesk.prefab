@@ -1602,7 +1602,6 @@ GameObject:
   - component: {fileID: 5553650626184770891}
   - component: {fileID: 5101399699760524678}
   - component: {fileID: 5145829051623567002}
-  - component: {fileID: 8161054153843270756}
   - component: {fileID: 349449266139109381}
   - component: {fileID: 2136801726304351906}
   m_Layer: 0
@@ -1701,7 +1700,7 @@ MonoBehaviour:
   m_OnTriggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8161054153843270756}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: WeatherStation.RepairDeskControl, Assembly-CSharp
         m_MethodName: MoveDesk
         m_Mode: 1
@@ -1743,21 +1742,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.018150033, y: 0.054764733, z: 0.05461162}
   m_Center: {x: 0.0016170444, y: -0.00030501094, z: 0.00010970234}
---- !u!114 &8161054153843270756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979879466872665592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9c8fe700de8dab42a815801c832207b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RepairDesk: {fileID: 7394970609973802300}
-  MaxMove: 0.8975
-  MinMove: 0.615
 --- !u!114 &349449266139109381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3383,7 +3367,6 @@ GameObject:
   - component: {fileID: 7168455153284094062}
   - component: {fileID: 3144403474234744092}
   - component: {fileID: 5253595047847456474}
-  - component: {fileID: 5688427079271256693}
   - component: {fileID: 3670362332636140449}
   - component: {fileID: 294871138068169156}
   m_Layer: 0
@@ -3524,21 +3507,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.018898787, y: 0.05702411, z: 0.056864675}
   m_Center: {x: 0.0016800168, y: 0.00032769702, z: 0.000112831585}
---- !u!114 &5688427079271256693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2332841816437931013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9c8fe700de8dab42a815801c832207b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RepairDesk: {fileID: 7394970609973802300}
-  MaxMove: 0.8975
-  MinMove: 0.615
 --- !u!114 &3670362332636140449
 MonoBehaviour:
   m_ObjectHideFlags: 0

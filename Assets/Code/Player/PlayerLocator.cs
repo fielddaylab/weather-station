@@ -16,6 +16,7 @@ namespace WeatherStation {
 		public Transform SledInsideLocation;
 		public Transform SledOutsideLocation;
 		public Transform FinalLocation;
+		public Transform StartingLocation;
 		
 		public GameObject Sled;
 		public GameObject PlaneExterior;
@@ -45,7 +46,7 @@ namespace WeatherStation {
 		
 		private Camera MainCamera = null;	//temp hack for playing music...
 		private GameObject HeadRoot = null;
-		public bool IsInside = false;
+		public bool IsInside = true;
 		private bool IsTeleporting = false;
 
 		private void Awake() {
@@ -79,6 +80,7 @@ namespace WeatherStation {
 		}
 		
 		public void SetFinalLocation() {
+			//reset this back?
 			OutsideLocation.position = FinalLocation.position;
 			OutsideLocation.rotation = FinalLocation.rotation;
 			transform.position = FinalLocation.position;
@@ -186,7 +188,7 @@ namespace WeatherStation {
 			
 			headPos.y = 0f;
 			
-			Quaternion qInv = (OutsideLocation.rotation * Quaternion.Inverse(localHead));
+			Quaternion qInv = (StartingLocation.rotation * Quaternion.Inverse(localHead));
 			
 			Vector3 euler = qInv.eulerAngles;
 			euler.x = 0f;
@@ -196,7 +198,7 @@ namespace WeatherStation {
 			headPos = qInv * headPos;
 			headPos.y = 0f;
 			
-			transform.position = OutsideLocation.position - headPos;
+			transform.position = StartingLocation.position - headPos;
 			transform.rotation = qInv;	
 		}
 		
@@ -244,10 +246,20 @@ namespace WeatherStation {
 				
 				Sled.transform.position = SledOutsideLocation.transform.position;
 				Sled.transform.rotation = SledOutsideLocation.transform.rotation;
-
-				SocketUtility.TryAddToSocket(ArgoOutsideSocket, s, false);
 				
-				OutsideLocation.GetComponent<AudioSource>().clip = OutsideSFX[sl.GetCurrentSceneIndex()];
+				if(ArgoOutsideSocket != null) {
+					SocketUtility.TryAddToSocket(ArgoOutsideSocket, s, false);
+				}
+				
+				if(sl.GetCurrentSceneIndex() == -1)
+				{
+					OutsideLocation.GetComponent<AudioSource>().clip = OutsideSFX[0];
+				}
+				else
+				{
+					OutsideLocation.GetComponent<AudioSource>().clip = OutsideSFX[sl.GetCurrentSceneIndex()];
+				}
+				
 				OutsideLocation.GetComponent<AudioSource>().Play();
 				
 				if(PlaneExterior != null) {
@@ -282,7 +294,14 @@ namespace WeatherStation {
 				
 				if(MainCamera != null) {
 					MainCamera.gameObject.GetComponent<AudioSource>().Stop();
-					MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic[sl.GetCurrentSceneIndex()];
+					if(sl.GetCurrentSceneIndex() == -1)
+					{
+						MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic[0];
+					}
+					else
+					{
+						MainCamera.gameObject.GetComponent<AudioSource>().clip = OutsideMusic[sl.GetCurrentSceneIndex()];
+					}
 					MainCamera.gameObject.GetComponent<AudioSource>().Play();
 				}
 				

@@ -9,7 +9,7 @@ namespace WeatherStation {
             Scenes.OnMainSceneReady.Register(() => {
                 //using (var table = TempVarTable.Alloc()) {
                     //table.Set("someRandomValue", RNG.Instance.Next(60));
-                    ScriptUtility.Trigger("GameReady"/*, table*/);
+                    ScriptUtility.Trigger("StartGame"/*, table*/);
                 //}
             });
         }

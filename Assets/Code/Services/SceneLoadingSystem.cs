@@ -1,4 +1,4 @@
-#define ENABLE_INPUT_SHORTCUTS
+//#define ENABLE_INPUT_SHORTCUTS
 using FieldDay;
 using FieldDay.Components;
 using FieldDay.SharedState;

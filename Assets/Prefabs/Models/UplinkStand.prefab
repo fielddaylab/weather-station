@@ -80,10 +80,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -3032725940156859772, guid: a18f7a12eac1fd34681a8b378af1ef4a,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5309753014095040425}
-    - targetCorrespondingSourceObject: {fileID: -3032725940156859772, guid: a18f7a12eac1fd34681a8b378af1ef4a,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 8124230521079192358}
     - targetCorrespondingSourceObject: {fileID: -3032725940156859772, guid: a18f7a12eac1fd34681a8b378af1ef4a,
         type: 3}
@@ -109,6 +105,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3124456869642855800}
+    - targetCorrespondingSourceObject: {fileID: -3032725940156859772, guid: a18f7a12eac1fd34681a8b378af1ef4a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3935289082907373903}
   m_SourcePrefab: {fileID: 100100000, guid: a18f7a12eac1fd34681a8b378af1ef4a, type: 3}
 --- !u!1 &2444695889360430714 stripped
 GameObject:
@@ -116,27 +116,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8360046665704004862}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &5309753014095040425
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2444695889360430714}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.12672149, y: 0.085823655, z: 0.11997822}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8124230521079192358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Id: 0
-  m_Collider: {fileID: 5309753014095040425}
+  m_Collider: {fileID: 3935289082907373903}
   m_TrackOccupants: 1
   m_FilterEventMask: 1
   m_LayerMaskFilter:
@@ -227,7 +206,7 @@ MonoBehaviour:
   Toggleable: 0
   YShift: 0.012
   XShift: 0
-  ButtonColor: {r: 0, g: 0, b: 0, a: 0}
+  UseLocalSpace: 0
   SoundEffect: {fileID: 0}
 --- !u!114 &5890940541452569504
 MonoBehaviour:
@@ -352,6 +331,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &3935289082907373903
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2444695889360430714}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.060261305
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &9175304235624833180 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 815680057278725218, guid: a18f7a12eac1fd34681a8b378af1ef4a,
