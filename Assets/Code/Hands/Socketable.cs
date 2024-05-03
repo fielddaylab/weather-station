@@ -152,7 +152,10 @@ namespace WeatherStation {
 
                 if (overrideReparent == "")
                 {
-                    socket.Current.CachedTransform.SetParent(socket.Current.OriginalParent, true);
+					if(socket.Current != null)
+					{
+						socket.Current.CachedTransform.SetParent(socket.Current.OriginalParent, true);
+					}
                 }
                 else
                 {

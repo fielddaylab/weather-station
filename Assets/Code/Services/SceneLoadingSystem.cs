@@ -54,7 +54,11 @@ namespace WeatherStation {
 #if ENABLE_INPUT_SHORTCUTS
 				if(!WaitingForSceneSwitch)
 				{
-					ScriptPlugin.LastAudioSource.Stop();
+					if(ScriptPlugin.LastAudioSource != null)
+					{
+						ScriptPlugin.LastAudioSource.Stop();
+					}
+					
 					ScriptPlugin.CompleteForceKill = true;
 					WaitingForSceneSwitch = true;
 					
@@ -83,7 +87,12 @@ namespace WeatherStation {
 				playerLocator.Teleport();
 			}
 			
-			if(CurrentSceneIndex == 0)
+			if(CurrentSceneIndex == -1)
+			{
+				ScriptUtility.Trigger("LoadWest");
+				CurrentSceneIndex++;		
+			}
+			else if(CurrentSceneIndex == 0)
 			{
 				ScriptUtility.Trigger("LevelOneFinished");
 				CurrentSceneIndex++;
