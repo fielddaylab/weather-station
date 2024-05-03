@@ -80,11 +80,8 @@ namespace WeatherStation {
 		}
 		
 		public void SetFinalLocation() {
-			//reset this back?
-			OutsideLocation.position = FinalLocation.position;
-			OutsideLocation.rotation = FinalLocation.rotation;
 			transform.position = FinalLocation.position;
-			StartCoroutine("InitialAlignment");
+			StartCoroutine("FinalAlignment");
 		}
 		
 		public void StartTeleportCountdown(Socketable s) {
@@ -199,6 +196,29 @@ namespace WeatherStation {
 			headPos.y = 0f;
 			
 			transform.position = StartingLocation.position - headPos;
+			transform.rotation = qInv;	
+		}
+		
+		IEnumerator FinalAlignment()
+		{
+			yield return new WaitForSeconds(2f);
+			
+			Vector3 headPos = transform.GetChild(0).transform.localPosition;
+			Quaternion localHead = transform.GetChild(0).transform.localRotation;
+			
+			headPos.y = 0f;
+			
+			Quaternion qInv = (FinalLocation.rotation * Quaternion.Inverse(localHead));
+			
+			Vector3 euler = qInv.eulerAngles;
+			euler.x = 0f;
+			euler.z = 0f;
+			qInv.eulerAngles = euler;
+			
+			headPos = qInv * headPos;
+			headPos.y = 0f;
+			
+			transform.position = FinalLocation.position - headPos;
 			transform.rotation = qInv;	
 		}
 		
