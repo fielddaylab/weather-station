@@ -26,6 +26,14 @@ namespace WeatherStation {
 		private bool FanRotating = false;
 		public override bool CheckComplete() {
 
+			if(State == PuzzleState.Inactive) {
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogStartPuzzle("TURBINE");
+				}			
+				State = PuzzleState.Active;
+			}
+			
 			if(Socket.IsMatched() && TestSuccess) {
 				if(State != PuzzleState.Complete) {
 					//ScriptPlugin.ForceKill = true;
@@ -34,11 +42,18 @@ namespace WeatherStation {
 					{
 						ScriptUtility.Trigger("WindSensorComplete");
 					}
+					
+					AudioSource aSource = gameObject.GetComponent<AudioSource>();
+					if(aSource != null) {
+						aSource.Play();
+					}
+					
+					WSAnalytics w = Find.State<WSAnalytics>();
+					if(w != null) {
+						w.LogCompletePuzzle("TURBINE");
+					}
 				}
-				AudioSource aSource = gameObject.GetComponent<AudioSource>();
-				if(aSource != null) {
-					aSource.Play();
-				}
+
 				State = PuzzleState.Complete;
 				return true;
 			}

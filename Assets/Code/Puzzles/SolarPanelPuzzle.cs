@@ -184,12 +184,13 @@ namespace WeatherStation {
                                     ScriptPlugin.ForceKill = true;
                                     StartCoroutine(SolarPanelComplete(1f));
                                 }
+								
+								WSAnalytics w = Find.State<WSAnalytics>();
+								if(w != null) {
+									w.LogCompletePuzzle("SOLAR");
+								}
                             }
 							
-							WSAnalytics w = Find.State<WSAnalytics>();
-							if(w != null) {
-								w.LogCompletePuzzle("SOLAR");
-							}
                             State = PuzzleState.Complete;
                             return true;
                         }

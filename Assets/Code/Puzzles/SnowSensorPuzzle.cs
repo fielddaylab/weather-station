@@ -28,6 +28,15 @@ namespace WeatherStation {
 		const int TOTAL_BUTTONS = 4;
 
 		public override bool CheckComplete() {
+			
+			if(State == PuzzleState.Inactive) {
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogStartPuzzle("THERMOMETER");
+				}			
+				State = PuzzleState.Active;
+			}
+			
 			int totalComplete = 0;
             for(int i = 0; i < TOTAL_BUTTONS; ++i) {
                 if(SensorMaterials[i].mainTexture == SolutionTextures[i]) {
@@ -51,6 +60,10 @@ namespace WeatherStation {
 			{
 				//Debug.Log("Completed Temperature Sensor Puzzle!");
 				State = PuzzleState.Complete;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogCompletePuzzle("THERMOMETER");
+				}
 			}
 
             return true;

@@ -32,16 +32,27 @@ namespace WeatherStation {
         private bool BlinkOn = false;
 		
 		public override bool CheckComplete() {
+			
+			if(State == PuzzleState.Inactive) {
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogStartPuzzle("BATTERY");
+				}			
+				State = PuzzleState.Active;
+			}
+				
             for(int i = 0; i < PuzzleSockets.Count; ++i) {
                 if(!PuzzleSockets[i].IsMatched()) {
 					return false;
                 }
             }
-			
+				
 			if(State != PuzzleState.Complete) {
-				//ScriptPlugin.ForceKill = true;
-				//StartCoroutine(WindSensorComplete(1f));
 				State = PuzzleState.Complete;
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null) {
+					w.LogCompletePuzzle("BATTERY");
+				}
 			}
 			
 			return true;

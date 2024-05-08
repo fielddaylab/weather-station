@@ -33,6 +33,30 @@ namespace WeatherStation {
                     allMatched = false;
                 }
             }
+			
+			if(allMatched)
+			{
+				if(State != PuzzleState.Complete) {
+					//ScriptPlugin.ForceKill = true;
+					//StartCoroutine(WindSensorComplete(1f));
+					State = PuzzleState.Complete;
+					WSAnalytics w = Find.State<WSAnalytics>();
+					if(w != null) {
+						w.LogCompletePuzzle("DATA_LOGGER");
+					}
+				}
+			}
+			else
+			{
+				if(State == PuzzleState.Inactive) {
+					WSAnalytics w = Find.State<WSAnalytics>();
+					if(w != null) {
+						w.LogStartPuzzle("DATA_LOGGER");
+					}			
+					State = PuzzleState.Active;
+				}
+			}
+			
 			return allMatched;
 		}
 
