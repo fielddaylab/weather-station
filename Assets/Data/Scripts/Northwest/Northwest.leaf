@@ -251,6 +251,9 @@ $call batteryBay->StopHighlight()
 $call batteryBay->StopFX()
 $endif
 
+// NEW ARGO LINE:
+// {@Argo} Hm, this old battery is broken! Put it in the trash chute. $[hmm_this_old]
+
 $call batteryBaySocket->LockBase(true)
 $call batteryBroken->SetDisabled(false)
 
