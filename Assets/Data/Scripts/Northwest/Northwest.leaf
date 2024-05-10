@@ -251,9 +251,6 @@ $call batteryBay->StopHighlight()
 $call batteryBay->StopFX()
 $endif
 
-// NEW ARGO LINE:
-// {@Argo} Hm, this old battery is broken! Put it in the trash chute. $[hmm_this_old]
-
 $call batteryBaySocket->LockBase(true)
 $call batteryBroken->SetDisabled(false)
 
@@ -294,6 +291,16 @@ $call argoHelpButton->SetButtonLocked(true)
 //now both are socketed...
 $call batteryBaySocket->OpenCover()
 $call batteryBase->DisableCollider(true)
+
+{@Argo} Hm, this old battery is broken! Put it in the trash chute. $[hmm_this_old]
+
+$call batteryBroken->PlayFX()
+
+$while NotWasGrabbed(batteryBroken)
+$call Wait(1)
+$endwhile
+
+$call batteryBroken->StopFX()
 
 $call batteryOne->PlayFX()
 $call batteryOne->ShowHighlight()
