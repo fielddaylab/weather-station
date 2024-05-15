@@ -15,7 +15,9 @@ using Unity.Collections;
 using Unity.Collections.LowLevel.Unsafe;
 #endif // HAS_UPLOAD_NATIVE_ARRAY
 
-namespace FieldDay {
+[assembly: InternalsVisibleTo("OGD.Survey")]
+
+namespace OGD {
     /// <summary>
     /// Handles communication with the OpenGameData server's logging features.
     /// Also handles communication with Firebase.
@@ -85,6 +87,7 @@ namespace FieldDay {
             Debug = 0x01,
             Base64Encode = 0x02,
             SkipOGDUpload = 0x04,
+            SkipFirebaseUpload = 0x08,
 
             Default = Base64Encode
         }
@@ -317,6 +320,9 @@ namespace FieldDay {
                 m_FlushDispatcher.Initialize(this);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetAppConsts(constants);
+            }*/
         }
 
         /// <summary>
@@ -327,6 +333,10 @@ namespace FieldDay {
             if (m_SessionConsts.UserId != userId) {
                 m_SessionConsts.UserId = userId;
                 m_Endpoint = BuildOGDUrl(m_OGDConsts, m_SessionConsts);
+
+                /*if (ModuleReady(ModuleId.Firebase)) {
+                    Firebase_SetSessionConsts(m_SessionConsts);
+                }*/
             }
         }
 
@@ -337,6 +347,9 @@ namespace FieldDay {
         public void SetSettings(SettingsFlags settings) {
             m_Settings = settings;
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_ConfigureSettings(m_Settings);
+            }*/
         }
 
         /// <summary>
@@ -346,6 +359,9 @@ namespace FieldDay {
         public void AddSettings(SettingsFlags settings) {
             m_Settings |= settings;
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_ConfigureSettings(m_Settings);
+            }*/
         }
 
         /// <summary>
@@ -355,6 +371,9 @@ namespace FieldDay {
         public void RemoveSettings(SettingsFlags settings) {
             m_Settings &= ~settings;
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_ConfigureSettings(m_Settings);
+            }*/
         }
 
         /// <summary>
@@ -401,7 +420,7 @@ namespace FieldDay {
         /// Indicates that this should also log to firebase.
         /// </summary>
         public void UseFirebase(string constantsJSON) {
-            UseFirebase(JsonUtility.FromJson<FirebaseConsts>(constantsJSON));
+            //UseFirebase(JsonUtility.FromJson<FirebaseConsts>(constantsJSON));
         }
 
         /// <summary>
@@ -461,6 +480,10 @@ namespace FieldDay {
                 WriteStream(m_EventStream, "client_offset", clientOffset);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_NewEvent(eventName, eventSequenceIndex);
+            }*/
+
             BeginEventCustomParams();
         }
 
@@ -513,6 +536,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_EventCustomParamsBuffer, parameterName, parameterValue);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetEventParam(parameterName, parameterValue);
+            }*/
         }
 
         /// <summary>
@@ -527,6 +553,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_EventCustomParamsBuffer, parameterName, parameterValue);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetEventParam(parameterName, parameterValue.ToString());
+            }*/
         }
 
         /// <summary>
@@ -541,6 +570,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_EventCustomParamsBuffer, parameterName, parameterValue);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetEventParam(parameterName, parameterValue);
+            }*/
         }
 
         /// <summary>
@@ -555,6 +587,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_EventCustomParamsBuffer, parameterName, parameterValue, precision);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetEventParam(parameterName, parameterValue);
+            }*/
         }
 
         /// <summary>
@@ -569,6 +604,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_EventCustomParamsBuffer, parameterName, parameterValue);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetEventParam(parameterName, parameterValue ? 1 : 0);
+            }*/
         }
 
         /// <summary>
@@ -615,10 +653,17 @@ namespace FieldDay {
                     OGDLogUtils.TrimEnd(m_EventStream, ',');
                     m_EventStream.Append("},");
                 }
-
+                /*if (ModuleReady(ModuleId.Firebase)) {
+                    if ((m_Settings & SettingsFlags.SkipFirebaseUpload) == 0) {
+                        Firebase_SubmitEvent();
+                    } else {
+                        Firebase_ClearEvent();
+                    }
+                }*/
                 m_StatusFlags &= ~StatusFlags.WritingEvent;
             }
 
+            //Firebase_AttemptActivate();
         }
 
         /// <summary>
@@ -695,6 +740,9 @@ namespace FieldDay {
             m_StatusFlags |= StatusFlags.WritingGameState;
             BeginBuffer(ref m_GameStateParamsBuffer);
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_ResetGameState();
+            }*/
         }
 
         /// <summary>
@@ -710,6 +758,46 @@ namespace FieldDay {
         }
 
         /// <summary>
+        /// Writes shared game state as the given JSON-formatted data.
+        /// </summary>
+        public void GameState(string gameState) {
+            if ((m_StatusFlags & StatusFlags.WritingGameState) != 0) {
+                throw new InvalidOperationException("Game State already open for writing");
+            }
+
+            m_StatusFlags |= StatusFlags.WritingGameState;
+            m_GameStateParamsBuffer.Clear();
+
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_ResetGameState();
+            }*/
+
+            m_GameStateParamsBuffer.Write(gameState);
+            OGDLogUtils.EscapeJSONInline(ref m_GameStateParamsBuffer);
+            m_StatusFlags &= ~StatusFlags.WritingGameState;
+        }
+
+        /// <summary>
+        /// Writes shared game state as the given JSON-formatted data.
+        /// </summary>
+        public void GameState(StringBuilder gameState) {
+            if ((m_StatusFlags & StatusFlags.WritingGameState) != 0) {
+                throw new InvalidOperationException("Game State already open for writing");
+            }
+
+            m_StatusFlags |= StatusFlags.WritingGameState;
+            m_GameStateParamsBuffer.Clear();
+
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_ResetGameState();
+            }*/
+
+            m_GameStateParamsBuffer.Write(gameState);
+            OGDLogUtils.EscapeJSONInline(ref m_GameStateParamsBuffer);
+            m_StatusFlags &= ~StatusFlags.WritingGameState;
+        }
+
+        /// <summary>
         /// Writes a custom game state string parameter.
         /// </summary>
         public void GameStateParam(string parameterName, string parameterValue) {
@@ -721,6 +809,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_GameStateParamsBuffer, parameterName, parameterValue);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetGameStateParam(parameterName, parameterValue);
+            }*/
         }
 
         /// <summary>
@@ -735,6 +826,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_GameStateParamsBuffer, parameterName, parameterValue);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetGameStateParam(parameterName, parameterValue.ToString());
+            }*/
         }
 
         /// <summary>
@@ -749,6 +843,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_GameStateParamsBuffer, parameterName, parameterValue);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetGameStateParam(parameterName, parameterValue);
+            }*/
         }
 
         /// <summary>
@@ -763,6 +860,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_GameStateParamsBuffer, parameterName, parameterValue, precision);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetGameStateParam(parameterName, parameterValue);
+            }*/
         }
 
         /// <summary>
@@ -777,6 +877,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_GameStateParamsBuffer, parameterName, parameterValue);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetGameStateParam(parameterName, parameterValue ? 1 : 0);
+            }*/
         }
 
         /// <summary>
@@ -803,6 +906,10 @@ namespace FieldDay {
 
             m_StatusFlags |= StatusFlags.WritingUserData;
             BeginBuffer(ref m_UserDataParamsBuffer);
+
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_ResetUserData();
+            }*/
         }
 
         /// <summary>
@@ -818,6 +925,46 @@ namespace FieldDay {
         }
 
         /// <summary>
+        /// Writes shared user data as the given JSON-formatted data.
+        /// </summary>
+        public void UserData(string userData) {
+            if ((m_StatusFlags & StatusFlags.WritingGameState) != 0) {
+                throw new InvalidOperationException("User Data already open for writing");
+            }
+
+            m_StatusFlags |= StatusFlags.WritingUserData;
+            m_UserDataParamsBuffer.Clear();
+
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_ResetUserData();
+            }*/
+
+            m_UserDataParamsBuffer.Write(userData);
+            OGDLogUtils.EscapeJSONInline(ref m_UserDataParamsBuffer);
+            m_StatusFlags &= ~StatusFlags.WritingUserData;
+        }
+
+        /// <summary>
+        /// Writes shared user data as the given JSON-formatted data.
+        /// </summary>
+        public void UserData(StringBuilder userData) {
+            if ((m_StatusFlags & StatusFlags.WritingUserData) != 0) {
+                throw new InvalidOperationException("User Data already open for writing");
+            }
+
+            m_StatusFlags |= StatusFlags.WritingGameState;
+            m_UserDataParamsBuffer.Clear();
+
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_ResetUserData();
+            }*/
+
+            m_UserDataParamsBuffer.Write(userData);
+            OGDLogUtils.EscapeJSONInline(ref m_UserDataParamsBuffer);
+            m_StatusFlags &= ~StatusFlags.WritingUserData;
+        }
+
+        /// <summary>
         /// Writes a custom user data string parameter.
         /// </summary>
         public void UserDataParam(string parameterName, string parameterValue) {
@@ -828,6 +975,10 @@ namespace FieldDay {
             if (ModuleReady(ModuleId.OpenGameData)) {
                 WriteBuffer(ref m_UserDataParamsBuffer, parameterName, parameterValue);
             }
+
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetUserDataParam(parameterName, parameterValue);
+            }*/
         }
 
         /// <summary>
@@ -842,6 +993,9 @@ namespace FieldDay {
                 WriteBuffer(ref m_UserDataParamsBuffer, parameterName, parameterValue);
             }
 
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetUserDataParam(parameterName, parameterValue.ToString());
+            }*/
         }
 
         /// <summary>
@@ -855,6 +1009,10 @@ namespace FieldDay {
             if (ModuleReady(ModuleId.OpenGameData)) {
                 WriteBuffer(ref m_UserDataParamsBuffer, parameterName, parameterValue);
             }
+
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetUserDataParam(parameterName, parameterValue);
+            }*/
         }
 
         /// <summary>
@@ -868,6 +1026,10 @@ namespace FieldDay {
             if (ModuleReady(ModuleId.OpenGameData)) {
                 WriteBuffer(ref m_UserDataParamsBuffer, parameterName, parameterValue, precision);
             }
+
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetUserDataParam(parameterName, parameterValue);
+            }*/
         }
 
         /// <summary>
@@ -881,6 +1043,10 @@ namespace FieldDay {
             if (ModuleReady(ModuleId.OpenGameData)) {
                 WriteBuffer(ref m_UserDataParamsBuffer, parameterName, parameterValue);
             }
+
+            /*if (ModuleReady(ModuleId.Firebase)) {
+                Firebase_SetUserDataParam(parameterName, parameterValue ? 1 : 0);
+            }*/
         }
 
         /// <summary>
@@ -909,7 +1075,6 @@ namespace FieldDay {
 
             FinishEventData();
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD || DEBUG || DEVELOPMENT || OGD_ALLOW_SKIP
             if ((m_Settings & SettingsFlags.SkipOGDUpload) != 0) {
                 if ((m_Settings & SettingsFlags.Debug) != 0) {
                     UnityEngine.Debug.LogFormat("[OGDLog] Skipping server upload");
@@ -918,7 +1083,6 @@ namespace FieldDay {
                 m_EventStream.Clear();
                 return;
             }
-#endif // UNITY_EDITOR || DEVELOPMENT_BUILD || DEBUG || DEVELOPMENT || OGD_ALLOW_SKIP
 
             m_StatusFlags |= StatusFlags.Flushing;
             m_SubmittedStreamLength = m_EventStream.Length;

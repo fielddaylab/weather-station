@@ -66,9 +66,9 @@ public class WSAnalytics : SharedStateComponent
 
     [NonSerialized] float seconds_at_start = 0f;
 	
-	FieldDay.OGDLog _ogdLog;
+	OGD.OGDLog _ogdLog;
 	
-	FieldDay.FirebaseConsts _firebase;
+	//FieldDay.FirebaseConsts _firebase;
 
 	[SerializeField]
 	bool _loggingEnabled = true;
@@ -90,11 +90,11 @@ public class WSAnalytics : SharedStateComponent
         m_HardwareId = GenerateHardwareId();
 
         //Debug.Log("Starting analytics");
-		FieldDay.OGDLogConsts c = new FieldDay.OGDLogConsts();
+		OGD.OGDLogConsts c = new OGD.OGDLogConsts();
 		c.AppId = _DB_NAME;
 		c.AppVersion = UnityEngine.Application.version;
 		c.ClientLogVersion = logVersion;
-		_ogdLog = new FieldDay.OGDLog(c);
+		_ogdLog = new OGD.OGDLog(c);
 
         CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
         CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
@@ -167,12 +167,15 @@ public class WSAnalytics : SharedStateComponent
 	
 	public void LogSessionStart()
 	{
-        if(_loggingEnabled)
-		{
+		//Debug.Log("Session start");
+        
+		if(_loggingEnabled)
+		{	
             seconds_at_start = UnityEngine.Time.time;
 			
             SetGameState();
 			
+			_ogdLog.ResetSessionId();
             _ogdLog.BeginEvent("session_start");
             _ogdLog.SubmitEvent();
         }
@@ -185,8 +188,7 @@ public class WSAnalytics : SharedStateComponent
 		{
             
 			SetGameState();
-            _ogdLog.ResetSessionId();
-			
+            
 			/*long sessionID = _ogdLog.GetSessionId();
 			UnityEngine.Random.seed = (int)sessionID;
 			RNG.Instance = new System.Random((int)sessionID);

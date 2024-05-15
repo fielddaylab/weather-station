@@ -89,6 +89,12 @@ namespace WeatherStation {
 			
 			if(CurrentSceneIndex == -1)
 			{
+				WSAnalytics w = Find.State<WSAnalytics>();
+				if(w != null)
+				{
+					w.LogStartGame();
+				}
+				
 				ScriptUtility.Trigger("LoadWest");
 				CurrentSceneIndex++;		
 			}

@@ -1,10 +1,11 @@
 using System;
 using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 
-namespace FieldDay {
+namespace OGD {
     static public class OGDLogUtils {
         #region Consts
 
@@ -371,6 +372,8 @@ namespace FieldDay {
                 }
             }
         }
+
+        private const int EscapeInlineStackBufferLimit = 4096;
     
         /// <summary>
         /// Escapes the given buffer to JSON over itself.
@@ -378,11 +381,23 @@ namespace FieldDay {
         static internal void EscapeJSONInline(ref FixedCharBuffer buffer) {
             unsafe {
                 int length = buffer.Length;
-                char* copy = stackalloc char[length];
-                FixedCharBuffer temp = new FixedCharBuffer("temp", copy, length);
-                temp.Write(buffer.Base, buffer.Length);
-                buffer.Clear();
-                EscapeJSON(ref buffer, temp);
+                if (length > EscapeInlineStackBufferLimit) {
+                    char* copy = (char*) Marshal.AllocHGlobal(length * sizeof(char));
+                    try {
+                        FixedCharBuffer temp = new FixedCharBuffer("temp", copy, length);
+                        temp.Write(buffer.Base, buffer.Length);
+                        buffer.Clear();
+                        EscapeJSON(ref buffer, temp);
+                    } finally {
+                        Marshal.FreeHGlobal((IntPtr) copy);
+                    }
+                } else {
+                    char* copy = stackalloc char[length];
+                    FixedCharBuffer temp = new FixedCharBuffer("temp", copy, length);
+                    temp.Write(buffer.Base, buffer.Length);
+                    buffer.Clear();
+                    EscapeJSON(ref buffer, temp);
+                }
             }
         }
 
@@ -712,6 +727,27 @@ namespace FieldDay {
 
             fixed(char* dataPtr = data) {
                 Buffer.MemoryCopy(dataPtr, m_WriteHead, m_Remaining * sizeof(char), length * sizeof(char));
+            }
+
+            m_WriteHead += length;
+            m_Remaining -= length;
+        }
+
+        public void Write(StringBuilder data) {
+            if (data == null || data.Length <= 0) {
+                return;
+            }
+
+            int length = data.Length;
+            if (length > m_Remaining) {
+                throw GetWriteException(length);
+            }
+
+            char* head = m_WriteHead;
+            int writeLength = length;
+            int idx = 0;
+            while(writeLength-- > 0) {
+                *head++ = data[idx++];
             }
 
             m_WriteHead += length;
