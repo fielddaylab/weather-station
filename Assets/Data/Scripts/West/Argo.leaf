@@ -20,6 +20,8 @@ $call argoHelpButton->SetCurrentClip(0)
 {@Alex} His name is Matt, Argo, I’m training him. $[alex_his_name]
 {@Argo} Excellent! So Matt, to reach the equipment on the tower, you can raise and lower it until it's in arms reach! $[to_reach_the]
 
+
+
 // activate handles
 $call rightPanelHandle->PlayFX()
 $call rightPanelHandle->ShowHighlight()
@@ -30,7 +32,7 @@ $call leftPanelHandle->SetGrabbable(true)
 $call leftPanelHandle->PlaySound()
 
 $if PuzzleIsNotComplete(solarPanel)
-    {@Argo} Great, now let's focus on the solar panel, grab it with your hands and rotate it until the solar bar fills up. $[alex_ok_we]
+    {@Argo} Now let's focus on the solar panel, grab it with your hands and rotate it until the solar bar fills up. $[alex_ok_we]
     $while PuzzleIsNotComplete(solarPanel)
         $call Wait(1)
     $endwhile

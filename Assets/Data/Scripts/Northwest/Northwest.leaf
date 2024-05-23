@@ -668,6 +668,7 @@ $call snowTowerSocket->SetLocked(false)
 
 $call uplinkButton->ShowHighlight()
 $call uplinkButton->PlayFX()
+$call uplinkButton->SetButtonPressed(false)
 
 $call argoHelpButton->SetButtonLocked(false)
 $call argoHelpButton->SetCurrentClip(14)
