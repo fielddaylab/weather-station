@@ -7,7 +7,7 @@
         android:minSdkVersion="24"
         android:targetSdkVersion="32"
 		android:compileSdkVersion="33"		/>
-    <application>
+    <application android:allowBackup="false">
         <activity android:name="com.unity3d.player.UnityPlayerActivity"
                   android:theme="@style/UnityThemeSelector">
             <intent-filter>
@@ -17,4 +17,5 @@
             <meta-data android:name="unityplayer.UnityActivity" android:value="true" />
         </activity>
     </application>
+	<uses-permission android:name="android.permission.WAKE_LOCK" tools:node="remove" />
 </manifest>
