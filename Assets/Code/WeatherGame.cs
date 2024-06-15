@@ -19,7 +19,6 @@ namespace WeatherStation {
 					
 					//if(!AdjustedFrameRate)
 					//{
-					OVRPlugin.systemDisplayFrequency = 90.0f;
 						//AdjustedFrameRate = true;
 						/*XRDisplaySubsystem displaySubsystem = null;
 						// Omitted null checks for brevity. You should check each line for null.

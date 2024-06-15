@@ -87,6 +87,8 @@ public class WSAnalytics : SharedStateComponent
 
     void Awake()
     {
+		OVRPlugin.systemDisplayFrequency = 90.0f;
+		
         m_HardwareId = GenerateHardwareId();
 
         //Debug.Log("Starting analytics");

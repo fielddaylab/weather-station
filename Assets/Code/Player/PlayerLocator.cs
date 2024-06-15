@@ -25,6 +25,7 @@ namespace WeatherStation {
 		public GameObject ExteriorLightInside;
 		public GameObject InteriorLight;
 		public GameObject InteriorLight2;
+		public GameObject AWSTower;
 		public OVRScreenFade Fader;
 
 		public ItemSocket ArgoInsideSocket;
@@ -56,9 +57,9 @@ namespace WeatherStation {
 			StartCoroutine("InitialAlignment");
 		}
 		
-		public void Teleport() {
+		public void Teleport(bool bFinal=false) {
 			if(Argo != null) {
-				StartTeleportCountdown(Argo);
+				StartTeleportCountdown(Argo, bFinal);
 			}
 		}
 
@@ -84,7 +85,7 @@ namespace WeatherStation {
 			StartCoroutine("FinalAlignment");
 		}
 		
-		public void StartTeleportCountdown(Socketable s) {
+		public void StartTeleportCountdown(Socketable s, bool bFinal = false) {
 
 			//we should return any item in your hand to their original location before teleporting...
 			ReturnAnythingInHand(s);
@@ -92,7 +93,7 @@ namespace WeatherStation {
 			if(s.SocketType == SocketFlags.Argo) {
 				if(!IsTeleporting) {
 					IsTeleporting = true;
-					StartCoroutine(WaitForTeleport(s, 1f));
+					StartCoroutine(WaitForTeleport(s, 1f, bFinal));
 				}
 			}
 		}
@@ -222,7 +223,7 @@ namespace WeatherStation {
 			transform.rotation = qInv;	
 		}
 		
-		IEnumerator WaitForTeleport(Socketable s, float duration)
+		IEnumerator WaitForTeleport(Socketable s, float duration, bool bFinal)
 		{
 			yield return new WaitForSeconds(duration);
 
@@ -286,6 +287,10 @@ namespace WeatherStation {
 					PlaneExterior.SetActive(true);
 				}
 				
+				if(AWSTower != null) {
+					AWSTower.SetActive(true);
+				}
+				
 				InsideLocation.GetComponent<AudioSource>().Stop();
 				
 				if(PlaneInterior != null) {	
@@ -343,18 +348,37 @@ namespace WeatherStation {
 				//transform.rotation = InsideLocation.rotation * Quaternion.Inverse(localHead);
 				
 				//zero out the x and z rotation in case user had head tilted at point of transport
-				Quaternion qInv = (InsideLocation.rotation * Quaternion.Inverse(localHead));
-				
-				Vector3 euler = qInv.eulerAngles;
-				euler.x = 0f;
-				euler.z = 0f;
-				qInv.eulerAngles = euler;
-				
-				headPos = qInv * headPos;
-				headPos.y = 0f;
-				
-				transform.position = InsideLocation.position - headPos;
-				transform.rotation = qInv;
+				if(bFinal)
+				{
+					Quaternion qInv = (StartingLocation.rotation * Quaternion.Inverse(localHead));
+					
+					Vector3 euler = qInv.eulerAngles;
+					euler.x = 0f;
+					euler.z = 0f;
+					qInv.eulerAngles = euler;
+					
+					headPos = qInv * headPos;
+					headPos.y = 0f;
+					
+					transform.position = StartingLocation.position - headPos;
+					transform.rotation = qInv;
+		
+				}
+				else
+				{
+					Quaternion qInv = (InsideLocation.rotation * Quaternion.Inverse(localHead));
+					
+					Vector3 euler = qInv.eulerAngles;
+					euler.x = 0f;
+					euler.z = 0f;
+					qInv.eulerAngles = euler;
+					
+					headPos = qInv * headPos;
+					headPos.y = 0f;
+					
+					transform.position = InsideLocation.position - headPos;
+					transform.rotation = qInv;
+				}
 				
 				Sled.transform.position = SledInsideLocation.transform.position;
 				Sled.transform.rotation = SledInsideLocation.transform.rotation;
@@ -367,6 +391,10 @@ namespace WeatherStation {
 				}
 				
 				InsideLocation.GetComponent<AudioSource>().Play();
+				
+				if(AWSTower != null) {
+					AWSTower.SetActive(false);
+				}
 				
 				if(PlaneInterior != null) {
 					PlaneInterior.SetActive(true);	
