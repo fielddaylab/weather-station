@@ -9,5 +9,6 @@ using UnityEngine.XR;
 namespace WeatherStation {
     public class VRDebugInputState : SharedStateComponent {
         [NonSerialized] public bool ResetPressed;
+        [NonSerialized] public float FpsToggleHold;
     }
 }

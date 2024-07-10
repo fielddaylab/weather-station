@@ -6,7 +6,7 @@ using FieldDay.Scripting;
 using UnityEngine;
 
 namespace WeatherStation {
-    public class WeatherAsets : MonoBehaviour {
+    public class WeatherAssets : MonoBehaviour {
         [SerializeField] private AssetPack[] m_Packs = Array.Empty<AssetPack>();
 
         private void Start() {

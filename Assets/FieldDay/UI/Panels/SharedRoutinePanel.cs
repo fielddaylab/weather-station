@@ -1,13 +1,17 @@
 using BeauRoutine.Extensions;
+using BeauUtil;
 using FieldDay.SharedState;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace FieldDay.UI {
     /// <summary>
     /// Shared beauroutine panel.
     /// </summary>
     [DefaultExecutionOrder(SharedPanel.DefaultExecutionOrder)]
-    public class SharedRoutinePanel : BasePanel, ISharedGuiPanel {
+    [NonIndexed]
+    public abstract class SharedRoutinePanel : BasePanel, ISharedGuiPanel {
+        [SerializeField] protected LayoutOffset m_LayoutOffset;
 
         protected override void Awake() {
             base.Awake();

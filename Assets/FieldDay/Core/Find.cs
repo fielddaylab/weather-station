@@ -65,7 +65,7 @@ namespace FieldDay {
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static public RectTransform NamedRectTransform(StringHash32 name) {
-            return Game.Gui.LookupNamed(name);
+            return Game.Gui.FindNamed(name);
         }
 
         #endregion // Gui
@@ -78,6 +78,14 @@ namespace FieldDay {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static public ComponentIterator<T> Components<T>() where T : class, IComponentData {
             return Game.Components.ComponentsOfType<T>();
+        }
+
+        /// <summary>
+        /// Looks up the first component of the given type.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        static public T FirstComponent<T>() where T : class, IComponentData {
+            return Game.Components.FirstComponentOfType<T>();
         }
 
         #endregion // Components
@@ -96,6 +104,20 @@ namespace FieldDay {
         /// </summary>
         static public T FromId<T>(int instanceId) where T : UnityEngine.Object {
             return UnityHelper.Find<T>(instanceId);
+        }
+
+        /// <summary>
+        /// Finds an instance of the given type.
+        /// </summary>
+        static public T Any<T>() where T : UnityEngine.Object {
+            return Object.FindAnyObjectByType<T>(FindObjectsInactive.Include);
+        }
+
+        /// <summary>
+        /// Finds an instance of the given type.
+        /// </summary>
+        static public T Any<T>(FindObjectsInactive findInactive) where T : UnityEngine.Object {
+            return Object.FindAnyObjectByType<T>(findInactive);
         }
 
         #endregion // Unity

@@ -1,6 +1,7 @@
 using System;
 using BeauUtil;
 using FieldDay;
+using FieldDay.Perf;
 using FieldDay.SharedState;
 using FieldDay.Systems;
 using UnityEngine;
@@ -20,6 +21,21 @@ namespace WeatherStation {
                 if (!m_StateA.LeftHand.Holding(VRControllerButtons.Stick) && !m_StateA.RightHand.Holding(VRControllerButtons.Stick)) {
                     m_StateB.ResetPressed = false;
                 }
+            }
+
+            if ((m_StateB.FpsToggleHold == 0 && m_StateA.LeftHand.Pressed(VRControllerButtons.Trigger))
+                || (m_StateB.FpsToggleHold > 0 && m_StateA.LeftHand.Holding(VRControllerButtons.Trigger))) {
+                m_StateB.FpsToggleHold += deltaTime;
+                if (m_StateB.FpsToggleHold >= 1) {
+                    if (FramerateDisplay.IsShowing()) {
+                        FramerateDisplay.Hide();
+                    } else {
+                        FramerateDisplay.Show();
+                    }
+                    m_StateB.FpsToggleHold = 0;
+                }
+            } else if (!m_StateA.LeftHand.Holding(VRControllerButtons.Trigger)) {
+                m_StateB.FpsToggleHold = 0;
             }
         }
     }

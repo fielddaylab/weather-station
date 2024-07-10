@@ -9,6 +9,7 @@ using GlobalAssetIndex = BeauUtil.TypeIndex<FieldDay.Assets.IGlobalAsset>;
 using LiteAssetIndex = BeauUtil.TypeIndex<FieldDay.Assets.ILiteAsset>;
 using NamedAssetIndex = BeauUtil.TypeIndex<FieldDay.Assets.INamedAsset>;
 using NamedAssetCollection = FieldDay.Assets.AssetCollection<FieldDay.Assets.INamedAsset>;
+using System.Collections;
 
 namespace FieldDay.Assets {
     /// <summary>
@@ -315,6 +316,14 @@ namespace FieldDay.Assets {
             return found;
         }
 
+        /// <summary>
+        /// Looks up all named assets of the given type.
+        /// </summary>
+        public NamedAssetIterator<T> GetAllNamed<T>() where T : class, INamedAsset {
+            NamedAssetCollection typedCollection = GetNamedCollection<T>(true);
+            return new NamedAssetIterator<T>(typedCollection.GetAll());
+        }
+
         #endregion // Named
 
         #region Lite
@@ -335,6 +344,14 @@ namespace FieldDay.Assets {
         public bool TryGetLite<T>(StringHash32 id, out T asset) where T : struct, ILiteAsset {
             AssetCollection<T> typedCollection = GetLiteCollection<T>(true);
             return typedCollection.TryLookup(id, out asset);
+        }
+
+        /// <summary>
+        /// Looks up all lightweight assets of the given type.
+        /// </summary>
+        public LiteAssetIterator<T> GetAllLite<T>() where T : struct, ILiteAsset {
+            AssetCollection<T> typedCollection = GetLiteCollection<T>(true);
+            return new LiteAssetIterator<T>(typedCollection.GetAll());
         }
 
         #endregion // Lite
@@ -385,5 +402,101 @@ namespace FieldDay.Assets {
         }
 
         #endregion // Internal
+    }
+
+    /// <summary>
+    /// Named asset enumerator.
+    /// </summary>
+    public struct NamedAssetIterator<T> : IEnumerable<T>, IEnumerator<T>, IDisposable where T : class, INamedAsset {
+        private Dictionary<StringHash32, INamedAsset>.ValueCollection.Enumerator m_Source;
+
+        internal NamedAssetIterator(Dictionary<StringHash32, INamedAsset>.ValueCollection source) {
+            m_Source = source.GetEnumerator();
+        }
+
+        public bool MoveNext() {
+            return m_Source.MoveNext();
+        }
+
+        public T Current {
+            get { return (T) m_Source.Current; }
+        }
+
+        public NamedAssetIterator<T> GetEnumerator() {
+            return this;
+        }
+
+        #region Interfaces
+
+        public void Dispose() {
+            m_Source.Dispose();
+            m_Source = default;
+        }
+
+        object IEnumerator.Current {
+            get { return Current; }
+        }
+
+        void IEnumerator.Reset() {
+            throw new NotSupportedException();
+        }
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return this;
+        }
+
+        #endregion // Interfaces
+    }
+
+    /// <summary>
+    /// Lite asset enumerator.
+    /// </summary>
+    public struct LiteAssetIterator<T> : IEnumerable<T>, IEnumerator<T>, IDisposable where T : struct, ILiteAsset {
+        private Dictionary<StringHash32, T>.ValueCollection.Enumerator m_Source;
+
+        internal LiteAssetIterator(Dictionary<StringHash32, T>.ValueCollection source) {
+            m_Source = source.GetEnumerator();
+        }
+
+        public bool MoveNext() {
+            return m_Source.MoveNext();
+        }
+
+        public T Current {
+            get { return m_Source.Current; }
+        }
+
+        public LiteAssetIterator<T> GetEnumerator() {
+            return this;
+        }
+
+        #region Interfaces
+
+        public void Dispose() {
+            m_Source.Dispose();
+            m_Source = default;
+        }
+
+        object IEnumerator.Current {
+            get { return Current; }
+        }
+
+        void IEnumerator.Reset() {
+            throw new NotSupportedException();
+        }
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() {
+            return this;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return this;
+        }
+
+        #endregion // Interfaces
     }
 }

@@ -15,6 +15,7 @@ namespace FieldDay.Assets {
         void Deregister(StringHash32 id);
         object Lookup(StringHash32 id);
         void Clear();
+        IEnumerable GetAll();
     }
 
     internal class AssetCollection<T> : IAssetCollection {
@@ -48,6 +49,13 @@ namespace FieldDay.Assets {
         [Il2CppSetOption(Option.NullChecks, false)]
         public bool TryLookup(StringHash32 id, out T asset) {
             return m_Lookup.TryGetValue(id, out asset);
+        }
+
+        /// <summary>
+        /// Gets all the assets of this type.
+        /// </summary>
+        public Dictionary<StringHash32, T>.ValueCollection GetAll() {
+            return m_Lookup.Values;
         }
 
         #region Modifications
@@ -99,6 +107,10 @@ namespace FieldDay.Assets {
 
         object IAssetCollection.Lookup(StringHash32 id) {
             return Lookup(id);
+        }
+        
+        IEnumerable IAssetCollection.GetAll() {
+            return GetAll();
         }
 
         #endregion // IAssetCollection
