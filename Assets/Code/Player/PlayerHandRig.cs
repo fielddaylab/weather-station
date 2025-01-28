@@ -28,13 +28,13 @@ namespace WeatherStation {
 		{
 			if(left)
 			{
-				pos = LeftHand.transform.position;
-				quat = LeftHand.transform.rotation;
+				pos = LeftHand.Raw.transform.position;
+				quat = LeftHand.Raw.transform.rotation;
 			}
 			else
 			{
-				pos = RightHand.transform.position;
-				quat = RightHand.transform.rotation;
+				pos = RightHand.Raw.transform.position;
+				quat = RightHand.Raw.transform.rotation;
 			}
 		}
 
