@@ -68,7 +68,8 @@ public class WSAnalytics : SharedStateComponent
 	
 	OGD.OGDLog _ogdLog;
 	
-	//FieldDay.FirebaseConsts _firebase;
+    [SerializeField]
+	OGD.FirebaseConsts _firebase = default(OGD.FirebaseConsts);
 
 	[SerializeField]
 	bool _loggingEnabled = true;
@@ -105,7 +106,7 @@ public class WSAnalytics : SharedStateComponent
 			_loggingEnabled = false;
 		}
 		
-		//_ogdLog.UseFirebase(_firebase);
+		_ogdLog.UseFirebase(_firebase);
         //_ogdLog.SetDebug(true);
     }
 	
