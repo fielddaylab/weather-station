@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FieldDay;
+using FieldDay.Components;
+using FieldDay.SharedState;
+using FieldDay.Systems;
+using FieldDay.Scripting;
 
 namespace WeatherStation
 {
@@ -28,12 +33,20 @@ namespace WeatherStation
 
 		Color32 OptionHighlightColor = new Color32(232, 239, 210, 255);
 		Color32 OptionUnhighlightColor = new Color32(109, 128, 111, 255);
+		
+		[SerializeField]
+		TMPro.TextMeshPro _playerCodeText;
 
 		// Start is called before the first frame update
 		void Start()
 		{
 			_musicCamera = Camera.main;
 			_subTitles = _musicCamera.transform.parent.GetChild(_musicCamera.transform.parent.childCount-1).GetComponent<SubtitleDisplay>();
+			//WSAnalytics w = Find.State<WSAnalytics>();
+			//if(w != null)
+			//{
+				//_playerCodeText.text = "Player Code: " + w.GetSessionID().ToString();
+			//}
 		}
 
 		// Update is called once per frame
