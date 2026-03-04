@@ -17,6 +17,7 @@ $endwhile
 
 //$call uplinkButton->StopHighlight()
 //$call uplinkButton->StopFX()
+$call uplinkButton->AssignCode()
 $call uplinkButton->SetButtonPressed(false)
 
 $call fader->FadeOut(3.0)

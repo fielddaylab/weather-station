@@ -73,6 +73,9 @@ public class WSAnalytics : SharedStateComponent
 
 	[SerializeField]
 	bool _loggingEnabled = true;
+    
+    [SerializeField]
+    string ServerURL;
 
     [NonSerialized] int _viewportDataCount = 0;
     const int MAX_VIEWPORT_DATA = 36;
@@ -108,6 +111,8 @@ public class WSAnalytics : SharedStateComponent
 		
 		_ogdLog.UseFirebase(_firebase);
         //_ogdLog.SetDebug(true);
+
+        OGD.Core.Configure(ServerURL, _DB_NAME);
     }
 	
 	void OnDestroy()
@@ -130,11 +135,11 @@ public class WSAnalytics : SharedStateComponent
 
     #region Logging
 	
-	public void SetUserID(int code)
+	public void SetUserID(string code)
 	{
 		if(_loggingEnabled)
 		{
-			_ogdLog.SetUserId(code.ToString());
+			_ogdLog.SetUserId(code);
 		}
 	}
 	
