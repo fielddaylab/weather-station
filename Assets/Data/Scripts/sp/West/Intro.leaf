@@ -1,0 +1,23 @@
+#basePath   Intro
+
+:: Introduction
+@trigger    LoadWest
+@evalPriority   100
+@once
+
+$call fader->FadeIn(4.0, 2.0)
+$call argoHelpButton->SetButtonLocked(false)
+$call argo->SetFacePose("sleeping")
+{@Rae} Control de Misión, aquí Otter 3. Acabamos de aterrizar en la estación Monte Reyes. El cielo está despejado como una campana. La temperatura es de 15 grados Fahrenheit negativos. Condiciones diurnas perfectas. $[rae_mission_control]
+{@Alex} Claro, perfecto, si eres un pingüino. $[alex_sure_perfect]
+{@Alex} La estación está un poco golpeada.  No está tan mal, teniendo en cuenta el tiempo que hemos estado fuera, pero parece que no hay energía. $[alex_stations_a]
+{@Rae} No tenemos tiempo para perder el tiempo. Sólo tenemos dos horas de tiempo despejado antes de que tenga que poner este avión en el cielo. Será mejor que arranquéis Argo. $[rae_we_dont]
+{@Alex} Gracias Ray. Muy bien Matt, parece que el tiempo no está de nuestro lado. ¿Ves a Argo en la torre? Pulsa el botón rojo para arrancarlo. $[alex_alright_matt]
+{@Matt} Sí, creo que puedo entenderlo. $[matt_uh_yeah]
+$while HelpButtonNotPressed(argoHelpButton)
+$call Wait(1)
+//$if ButtonNotPressed(argo)
+//{@Alex} Press Argo's red button to boot him up. $[alex_matt_press]
+//$endif
+$endwhile
+$call argoHelpButton->SetButtonLocked(true)

@@ -1,0 +1,24 @@
+#basePath   East
+
+:: East
+@trigger    LevelThreeFinished
+@evalPriority   100
+@once
+
+$call Wait(1)
+// $call argoTowerSocket->SetDisabled(true)
+
+$call fader->FadeIn(4.0, 2.0)
+
+{@Rae} Vale, no soy un experto, pero ¿no se suponía que aquí había una estación meteorológica? $[ok_im_no]
+{@Alex} La torre está casi completamente enterrada en la nieve. $[the_tower_is]
+{@Rae} ¿Alguna posibilidad de que Mac y tú podáis arreglarlo?  Hay un sistema meteorológico en camino y sólo tenemos tres horas antes de despegar. $[any_chance_you]
+{@Alex} No. A menos que acampemos aquí esta noche.$[nope_its_gone]
+{@Rae} No se recomienda. Es poco probable que el tiempo coopere. $[how_long_do]
+{@Alex} Matt, vamos a tener que dejar este sitio sin torre. No volveremos hasta el año que viene. No volverás hasta el año que viene. $[matt_were_going]
+{@Rae} Vamos, en marcha. Mañana revisaremos la última estación, o lo que quede de ella. $[come_on_lets]
+
+$call fader->FadeOut(4.0)
+// $call argoTowerSocket->SetDisabled(false)
+$call Wait(4)
+$call levelLoader->LoadSouthEast()

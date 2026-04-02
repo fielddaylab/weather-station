@@ -1,0 +1,31 @@
+#basePath   Starting
+
+:: Starting
+@trigger   StartGame
+@evalPriority   100
+@once
+
+$call fader->FadeIn(4.0, 2.0)
+
+//$call uplinkButton->ShowHighlight()
+//$call uplinkButton->PlayFX()
+$call uplinkButton->SetButtonPressed(false)
+
+$while ButtonNotPressed(uplinkButton)
+$call Wait(1)
+$endwhile
+
+//$call uplinkButton->StopHighlight()
+//$call uplinkButton->StopFX()
+$call uplinkButton->AssignCode()
+$call uplinkButton->SetButtonPressed(false)
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call playerLocation->Teleport()
+$call Wait(4)
+
+$call menuSelect->SetDisabled(true)
+$call menu->SetDisabled(true)
+
+$call levelLoader->LoadWest()

@@ -1,0 +1,318 @@
+#basePath   South
+
+:: South
+@trigger    LevelTwoFinished
+@evalPriority   100
+@once
+
+$call Wait(1)
+
+$call fader->FadeIn(4.0, 2.0)
+
+$call snow->IncreaseParticles(10000, 2000.0)
+
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(true)
+$call argoTowerSocket->SetLocked(true)
+$call batteryBroken->SetDisabled(true)
+
+$call argoFunButton->SetButtonLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
+
+{@Alex} Esas nubes no se ven muy bien. $[those_clouds_dont]
+{@MissionControl} Avisado, Nutria 3. Tenemos el ojo puesto en un frente de tormenta que se dirige hacia ustedes. $[weve_got_our]
+
+{@Alex} Sí, también nos dimos cuenta. $[yeah_we_noticed]
+{@Argo} En su informe, tenemos una batería agotada y un sensor de viento, un registrador de datos y un sensor de nieve dañados. $[status_report_we]
+
+$call batterySnowSocket->SetLocked(false)
+$call snowTowerSocket->SetLocked(false)
+$call snowSensor->ShowHighlight()
+$call snowSensor->PlayFX()
+$call snowSensor->SetGrabbable(true)
+$call snowSledSocket->PlayFX()
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->PlayFX()
+$call batterySledSocket->SetLocked(false)
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+$call batteryBase->SetGrabbable(true)
+$call windSensorSocket->SetLocked(false)
+$call windSensor->SetGrabbable(true)
+$call windSensor->ShowHighlight()
+$call windSensor->PlayFX()
+$call windSensorSled->PlayFX()
+
+{@Rae} Será mejor que trabajen rápido, no puedo despegar en condiciones de nieve blanca. Si no vuelves al avión a tiempo, tendré que irme sin ti. $[you_guys_better]
+{@Alex} Muy bien Matt, un poco de prueba de fuego nunca hace daño a nadie, ¿verdad? ¡A ver qué tienes! $[alex_thanks_rae]
+
+$call argoFunButton->SetButtonLocked(false)
+$call argoFunButton->SetStartClip(0)
+$call argoFunButton->SetEndClip(7)
+
+$if PuzzleIsNotComplete(dataLoggerPuzzle)
+
+$call argoHelpButton->SetCurrentClip(19)
+$call argoHelpButton->SetButtonLocked(false)
+
+$if NotIsGrabbed(dataLoggerDoor)
+$call dataLoggerDoor->ShowHighlight()
+$while DoorWasNotGrabbed(dataLoggerDoor)
+$call Wait(1)
+$endwhile
+$call dataLoggerDoor->StopHighlight()
+$endif
+
+$call loggerPieceOne->ShowHighlight()
+$call loggerPieceTwo->ShowHighlight()
+$call loggerPieceThree->ShowHighlight()
+$call loggerPieceFour->ShowHighlight()
+$call loggerPieceFive->ShowHighlight()
+$call loggerPieceSix->ShowHighlight()
+
+$while PuzzleIsNotComplete(dataLoggerPuzzle)
+$call Wait(1)
+$if WasGrabbed(loggerPieceOne)
+$call loggerPieceOne->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceTwo)
+$call loggerPieceTwo->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceThree)
+$call loggerPieceThree->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceFour)
+$call loggerPieceFour->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceFive)
+$call loggerPieceFive->StopHighlight()
+$endif
+$if WasGrabbed(loggerPieceSix)
+$call loggerPieceSix->StopHighlight()
+$endif
+$endwhile
+$call argoHelpButton->SetButtonLocked(true)
+$endif
+
+$call dataLoggerPuzzle->PlaySound()
+$call argoHelpButton->SetCurrentClip(21)
+$call argoHelpButton->SetButtonLocked(false)
+
+{@Argo} Bueno, si Wright se va sin nosotros, podríamos contarle a Matt la historia de la vez que nos quedamos varados en la isla Thurston. $[ooh_its_been]
+
+$call loggerPieceOne->StopHighlight()
+$call loggerPieceTwo->StopHighlight()
+$call loggerPieceThree->StopHighlight()
+$call loggerPieceFour->StopHighlight()
+$call loggerPieceFive->StopHighlight()
+$call loggerPieceSix->StopHighlight() 
+
+{@Alex} Muy bien, Matt, vamos a trabajar, y rápido, porque de ninguna manera voy a pasar toda la noche varado aquí con esa charlatana. $[lets_get_to]
+
+{@Matt} Entendido. $[matt_copy_that]
+
+$while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket), NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(snowSledSocket)
+
+$call snowSledSocket->StopFX()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$while NotIsSocketed(batterySledSocket), NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(batterySledSocket)
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$while NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(windSensorSled)
+$call windSensorSled->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$if IsSocketed(batterySledSocket)
+
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$while NotIsSocketed(snowSledSocket), NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(snowSledSocket)
+$call snowSledSocket->StopFX()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$while NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(windSensorSled)
+$call windSensorSled->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$call windSensor->StopSound()
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$if IsSocketed(windSensorSled)
+
+$call windSensorSled->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(snowSledSocket)
+$call snowSledSocket->StopFX()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(batterySledSocket)
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSledSocket->StopFX()
+
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+
+$call windSensorSled->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+
+$call argoSled->PlayFX()
+$call argoSled->PlaySound()
+$call argoTowerSocket->SetLocked(false)
+$call argo->SetGrabbable(true)
+$call argo->PlayFX()
+$call argo->ShowHighlight()
+
+$if NotIsSocketed(argoSled)
+$call argoHelpButton->SetCurrentClip(22)
+$call argoHelpButton->SetButtonLocked(false)
+$while NotIsSocketed(argoSled)
+$call Wait(1)
+$endwhile
+$call argoHelpButton->SetButtonLocked(true)
+$endif
+
+$set global:south-all-socketed = false
+$while global:south-all-socketed != true
+    $set global:south-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(windSensorSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if global:south-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+        $call windSensorSled->SetLocked(true)
+    $endif
+$endwhile
+
+$call snowSledSocket->StopFX()
+$call batterySledSocket->StopFX()
+$call windSensorSled->StopFX()
+$call argo->StopFX()
+$call argo->StopHighlight()
+$call argoSled->StopFX()
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call argoSled->SetLocked(false)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+$call map->SetTexture(8)
+$call Wait(3)
+
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
+$call windSensorSled->SetLocked(false)
+
+$call trashChute->SetGrabbable(true)
+$call argoHelpButton->SetButtonLocked(true)
+$call argoFunButton->SetButtonLocked(true)
+
+{@MissionControl} Nutria tres, la tormenta está avanzando más rápido de lo esperado, sólo te queda una hora. $[storm_is_moving]
+
+{@Alex} Muy bien, sigamos así Matt. Él estará a cargo de cuidar la estación una vez que me haya ido. $[were_working_as]
+
+{@Argo} Te vas? Adónde vas? $[argo_gone_where]
+
+{@Matt} Tiene un nuevo bebé que criar, Argo. $[matt_hes_got]
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(23)	
+
+$call argoFunButton->SetButtonLocked(false)
+$call argoFunButton->SetStartClip(7)
+$call argoFunButton->SetEndClip(9)
+
+$call levelLoader->LoadSouthTempPuzzle()
+$call levelLoader->LoadSouthWindPuzzle()
+$call levelLoader->LoadSouthBatteryPuzzle()
+
+{@Argo} Matt, ¿te gusta escuchar datos curiosos? $[argo_matt_do]
+
+{@Matt} Uhhh... $[matt_uhh]
+
+{@Alex} No le des ni una pulgada, Matt. Tomará una milla. $[alex_dont_give]
+
+{@Argo} Prefiero que mis frases hechas utilicen el sistema métrico decimal. $[argo_i_prefer]
+
+{@Alex} Uggghhh... $[alex_uggh]
+
+$while NotIsSocketed(batteryBaySocket)
+$call Wait(1)
+$endwhile
+
+{@Argo} Alex, pareces mucho más joven en esta foto. Bueno, el viento y el aire de la Antártida son conocidos por ser muy poco amables con los niveles de humedad de la piel. $[argo_alex_you]
+
+{@Alex} Eso es bastante rico viniendo de alguien que se mantiene unido con cinta adhesiva. $[alex_thats_pretty]

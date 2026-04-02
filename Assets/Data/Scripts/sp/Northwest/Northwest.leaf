@@ -1,0 +1,724 @@
+#basePath   Northwest
+
+:: Northwest
+@trigger    LevelOneFinished
+@evalPriority   100
+@once
+
+$call Wait(1)
+
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(true)
+$call argoTowerSocket->SetLocked(true)
+$call argoHelpButton->SetButtonLocked(true)
+$call batteryBroken->SetDisabled(true)
+
+$call fader->FadeIn(4.0, 2.0)
+{@Argo #happy} {poses 3.0:} Otro hermoso día en el hielo. Buenos días, compañero. Buenos días, Ray. $[ah_a_beautiful]
+{@Rae} ¡Buenos días, Argo! $[morning_argo]
+{@Alex} Hola. Yo también estoy aquí. $[um_hi_im]
+{@MissionControl} Nutria 3, podemos darte una ventana de 4 horas.  Hoy se esperan rachas de viento de hasta 20 nudos. $[otter_three_we]
+{@Rae} Podría volar a través de eso con los ojos cerrados. $[ha_twenty_knots]
+{@Alex} Ojos abiertos sería mejor, si no te importa. Argo, ¿cuál es la situación de la estación?  $[um_eyes_open]
+{@Argo #focus} {poses 3.5:} Escaneando... escaneando... El daño no es demasiado grave.  Simplemente una batería rota, un registrador de datos y un sensor de nieve. $[scanning_scanning_the]
+{@Matt} Vaya, ¿siempre están tan... machacados? $[matt_yikes]
+{@Alex} Normalmente no, pero hemos estado fuera varios años y se nota, así que sí, este es malo. $[alex_not_usually]
+
+$call snowTowerSocket->SetLocked(false)
+$call batterySnowSocket->SetLocked(false)
+$call snowSensor->ShowHighlight()
+$call snowSensor->PlayFX()
+$call snowSensor->SetGrabbable(true)
+$call snowSledSocket->PlayFX()
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->PlayFX()
+$call batterySledSocket->SetLocked(false)
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+$call batteryBase->SetGrabbable(true)
+
+$if PuzzleIsNotComplete(dataLoggerPuzzle)
+
+$call argoHelpButton->SetCurrentClip(15)
+$call argoHelpButton->SetButtonLocked(false)
+{@Argo #serious} {poses 2.9:} Es una cuestión de perspectiva. Sólo tenemos que reparar las conexiones de datos en el registrador. Parece bastante fácil, a ver si puedes averiguarlo, Matt. $[bad_is_a]
+
+$if NotIsGrabbed(dataLoggerDoor)
+$call dataLoggerDoor->ShowHighlight()
+$while DoorWasNotGrabbed(dataLoggerDoor)
+$call Wait(1)
+$endwhile
+$call dataLoggerDoor->StopHighlight()
+$endif
+
+$call loggerPieceOne->ShowHighlight()
+$call loggerPieceTwo->ShowHighlight()
+$call loggerPieceThree->ShowHighlight()
+$call loggerPieceFour->ShowHighlight()
+$call loggerPieceFive->ShowHighlight()
+$call loggerPieceSix->ShowHighlight()
+
+$while PuzzleIsNotComplete(dataLoggerPuzzle)
+$call Wait(1)
+$if IsGrabbed(loggerPieceOne)
+$call loggerPieceOne->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceTwo)
+$call loggerPieceTwo->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceThree)
+$call loggerPieceThree->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceFour)
+$call loggerPieceFour->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceFive)
+$call loggerPieceFive->StopHighlight()
+$endif
+$if IsGrabbed(loggerPieceSix)
+$call loggerPieceSix->StopHighlight()
+$endif
+$endwhile
+$call argoHelpButton->SetButtonLocked(true)
+$endif
+
+$call dataLoggerPuzzle->PlaySound()
+
+{@Argo #happy} {poses 3.0:} Toda esta reparación me recuerda el tiempo que salvé yo solo.... $[argo_all_this]
+{@Alex} A nadie le interesa oírte cacarear sobre tus años de gloria, Argo. $[alex_no_interest]
+{@Argo #happy} {poses 3.0:} Pero Matt no ha oído ninguna de mis historias. Le encantarán. $[argo_matt_hasnt]
+{@Alex} No... $[alex_no]
+
+$call loggerPieceOne->StopHighlight()
+$call loggerPieceTwo->StopHighlight()
+$call loggerPieceThree->StopHighlight()
+$call loggerPieceFour->StopHighlight()
+$call loggerPieceFive->StopHighlight()
+$call loggerPieceSix->StopHighlight()
+
+$if NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket)
+{@Argo #celebrate} {poses 1.1:} Estupendo. Tendremos que arreglar la batería y el sensor en la unidad de reparación. Coloca ambos en el trineo. $[great_well_have]
+$endif
+
+$call argoHelpButton->SetCurrentClip(16)
+$call argoHelpButton->SetButtonLocked(false)
+
+$while NotIsSocketed(snowSledSocket), NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(snowSledSocket)
+$call snowSledSocket->StopFX()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(batterySledSocket)
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$call argoHelpButton->SetButtonLocked(true)
+
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSledSocket->StopFX()
+
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+
+$call argo->SetGrabbable(true)
+$call argo->PlayFX()
+$call argoTowerSocket->SetLocked(false)
+$call argoSled->PlayFX()
+
+$if NotIsSocketed(argoSled)
+{@Argo} Buen trabajo. Ahora ponme dentro y vamos a arreglarnos. $[nice_job_now]
+$call argoHelpButton->SetCurrentClip(17)
+$call argoHelpButton->SetButtonLocked(false)
+$while NotIsSocketed(argoSled)
+$call Wait(1)
+$endwhile
+$call argoHelpButton->SetButtonLocked(true)
+$endif
+
+$set global:northwest-all-socketed = false
+$while global:northwest-all-socketed != true
+    $set global:northwest-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if global:northwest-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+    $endif
+$endwhile
+
+$call snowSledSocket->StopFX()
+$call batterySledSocket->StopFX()
+$call argo->StopFX()
+$call argoSled->StopFX()
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+// free argo to be placed in interior
+$call argoSled->SetLocked(false)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+$call snowSensor->SetWasGrabbed(false)
+$call batteryBase->SetWasGrabbed(false)
+$call Wait(3)
+
+$call trashChute->SetGrabbable(true)
+
+$call map->SetTexture(4)
+
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
+
+$call snowSensor->ShowHighlight()
+$call snowSensor->PlayFX()
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+
+{@Argo} Así que, lo primero es lo primero, vamos a poner la caja de la batería y el sensor en nuestro banco de trabajo. $[so_first_things]
+
+$call argoHelpButton->SetCurrentClip(23)
+$call argoHelpButton->SetButtonLocked(false)
+
+
+$while NotWasGrabbed(snowSensor), NotWasGrabbed(batteryBase)
+$call Wait(1)
+$endwhile
+
+$if WasGrabbed(snowSensor)
+
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+
+$if NotIsSocketed(snowBaySocket)
+{@Argo} Coloque el sensor en la base de calibración situada a la derecha del banco. $[place_the_sensor]
+$call snowSensorBay->ShowHighlight()
+$call snowSensorBay->PlayFX()
+$while NotIsSocketed(snowBaySocket)
+$call Wait(1)
+$endwhile
+$call snowSensorBay->StopHighlight()
+$call snowSensorBay->StopFX()
+$call snowSensor->StopFX()
+$endif
+
+$call tempSensorFX->SetDisabled(false)
+$call tempSensorFX->PlayFX()
+
+$while NotWasGrabbed(batteryBase)
+$call Wait(1)
+$endwhile
+
+$endif
+
+$if WasGrabbed(batteryBase)
+
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+
+$if NotIsSocketed(batteryBaySocket)
+{@Argo} La caja de la batería en el centro del banco de trabajo. $[pop_the_battery]
+$call batteryBay->ShowHighlight()
+$call batteryBay->PlayFX()
+$while NotIsSocketed(batteryBaySocket)
+$call Wait(1)
+$endwhile
+$call batteryBay->StopHighlight()
+$call batteryBay->StopFX()
+$endif
+
+$call batteryBaySocket->LockBase(true)
+$call batteryBroken->SetDisabled(false)
+
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(24)
+
+$if NotIsSocketed(snowBaySocket)
+
+$if NotWasGrabbed(snowSensor)
+$while NotWasGrabbed(snowSensor)
+$call Wait(1)
+$endwhile
+{@Argo} Coloque el sensor en la base de calibración situada a la derecha del banco de trabajo. $[place_the_sensor_two]
+$call snowSensorBay->ShowHighlight()
+$call snowSensorBay->PlayFX()
+
+$while NotIsSocketed(snowBaySocket)
+$call Wait(1)
+$endwhile
+
+$call snowSensorBay->StopHighlight()
+$call snowSensorBay->StopFX()
+
+$endif
+
+$endif
+
+$call tempSensorFX->SetDisabled(false)
+$call tempSensorFX->PlayFX()
+$call snowSensor->StopFX()
+$call snowSensor->StopHighlight()
+
+$endif
+
+$call argoHelpButton->SetButtonLocked(true)
+
+//now both are socketed...
+$call batteryBaySocket->OpenCover()
+$call batteryBase->DisableCollider(true)
+
+{@Argo} Hmm, esta vieja batería está rota. Ponlo en la papelera. $[hmm_this_old]
+
+$call batteryBroken->PlayFX()
+
+$while NotWasGrabbed(batteryBroken)
+$call Wait(1)
+$endwhile
+
+$call batteryBroken->StopFX()
+
+$call batteryOne->PlayFX()
+$call batteryOne->ShowHighlight()
+$call batteryTwo->PlayFX()
+$call batteryTwo->ShowHighlight()
+$call batteryThree->PlayFX()
+$call batteryThree->ShowHighlight()
+
+$call batteryBase->SetGrabbable(false)
+
+{@Argo} Bien, necesitamos fabricar una batería nueva. Busca en tu inventario una placa base. $[ok_we_need]
+
+$call cabinetButton->PlayFX()
+$call cabinetButton->ShowHighlight()
+
+$while NotWasGrabbed(batteryOne), NotWasGrabbed(batteryTwo), NotWasGrabbed(batteryThree)
+$call Wait(1)
+$endwhile
+
+$if WasGrabbed(batteryOne)
+$call batteryOne->StopFX()
+$call batteryOne->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryTwo)
+$call batteryTwo->StopFX()
+$call batteryTwo->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryThree)
+$call batteryThree->StopFX()
+$call batteryThree->StopHighlight()
+$endif
+
+{@Argo} Estupendo. Ponlo en la caja de la batería para ver si es del tipo correcto. $[great_pop_it]
+
+$while NotIsPuzzleSocketed(batterySocket)
+$call Wait(1)
+$endwhile
+
+$while IsNotMatched(batterySocket)
+
+$if WasGrabbed(batteryOne)
+$call batteryOne->StopFX()
+$call batteryOne->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryTwo)
+$call batteryTwo->StopFX()
+$call batteryTwo->StopHighlight()
+$endif
+
+$if WasGrabbed(batteryThree)
+$call batteryThree->StopFX()
+$call batteryThree->StopHighlight()
+$endif
+
+$if NotIsPuzzleSocketed(batterySocket)
+$while NotIsPuzzleSocketed(batterySocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsNotMatched(batterySocket)
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(25)
+
+{@Argo} Hmm, parece que esto suministraría demasiada energía. Probemos con otra. $[hmm_it_looks]
+
+$while IsPuzzleSocketed(batterySocket)
+$call Wait(1)
+$endwhile
+
+$while NotIsGrabbed(batteryOne), NotIsGrabbed(batteryTwo), NotIsGrabbed(batteryThree)
+$call Wait(1)
+$endwhile
+
+$endif
+$endwhile
+
+$call argoHelpButton->SetCurrentClip(26)
+
+$call batteryOne->StopFX()
+$call batteryOne->StopHighlight()
+
+$call batteryThree->StopFX()
+$call batteryThree->StopHighlight()
+
+$call cellOne->ShowHighlight()
+$call cellTwo->ShowHighlight()
+$call cellThree->ShowHighlight()
+$call cellFour->ShowHighlight()
+$call cellOne->PlayFX()
+$call cellTwo->PlayFX()
+$call cellThree->PlayFX()
+$call cellFour->PlayFX()
+
+{@Argo} Ah, este parece el correcto. Ahora sólo tenemos que añadir celdas, eso también está en tu inventario. $[this_looks_like]
+
+$while PuzzleIsNotComplete(batteryPuzzle)
+
+$if WasGrabbed(cellOne)
+$call cellOne->StopHighlight()
+$call cellOne->StopFX()
+$endif
+
+$if WasGrabbed(cellTwo)
+$call cellTwo->StopHighlight()
+$call cellTwo->StopFX()
+$endif
+
+$if WasGrabbed(cellThree)
+$call cellThree->StopHighlight()
+$call cellThree->StopFX()
+$endif
+
+$if WasGrabbed(cellFour)
+$call cellFour->StopHighlight()
+$call cellFour->StopFX()
+$endif
+
+$call Wait(1)
+$endwhile
+
+$call batteryPuzzle->PlaySound()
+$call batteryBase->PlaySound()
+
+$call cellOne->StopHighlight()
+$call cellTwo->StopHighlight()
+$call cellThree->StopHighlight()
+$call cellFour->StopHighlight()
+$call cellOne->StopFX()
+$call cellTwo->StopFX()
+$call cellThree->StopFX()
+$call cellFour->StopFX()
+
+$call batteryBaySocket->CloseCover()
+$call batteryBaySocket->SetLocked(false)
+$call batteryBase->DisableCollider(false)
+
+// prevent player from grabbing battery internals
+$call Wait(3)
+$call batteryTwo->SetDisabled(true)
+
+$call batteryBase->SetGrabbable(true)
+
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+$call batterySledSocket->PlayFX()
+
+$call argoHelpButton->SetCurrentClip(27)
+
+$call cabinetButton->StopFX()
+$call cabinetButton->StopHighlight()
+
+{@Argo} Muy bien. Ahora que está terminado, vamos a ponerlo en el trineo y pasar al sensor de nieve. $[nice_now_that]
+
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+
+$call batteryTwo->StopHighlight()
+$call batteryTwo->StopFX()
+$call batterySledSocket->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->StopFX()
+$call batteryBase->StopSound()
+
+$call tempSensorButton12->SetButtonLocked(false)
+$call tempSensorButton14->SetButtonLocked(false)
+
+{@Argo} Bien, sólo nos queda el sensor de temperatura. Comprueba si puedes recalibrarlo completando la secuencia de señales. $[ok_all_we]
+
+$call argoHelpButton->SetCurrentClip(31)
+$call argoHelpButton->SetButtonLocked(false)
+
+$while PuzzleIsNotComplete(snowPuzzle)
+$call Wait(1)
+$if PuzzleIsAlmostComplete(snowPuzzle)
+$call argoHelpButton->SetCurrentClip(32)
+$endif
+$endwhile
+
+$call snowSensor->PlaySound()
+
+$call argoHelpButton->SetButtonLocked(true)
+
+{@Argo} Nice! $[nice_nice_nice]
+
+$call snowSensor->ShowHighlight()
+$call snowSensor->PlayFX()
+$call snowSledSocket->PlayFX()
+
+$while IsSocketed(snowBaySocket)
+$call Wait(1)
+$endwhile
+
+$call tempSensorFX->SetDisabled(true)
+$call tempSensorFX->StopFX()
+
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSledSocket->StopFX()
+
+$if NotIsSocketed(argoSled)
+    $call argo->PlayFX()
+    $call argo->ShowHighlight()
+    $call argoSled->PlayFX()
+    {@Argo} Vale, ponme en el trineo y salgamos al hielo. $[ok_put_it]
+    $call argoHelpButton->SetCurrentClip(3)
+    $call argoHelpButton->SetButtonLocked(false)
+    $while NotIsSocketed(argoSled)
+        $call Wait(1)
+    $endwhile
+    $call argo->StopFX()
+    $call argo->StopHighlight()
+    $call argoSled->StopFX()
+    $call argoHelpButton->SetButtonLocked(true)
+$endif
+
+$set global:northwest-all-socketed = false
+$while global:northwest-all-socketed != true
+    $set global:northwest-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if global:northwest-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+    $endif
+$endwhile
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call argoSled->SetLocked(false)
+$call playerLocation->Teleport()
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(false)
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+
+$call snowTowerSocket->ShowHighlight()
+$call snowTowerSocket->PlayFX()
+$call batterySnowSocket->PlayFX()
+$call snowSensor->PlayFX()
+$call batteryBase->PlayFX()
+
+$call argoSled->SetLocked(false)
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
+
+{@Argo} Ahora sólo tenemos que volver a colocar la batería y el sensor en la torre. $[now_we_just]
+
+$call argoHelpButton->SetCurrentClip(37)
+$call argoHelpButton->SetButtonLocked(false)
+	
+{@MissionControl} Ten en cuenta, Otter 3, que se pronostican ráfagas de viento de 30 nudos. $[be_advised_otter]
+{@Rae} Reconocido. $[acknowledged_acknowledged_acknowledged]
+
+$while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+
+$if NotIsSocketed(batterySnowSocket)
+$call snowTowerSocket->StopHighlight()
+$call snowTowerSocket->StopFX()
+$call snowSensor->StopFX()
+
+$while NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$endif
+
+$call batteryBase->PlaySound()
+
+$if NotIsSocketed(snowTowerSocket)
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$while NotIsSocketed(snowTowerSocket)
+$call Wait(1)
+$endwhile
+$call snowTowerSocket->StopHighlight()
+$call snowTowerSocket->StopFX()
+$call snowSensor->StopFX()
+$endif
+
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSensor->StopHighlight()
+$call snowTowerSocket->StopHighlight()
+$call snowTowerSocket->StopFX()
+
+{@Argo} Nice work partner! $[nice_work_partner]
+{@MissionControl} Otter 3, las velocidades del viento están empezando a aumentar en tus coordenadas. Será mejor que aceleres el ritmo. $[come_in_otter]
+
+$call argoSled->PlayFX()
+$call argo->PlayFX()
+
+$if NotIsSocketed(argoSled)
+{@Argo} Bien, ponme en el trineo. Vamos a probar nuestro enlace. $[ok_put_me]
+$call argoHelpButton->SetCurrentClip(17)
+$call argoHelpButton->SetButtonLocked(false)
+$while NotIsSocketed(argoSled)
+$call Wait(1)
+$endwhile
+$endif
+
+$call argoHelpButton->SetButtonLocked(true)
+
+$set global:northwest-all-socketed = false
+$while global:northwest-all-socketed != true
+    $set global:northwest-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySnowSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowTowerSocket)
+        $set global:northwest-all-socketed = false
+    $endif
+    $if global:northwest-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call batterySnowSocket->SetLocked(true)
+        $call snowTowerSocket->SetLocked(true)
+    $endif
+$endwhile
+
+$call argo->StopFX()
+$call argoSled->StopFX()
+$call batteryBase->StopSound()
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call argoSled->SetLocked(false)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(2.0, 1.0)
+
+$call argoSled->SetLocked(false)
+$call batterySnowSocket->SetLocked(false)
+$call snowTowerSocket->SetLocked(false)
+
+$call uplinkButton->ShowHighlight()
+$call uplinkButton->PlayFX()
+$call uplinkButton->SetButtonPressed(false)
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(14)
+$while ButtonNotPressed(uplinkButton)
+$call Wait(1)
+$endwhile
+$call argoHelpButton->SetButtonLocked(true)
+
+$call uplinkButton->StopHighlight()
+$call uplinkButton->StopFX()
+$call uplinkButton->SetButtonPressed(false)
+
+$call uplink->SetTexture(0)
+$call Wait(1)
+$call map->SetTexture(5)
+$call Wait(1)
+$call uplink->PlaySound()
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->SetTexture(0)
+$call Wait(0.1)
+$call uplink->StopSound()
+$call map->PlaySound()
+$call map->SetTexture(6)
+{@Argo} La estación de montaña de Ellsworth vuelve a funcionar. $[the_phoenix_station]
+
+$call Wait(2)
+$call map->SetTexture(7)
+
+{@Rae} Hoy Control de Misión, la energía está transmitiendo. ¡Nos vamos de aquí! $[ok_mission_control]
+
+$call fader->FadeOut(4.0)
+$call Wait(4)
+$call argoSled->SetLocked(false)
+$call playerLocation->Teleport()
+$call batterySocket->SetLocked(false)
+$call batteryTwo->SetSocketsLocked(false)
+$call Wait(2)
+$call levelLoader->LoadSouth()
