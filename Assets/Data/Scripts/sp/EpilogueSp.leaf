@@ -1,0 +1,38 @@
+#basePath   EpilogueSp
+
+:: EpilogueSp
+@trigger    EpilogueReadySp
+@evalPriority   100
+@once
+
+$call Wait(1)
+
+$call fader->FadeIn(4.0, 2.0)
+$call snow->IncreaseParticles(1000, 200.0)
+
+{@Alex} Vaya, mira el cielo. $[whoa_look_at]
+{@Matt} Vaya. Nunca había visto nada igual. $[wow_ive_never]
+{@Alex} Cargo, ¿quieres ponerlo al corriente? $[argo_care_to]
+{@Argo} Yo? Me estás pidiendo un dato curioso? $[me_you_are]
+{@Alex} Si, una más ya que es mi última vez en el hielo. $[dont_get_used]
+{@Argo} Lo que estás viendo se llaman perros solares. La ilusión de dos soles adicionales a cada lado del sol real se debe a los cristales de hielo de la atmósfera, que refractan la luz solar. Algunos humanos dicen que ver un perro solar trae buena suerte o es señal de un cambio en tu vida. El primer avistamiento registrado de un perro del sol se remonta a... $[what_you_are]
+{@Alex} Gracias Argo, probablemente sea suficiente por ahora.  Parece que nuestro viaje está aquí. $[ookay_thanks_argo]
+{@Rae} Eh! Sabía que estaríais bien. Espero que no te hayas quedado hasta muy tarde asando malvaviscos. ¡Tenemos un largo camino de vuelta! $[ha_i_knew]
+{@Argo} Buen trabajo esta temporada, Matt.  Alex, no ibas en serio con lo de convertirme en un vigilabebés, ¿verdad? $[nice_work_this]
+{@Matt} Creo que sí, Argo, pero puedes verlo de esta manera, por fin estás consiguiendo lo que siempre quisiste, un público cautivo. $[matt_i_think]
+{@Argo} Nunca lo había pensado así. A los bebés les encantan los datos curiosos, ¿verdad? $[ah_yes_more]
+{@Alex} Y ya me arrepiento de ello. $[alex_i_regret]
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call argoSled->SetLocked(false)
+$call playerLocation->TeleportFinal()
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+$call storageCabinet->SetDisabled(false)
+$call map->SetDisabled(true)
+$call menu->SetDisabled(true)
+$call credits->SetDisabled(false)
+//$call map->SetTexture(8)
+$call Wait(5)
+$call credits->Scroll(0.0002)

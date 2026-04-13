@@ -13,13 +13,7 @@ namespace WeatherStation {
     public class SceneLoader : SharedStateComponent {
         #region Inspector
 
-		public Material MapMaterial;
-		
-		public List<Texture2D> MapTextures = new List<Texture2D>(5);
-
 		public List<string> SceneList = new List<string>(8);
-		
-		public List<ItemSocket> SledSockets = new List<ItemSocket>(8);
 		
 		public List<Material> SkyboxMaterials = new List<Material>(8);
 		
@@ -72,16 +66,6 @@ namespace WeatherStation {
 					}
 				}
 				
-				//unsocket anything in the sled when switching scenes...
-				for(int i = 0; i < SledSockets.Count; ++i) {
-					if(SledSockets[i].Current != null) {
-						Grabbable g = SledSockets[i].Current.gameObject.GetComponent<Grabbable>();
-						if(g != null) {
-							GrabUtility.ReturnToOriginalSpawnPoint(g);
-						}
-					}
-				}
-				
 				PlayerLocator playerLocator = Find.State<PlayerLocator>();
 				
 				GrabUtility.ReturnToOriginalSpawnPoint(playerLocator.Argo.gameObject.GetComponent<Grabbable>());
@@ -96,12 +80,6 @@ namespace WeatherStation {
 				}
 				
 				Game.Scenes.LoadAuxScene(SceneList[nextIndex], "Additional", null, SceneImportFlags.ImportLightingSettings);
-				
-				/*if(MapMaterial != null) {
-					if(MapTextures.Count < nextIndex*2+1) {
-						MapMaterial.mainTexture = MapTextures[nextIndex];
-					}
-				}*/
 				
 				RenderSettings.skybox = SkyboxMaterials[nextIndex];
 				CurrentSceneIndex = nextIndex;

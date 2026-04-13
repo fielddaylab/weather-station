@@ -95,32 +95,77 @@ namespace WeatherStation {
 					w.LogStartGame();
 				}
 				
-				ScriptUtility.Trigger("LoadWest");
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					ScriptUtility.Trigger("LoadWest");
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					ScriptUtility.Trigger("LoadWestSp");
+				}
+
 				CurrentSceneIndex++;		
 			}
 			else if(CurrentSceneIndex == 0)
 			{
-				ScriptUtility.Trigger("LevelOneFinished");
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					ScriptUtility.Trigger("LevelOneFinished");
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					ScriptUtility.Trigger("LevelOneFinishedSp");
+				}
+
 				CurrentSceneIndex++;
 			}
 			else if(CurrentSceneIndex == 1)
 			{
-				ScriptUtility.Trigger("LevelTwoFinished");
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					ScriptUtility.Trigger("LevelTwoFinished");
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					ScriptUtility.Trigger("LevelTwoFinishedSp");
+				}
 				CurrentSceneIndex++;
 			}
 			else if(CurrentSceneIndex == 2)
 			{
-				ScriptUtility.Trigger("LevelThreeFinished");
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					ScriptUtility.Trigger("LevelThreeFinished");
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					ScriptUtility.Trigger("LevelThreeFinishedSp");
+				}
 				CurrentSceneIndex++;
 			}
 			else if(CurrentSceneIndex == 3)
 			{
-				ScriptUtility.Trigger("LevelFourFinished");
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					ScriptUtility.Trigger("LevelFourFinished");
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					ScriptUtility.Trigger("LevelFourFinishedSp");
+				}
 				CurrentSceneIndex++;
 			}
 			else if(CurrentSceneIndex == 4)
 			{
-				ScriptUtility.Trigger("EpilogueReady");
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					ScriptUtility.Trigger("EpilogueReady");
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					ScriptUtility.Trigger("EpilogueReadySp");
+				}
+				
 				CurrentSceneIndex++;
 				
 				/*if(CurrentSceneIndex == 5)

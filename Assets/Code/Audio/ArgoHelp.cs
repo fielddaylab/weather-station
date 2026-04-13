@@ -18,6 +18,9 @@ public class ArgoHelp : SharedStateComponent {
 	public List<AudioClip> m_ArgoHelpAudio = new List<AudioClip>(64);
 	public List<string> m_ArgoHelpSubtitles = new List<string> (64);
 	
+	public List<AudioClip> m_ArgoHelpAudioSp = new List<AudioClip>(64);
+	public List<string> m_ArgoHelpSubtitlesSp = new List<string> (64);
+
 	[NonSerialized] public bool HelpIsPlaying = false;
 	
 	[SerializeField] private PuzzleButton m_Button;
@@ -52,17 +55,36 @@ public class ArgoHelp : SharedStateComponent {
 		if(!m_Button.Locked && m_Button.WasPressed) {
 			if(m_CurrentClip != -1) {
 				ArgoAudio.Stop();
-				ArgoAudio.clip = m_ArgoHelpAudio[m_CurrentClip];
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					ArgoAudio.clip = m_ArgoHelpAudio[m_CurrentClip];
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					ArgoAudio.clip = m_ArgoHelpAudioSp[m_CurrentClip];
+				}
+				
 				ArgoAudio.Play();
 				HelpIsPlaying = true;
 				//AudioSource.PlayClipAtPoint(m_ArgoHelpAudio[m_CurrentClip], transform.position);
 				if(m_SubTitles != null) {
-					
-					m_SubTitles.ClipDisplayLength = m_ArgoHelpAudio[m_CurrentClip].length;
-					if(m_SubTitles.SubtitlesOn) {
-						StartCoroutine(m_SubTitles.TypeLineString("Argo", m_ArgoHelpSubtitles[m_CurrentClip]));
-					} else {
-						RoutineShortcuts.WaitToComplete(ArgoAudio);
+					if(VoiceoverUtility.Loader.LanguagePath == "en/")
+					{
+						m_SubTitles.ClipDisplayLength = m_ArgoHelpAudio[m_CurrentClip].length;
+						if(m_SubTitles.SubtitlesOn) {
+							StartCoroutine(m_SubTitles.TypeLineString("Argo", m_ArgoHelpSubtitles[m_CurrentClip]));
+						} else {
+							RoutineShortcuts.WaitToComplete(ArgoAudio);
+						}
+					}
+					else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+					{
+						m_SubTitles.ClipDisplayLength = m_ArgoHelpAudioSp[m_CurrentClip].length;
+						if(m_SubTitles.SubtitlesOn) {
+							StartCoroutine(m_SubTitles.TypeLineString("Argo", m_ArgoHelpSubtitlesSp[m_CurrentClip]));
+						} else {
+							RoutineShortcuts.WaitToComplete(ArgoAudio);
+						}
 					}
 				}
 			}

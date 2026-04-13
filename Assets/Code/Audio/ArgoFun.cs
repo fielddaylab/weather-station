@@ -18,6 +18,9 @@ namespace WeatherStation {
 		public List<string> m_ArgoFunSubtitles = new List<string> (64);
 		public List<string> m_ArgoSpeaker = new List<string> (64);
 		
+		public List<AudioClip> m_ArgoFunAudioSp = new List<AudioClip>(64);
+		public List<string> m_ArgoFunSubtitlesSp = new List<string> (64);
+
 		[SerializeField] private ArgoHelp m_ArgoHelp;
 		[SerializeField] private PuzzleButton m_Button;
 		[SerializeField] private SubtitleDisplay m_SubTitles;
@@ -64,13 +67,31 @@ namespace WeatherStation {
 			
 			while(m_CurrentClip <= m_EndCurrentClip) {	
 				//Debug.Log("Fun pressed " + m_CurrentClip);
-				m_SubTitles.ClipDisplayLength = m_ArgoFunAudio[m_CurrentClip].length;
-				ArgoAudio.clip = m_ArgoFunAudio[m_CurrentClip];
+				
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					m_SubTitles.ClipDisplayLength = m_ArgoFunAudio[m_CurrentClip].length;
+					ArgoAudio.clip = m_ArgoFunAudio[m_CurrentClip];
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					m_SubTitles.ClipDisplayLength = m_ArgoFunAudioSp[m_CurrentClip].length;
+					ArgoAudio.clip = m_ArgoFunAudioSp[m_CurrentClip];
+				}
+
 				ArgoAudio.Play();
 
 				if(m_SubTitles != null) {
 					if(m_SubTitles.SubtitlesOn) {
-						yield return StartCoroutine(m_SubTitles.TypeLineString(m_ArgoSpeaker[m_CurrentClip], m_ArgoFunSubtitles[m_CurrentClip]));
+						if(VoiceoverUtility.Loader.LanguagePath == "en/")
+						{
+							yield return StartCoroutine(m_SubTitles.TypeLineString(m_ArgoSpeaker[m_CurrentClip], m_ArgoFunSubtitles[m_CurrentClip]));
+						}
+						else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+						{
+							yield return StartCoroutine(m_SubTitles.TypeLineString(m_ArgoSpeaker[m_CurrentClip], m_ArgoFunSubtitlesSp[m_CurrentClip]));
+						}
+						
 					} else {
 						RoutineShortcuts.WaitToComplete(ArgoAudio);
 					}

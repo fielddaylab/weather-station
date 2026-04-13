@@ -1,0 +1,344 @@
+#basePath   SouthAfterPuzzlesSp
+
+:: SouthAfterPuzzlesSp
+@trigger    LevelThreePuzzlesFinishedSp
+@evalPriority   100
+@once
+
+$while NotIsSocketed(windSensorSled)
+$call Wait(1)
+$endwhile
+
+$while NotIsSocketed(snowSledSocket)
+$call Wait(1)
+$endwhile
+
+$while NotIsSocketed(batterySledSocket)
+$call Wait(1)
+$endwhile
+
+$call argoFunButton->SetButtonLocked(true)
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(33)
+
+$call argo->SetGrabbable(true)
+$call argo->PlayFX()
+$call argoTowerSocket->SetLocked(false)
+$call argoSled->PlayFX()
+
+{@Alex} Oh, Matt, no dejes que me olvide. Antes de irme a Madison, tenemos que calibrar esa nueva unidad Argo. $[alex_matt_dont]
+
+{@Matt} Entendido.$[matt_copy_that]
+
+{@Argo} Uh, lo siento, ¿dijiste nueva unidad Argo? $[argo_im_sorry]
+
+{@Rae} No hay tiempo que perder, Argo. Vamos a acelerar el ritmo. $[rae_no_time]
+
+$if NotIsSocketed(argoSled)
+    $while NotIsSocketed(argoSled)
+        $call Wait(1)
+    $endwhile
+$endif
+
+$set global:south-all-socketed = false
+$while global:south-all-socketed != true
+    $set global:south-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowSledSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySledSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(windSensorSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if global:south-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowSledSocket->SetLocked(true)
+        $call batterySledSocket->SetLocked(true)
+        $call windSensorSled->SetLocked(true)
+    $endif
+$endwhile
+
+$call argo->StopFX()
+$call argoSled->StopFX()
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call argoSled->SetLocked(false)
+$call playerLocation->Teleport()
+$call dataLoggerDoor->ResetRotation()
+$call dataLoggerDoor->SetGrabbable(false)
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+
+$call batteryBase->ShowHighlight()
+$call batteryBase->PlayFX()
+$call batterySnowSocket->PlayFX()
+
+$call snowTowerSocket->ShowHighlight()
+$call snowTowerSocket->PlayFX()
+$call snowSensor->PlayFX()
+$call snowSensor->ShowHighlight()
+
+$call windSensor->ShowHighlight()
+$call windSensor->PlayFX()
+$call windSensorSocket->ShowHighlight()
+$call windSensorSocket->PlayFX()
+
+$call argoHelpButton->SetButtonLocked(true)
+
+$call snowSledSocket->SetLocked(false)
+$call batterySledSocket->SetLocked(false)
+$call windSensorSled->SetLocked(false)
+
+{@Rae} Ok Dream Team, estoy preparando el avión para el despegue. ¿Cómo va por ahí? $[okay_dream_time]
+
+{@Alex} Sólo tenemos que poner todo de nuevo en la torre, danos un minuto. $[just_need_to]
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(34)
+
+{@Argo} O, podríamos acampar aquí para pasar la noche. Habrá tiempo de sobra para compartir datos curiosos alrededor de una hoguera. Y me daría la oportunidad de mostrarle la eficacia de mi pantalla resistente a la intemperie. ¿No suena emocionante? $[or_we_could]
+
+{@Alex} Tal vez para ti, no tenemos pantallas resistentes a la intemperie, Argo. $[maybe_for_you]
+
+{@Argo} Pobres humanos. Se dañan tan fácilmente. Menos mal que me tienes a mí para cuidarte. $[hmm_you_poor]
+
+$while NotIsSocketed(snowTowerSocket), NotIsSocketed(batterySnowSocket), NotIsSocketed(windSensorSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(batterySnowSocket)
+
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->PlaySound()
+
+$while NotIsSocketed(snowTowerSocket), NotIsSocketed(windSensorSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(snowTowerSocket)
+$call snowTowerSocket->StopFX()
+$call snowTowerSocket->StopHighlight()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$while NotIsSocketed(windSensorSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(windSensorSocket)
+$call windSensorSocket->StopFX()
+$call windSensorSocket->StopHighlight()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$while NotIsSocketed(snowTowerSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$if IsSocketed(snowTowerSocket)
+
+$call snowTowerSocket->StopFX()
+$call snowTowerSocket->StopHighlight()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+
+$while NotIsSocketed(batterySnowSocket), NotIsSocketed(windSensorSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(batterySnowSocket)
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->PlaySound()
+$while NotIsSocketed(windSensorSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(windSensorSocket)
+$call windSensorSocket->StopFX()
+$call windSensorSocket->StopHighlight()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+$while NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$if IsSocketed(windSensorSocket)
+
+$call windSensorSocket->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+
+$while NotIsSocketed(batterySnowSocket), NotIsSocketed(snowTowerSocket)
+$call Wait(1)
+$endwhile
+
+$if IsSocketed(batterySnowSocket)
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$call batteryBase->PlaySound()
+$while NotIsSocketed(snowTowerSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$if IsSocketed(snowTowerSocket)
+$call snowTowerSocket->StopFX()
+$call snowTowerSocket->StopHighlight()
+$call snowSensor->StopHighlight()
+$call snowSensor->StopFX()
+$while NotIsSocketed(batterySnowSocket)
+$call Wait(1)
+$endwhile
+$endif
+
+$endif
+
+$call batterySnowSocket->StopFX()
+$call batteryBase->StopFX()
+$call batteryBase->StopHighlight()
+$call snowSensor->StopFX()
+$call snowSensor->StopHighlight()
+$call snowTowerSocket->StopHighlight()
+$call snowTowerSocket->StopFX()
+$call windSensorSocket->StopHighlight()
+$call windSensorSocket->StopFX()
+$call windSensor->StopHighlight()
+$call windSensor->StopFX()
+
+$call argoHelpButton->SetButtonLocked(true)
+
+{@Alex} Por fin podemos probar el enlace ascendente. $[phew_we_can]
+
+{@Rae} Eh, ¿seguís todos vivos ahí fuera? Las condiciones empeoran. Despegaré en T-menos cinco minutos. $[hey_you_all]
+
+{@Alex} Carga las cosas. Estamos en camino. $[load_up_the]
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(35)
+
+$call argo->SetGrabbable(true)
+$call argo->PlayFX()
+$call argoTowerSocket->SetLocked(false)
+$call argoSled->PlayFX()
+
+$if NotIsSocketed(argoSled)
+    $while NotIsSocketed(argoSled)
+        $call Wait(1)
+    $endwhile
+$endif
+
+$set global:south-all-socketed = false
+$while global:south-all-socketed != true
+    $set global:south-all-socketed = true
+    $if NotIsSocketed(argoSled)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(snowTowerSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(batterySnowSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if NotIsSocketed(windSensorSocket)
+        $set global:south-all-socketed = false
+    $endif
+    $if global:south-all-socketed != true
+        $call Wait(1)
+    $else
+        $call argoSled->SetLocked(true)
+        $call snowTowerSocket->SetLocked(true)
+        $call batterySnowSocket->SetLocked(true)
+        $call windSensorSocket->SetLocked(true)
+    $endif
+$endwhile
+
+$call argo->StopFX()
+$call argoSled->StopFX()
+$call batteryBase->StopSound()
+
+$call fader->FadeOut(3.0)
+$call Wait(4)
+$call argoSled->SetLocked(false)
+$call playerLocation->Teleport()
+$call Wait(4)
+$call fader->FadeIn(3.0, 1.0)
+
+$call argoHelpButton->SetButtonLocked(true)
+
+{@Rae} Más vale que esas reparaciones funcionen. $[those_repairs_had]
+{@Alex} Dímelo a mí. $[tell_me_about]
+
+$call argoHelpButton->SetButtonLocked(false)
+$call argoHelpButton->SetCurrentClip(36)
+
+$call uplinkButton->ShowHighlight()
+$call uplinkButton->PlayFX()
+
+$while ButtonNotPressed(uplinkButton)
+$call Wait(1)
+$endwhile
+
+$call uplinkButton->StopHighlight()
+$call uplinkButton->StopFX()
+$call uplinkButton->SetButtonPressed(false)
+$call argoHelpButton->SetButtonLocked(true)
+
+$call uplink->SetTexture(0)
+
+$call Wait(1)
+$call map->SetTexture(9)
+$call Wait(1)
+$call uplink->PlaySound()
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->NextTexture()
+$call Wait(0.1)
+$call uplink->StopSound()
+$call uplink->SetTexture(0)
+$call map->SetTexture(10)
+$call map->PlaySound()
+$call Wait(0.1)
+{@Argo} Ajá! Funciona! $[it_works_works]
+$call Wait(1)
+$call map->SetTexture(11)
+
+{@Rae} Sí! Sujétate el trasero! $[yes_hold_onto]
+
+$call fader->FadeOut(4.0)
+$call Wait(4)
+$call argoSled->SetLocked(false)
+$call playerLocation->Teleport()
+$call Wait(2)
+$call levelLoader->LoadEast()

@@ -310,7 +310,14 @@ namespace WeatherStation {
 				yield return null;
 			}
 			//Debug.Log("TRIGGERING NEXT SCRIPT");
-			ScriptUtility.Trigger("SolarPanelComplete");
+			if(VoiceoverUtility.Loader.LanguagePath == "en/")
+			{
+				ScriptUtility.Trigger("SolarPanelComplete");
+			}
+			else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+			{
+				ScriptUtility.Trigger("SolarPanelCompleteSp");
+			}
 		}
     }
 

@@ -15,7 +15,7 @@ namespace WeatherStation
 		{
 			CAPTIONS,
 			VOLUME,
-			//LANGUAGE
+			LANGUAGE
 		};
 
 		SubtitleDisplay _subTitles;
@@ -59,7 +59,7 @@ namespace WeatherStation
 		public void MoveMenuDown()
 		{
 			GameObject labelParent = transform.GetChild(0).gameObject;
-			if(labelParent.transform.childCount-1 > _currentLabel+1)        //take off -1 once language option available.
+			if(labelParent.transform.childCount > _currentLabel+1)
 			{
 				labelParent.transform.GetChild(_currentLabel).GetComponent<TMPro.TextMeshPro>().color = LabelUnhighlightColor;
 				_currentLabel+=1;
@@ -159,10 +159,18 @@ namespace WeatherStation
 					}
 				}
 			}
-			//else if(_currentLabel == (uint)WSMenuOption.LANGUAGE)
-			//{
-				
-			//}
+			else if(_currentLabel == (uint)WSMenuOption.LANGUAGE)
+			{
+				//adjust current language
+				if(_currentOption[_currentLabel] == 0)
+				{
+					VoiceoverUtility.Loader.LanguagePath = "en/";
+				}
+				else if(_currentOption[_currentLabel] == 1)
+				{
+					VoiceoverUtility.Loader.LanguagePath = "sp/";
+				}
+			}
 		}
 	}
 }

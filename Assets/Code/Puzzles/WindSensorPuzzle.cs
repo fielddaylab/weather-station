@@ -40,7 +40,14 @@ namespace WeatherStation {
 					//StartCoroutine(WindSensorComplete(1f));
 					if(GameLevel == 1)
 					{
-						ScriptUtility.Trigger("WindSensorComplete");
+						if(VoiceoverUtility.Loader.LanguagePath == "en/")
+						{
+							ScriptUtility.Trigger("WindSensorComplete");
+						}
+						else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+						{
+							ScriptUtility.Trigger("WindSensorCompleteSp");
+						}
 					}
 					
 					AudioSource aSource = gameObject.GetComponent<AudioSource>();

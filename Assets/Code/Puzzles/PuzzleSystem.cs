@@ -51,7 +51,15 @@ namespace WeatherStation {
             }
 			
 			if(Done && !TriggeredLevelThreePuzzlesDone) {
-				ScriptUtility.Trigger("LevelThreePuzzlesFinished");
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					ScriptUtility.Trigger("LevelThreePuzzlesFinished");
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					ScriptUtility.Trigger("LevelThreePuzzlesFinishedSp");
+				}
+
 				TriggeredLevelThreePuzzlesDone = true;
 			}
 		}
@@ -68,7 +76,15 @@ namespace WeatherStation {
             }
 			
 			if(Done && !TriggeredLevelFivePuzzlesDone) {
-				ScriptUtility.Trigger("LevelFivePuzzlesFinished");
+				if(VoiceoverUtility.Loader.LanguagePath == "en/")
+				{
+					ScriptUtility.Trigger("LevelFivePuzzlesFinished");
+				}
+				else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+				{
+					ScriptUtility.Trigger("LevelFivePuzzlesFinishedSp");
+				}
+
 				TriggeredLevelFivePuzzlesDone = true;
 			}
 		}

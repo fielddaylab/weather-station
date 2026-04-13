@@ -44,35 +44,73 @@ namespace WeatherStation.Scripting {
 		[LeafMember("LoadWest"), Preserve]
 		public void LoadWest() {
 			m_Loader.SwitchScenes();
-			ScriptUtility.Trigger("LoadWest");
+			if(VoiceoverUtility.Loader.LanguagePath == "en/")
+			{
+				ScriptUtility.Trigger("LoadWest");
+			}
+			else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+			{
+				ScriptUtility.Trigger("LoadWestSp");
+			}
 		}
 		
 		[LeafMember("LoadNorthwest"), Preserve]
 		public void LoadNorthwest() {
 			m_Loader.SwitchScenes();
 			LogLevelComplete();
-			ScriptUtility.Trigger("LevelOneFinished");
+			
+			if(VoiceoverUtility.Loader.LanguagePath == "en/")
+			{
+				ScriptUtility.Trigger("LevelOneFinished");
+			}
+			else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+			{
+				ScriptUtility.Trigger("LevelOneFinishedSp");
+			}
 		}
 		
 		[LeafMember("LoadSouth"), Preserve]
 		public void LoadSouth() {
 			m_Loader.SwitchScenes();
 			LogLevelComplete();
-			ScriptUtility.Trigger("LevelTwoFinished");
+			
+			if(VoiceoverUtility.Loader.LanguagePath == "en/")
+			{
+				ScriptUtility.Trigger("LevelTwoFinished");
+			}
+			else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+			{
+				ScriptUtility.Trigger("LevelTwoFinishedSp");
+			}
 		}
 		
 		[LeafMember("LoadEast"), Preserve]
 		public void LoadEast() {
 			m_Loader.SwitchScenes();
 			LogLevelComplete();
-			ScriptUtility.Trigger("LevelThreeFinished");
+			if(VoiceoverUtility.Loader.LanguagePath == "en/")
+			{
+				ScriptUtility.Trigger("LevelThreeFinished");
+			}
+			else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+			{
+				ScriptUtility.Trigger("LevelThreeFinishedSp");
+			}
 		}
 		
 		[LeafMember("LoadSouthEast"), Preserve]
 		public void LoadSouthEast() {
 			m_Loader.SwitchScenes();
 			LogLevelComplete();
-			ScriptUtility.Trigger("LevelFourFinished");
+			
+			if(VoiceoverUtility.Loader.LanguagePath == "en/")
+			{
+				ScriptUtility.Trigger("LevelFourFinished");
+			}
+			else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+			{
+				ScriptUtility.Trigger("LevelFourFinishedSp");
+			}
 		}
 		
 		[LeafMember("LoadEpilogue"), Preserve]
@@ -83,7 +121,15 @@ namespace WeatherStation.Scripting {
 			{
 				w.LogEpilogueStart();
 			}
-			ScriptUtility.Trigger("EpilogueReady");
+			
+			if(VoiceoverUtility.Loader.LanguagePath == "en/")
+			{
+				ScriptUtility.Trigger("EpilogueReady");
+			}
+			else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+			{
+				ScriptUtility.Trigger("EpilogueReadySp");
+			}
 		}
 		
 		[LeafMember("LoadSouthTempPuzzle"), Preserve]
@@ -98,7 +144,14 @@ namespace WeatherStation.Scripting {
 		
 		[LeafMember("LoadSouthBatteryPuzzle"), Preserve]
 		public void LoadSouthBatteryPuzzle() {
-			ScriptUtility.Trigger("StartBatteryPuzzleSouth");
+			if(VoiceoverUtility.Loader.LanguagePath == "en/")
+			{
+				ScriptUtility.Trigger("StartBatteryPuzzleSouth");
+			}
+			else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+			{
+				ScriptUtility.Trigger("StartBatteryPuzzleSouthSp");
+			}
 		}
 		
 		[LeafMember("LoadSoutheastBatteryPuzzle"), Preserve]

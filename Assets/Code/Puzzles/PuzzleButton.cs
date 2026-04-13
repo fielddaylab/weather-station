@@ -205,7 +205,14 @@ namespace WeatherStation {
 				yield return null;
 			}
 			//Debug.Log("TRIGGERING NEXT SCRIPT");
-			ScriptUtility.Trigger("ArgoPressed");
+			if(VoiceoverUtility.Loader.LanguagePath == "en/")
+			{
+				ScriptUtility.Trigger("ArgoPressed");
+			}
+			else if(VoiceoverUtility.Loader.LanguagePath == "sp/")
+			{
+				ScriptUtility.Trigger("ArgoPressedSp");
+			}
 		}
     }
 }
